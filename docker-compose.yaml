@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  apache:
+    image: httpd:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/var/www/html
+    networks:
+      - mynetwork
+
+  php:
+    image: php:8.0-apache
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www/html
+    networks:
+      - mynetwork
+    
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+
+  angular:
+    image: node:latest
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      # - node_modules:/app/node_modules  # Volume nommé pour node_modules
+    # command: ["npm", "start"]
+    command: ["/bin/sh", "-c", "npm install && npm install -g @angular/cli && ng serve --host 0.0.0.0"]
+    ports:
+      - "4200:4200"
+    networks:
+      - mynetwork
+
+volumes:
+  pg_data:
+  node_modules:  # Ajout du volume nommé node_modules
+
+networks:
+  mynetwork:

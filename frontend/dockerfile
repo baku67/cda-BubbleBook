@@ -1,0 +1,20 @@
+# Utilisez l'image Node.js
+FROM node:20.15.1
+
+# Créez le répertoire de l'application
+WORKDIR /app
+
+# Copiez package.json et package-lock.json
+COPY package*.json ./
+
+# Installez les dépendances
+RUN npm install
+
+# Copiez tout le reste du code de l'application
+COPY . .
+
+# Exposez le port
+EXPOSE 4200
+
+# Commande pour démarrer l'application
+CMD ["npm", "start"]
