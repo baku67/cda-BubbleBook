@@ -16,5 +16,11 @@ WORKDIR /var/www/html
 # Copiez vos fichiers d'application
 COPY . .
 
+# Copier le script d'entrée
+COPY docker-entrypoint.sh /usr/local/bin/
+
+# Définir le point d'entrée
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 # Exposer le port 80
 EXPOSE 80

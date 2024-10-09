@@ -29,7 +29,7 @@ services:
       - mynetwork
     depends_on:
       - postgres
-    command: ["/bin/sh", "-c", "composer install && apache2-foreground"]
+    command: ["apache2-foreground"]
 
   composer:
     image: composer:latest
