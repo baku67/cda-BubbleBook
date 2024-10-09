@@ -24,3 +24,7 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 # Exposer le port 80
 EXPOSE 80
+
+# Fix "Forbidden 403"
+COPY apache.conf /etc/apache2/sites-available/000-default.conf
+RUN a2enmod rewrite
