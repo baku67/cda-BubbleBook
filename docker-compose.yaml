@@ -10,15 +10,39 @@ services:
     networks:
       - mynetwork
 
+
   php:
-    image: php:8.0-apache
+    build:
+      context: ./backend  # Spécifiez le chemin du Dockerfile
+    container_name: php-symfony
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html/public
     ports:
       - "8000:80"
     volumes:
       - ./backend:/var/www/html
+      - ./backend/vendor:/var/www/html/vendor
+      - ./backend/var:/var/www/html/var
+      - ./backend/composer.json:/var/www/html/composer.json
+      - ./backend/composer.lock:/var/www/html/composer.lock
     networks:
       - mynetwork
-    
+    depends_on:
+      - postgres
+    command: ["/bin/sh", "-c", "composer install && apache2-foreground"]
+
+  composer:
+    image: composer:latest
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    command: ["composer", "install"]
+    networks:
+      - mynetwork
+    depends_on:
+      - postgres
+
+
   postgres:
     image: postgres:latest
     environment:
