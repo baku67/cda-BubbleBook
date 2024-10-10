@@ -17,9 +17,9 @@ jobs:
       postgres:
         image: postgres:15  
         env:
-          POSTGRES_DB: my_database  # TODO
-          POSTGRES_USER: user  # TODO
-          POSTGRES_PASSWORD: password  # TODO
+          POSTGRES_DB: bubblebook  # TODO
+          POSTGRES_USER: postgres  # TODO
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
         options: >-
@@ -61,7 +61,7 @@ jobs:
 
       - name: Prepare database
         env:
-          DATABASE_URL: "pgsql://user:password@127.0.0.1:5432/my_database"  # TODO
+          DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/bubblebook"  # TODO (anciennement "pgsql://" et @127.0.0.1 )
         run: |
           php bin/console doctrine:database:create --if-not-exists
           php bin/console doctrine:schema:update --force
@@ -70,6 +70,6 @@ jobs:
 
       - name: Run tests
         env:
-          DATABASE_URL: "pgsql://user:password@127.0.0.1:5432/my_database"  # TODO
+          DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/bubblebook"  # TODO (anciennement "pgsql://" et @127.0.0.1 )
         run: php bin/phpunit
         working-directory: ./backend

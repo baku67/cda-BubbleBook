@@ -21,9 +21,27 @@ Installer les dépendances manuellement sur l'environnement Linux de Docker:
 
 
 bug build DOCKER-ENTRYPOINT.SH :
+(Sert à exécuter certaines tâches dans un ordre précis (composer, database:create, ... avant de démarrer serveur Apache)) 
 Le fichier $docker-entrypoint.sh doit etre en LF et CRLF (!)
 
+"" Lorsque vous configurez un script d'entrée (entrypoint) dans le Dockerfile (comme dans l'exemple avec docker-entrypoint.sh), ce script gère tout : il exécute les commandes Doctrine, attend que PostgreSQL soit prêt, puis démarre Apache avec apache2-foreground.
 
+
+
+
+
+***************************************************************************************
+Commandes PHP Docker:
+
+Au lieu de faire des (pas Docker): 
+~  php bin/console doctrine:database:create --if-not-exists
+~  symfony console doctrine:database:create --if-not-exists
+
+On fait des (Docker): 
+~ docker-compose exec php php bin/console doctrine:database:create --if-not-exists
+
+Ouvrir un bash dans le conteneur docker php-symfony:
+~docker exec -it php-symfony bash
 
 
 

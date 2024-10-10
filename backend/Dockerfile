@@ -5,7 +5,11 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
+    libpq-dev \
+    postgresql-client \
+    && docker-php-ext-install pdo pdo_pgsql \
     && rm -rf /var/lib/apt/lists/*
+
 
 # Installez Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -15,6 +19,13 @@ WORKDIR /var/www/html
 
 # Copiez vos fichiers d'application
 COPY . .
+
+# Installer le DoctrineFixturesBundle
+RUN composer require doctrine/doctrine-fixtures-bundle --dev
+
+# Fix "Forbidden 403"
+COPY apache.conf /etc/apache2/sites-available/000-default.conf
+RUN a2enmod rewrite
 
 # Copier le script d'entrée
 COPY docker-entrypoint.sh /usr/local/bin/
@@ -28,6 +39,3 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 # Exposer le port 80
 EXPOSE 80
 
-# Fix "Forbidden 403"
-COPY apache.conf /etc/apache2/sites-available/000-default.conf
-RUN a2enmod rewrite
