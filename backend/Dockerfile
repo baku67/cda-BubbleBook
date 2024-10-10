@@ -19,6 +19,9 @@ COPY . .
 # Copier le script d'entrée
 COPY docker-entrypoint.sh /usr/local/bin/
 
+# Donner les permissions d'exécution au script d'entrée
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 # Définir le point d'entrée
 ENTRYPOINT ["docker-entrypoint.sh"]
 

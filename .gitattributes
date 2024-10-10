@@ -1,0 +1,2 @@
+# Forcer LF (Unix) pour les fichiers de script (fix docker-entrypoint.sh du ./backend/Dockerfile)
+*.sh text eol=lf

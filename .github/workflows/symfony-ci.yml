@@ -47,6 +47,10 @@ jobs:
         run: composer install --no-progress --no-suggest --prefer-dist
         working-directory: ./backend
 
+      - name: Ensure Doctrine ORM is installed
+        run: composer require symfony/orm-pack --no-progress
+        working-directory: ./backend
+
       - name: Run PHPStan
         run: composer phpstan # Analyse du dossier src avec PHPStan 
         working-directory: ./backend

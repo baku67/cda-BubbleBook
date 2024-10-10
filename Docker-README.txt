@@ -20,6 +20,10 @@ Installer les dépendances manuellement sur l'environnement Linux de Docker:
 
 
 
+bug build DOCKER-ENTRYPOINT.SH :
+Le fichier $docker-entrypoint.sh doit etre en LF et CRLF (!)
+
+
 
 
 
