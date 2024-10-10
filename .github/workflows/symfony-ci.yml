@@ -41,12 +41,15 @@ jobs:
 
       - name: Install dependencies
         run: composer install --no-progress --no-suggest --prefer-dist
+        working-directory: ./backend
 
       - name: Run PHPStan
         run: composer phpstan # Analyse du dossier src avec PHPStan 
+        working-directory: ./backend
 
       - name: Run PHP CodeSniffer
         run: composer lint  # Analyse du dossier src avec la norme PSR12 (PHP CodeSniffer)
+        working-directory: ./backend
 
       - name: Prepare database
         env:
@@ -55,8 +58,10 @@ jobs:
           php bin/console doctrine:database:create --if-not-exists
           php bin/console doctrine:schema:update --force
           php bin/console doctrine:fixtures:load --no-interaction
+        working-directory: ./backend
 
       - name: Run tests
         env:
           DATABASE_URL: "pgsql://user:password@127.0.0.1:5432/my_database"  # TODO
         run: php bin/phpunit
+        working-directory: ./backend
