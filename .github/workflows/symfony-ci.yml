@@ -39,6 +39,10 @@ jobs:
           extensions: mbstring, pdo, pdo_pgsql, intl, xml, zip  # Extensions 
           ini-values: post_max_size=256M, upload_max_filesize=256M
 
+      - name: Create .env file for CI
+        run: cp .env.test .env  # Copier .env.test en .env
+        working-directory: ./backend
+
       - name: Install dependencies
         run: composer install --no-progress --no-suggest --prefer-dist
         working-directory: ./backend
