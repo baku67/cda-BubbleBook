@@ -1,0 +1,7 @@
+parameters:
+    level: 6
+    paths:
+        - src/
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-deprecation-rules/rules.neon

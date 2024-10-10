@@ -1,0 +1,62 @@
+name: Symfony-CI
+
+on:
+  push:
+    branches:
+      - main  
+  pull_request:
+    branches:
+      - main  
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest  
+
+    services:
+      postgres:
+        image: postgres:15  
+        env:
+          POSTGRES_DB: my_database  # TODO
+          POSTGRES_USER: user  # TODO
+          POSTGRES_PASSWORD: password  # TODO
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U user" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2  
+          extensions: mbstring, pdo, pdo_pgsql, intl, xml, zip  # Extensions 
+          ini-values: post_max_size=256M, upload_max_filesize=256M
+
+      - name: Install dependencies
+        run: composer install --no-progress --no-suggest --prefer-dist
+
+      - name: Run PHPStan
+        run: composer phpstan # Analyse du dossier src avec PHPStan 
+
+      - name: Run PHP CodeSniffer
+        run: composer lint  # Analyse du dossier src avec la norme PSR12 (PHP CodeSniffer)
+
+      - name: Prepare database
+        env:
+          DATABASE_URL: "pgsql://user:password@127.0.0.1:5432/my_database"  # TODO
+        run: |
+          php bin/console doctrine:database:create --if-not-exists
+          php bin/console doctrine:schema:update --force
+          php bin/console doctrine:fixtures:load --no-interaction
+
+      - name: Run tests
+        env:
+          DATABASE_URL: "pgsql://user:password@127.0.0.1:5432/my_database"  # TODO
+        run: php bin/phpunit

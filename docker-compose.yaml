@@ -13,7 +13,7 @@ services:
 
   php:
     build:
-      context: ./backend  # Spécifiez le chemin du Dockerfile
+      context: ./backend  # chemin du Dockerfile
     container_name: php-symfony
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html/public
@@ -44,7 +44,7 @@ services:
 
 
   postgres:
-    image: postgres:latest
+    image: postgres:15  # Utilisez une version spécifique de PostgreSQL (plutot que "latest")
     environment:
       POSTGRES_DB: mydatabase
       POSTGRES_USER: user
