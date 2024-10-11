@@ -20,8 +20,15 @@ WORKDIR /var/www/html
 # Copiez vos fichiers d'application
 COPY . .
 
-# Installer le DoctrineFixturesBundle
-RUN composer require doctrine/doctrine-fixtures-bundle --dev
+# # Installer le DoctrineFixturesBundle
+# RUN composer require doctrine/doctrine-fixtures-bundle --dev
+# # Installez les dépendances PHP y compris le maker-bundle
+# RUN composer install --no-interaction --prefer-dist --optimize-autoloader \
+#     && composer require symfony/maker-bundle --dev
+
+# Installez les dépendances PHP y compris le maker-bundle et doctrine-fixtures-bundle
+RUN composer require symfony/maker-bundle --dev doctrine/doctrine-fixtures-bundle --dev \
+    && composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Fix "Forbidden 403"
 COPY apache.conf /etc/apache2/sites-available/000-default.conf

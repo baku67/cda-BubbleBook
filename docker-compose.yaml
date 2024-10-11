@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
 
@@ -32,16 +32,7 @@ services:
       - postgres
     # command: ["apache2-foreground"]  # plus besoin car géré par le Dockerfile/docker_entrypoint.sh
 
-  composer:
-    image: composer:latest
-    working_dir: /app
-    volumes:
-      - ./backend:/app
-    command: ["composer", "install"]
-    networks:
-      - mynetwork
-    depends_on:
-      - postgres
+
 
 
   postgres:
@@ -69,6 +60,8 @@ services:
       - postgres
     networks:
       - mynetwork
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadmin  # Persiste les données de session et la configuration
 
 
 

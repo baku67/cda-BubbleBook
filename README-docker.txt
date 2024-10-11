@@ -41,7 +41,8 @@ On fait des (Docker):
 ~ docker-compose exec php php bin/console doctrine:database:create --if-not-exists
 
 Ouvrir un bash dans le conteneur docker php-symfony:
-~docker exec -it php-symfony bash
+~ docker exec -it php-symfony bash
+~ docker exec -it php-symfony bash
 
 
 
