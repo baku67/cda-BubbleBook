@@ -40,4 +40,7 @@ dev:
     symfony console doctrine:schema:update --force
 
 
+    symfony console make:fixture
+
+
 
