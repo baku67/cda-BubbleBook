@@ -10,6 +10,9 @@ COPY package*.json ./
 # Installez les dépendances
 RUN npm install
 
+# Permet un "watch" plus efficace sur Docker (surveille les fichiers)
+RUN npm install chokidar --save-dev
+
 # Copiez tout le reste du code de l'application
 COPY . .
 

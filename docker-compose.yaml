@@ -82,5 +82,6 @@ volumes:
   pg_data:
   node_modules:  # Ajout du volume nommé node_modules
 
+
 networks:
   mynetwork:

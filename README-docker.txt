@@ -44,8 +44,22 @@ Ouvrir un bash dans le conteneur docker php-symfony:
 ~ docker exec -it php-symfony bash
 ~ docker exec -it php-symfony bash
 
+Ou Shell dans Angular:
+~ docker exec -it cda-bubblebook-angular-1 /bin/sh
 
 
 
 
+$ docker container ls
+CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                           NAMES
+adf53a1aa3d3   dpage/pgadmin4       "/entrypoint.sh"         22 minutes ago   Up 22 minutes   443/tcp, 0.0.0.0:5050->80/tcp   cda-bubblebook-pgadmin-1
+00f8460bad77   cda-bubblebook-php   "docker-entrypoint.sh"   22 minutes ago   Up 22 minutes   0.0.0.0:8000->80/tcp            php-symfony
+3a226cc1c506   postgres:15          "docker-entrypoint.s…"   22 minutes ago   Up 22 minutes   0.0.0.0:5432->5432/tcp          cda-bubblebook-postgres-1
+c00728d43419   httpd:latest         "httpd-foreground"       22 minutes ago   Up 22 minutes   0.0.0.0:8080->80/tcp            cda-bubblebook-apache-1
+69baca46961e   node:latest          "docker-entrypoint.s…"   22 minutes ago   Up 22 minutes   0.0.0.0:4200->4200/tcp          cda-bubblebook-angular-1
+
+
+$ docker volume ls   
+DRIVER    VOLUME NAME
+local     cda-bubblebook_pg_data
 
