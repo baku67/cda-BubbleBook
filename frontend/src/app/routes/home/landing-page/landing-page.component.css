@@ -1,0 +1,13 @@
+:host {
+    display: block;
+    height: 100%;
+
+    width: 94%;
+    margin: 0 auto;
+}
+
+
+.lp-title {
+    color: var(--primary-color);
+    font-family: 'Poppins', sans-serif;
+}

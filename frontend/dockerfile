@@ -13,6 +13,9 @@ RUN npm install
 # Permet un "watch" plus efficace sur Docker (surveille les fichiers)
 RUN npm install chokidar --save-dev
 
+# Installer Angular Material
+RUN npm install @angular/material @angular/cdk @angular/animations
+
 # Copiez tout le reste du code de l'application
 COPY . .
 
