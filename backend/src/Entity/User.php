@@ -30,12 +30,11 @@ class User
     #[ORM\Column]
     private ?bool $is2fa = null;
 
-    // #[ORM\Column(type: Types::ARRAY)]
-    // private array $roles = [];
-
-    // Remplacement de Types::ARRAY par Types::JSON
+    // Utilisation de string[] pour préciser le type des éléments du tableau
     #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
+
+    
 
 
 
@@ -104,20 +103,6 @@ class User
         return $this;
     }
 
-    // public function getRoles(): array
-    // {
-    //     return $this->roles;
-    // }
-
-    // public function setRoles(array $roles): static
-    // {
-    //     $this->roles = $roles;
-
-    //     return $this;
-    // }
-
-
-    // Spécification des types dans les méthodes
 
     /**
      * @return string[] 
