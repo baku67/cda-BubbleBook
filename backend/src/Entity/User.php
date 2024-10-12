@@ -30,14 +30,13 @@ class User
     #[ORM\Column]
     private ?bool $is2fa = null;
 
-    // Utilisation de string[] pour préciser le type des éléments du tableau
     /**
      * @var string[]
      */
     #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
 
-    
+
 
 
 
@@ -106,9 +105,8 @@ class User
         return $this;
     }
 
-
     /**
-     * @return string[] 
+     * @return string[]
      */
     public function getRoles(): array
     {
@@ -116,7 +114,7 @@ class User
     }
 
     /**
-     * @param string[] $roles 
+     * @param string[] $roles
      */
     public function setRoles(array $roles): static
     {
