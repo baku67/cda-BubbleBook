@@ -30,8 +30,14 @@ class User
     #[ORM\Column]
     private ?bool $is2fa = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
+    // #[ORM\Column(type: Types::ARRAY)]
+    // private array $roles = [];
+
+    // Remplacement de Types::ARRAY par Types::JSON
+    #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
+
+
 
     public function getId(): ?int
     {
@@ -98,11 +104,32 @@ class User
         return $this;
     }
 
+    // public function getRoles(): array
+    // {
+    //     return $this->roles;
+    // }
+
+    // public function setRoles(array $roles): static
+    // {
+    //     $this->roles = $roles;
+
+    //     return $this;
+    // }
+
+
+    // Spécification des types dans les méthodes
+
+    /**
+     * @return string[] 
+     */
     public function getRoles(): array
     {
         return $this->roles;
     }
 
+    /**
+     * @param string[] $roles 
+     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
