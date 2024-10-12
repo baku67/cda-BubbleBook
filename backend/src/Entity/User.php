@@ -31,6 +31,9 @@ class User
     private ?bool $is2fa = null;
 
     // Utilisation de string[] pour préciser le type des éléments du tableau
+    /**
+     * @var string[]
+     */
     #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
 
