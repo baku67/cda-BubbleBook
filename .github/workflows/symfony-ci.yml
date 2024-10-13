@@ -60,8 +60,8 @@ jobs:
         working-directory: ./backend
 
       - name: Prepare database
-        env:
-          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/bubblebook"
+        # env:
+        #   DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/bubblebook" # Déjà précisé dans le .env.test copié en .env plus haut
         run: |
           php bin/console doctrine:database:create --if-not-exists
           php bin/console doctrine:schema:update --force
