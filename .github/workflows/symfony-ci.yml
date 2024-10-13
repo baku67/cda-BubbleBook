@@ -17,17 +17,16 @@ jobs:
       postgres:
         image: postgres:15  
         env:
-          POSTGRES_DB: bubblebook
-          POSTGRES_USER: postgres
+          POSTGRES_DB: bubblebook  
+          POSTGRES_USER: postgres  
           POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U postgres" 
+          --health-cmd pg_isready 
           --health-interval 10s 
           --health-timeout 5s 
           --health-retries 5
-          --shm-size=256mb
 
     steps:
       - name: Checkout code
@@ -37,11 +36,11 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2  
-          extensions: mbstring, pdo, pdo_pgsql, intl, xml, zip  # Extensions 
+          extensions: mbstring, pdo, pdo_pgsql, intl, xml, zip  
           ini-values: post_max_size=256M, upload_max_filesize=256M
 
       - name: Create .env file for CI
-        run: cp .env.test .env  # Copier .env.test en .env
+        run: cp .env.test .env
         working-directory: ./backend
 
       - name: Install dependencies
@@ -53,31 +52,16 @@ jobs:
         working-directory: ./backend
 
       - name: Run PHPStan
-        run: composer phpstan # Analyse du dossier src avec PHPStan 
+        run: composer phpstan
         working-directory: ./backend
 
       - name: Run PHP CodeSniffer
-        run: composer lint  # Analyse du dossier src avec la norme PSR12 (PHP CodeSniffer)
+        run: composer lint
         working-directory: ./backend
-
-      - name: Wait for PostgreSQL to be ready
-        run: |
-          ATTEMPTS_LEFT=30
-          until pg_isready -h postgres -p 5432 || [ $ATTEMPTS_LEFT -eq 0 ]; do
-            echo "Waiting for PostgreSQL... $ATTEMPTS_LEFT attempts remaining"
-            ATTEMPTS_LEFT=$((ATTEMPTS_LEFT - 1))
-            sleep 5
-          done
-          if [ $ATTEMPTS_LEFT -eq 0 ]; then
-            echo "PostgreSQL is still not ready, exiting."
-            exit 1
-          fi
-        env:
-          PGPASSWORD: postgres  # Le mot de passe de l'utilisateur
 
       - name: Prepare database
         env:
-          DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/bubblebook"  # TODO (anciennement "pgsql://" et @127.0.0.1 )
+          DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/bubblebook"
         run: |
           php bin/console doctrine:database:create --if-not-exists
           php bin/console doctrine:schema:update --force
@@ -86,6 +70,6 @@ jobs:
 
       - name: Run tests
         env:
-          DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/bubblebook"  # TODO (anciennement "pgsql://" et @127.0.0.1 )
+          DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/bubblebook"
         run: php bin/phpunit
         working-directory: ./backend
