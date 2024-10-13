@@ -8,6 +8,7 @@ import { routes } from './app.routes';  // Import the routes
 import { LoginComponent } from './routes/auth/login/login.component';
 import { RegisterComponent } from './routes/auth/register/register.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     RouterOutlet, 
     // RouterModule.forRoot([]),
     RouterModule.forRoot(routes),
+    MatButtonModule
   ],
   bootstrap: [AppComponent],
   providers: [

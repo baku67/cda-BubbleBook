@@ -6,7 +6,7 @@
     padding: 15px;
     margin: 0 auto;
 
-    background-image: url('/assets/images/underwater-sunlights.png');
+    background-image: url('/assets/images/underwater-sunlights-min50.png');
     background-size: cover;
     background-position: center; 
     background-repeat: no-repeat; 
@@ -18,7 +18,7 @@
     align-items: center;
     gap: 10px;
 
-    margin: 0px 0px 10px 0px;
+    margin: 0px 0px 15px 0px;
 }
 .hero-logo {
     width: 50px;
@@ -32,6 +32,13 @@
     margin: 0;
 }
 
+.hero-subtitle {
+    text-align: center;
+}
+
+.cta-buttons {
+    margin: 30px 0;
+}
 
 .cta-buttons ul {
     display: flex; /* Utilise flexbox pour aligner les éléments en ligne */
@@ -59,4 +66,18 @@
   
   .cta-btn-secondary {
     background-color: #ffffff00; /* Couleur différente pour le bouton secondaire */
+  }
+
+
+  .features-section h2 {
+    font-size: var(--font-size-large);
+  }
+  .features-section .feature {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 1px 10px;
+    margin: 5px auto;
+    border-radius: 10px;
+  }
+  .features-section .feature h3 {
+    font-size: var(--font-size-large);
   }

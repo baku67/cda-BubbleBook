@@ -1,6 +1,4 @@
-<!-- <div class="lp-main"> -->
     
-
     <!-- Section d'accroche principale -->
     <section class="hero-section">
         <div class="hero-header">
@@ -9,19 +7,21 @@
         </div>
         <p class="hero-subtitle">Votre carnet de plongée numérique. Organisé, partagé, toujours à portée de main.</p>
         <div class="cta-buttons">
-        <ul>
-            <li>
-                <a [routerLink]="['/register']" class="cta-btn-primary">S'inscrire maintenant</a>
-            </li>
-            <li>
-                <a [routerLink]="['/login']" class="cta-btn-secondary">Connexion</a>
-            </li>
-        </ul>
+            <ul>
+                <li>
+                    <a mat-flat-button [routerLink]="['/register']" class="cta-btn-primary">S'inscrire maintenant</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/login']" class="cta-btn-secondary">Connexion</a>
+                </li>
+            </ul>
         </div>
     </section>
 
+
     <!-- Section des fonctionnalités -->
     <section class="features-section">
+        <h2>Fonctionalités phares :</h2>
         <div class="feature">
             <h3>Carnet de plongée numérique</h3>
             <p>Organisez vos plongées avec des informations détaillées et facilement accessibles.</p>
@@ -42,12 +42,7 @@
         <p>— John Doe, plongeur passionné</p>
     </section>
 
-<!-- <div> -->
 
 
-<!-- Footer -->
-<footer class="footer">
-    <p>© 2024 BubbleBook. Tous droits réservés.</p>
-    <a href="/legal">Mentions légales</a> | 
-    <a href="/privacy">Politique de confidentialité</a>
-</footer>
+
+
