@@ -1,26 +1,53 @@
+<!-- <div class="lp-main"> -->
+    
 
-<h1 class="lp-title">BubbleBook</h1>
-  
+    <!-- Section d'accroche principale -->
+    <section class="hero-section">
+        <div class="hero-header">
+            <img src="/assets/images/logos/logo1.png" class="hero-logo" alt="A book with bubbles">
+            <h1 class="hero-title">BubbleBook</h1>
+        </div>
+        <p class="hero-subtitle">Votre carnet de plongée numérique. Organisé, partagé, toujours à portée de main.</p>
+        <div class="cta-buttons">
+        <ul>
+            <li>
+                <a [routerLink]="['/register']" class="cta-btn-primary">S'inscrire maintenant</a>
+            </li>
+            <li>
+                <a [routerLink]="['/login']" class="cta-btn-secondary">Connexion</a>
+            </li>
+        </ul>
+        </div>
+    </section>
 
-<div class="lp-auth-div">
-    <p class="lp-accroche">Plongez, partagez, inspirez. Votre carnet de plongée devient social!</p>
+    <!-- Section des fonctionnalités -->
+    <section class="features-section">
+        <div class="feature">
+            <h3>Carnet de plongée numérique</h3>
+            <p>Organisez vos plongées avec des informations détaillées et facilement accessibles.</p>
+        </div>
+        <div class="feature">
+            <h3>Communauté et partage</h3>
+            <p>Partagez vos aventures sous-marines avec d'autres plongeurs et découvrez leurs récits.</p>
+        </div>
+        <div class="feature">
+            <h3>Suivi des progrès</h3>
+            <p>Suivez l'évolution de vos compétences de plongée au fil du temps.</p>
+        </div>
+    </section>
 
-    <a [routerLink]="['/register']" class="lp-cta-btn">S'inscrire maintenant</a>
-    <a [routerLink]="['/login']" class="lp-subOption">Connexion</a>    
-</div>
+    <!-- Témoignages -->
+    <section class="testimonials-section">
+        <blockquote>"Grâce à BubbleBook, j'ai pu organiser mes plongées et partager mes aventures avec d'autres passionnés."</blockquote>
+        <p>— John Doe, plongeur passionné</p>
+    </section>
 
-<div class="lp-description-div">
-    <p></p>
-</div>
+<!-- <div> -->
 
-<div class="lp-fonctionalities-div">
-    <ul>
-        <li>
-            <!-- Tenir à jor son carnet, impression -->
-            <h3>Carnet de plongée</h3>
-        </li>
-        <li>
-            <h3>Partagez</h3>
-        </li>
-    </ul>
-</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>© 2024 BubbleBook. Tous droits réservés.</p>
+    <a href="/legal">Mentions légales</a> | 
+    <a href="/privacy">Politique de confidentialité</a>
+</footer>
