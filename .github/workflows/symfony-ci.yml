@@ -23,7 +23,7 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U user" 
+          --health-cmd "pg_isready -U postgres" 
           --health-interval 10s 
           --health-timeout 5s 
           --health-retries 5
@@ -58,6 +58,15 @@ jobs:
       - name: Run PHP CodeSniffer
         run: composer lint  # Analyse du dossier src avec la norme PSR12 (PHP CodeSniffer)
         working-directory: ./backend
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h postgres -p 5432; do
+            echo "Waiting for PostgreSQL..."
+            sleep 5
+          done
+        env:
+          PGPASSWORD: postgres  # Le mot de passe de l'utilisateur
 
       - name: Prepare database
         env:
