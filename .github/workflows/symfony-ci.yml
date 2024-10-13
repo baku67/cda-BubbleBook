@@ -61,7 +61,7 @@ jobs:
 
       - name: Prepare database
         env:
-          DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/bubblebook"
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/bubblebook"
         run: |
           php bin/console doctrine:database:create --if-not-exists
           php bin/console doctrine:schema:update --force
