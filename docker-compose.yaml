@@ -51,6 +51,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
+    privileged: true
     environment:
       PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
       PGADMIN_DEFAULT_PASSWORD: postgres
@@ -62,6 +63,7 @@ services:
       - mynetwork
     volumes:
       - ./pgadmin-data:/var/lib/pgadmin  # Persiste les données de session et la configuration
+      - ./pgadmin4/data:/var/lib/pgadmin:rw
 
 
 
