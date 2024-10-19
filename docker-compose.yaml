@@ -62,7 +62,7 @@ services:
     networks:
       - mynetwork
     volumes:
-      - ./pgadmin-data:/var/lib/pgadmin  # Persiste les données de session et la configuration
+      # - ./pgadmin-data:/var/lib/pgadmin  # Persiste les données de session et la configuration
       - ./pgadmin4/data:/var/lib/pgadmin:rw
 
 

@@ -6,9 +6,12 @@ use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -121,5 +124,28 @@ class User
         $this->roles = $roles;
 
         return $this;
+    }
+
+
+
+
+
+    // OBLIGE PAR UserInterface
+    // Remplace getUsername() par getUserIdentifier() 
+    public function getUserIdentifier(): string
+    {
+        return $this->email;  // Utilise l'email comme identifiant unique
+    }
+
+    // OBLIGE PAR PasswordAuthenticatedUserInterface (je crois)
+    public function getSalt(): ?string
+    {
+        // Pas besoin de salt si on utilise bcrypt/argon2i
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        // Si tu stockes des données sensibles temporaires, les effacer ici
     }
 }
