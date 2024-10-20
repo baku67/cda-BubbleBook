@@ -58,7 +58,9 @@ export class RegisterComponent implements OnInit{
         .subscribe(
           (response) => {
             console.log('User registered successfully', response);
-            this.router.navigate(['/login']); // Redirection après succès (TODO: login() auto + /profil)
+            // this.router.navigate(['/login']); 
+            // Auto-login après l'inscription
+            this.autoLogin();
           },
           (error) => {
             console.error('There was an error during the request (register)', error);
@@ -70,7 +72,34 @@ export class RegisterComponent implements OnInit{
   }
 
 
-// Fonction de vérification si l'email existe déjà
+  // Fonction pour l'auto-login après l'inscription
+  autoLogin() {
+    const loginCredentials = {
+      email: this.registerForm.get('email')?.value,
+      password: this.registerForm.get('password')?.value
+    };
+
+    this.http.post<{ token: string }>(`${environment.apiUrl}/api/login`, loginCredentials)
+      .subscribe({
+        next: (response) => {
+          // Stocker le token JWT dans le localStorage
+          localStorage.setItem('token', response.token);
+
+          // Rediriger vers une page sécurisée après l'auto-login
+          this.router.navigate(['/user-profil']);
+
+          // Désactiver le loader
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Auto-login failed', error);
+          this.isLoading = false; // Désactiver le loader en cas d'échec
+        }
+      });
+  }
+
+
+  // Fonction de vérification si l'email existe déjà
   checkEmail() {
     const email = this.registerForm.get('email')?.value;
     if (email) {

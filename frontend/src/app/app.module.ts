@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { FirstLoginComponent } from './routes/auth/first-login/first-login/first-login.component';
+import { UserProfilComponent } from './routes/profil/user-profil/user-profil.component';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     LandingPageComponent,
     LoginComponent,
     RegisterComponent, 
+    FirstLoginComponent,
+    UserProfilComponent,
   ],
   imports: [
     BrowserModule, 

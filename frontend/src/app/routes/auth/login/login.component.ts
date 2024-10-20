@@ -23,9 +23,9 @@ export class LoginComponent implements OnInit{
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required, Validators.email], 
-      password: ['', [Validators.required]], 
-      // isVerified: [false] // TODO ici TRUE !!!!!!!!! erreur "vous devez confirmer l'email de validation reçu à l'adresse ******"
+      email: ['', [Validators.required, Validators.email]], // Ici les validateurs synchrones doivent être dans un tableau
+      password: ['', [Validators.required]], // 
+      isVerified: [false] // TODO ici TRUE !!!!!!!!! erreur "vous devez confirmer l'email de validation reçu à l'adresse ******"
     });
   } 
 
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit{
             localStorage.setItem('token', response.token);
 
             // Redirection vers le tableau de bord ou autre page sécurisée
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/user-profil']);
 
             // Désactiver le loader
             this.isLoading = false;

@@ -24,6 +24,12 @@ dev:
 
 
 
+    #####################################################
+
+
+    Attention au environements.ts qui spécifie l'ApiUrl si on test sur PC ou sur mobile (debuggage USB via chrome PC: chrome://inspect/#devices)
+
+
     ######################################################
     Quand j'ajoute une route, si elle peut etre appelé sans etre authentifié:
     -> dans backend/config/security.yaml: 
