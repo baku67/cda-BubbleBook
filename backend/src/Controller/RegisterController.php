@@ -39,7 +39,7 @@ class RegisterController
             return new JsonResponse(['error' => 'Email already in use'], 400);
         }
 
-        // Création de l'utilisateur
+        // Création de l'utilisateur & initialisations (Default Values SQL ?)
         $user = new User();
         $user->setEmail($data['email']);
         $user->setPassword($this->passwordHasher->hashPassword($user, $data['password']));
@@ -52,10 +52,22 @@ class RegisterController
         $user->set2fa($data['is2fa'] ?? false);
         $user->setVerified($data["isVerified"] ?? false);
 
-        // Persister l'utilisateur
+        
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
         return new JsonResponse(['status' => 'User created'], 201);
+
+        // Test Postman:
+        // POST http://localhost:8000/api/register
+        // body: {
+        //     "email": "userX@example.com",
+        //     "password": "password123",
+        //     "username": "Dédé",
+        //     "is2fa": 0,
+        //     "roles": ["user"],
+        //     "isVerified": 0
+        //   }
+
     }
 }
