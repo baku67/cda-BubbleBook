@@ -11,6 +11,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
@@ -24,11 +28,18 @@ import { HttpClientModule } from '@angular/common/http';
     // RouterModule.forRoot([]),
     RouterModule.forRoot(routes),
     MatButtonModule,
+    MatFormField,
+    MatLabel,
+    MatInputModule,
+    MatFormFieldModule,
+    MatProgressSpinner,
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
   ],
+  providers: [
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
+  ],
   bootstrap: [AppComponent],
-  providers: []
 })
 export class AppModule { }

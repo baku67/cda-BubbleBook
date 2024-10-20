@@ -1,33 +1,60 @@
 <p>register works!</p>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
     <div>
-      <label for="email">Email:</label>
-      <input id="email" formControlName="email" type="email" />
+      <mat-form-field appearance="outline">
+        <mat-label>Email:</mat-label>
+        <input matInput matFormFieldControl formControlName="email" type="email">
+      </mat-form-field>
       <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-        <small>Email is required and must be valid.</small>
+        <mat-error class="formFieldError">Email is required and must be valid.</mat-error>
       </div>
     </div>
-  
+
     <div>
-      <label for="username">Username:</label>
-      <input id="username" formControlName="username" type="text" />
+      <mat-form-field appearance="outline">
+        <mat-label>Username:</mat-label>
+        <input matInput matFormFieldControl formControlName="username" type="text">
+      </mat-form-field>
       <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
-        <small>Username is required.</small>
+        <mat-error class="formFieldError">Username is required.</mat-error>
       </div>
     </div>
-  
+
     <div>
-      <label for="password">Password:</label>
-      <input id="password" formControlName="password" type="password" />
+      <mat-form-field appearance="outline">
+        <mat-label>Password:</mat-label>
+        <input matInput matFormFieldControl formControlName="password" type="password">
+      </mat-form-field>
       <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-        <small>Password is required (minimum 6 characters).</small>
+        <mat-error>Password is required (minimum 6 characters).</mat-error>
+      </div>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm password:</mat-label>
+        <input matInput matFormFieldControl formControlName="passwordCheck" type="password">
+      </mat-form-field>
+      <div *ngIf="registerForm.get('passwordCheck')?.invalid && registerForm.get('passwordCheck')?.touched">
+        <mat-error>Password confirmation is required</mat-error>
+      </div>
+      <div *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('passwordCheck')?.touched">
+        <mat-error>Les mots de passe ne correspondent pas.</mat-error>
       </div>
     </div>
   
-    <div>
+    <!-- *** 2FA par defaut à false et demandé au prochain écran en meme temps que Username et avatars -->
+    <!-- <div>
       <label for="is2fa">Enable 2FA:</label>
       <input id="is2fa" formControlName="is2fa" type="checkbox" />
-    </div>
-  
-    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    </div> -->
+
+
+    <!-- Submit & Spinner -->
+    <button mat-flat-button class="cta-btn-primary" type="submit" [disabled]="registerForm.invalid">
+      <span *ngIf="!isLoading">Register</span>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </button>
+
   </form>
