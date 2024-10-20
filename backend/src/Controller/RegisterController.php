@@ -70,4 +70,20 @@ class RegisterController
         //   }
 
     }
+
+
+    #[Route('/api/check-email-exist', name: 'check_email_exist', methods: ['POST'])]
+    public function checkEmailExist(Request $request, UserRepository $userRepository): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $email = $data['email'];
+
+        $user = $userRepository->findOneBy(['email' => $email]);
+
+        if ($user) {
+            return new JsonResponse(['exists' => true], 200);
+        }
+
+        return new JsonResponse(['exists' => false], 200);
+    }
 }

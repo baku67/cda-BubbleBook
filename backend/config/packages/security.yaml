@@ -31,7 +31,8 @@ security:
             security: false  # Désactive la sécurité pour cette route
 
         api:
-            pattern: ^/api/
+            # pattern: ^/api/
+            pattern: ^/api/(?!check-email-exist)  # Exclure /api/check-email-exist du firewall JWT
             stateless: true
             jwt: ~  # Utilisation de JWT pour l'authentification
             provider: app_user_provider
@@ -47,6 +48,7 @@ security:
         - { path: ^/api/register$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/check-email-exist, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
 when@test:
     security:

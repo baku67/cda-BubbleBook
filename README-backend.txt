@@ -24,6 +24,12 @@ dev:
 
 
 
+    ######################################################
+    Quand j'ajoute une route, si elle peut etre appelé sans etre authentifié:
+    -> dans backend/config/security.yaml: 
+    access_control:
+        - { path: ^/api/check-email, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
 
 
 

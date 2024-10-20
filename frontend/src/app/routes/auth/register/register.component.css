@@ -28,7 +28,12 @@ form {
   }
   
   button[disabled] {
-    background-color: #ccc;
+    background-color: #1a759f70;
     cursor: not-allowed;
   } 
+
+
+  .matFieldInput {
+    width: 100%;
+  }
   

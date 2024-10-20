@@ -3,11 +3,11 @@
     min-height: 100vh;
     width: 100%;
 
-    background: var(--background-color);
+    /* background: var(--background-color);
     background: -moz-linear-gradient(180deg, rgba(10,35,81,1) 0%, rgba(25,68,148,1) 100%);
     background: -webkit-linear-gradient(180deg, rgba(10,35,81,1) 0%, rgba(25,68,148,1) 100%);
     background: linear-gradient(180deg, rgba(10,35,81,1) 0%, rgba(25,68,148,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0a2351",endColorstr="#194494",GradientType=1);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0a2351",endColorstr="#194494",GradientType=1); */
 }
 
 
