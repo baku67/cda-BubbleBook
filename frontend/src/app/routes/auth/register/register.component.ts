@@ -85,8 +85,10 @@ export class RegisterComponent implements OnInit{
           // Stocker le token JWT dans le localStorage
           localStorage.setItem('token', response.token);
 
-          // Rediriger vers une page sécurisée après l'auto-login
-          this.router.navigate(['/user-profil']);
+          
+
+          // Rediriger vers une page sécurisée après l'auto-login (Comme c'est juste après register(), mettre la page /first-login)
+          this.router.navigate(['/first-login']);
 
           // Désactiver le loader
           this.isLoading = false;

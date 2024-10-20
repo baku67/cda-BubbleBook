@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 // use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface; // déprécié pour UserPasswordHasher
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Service\MailerService;
 
 class RegisterController
 {
@@ -17,7 +18,7 @@ class RegisterController
     private $passwordHasher;
     private $userRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository)
+    public function __construct(private MailerService $mailService, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository)
     {
         $this->entityManager = $entityManager;
         $this->passwordHasher = $passwordHasher;
@@ -51,6 +52,14 @@ class RegisterController
         // Envoyés/Initialisés à false:
         $user->set2fa($data['is2fa'] ?? false);
         $user->setVerified($data["isVerified"] ?? false);
+
+        // Générer un token de confirmation unique (par exemple avec un UUID ou un hash aléatoire)
+        $confirmationToken = bin2hex(random_bytes(32)); // ou utilise un UUID
+        $user->setConfirmationToken($confirmationToken);
+
+        // TODO *** PROC UNE ERREUR 500 lors register():
+        // Envoi du mail de confirmation de mail: (dev: mailcatcher)
+        // $this->mailService->sendConfirmationEmail($data['email'], $confirmationToken);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();

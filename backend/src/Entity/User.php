@@ -39,6 +39,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
 
+    #[ORM\Column(length: 64, nullable: true)]
+    private ?string $confirmationToken = null;
+
 
 
 
@@ -147,5 +150,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials()
     {
         // Si tu stockes des données sensibles temporaires, les effacer ici
+    }
+
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(?string $confirmationToken): static
+    {
+        $this->confirmationToken = $confirmationToken;
+
+        return $this;
     }
 }
