@@ -15,8 +15,9 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        # Gestion de la route de login avec json_login
         login:
-            pattern:  ^/api/login
+            pattern: ^/api/login
             stateless: true
             json_login:
                 check_path: /api/login
@@ -25,10 +26,11 @@ security:
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
+        # Route pour l'enregistrement d'un nouvel utilisateur (pas besoin de sécurité)
         register:
-            pattern:  ^/api/register
+            pattern: ^/api/register
             stateless: true
-            security: false  # Désactive la sécurité pour cette route
+            security: false
 
         api:
             # pattern: ^/api/
@@ -41,14 +43,15 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
-        # - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        # - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/register$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        # Autoriser l'accès à la route de login et de register sans authentification
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # Exclusion de la route /api/check-email-exist
         - { path: ^/api/check-email-exist, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # Toutes les autres routes API doivent être sécurisées par JWT
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:

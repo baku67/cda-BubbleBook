@@ -52,23 +52,10 @@ class RegisterController
         $user->set2fa($data['is2fa'] ?? false);
         $user->setVerified($data["isVerified"] ?? false);
 
-        
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
         return new JsonResponse(['status' => 'User created'], 201);
-
-        // Test Postman:
-        // POST http://localhost:8000/api/register
-        // body: {
-        //     "email": "userX@example.com",
-        //     "password": "password123",
-        //     "username": "Dédé",
-        //     "is2fa": 0,
-        //     "roles": ["user"],
-        //     "isVerified": 0
-        //   }
-
     }
 
 

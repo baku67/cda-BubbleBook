@@ -7,3 +7,7 @@ ng generate <sementic> (component, service, directive, pipe, module, guard, inte
 Dans les services: 
     import { environment } from '../environments/environment';
     private apiUrl = environment.apiUrl;
+
+
+proxy.conf.json pour debugger sur mobile:
+      //"target": "http://192.168.x.x:8000", // Remplace par l'IP locale de ton PC (ipconfig, puis sur chrome pc: chrome://inspect/#devices)

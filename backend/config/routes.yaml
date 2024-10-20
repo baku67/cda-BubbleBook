@@ -3,3 +3,9 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+# config/routes.yaml ou annotations dans le contrôleur
+check_email_exist:
+    path: /api/check-email-exist
+    controller: App\Controller\RegisterController::checkEmailExist
+    methods: [POST, GET]

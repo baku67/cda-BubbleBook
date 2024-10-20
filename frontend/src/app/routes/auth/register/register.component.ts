@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environments';
 // rxjs: debounce/throttlong input checkEmail:
 // import { debounceTime, distinctUntilChanged } from 'rxjs/operators'; // Import des opérateurs rxjs
 // Customs:
@@ -52,7 +53,8 @@ export class RegisterComponent implements OnInit{
       // Loader/Spinner
       this.isLoading = true;
 
-      this.http.post('http://localhost:8000/api/register', this.registerForm.value)
+      // API register (voir environemnt.ts pour switch mobile debug):
+      this.http.post(`${environment.apiUrl}/api/register`, this.registerForm.value)
         .subscribe(
           (response) => {
             console.log('User registered successfully', response);

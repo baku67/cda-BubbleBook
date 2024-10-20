@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environments';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmailCheckService {
-  private apiUrl = 'http://localhost:8000/api/check-email-exist';
+  
+  // API check email used (voir environemnt.ts pour switch mobile debug):
+  private apiUrl = `${environment.apiUrl}/api/check-email-exist`;
 
   constructor(private http: HttpClient) {}
 

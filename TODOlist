@@ -2,3 +2,6 @@ Vérif email already in use à l'input: +warning coreesopppndant
 
 Username + avatar plutot sur 2eme étape de register (!), avec un bandeau suggestion 2FA
 -> banque d'avatars (générés IA) ou upload (compress et redim intégré si l'user met une bombre de 10MB)
+
+
+- SYMFONY: Ajouter le systeme de JWT (login() notemmant) à la mano (pas de jwy-bundle)
