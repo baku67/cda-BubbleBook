@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environments';
 
 
 @Component({
@@ -25,7 +26,6 @@ export class LoginComponent implements OnInit{
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]], // Ici les validateurs synchrones doivent être dans un tableau
       password: ['', [Validators.required]], // 
-      isVerified: [false] // TODO ici TRUE !!!!!!!!! erreur "vous devez confirmer l'email de validation reçu à l'adresse ******"
     });
   } 
 
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit{
       this.errorMessage = null; // Réinitialiser le message d'erreur
 
       // Envoi de la requête POST au serveur pour le login
-      this.http.post<{ token: string }>('http://localhost:8000/api/login', this.loginForm.value)
+      this.http.post<{ token: string }>(`${environment.apiUrl}/api/login`, this.loginForm.value)
         .subscribe({
           next: (response) => {
             // Stocker le token JWT dans le localStorage

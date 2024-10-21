@@ -30,4 +30,5 @@ docker-compose.yaml:
 
 
 Interface webmail:
-http://localhost:8025
+http://localhost:8025  
+ou <ip_pc>:8025
