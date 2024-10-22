@@ -130,15 +130,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-
-
-
     // OBLIGE PAR UserInterface
     // Remplace getUsername() par getUserIdentifier() 
     public function getUserIdentifier(): string
     {
         return $this->email;  // Utilise l'email comme identifiant unique
     }
+
+
+
+
+
+
+    
 
     // OBLIGE PAR PasswordAuthenticatedUserInterface (je crois)
     public function getSalt(): ?string

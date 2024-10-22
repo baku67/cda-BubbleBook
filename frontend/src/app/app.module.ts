@@ -10,12 +10,14 @@ import { RegisterComponent } from './routes/auth/register/register.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { FirstLoginComponent } from './routes/auth/first-login/first-login/first-login.component';
 import { UserProfilComponent } from './routes/profil/user-profil/user-profil.component';
+import { AlertBannerComponent } from './shared/ui-components/alert-banner/alert-banner.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import { UserProfilComponent } from './routes/profil/user-profil/user-profil.com
     RegisterComponent, 
     FirstLoginComponent,
     UserProfilComponent,
+    AlertBannerComponent,
   ],
   imports: [
     BrowserModule, 
@@ -42,7 +45,15 @@ import { UserProfilComponent } from './routes/profil/user-profil/user-profil.com
     BrowserAnimationsModule,
   ],
   providers: [
-    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
+    { 
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, 
+      useValue: { appearance: 'outline' }  // Ton option actuelle pour Angular Material
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true  // Ajout de l'Interceptor
+    }
   ],
   bootstrap: [AppComponent],
 })

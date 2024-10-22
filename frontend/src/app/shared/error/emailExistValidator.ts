@@ -1,7 +1,7 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { EmailCheckService } from '../services/auth/email-check-service.service';
+import { EmailCheckService } from '../services/auth/email-disponibility.service';
 
 export class EmailAsyncValidator {
   static createValidator(emailCheckService: EmailCheckService) {

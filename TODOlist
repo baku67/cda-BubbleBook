@@ -1,10 +1,12 @@
-Vérif email already in use à l'input: +warning coreesopppndant
+Vérif email already in use à l'input: +warning correspondant
 
 Username + avatar plutot sur 2eme étape de register (!), avec un bandeau suggestion 2FA
 -> banque d'avatars (générés IA) ou upload (compress et redim intégré si l'user met une bombre de 10MB)
 
 
 - SYMFONY: Ajouter le systeme de JWT (login() notemmant) à la mano (pas de jwy-bundle)
-
+- Get RID of UserInterface et json_login etc: FAIRE A LA MAIN !!!!!!!!
+- JWT en loalStorage = bad
+- JWT en cookie = good (httpsOnly, XSS-ready, etc)
 
 Login/register: gestion des erreurs backend 

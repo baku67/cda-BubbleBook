@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EmailCheckServiceService } from './email-check-service.service';
+import { EmailCheckServiceService } from './email-disponibility.service';
 
 describe('EmailCheckServiceService', () => {
   let service: EmailCheckServiceService;

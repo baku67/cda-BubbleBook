@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environments';
+import { AuthService } from '../../../shared/services/auth/auth.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit{
   errorMessage: string | null = null;
 
   constructor(
+    private authService: AuthService,
     private formBuilder: FormBuilder, 
     private http: HttpClient, 
     private router: Router,
@@ -41,8 +43,8 @@ export class LoginComponent implements OnInit{
       this.http.post<{ token: string }>(`${environment.apiUrl}/api/login`, this.loginForm.value)
         .subscribe({
           next: (response) => {
-            // Stocker le token JWT dans le localStorage
-            localStorage.setItem('token', response.token);
+            // Stocker le token JWT dans le localStorage (<--> auth.service)
+            this.authService.setToken(response.token);
 
             // Redirection vers le tableau de bord ou autre page sécurisée
             this.router.navigate(['/user-profil']);

@@ -7,8 +7,10 @@ import { environment } from '../../../../environments/environments';
 // import { debounceTime, distinctUntilChanged } from 'rxjs/operators'; // Import des opérateurs rxjs
 // Customs:
 import { passwordMatchValidator } from '../../../shared/error/passwordMatchValidator.directive';
-import { EmailCheckService } from '../../../shared/services/auth/email-check-service.service';
+import { EmailCheckService } from '../../../shared/services/auth/email-disponibility.service';
 import { EmailAsyncValidator } from '../../../shared/error/emailExistValidator';
+import { AuthService } from '../../../shared/services/auth/auth.service';
+
 
 @Component({
   selector: 'app-register',
@@ -22,6 +24,7 @@ export class RegisterComponent implements OnInit{
   emailExists = false;
 
   constructor(
+    private authService: AuthService,
     private formBuilder: FormBuilder, 
     private http: HttpClient, 
     private router: Router,
@@ -82,8 +85,8 @@ export class RegisterComponent implements OnInit{
     this.http.post<{ token: string }>(`${environment.apiUrl}/api/login`, loginCredentials)
       .subscribe({
         next: (response) => {
-          // Stocker le token JWT dans le localStorage
-          localStorage.setItem('token', response.token);
+            // Stocker le token JWT dans le localStorage (<--> auth.service)
+            this.authService.setToken(response.token);
 
           // Rediriger vers une page sécurisée après l'auto-login (Comme c'est juste après register(), mettre la page /first-login)
           this.router.navigate(['/first-login']);
