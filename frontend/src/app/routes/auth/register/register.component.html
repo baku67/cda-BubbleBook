@@ -1,4 +1,8 @@
-<h2>Créez un compte</h2>
+
+<header>
+  <h2>Créez un compte</h2>
+  <p>Créez un compte pour commencer à explorer et remplir votre carnet de plongée</p>
+</header>
 
 
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -79,4 +83,12 @@
       <mat-spinner *ngIf="isLoading"></mat-spinner>
     </button>
 
+    <a [routerLink]="['/login']">
+      <button mat-flat-button class="cta-btn-primary">
+        Déjà un compte ?
+      </button>
+    </a>
+
   </form>
+
+

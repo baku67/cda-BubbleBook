@@ -58,8 +58,8 @@ class RegisterController
         $user->setConfirmationToken($confirmationToken);
 
         // TODO *** PROC UNE ERREUR 500 lors register():
-        // Envoi du mail de confirmation de mail: (dev: mailcatcher)
-        // $this->mailService->sendConfirmationEmail($data['email'], $confirmationToken);
+        // Envoi du mail de confirmation de mail: (dev: mailcatcher "MailPit")
+        $this->mailService->sendConfirmationEmail($data['email'], $confirmationToken);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();

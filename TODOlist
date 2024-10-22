@@ -5,3 +5,6 @@ Username + avatar plutot sur 2eme étape de register (!), avec un bandeau sugges
 
 
 - SYMFONY: Ajouter le systeme de JWT (login() notemmant) à la mano (pas de jwy-bundle)
+
+
+Login/register: gestion des erreurs backend 

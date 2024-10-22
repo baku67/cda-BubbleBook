@@ -32,3 +32,10 @@ docker-compose.yaml:
 Interface webmail:
 http://localhost:8025  
 ou <ip_pc>:8025
+
+
+TESTER: 
+terminal dans container php-symfony
+apt-get update
+apt-get install iputils-ping
+ping mailer (nom du service docker)

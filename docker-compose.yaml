@@ -18,6 +18,7 @@ services:
     container_name: php-symfony
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html/public
+      MAILER_DSN: smtp://mailer:1025 # osef vu que dans .env copié ?
     ports:
       - "8000:80"
     volumes:
@@ -30,6 +31,7 @@ services:
       - mynetwork
     depends_on:
       - postgres
+      - mailer
     # command: ["apache2-foreground"]  # plus besoin car géré par le Dockerfile/docker_entrypoint.sh
 
 
@@ -71,6 +73,8 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"  # Interface web de Mailpit
+    networks:
+      - mynetwork
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
