@@ -56,3 +56,22 @@ dev:
 
 
 
+############## Acces au container (bash): 
+$ docker exec -it php-symfony bash
+
+
+############## Consulter les logs:
+$ docker exec -it php-symfony bash
+root@a6fd440878e8:/var/www/html# tail -f var/log/dev.log
+
+
+
+
+
+
+**************************************
+Il faut Openssl (dl een ligne) pour générer les clées localement:
+(se placer dans le dossier backend, git bash)
+    mkdir -p config/jwt
+    openssl genpkey -out config/jwt/private.pem -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+    openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem

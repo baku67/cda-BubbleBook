@@ -1,2 +1,4 @@
+# PAS LE BON HTACCESS ? (//public/.htaccess)
+RewriteEngine On
 RewriteCond %{HTTP:Authorization} ^(.*)
 RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]

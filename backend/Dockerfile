@@ -30,9 +30,12 @@ COPY . .
 #     && composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Installez les dépendances PHP y compris le maker-bundle et doctrine-fixtures-bundle et nelmio (API)
-RUN composer require symfony/maker-bundle --dev doctrine/doctrine-fixtures-bundle --dev nelmio/cors-bundle \
-&& composer install --no-interaction --prefer-dist --optimize-autoloader
+RUN composer require symfony/monolog-bundle \
+    && composer require symfony/maker-bundle --dev doctrine/doctrine-fixtures-bundle --dev nelmio/cors-bundle \
+    && composer install --no-interaction --prefer-dist --optimize-autoloader
 
+# Installez Symfony Runtime (ajout important)
+RUN composer require symfony/runtime
 
 # Fix "Forbidden 403"
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
