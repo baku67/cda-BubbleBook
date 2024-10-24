@@ -14,11 +14,14 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { FirstLogin1Component } from './features/first-login/components/first-login-1/first-login-1.component';
 import { UserProfilComponent } from './features/profil/components/user-profil/user-profil.component';
 import { AlertBannerComponent } from './shared/ui-components/alert-banner/alert-banner.component';
 import { AuthInterceptor } from './features/auth/services/interceptors/auth.interceptor';
-import { FirstLogin2Component } from './features/first-login/components/first-login-2/first-login-2.component';
+import { SharedModule } from './shared/shared.module';
+import { FirstLoginModule } from './features/first-login/first-login.module';
+
+// Standalone:
+// import { FooterComponent } from './shared/ui-components/footer/footer.component';
 
 
 @NgModule({
@@ -27,10 +30,9 @@ import { FirstLogin2Component } from './features/first-login/components/first-lo
     LandingPageComponent,
     LoginPageComponent,
     RegisterPageComponent, 
-    FirstLogin1Component,
-    FirstLogin2Component,
     UserProfilComponent,
     AlertBannerComponent,
+    // FooterComponent,
   ],
   imports: [
     BrowserModule, 
@@ -45,6 +47,9 @@ import { FirstLogin2Component } from './features/first-login/components/first-lo
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    
+    FirstLoginModule,
+    SharedModule,
   ],
   providers: [
     { 
