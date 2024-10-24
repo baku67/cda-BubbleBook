@@ -1,0 +1,8 @@
+<h1>Profil</h1>
+
+<p>Email: {{ user?.email }}</p>
+<p>Nom d'utilisateur:{{ user?.username }}</p>
+<p>Email vérifié: {{ user?.isVerified }}</p>
+<p>Authentification à 2 facteurs:{{ user?.is2fa }}</p>
+
+<!-- <app-alert-banner *ngIf="user.isVerified" msgAlert="Confirmez votre email pour profiter de toutes les fonctionalitées !"/> -->

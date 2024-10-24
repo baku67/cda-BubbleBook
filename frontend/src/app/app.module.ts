@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { LandingPageComponent } from './routes/home/landing-page/landing-page.component';
+import { LandingPageComponent } from './features/landing-page/components/landing-page/landing-page.component';
 
 import { routes } from './app.routes';  // Import the routes
-import { LoginComponent } from './routes/auth/login/login.component';
-import { RegisterComponent } from './routes/auth/register/register.component';
+import { LoginPageComponent } from './features/auth/components/login-page/login-page.component';
+import { RegisterPageComponent } from './features/auth/components/register-page/register-page.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,19 +14,21 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { FirstLoginComponent } from './routes/auth/first-login/first-login/first-login.component';
-import { UserProfilComponent } from './routes/profil/user-profil/user-profil.component';
+import { FirstLogin1Component } from './features/first-login/components/first-login-1/first-login-1.component';
+import { UserProfilComponent } from './features/profil/components/user-profil/user-profil.component';
 import { AlertBannerComponent } from './shared/ui-components/alert-banner/alert-banner.component';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthInterceptor } from './features/auth/services/interceptors/auth.interceptor';
+import { FirstLogin2Component } from './features/first-login/components/first-login-2/first-login-2.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
-    LoginComponent,
-    RegisterComponent, 
-    FirstLoginComponent,
+    LoginPageComponent,
+    RegisterPageComponent, 
+    FirstLogin1Component,
+    FirstLogin2Component,
     UserProfilComponent,
     AlertBannerComponent,
   ],

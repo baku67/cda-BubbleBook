@@ -1,0 +1,60 @@
+<h2>Se connecter</h2>
+
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <div>
+      <mat-form-field appearance="outline" class="matFieldInput">
+        <mat-label>Email:</mat-label>
+        <input 
+          matInput 
+          matFormFieldControl 
+          formControlName="email" 
+          type="email" 
+          placeholder="Enter your email"
+          autocomplete="email"
+        >
+      </mat-form-field>
+
+      <!-- <div *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">
+        <mat-error class="formFieldError">Invalid email format.</mat-error>
+      </div> -->
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" class="matFieldInput">
+        <mat-label>Password:</mat-label>
+        <input 
+          matInput 
+          matFormFieldControl 
+          formControlName="password" 
+          type="password"
+          autocomplete="current-password"
+          >
+      </mat-form-field>
+
+      <!-- <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        <mat-error>Password is required (minimum 6 characters).</mat-error>
+      </div> -->
+    </div>
+  
+    <!-- *** 2FA par defaut à false et demandé au prochain écran en meme temps que Username et avatars -->
+    <!-- <div>
+      <label for="is2fa">Enable 2FA:</label>
+      <input id="is2fa" formControlName="is2fa" type="checkbox" />
+    </div> -->
+
+    <!-- Submit & Spinner -->
+    <button mat-flat-button class="cta-btn-primary" type="submit" [disabled]="loginForm.invalid">
+      <span *ngIf="!isLoading">Login</span>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </button>
+
+    <a [routerLink]="['/register']">
+      <button mat-flat-button class="cta-btn-primary">
+        Créer un compte
+      </button>
+    </a>
+
+  </form>
+
