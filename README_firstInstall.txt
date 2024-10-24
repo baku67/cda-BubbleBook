@@ -2,6 +2,10 @@
 .env et .env.test
 environments.ts (check apiUrl ! et IP réseau)
 
+#######################################
+docker exec -it php-symfony sh
+composer require symfony/monolog-bundle
+
 
 **************************************
 Il faut Openssl (dl een ligne) pour générer les clées localement:

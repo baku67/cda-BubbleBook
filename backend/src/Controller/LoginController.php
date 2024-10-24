@@ -27,6 +27,10 @@ use Symfony\Component\Routing\Attribute\Route;
 // Peut etre réactiver pour condition supplémentaires etc
 // MOT CLE: json_login
 
+
+// Ducoup pour que le JWT stock email (user->getUserIdentifier()) et nom username, il faut ajouter un eventListener parce ue c'est json-login qui gère la generation et la validation des JWT.
+// JWTCreatedListener
+
 class LoginController extends AbstractController
 {
     // private $entityManager;

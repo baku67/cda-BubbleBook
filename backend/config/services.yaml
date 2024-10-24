@@ -20,6 +20,11 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    # Enregistre le listener JWT pour modifier le payload
+    App\EventListener\JWTCreatedListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
+
     # Rend les contrôleurs publics et ajoute le tag `controller.service_arguments`
     App\Controller\:
         resource: '../src/Controller'
