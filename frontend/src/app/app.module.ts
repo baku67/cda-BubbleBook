@@ -32,7 +32,6 @@ import { FirstLoginModule } from './features/first-login/first-login.module';
     RegisterPageComponent, 
     UserProfilComponent,
     AlertBannerComponent,
-    // FooterComponent,
   ],
   imports: [
     BrowserModule, 

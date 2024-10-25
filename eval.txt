@@ -1,0 +1,17 @@
+- JWT stocké dans le sessionStorage avec https-only (éviter les attaques XSS)
+- Refresh Token session (longue durée) pour persistance session meme si navigateur quitté etc (combinaison SessionStorage et LocalStorage secur)
+- Code de confirmation (token) recç par mail pour valider le mail du compte
+- 2FA
+
+
+
+
+ Utilisation d'un Refresh Token
+Pour des raisons de sécurité, stocker un token d'authentification directement dans localStorage peut représenter un risque. Une alternative plus sûre est d'implémenter un système de Refresh Token :
+
+Access Token (JWT) : Stocké dans sessionStorage (pour la sécurité).
+Refresh Token : Stocké dans localStorage pour pouvoir régénérer un Access Token après la fermeture du navigateur.
+Avec ce système :
+
+Lorsqu'un utilisateur se connecte, un Access Token (à durée de vie courte) et un Refresh Token (à durée de vie plus longue) sont générés.
+Si l'Access Token expire ou si l'utilisateur rouvre le navigateur, l'application peut utiliser le Refresh Token pour demander un nouveau Access Token.

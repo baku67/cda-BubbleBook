@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 interface DecodedToken {
   exp?: number;  // Le champ exp représente la date d'expiration en secondes depuis Epoch
@@ -10,8 +11,10 @@ interface DecodedToken {
 })
 export class AuthService {
 
-  // *************************************************
-  // TODO: A revoir (mettre le token dans sessionStorage)
+  private loggedIn = new BehaviorSubject<boolean>(this.hasToken()); // (BehaviorSubject: derniere valeure)
+  // Observable pour savoir si l'utilisateur est connecté
+  isLoggedIn$ = this.loggedIn.asObservable();
+
 
   // Simule la récupération du JWT depuis le localStorage ou autre moyen de stockage
   getToken(): string | null {
@@ -21,11 +24,18 @@ export class AuthService {
   // Méthode pour enregistrer le token lors de la connexion
   setToken(token: string): void {
     sessionStorage.setItem('jwtToken', token);
+    this.loggedIn.next(true); // Met à jour l'état de connexion (BehaviorSubject: derniere valeure)
   }
 
   // Méthode pour supprimer le token lors de la déconnexion
   clearToken(): void {
     sessionStorage.removeItem('jwtToken'); 
+    this.loggedIn.next(false); // Met à jour l'état de connexion (BehaviorSubject: derniere valeure)
+  }
+
+   // Vérifie si un utilisateur est connecté
+  private hasToken(): boolean {
+    return !!this.getToken();
   }
 
   // Déconnexion de l'utilisateur

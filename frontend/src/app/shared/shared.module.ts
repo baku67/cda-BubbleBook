@@ -5,12 +5,13 @@ import { NavComponent } from './ui-components/nav/nav.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   imports: [
     CommonModule,
-
     FooterComponent,
-    NavComponent,
+    NavComponent, 
   ],
   exports: [
     FooterComponent,

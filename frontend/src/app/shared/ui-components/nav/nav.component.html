@@ -1,5 +1,6 @@
 <!-- Deconnexion/Deconnction -->
 <button 
+    *ngIf="isLoggedIn"
     mat-flat-button
     (click)="logout()"
 >

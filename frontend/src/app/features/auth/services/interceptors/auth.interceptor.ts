@@ -10,12 +10,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    // Vérif:
-    console.log("INTERCEPTOR ACTIF test interceptor");
-
     // Récupérer le token JWT depuis AuthService
     const token = this.authService.getToken();
-    console.log("TOKEN récupéré du AuthService.getToken : " + token);
 
     // Si le token existe, cloner la requête et ajouter l'en-tête Authorization
     if (token) {
