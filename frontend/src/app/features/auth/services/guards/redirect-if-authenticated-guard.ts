@@ -10,7 +10,7 @@ export class RedirectIfAuthenticatedGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
-    const token = sessionStorage.getItem('jwtToken');
+    const token = this.authService.getAccessToken();
     if (token) {
       // Utilisateur connecté, redirection vers /user-profil (TODO LANDING PAGE USER connected)
       this.router.navigate(['/user-profil']);

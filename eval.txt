@@ -7,6 +7,7 @@
 
 
  Utilisation d'un Refresh Token
+ Quand on quitte le navigateur ou le site, le SessionStorage est cleared, ducoup refreshToken dans le localStorage (voir plus)
 Pour des raisons de sécurité, stocker un token d'authentification directement dans localStorage peut représenter un risque. Une alternative plus sûre est d'implémenter un système de Refresh Token :
 
 Access Token (JWT) : Stocké dans sessionStorage (pour la sécurité).

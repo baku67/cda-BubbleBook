@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { environment } from '../../../../../environments/environments';
 import { AuthService } from '../../services/auth.service';
 
 
@@ -34,36 +33,24 @@ export class LoginPageComponent implements OnInit{
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-
-      // Loader/Spinner
       this.isLoading = true;
-      this.errorMessage = null; // Réinitialiser le message d'erreur
+      this.errorMessage = null;
 
-      // Envoi de la requête POST au serveur pour le login
-      this.http.post<{ token: string }>(`${environment.apiUrl}/api/login`, this.loginForm.value)
-        .subscribe({
-          next: (response) => {
-            // Stocker le token JWT dans le localStorage (<--> auth.service)
-            this.authService.setToken(response.token);
-
-            // Redirection vers le tableau de bord ou autre page sécurisée
-            this.router.navigate(['/user-profil']);
-
-            // Désactiver le loader
-            this.isLoading = false;
-          },
-          error: (error) => {
-            // Gérer les erreurs de la requête
-            console.error('There was an error during the request (login)', error);
-            this.errorMessage = 'Login failed. Please check your credentials.';
-            this.isLoading = false; // Désactiver le loader
-          }
-        });
-      } else {
-        console.error('Form is invalid');
-        this.errorMessage = 'Please fill in all required fields correctly.';
-        this.isLoading = false; // Désactiver le loader
-      }
+      this.authService.login(this.loginForm.value).subscribe({
+        next: () => {
+          this.router.navigate(['/user-profil']);
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('There was an error during the request (login)', error);
+          this.errorMessage = 'Login failed. Please check your credentials.';
+          this.isLoading = false;
+        }
+      });
+    } else {
+      console.error('Form is invalid');
+      this.errorMessage = 'Please fill in all required fields correctly.';
     }
+  }
 
 }

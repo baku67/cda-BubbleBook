@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
     // Si le JWT est présent, l'accès est autorisé
-    const token = sessionStorage.getItem('jwtToken');
+    const token = this.authService.getAccessToken();
     if (token) {
       return true;
     }

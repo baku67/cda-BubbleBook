@@ -25,6 +25,13 @@ services:
         tags:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
 
+    # Pour générer le refreshToken ?
+    App\Security\LoginSuccessHandler:
+        arguments:
+            $jwtManager: '@lexik_jwt_authentication.jwt_manager'
+            $entityManager: '@doctrine.orm.entity_manager'
+
+
     # Rend les contrôleurs publics et ajoute le tag `controller.service_arguments`
     App\Controller\:
         resource: '../src/Controller'

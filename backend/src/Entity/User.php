@@ -42,7 +42,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 64, nullable: true)]
     private ?string $confirmationToken = null;
 
-
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $refreshToken = null; // Persistence session
 
 
 
@@ -139,11 +140,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;  // Utilise l'email comme identifiant unique
     }
 
-
-
-
-
-
     
 
     // OBLIGE PAR PasswordAuthenticatedUserInterface (je crois)
@@ -169,4 +165,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+
+    // REFRESHTOKEN
+    public function getRefreshToken(): ?string
+    {
+        return $this->refreshToken;
+    }
+
+    public function setRefreshToken(?string $refreshToken): self
+    {
+        $this->refreshToken = $refreshToken;
+
+        return $this;
+    }
+
+
 }

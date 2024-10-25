@@ -1,9 +1,0 @@
-État actuel:
-je peux 
-
---docker-compose up --build
-ptite erreur de CSRF (certif de formulaires symfony)
-
-make:entity fonctionne
-pgadmin fonctionne (avec bdd créée)
-schémas>public>tables 

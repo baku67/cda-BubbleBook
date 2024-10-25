@@ -22,56 +22,54 @@ use Symfony\Component\Routing\Attribute\Route;
         //     password_path: password
         //     success_handler: lexik_jwt_authentication.handler.authentication_success
         //     failure_handler: lexik_jwt_authentication.handler.authentication_failure
-
-// Permet d'avoir rien a faire pour le login et la génération du JWT ect...
-// Peut etre réactiver pour condition supplémentaires etc
 // MOT CLE: json_login
 
 
-// Ducoup pour que le JWT stock email (user->getUserIdentifier()) et nom username, il faut ajouter un eventListener parce ue c'est json-login qui gère la generation et la validation des JWT.
-// JWTCreatedListener
-
 class LoginController extends AbstractController
 {
-    // private $entityManager;
-    // private $passwordHasher;
-    // private $userRepository;
-    // private $jwtManager;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, JWTTokenManagerInterface $jwtManager, UserRepository $userRepository)
-    {
-        // $this->entityManager = $entityManager;
-        // $this->passwordHasher = $passwordHasher;
-        // $this->userRepository = $userRepository;
-        // $this->jwtManager = $jwtManager;
-    }
+    public function __construct(
+        private EntityManagerInterface $entityManager, 
+        private UserPasswordHasherInterface $passwordHasher, 
+        private JWTTokenManagerInterface $jwtManager, 
+        private UserRepository $userRepository
+    )
+    { }
+
 
     #[Route('/api/login', name: 'api_login', methods: ['POST'])]
     public function login(
         // Request $request
     )
     {
-        // $data = json_decode($request->getContent(), true);
+        // *** ByPass json_login:
+        // - JWTCreatedListener
+        // - SuccessHandler pour le refreshToken 
         
-        // // Validation des données
-        // if (empty($data['email']) || empty($data['password'])) {
-        //     return new JsonResponse(['error' => 'Invalid data provided'], 400);
-        // }
-
-        // // Récupération de l'utilisateur par email
-        // $user = $this->userRepository->findOneBy(['email' => $data['email']]);
-
-        // if (!$user || !$this->passwordHasher->isPasswordValid($user, $data['password'])) {
-        //     return new JsonResponse(['error' => 'Invalid credentials'], 401);
-        // }
-
-        // // Génération du token JWT
-        // $token = $this->jwtManager->create($user);
-
-        // return new JsonResponse(['token' => $token], 200);
-
-        // La logique d'authentification est déjà gérée par le système de sécurité,
-        // donc cette méthode peut rester vide ou renvoyer une réponse par défaut.
         return new JsonResponse(['message' => 'Authentication is handled automatically by json_login symfony'], 200);
+    }
+
+
+    #[Route('/api/refresh-token', name: 'api_refresh_token', methods: ['POST'])]
+    public function refreshToken(Request $request, JWTTokenManagerInterface $JWTManager): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $refreshToken = $data['refreshToken'] ?? null;
+
+        if (!$refreshToken) {
+            return new JsonResponse(['error' => 'Invalid Refresh Token'], 400);
+        }
+
+        // Recherche l'utilisateur via le Refresh Token
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['refreshToken' => $refreshToken]);
+        
+        if (!$user) {
+            return new JsonResponse(['error' => 'Invalid Refresh Token'], 400);
+        }
+
+        // Génère un nouvel Access Token
+        $newAccessToken = $JWTManager->create($user);
+
+        return new JsonResponse(['accessToken' => $newAccessToken]);
     }
 }
