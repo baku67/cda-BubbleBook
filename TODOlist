@@ -1,3 +1,7 @@
+Test curl CORS login (après un register echec CORS):
+curl -v -X POST http://localhost:8000/api/login -H "Origin: http://localhost:4200" -H "Content-Type: application/json" -d '{"email": "basile@hotmail.fr", "password": "basile"}'
+
+
 STOP UserInterface et generation/validation des JWT automatique avec json_login ou login_sjon (lexik-jwt-bidule)
 (et penser au onJWTCreated symfony)
 

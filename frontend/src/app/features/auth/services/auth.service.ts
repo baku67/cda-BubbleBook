@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap, catchError, throwError, BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environments';
+import { TokenService } from './token.service';
 
 
 
@@ -22,19 +23,19 @@ interface AuthResponse {
 })
 export class AuthService {
 
-  private loggedIn = new BehaviorSubject<boolean>(this.hasToken()); // (BehaviorSubject: derniere valeure)
+  private loggedIn = new BehaviorSubject<boolean>(false); // Initialisation à false par défaut
   // Observable pour savoir si l'utilisateur est connecté
   isLoggedIn$ = this.loggedIn.asObservable();
 
-
-  constructor(private http: HttpClient, private router: Router) {
-      // Vérifie s'il y a un refreshToken au démarrage
-      this.checkRefreshTokenOnStartup();
+  constructor(private http: HttpClient, private router: Router, private tokenService: TokenService) {
+    // Initialisation après que TokenService soit injecté
+    this.loggedIn.next(this.hasToken());
+    // Vérifie s'il y a un refreshToken au démarrage
+    // this.checkRefreshTokenOnStartup();
   }
 
-  // Vérifie s'il y a un refreshToken au démarrage de l'application
   private checkRefreshTokenOnStartup(): void {
-    const refreshToken = this.getRefreshToken();
+    const refreshToken = this.tokenService.getRefreshToken();
     if (refreshToken && !this.hasToken()) {
       this.refreshAccessToken().subscribe({
         next: () => {
@@ -42,62 +43,60 @@ export class AuthService {
         },
         error: () => {
           console.warn('Échec de la régénération de l\'accessToken, mais on garde le refreshToken');
-          // this.logout();
         }
       });
     }
   }
 
-  // Récupération du JWT (accessToken) depuis le sessionStorage
-  getAccessToken(): string | null {
-    return sessionStorage.getItem('accessToken');
-  }
-
-  // Récupération du refreshToken depuis le localStorage
-  getRefreshToken(): string | null {
-    return localStorage.getItem('refreshToken');
-  }
-
-  // Méthode pour enregistrer les tokens lors de la connexion
-  setTokens(accessToken: string, refreshToken: string): void {
-    sessionStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', refreshToken);
-    this.loggedIn.next(true);
-
-    // console.log()
-  }
-
-  // Vérifie si un utilisateur est connecté
   private hasToken(): boolean {
-    return !!this.getAccessToken();
+    const token = this.tokenService.getAccessToken();
+    if (!token) {
+      return false;
+    }
+
+    const expirationDate = this.getTokenExpirationDate(token);
+    return !!expirationDate && expirationDate > new Date();
   }
 
-  // Déconnexion de l'utilisateur
-  logout(): void {
-    this.clearTokens();
+  getAccessToken(): string | null {
+    return this.tokenService.getAccessToken();
   }
-  // Méthode pour supprimer les tokens lors de la déconnexion
-  clearTokens(): void {
-    sessionStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+
+  getRefreshToken(): string | null {
+    return this.tokenService.getRefreshToken();
+  }
+
+  setTokens(accessToken: string, refreshToken: string): void {
+    this.tokenService.setTokens(accessToken, refreshToken);
+    this.loggedIn.next(true);
+  }
+
+  logout(): void {
+    this.tokenService.clearTokens();
     this.loggedIn.next(false);
   }
 
 
 
-  // ******************************************** 
-  // (LoginPageComponent et RegisterPageComponent)
-  // REGISTER, LOGIN, at auto-login après register
-  // Enregistre un utilisateur via l'API
+
   registerUser(registerData: unknown): Observable<unknown> {
-    return this.http.post(`${environment.apiUrl}/api/register`, registerData);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(
+      `${environment.apiUrl}/api/register`,
+       registerData,
+       { headers }
+    );
   }
   // Connexion et enregistrement des tokens
   login(credentials: { email: string; password: string }): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${environment.apiUrl}/api/login`, credentials).pipe(
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<AuthResponse>(
+      `${environment.apiUrl}/api/login`,
+      credentials,
+      { headers }
+    ).pipe(
       tap((response: AuthResponse) => {
         this.setTokens(response.accessToken, response.refreshToken);
-        console.log("response.accessToken :\n\n" + response.accessToken + "\n\n\n\n\n\n\n\n response.refreshToken : \n\n" + response.refreshToken)
       })
     );
   }
@@ -114,43 +113,50 @@ export class AuthService {
   }
 
 
+
+
   refreshAccessToken(): Observable<AuthResponse> {
-    const refreshToken = this.getRefreshToken();
+    const refreshToken = this.tokenService.getRefreshToken();
     if (!refreshToken) {
-      // this.logout();
-      // On ne fait rien si le refreshToken est absent
       console.warn('Aucun refreshToken trouvé.');
       return new Observable();
     }
-  
-    return this.http.post<AuthResponse>(`${environment.apiUrl}/api/refresh-token`, { refreshToken }).pipe(
+
+    // Envoi du refreshToken dans le body:
+    // return this.http.post<AuthResponse>(`${environment.apiUrl}/api/refresh-token`, { refreshToken }, {}).pipe(
+    //   tap((response: AuthResponse) => {
+    //     if (response && response.accessToken) {
+    //       this.tokenService.setTokens(response.accessToken, refreshToken);
+    //     }
+    //   }),
+    //   catchError((error) => {
+    //     console.error('Erreur lors du rafraîchissement du token', error);
+    //     return throwError(() => new Error('Erreur lors du rafraîchissement du token'));
+    //   })
+    // );
+
+    // Envoi du refreshToken dans le Header avec "Authorization" et "Bearer <token>":
+    // Configuration des headers pour inclure le token avec le format Authorization: Bearer <token>
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${refreshToken}`
+    });
+
+    return this.http.post<AuthResponse>(
+      `${environment.apiUrl}/api/refresh-token`,
+      {},
+      { headers } // Ajout des headers dans la requête
+    ).pipe(
       tap((response: AuthResponse) => {
         if (response && response.accessToken) {
-          sessionStorage.setItem('accessToken', response.accessToken);
+          this.tokenService.setTokens(response.accessToken, refreshToken);
         }
       }),
       catchError((error) => {
         console.error('Erreur lors du rafraîchissement du token', error);
-        // Ne pas appeler logout ici pour éviter de supprimer le refreshToken
         return throwError(() => new Error('Erreur lors du rafraîchissement du token'));
       })
     );
   }
-
-  // Vérifie si le token est expiré et le rafraîchit si nécessaire
-  // logoutIfTokenExpired(): void {
-  //   const token = this.getAccessToken();
-  //   if (token) {
-  //     const expirationDate = this.getTokenExpirationDate(token);
-  //     if (expirationDate && expirationDate < new Date()) {
-  //       this.refreshAccessToken().subscribe({
-  //         error: () => {
-  //           this.logout();
-  //         }
-  //       });
-  //     }
-  //   }
-  // }
 
   getTokenExpirationDate(token: string): Date | null {
     const decodedToken = this.decodeToken(token);

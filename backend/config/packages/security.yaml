@@ -44,14 +44,14 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # Autoriser l'accès à la route de login et de register sans authentification
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [OPTIONS, POST] }
         - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
         # Exclusion de la route /api/check-email-exist
         - { path: ^/api/check-email-exist, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
         # Toutes les autres routes API doivent être sécurisées par JWT
-        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY, methods : [OPTIONS] }
 
 when@test:
     security:

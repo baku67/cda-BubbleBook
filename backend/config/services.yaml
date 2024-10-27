@@ -10,7 +10,7 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
-
+        
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -30,6 +30,7 @@ services:
         arguments:
             $jwtManager: '@lexik_jwt_authentication.jwt_manager'
             $entityManager: '@doctrine.orm.entity_manager'
+            $jwtPassphrase: '%env(JWT_PASSPHRASE)%'
 
 
     # Rend les contrôleurs publics et ajoute le tag `controller.service_arguments`

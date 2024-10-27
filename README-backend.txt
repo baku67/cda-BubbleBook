@@ -66,7 +66,8 @@ root@a6fd440878e8:/var/www/html# tail -f var/log/dev.log
 
 
 
-
+############# TEST requete curl (pour CORS par exemple):
+$ curl -v -X POST http://localhost:8000/api/login -H "Origin: http://localhost:4200" -H "Content-Type: application/json" -d '{"email": "basile08@hotmail.fr", "password": "basile"}'
 
 
 **************************************
