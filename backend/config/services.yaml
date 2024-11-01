@@ -43,3 +43,6 @@ services:
     App\Controller\RegisterController:
         public: true
         tags: ['controller.service_arguments']
+
+    App\Service\ConfirmationTokenService:
+        public: true

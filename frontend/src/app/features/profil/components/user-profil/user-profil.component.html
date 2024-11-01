@@ -5,4 +5,27 @@
 <p>Email vérifié: {{ user?.isVerified }}</p>
 <p>Authentification à 2 facteurs:{{ user?.is2fa }}</p>
 
+
+
+ <div *ngIf="!user!.isVerified">
+
+    <button 
+        *ngIf="!emailConfirmResent"
+        mat-flat-button 
+        (click)="resendConfirmationEmail()"
+    >
+        <span *ngIf="!emailConfirmResentLoading">Renvoyer le mail de confirmation</span>
+        <mat-spinner *ngIf="emailConfirmResentLoading"></mat-spinner>
+    </button>
+
+    <div *ngIf="emailConfirmResent">
+        <mat-icon>task_alt</mat-icon>
+        <p>Un email de confirmation vous a été renvoyé à l'adresse {{ user?.email }}</p>
+    </div>
+
+ </div>
+
+
+
+
 <!-- <app-alert-banner *ngIf="user.isVerified" msgAlert="Confirmez votre email pour profiter de toutes les fonctionalitées !"/> -->

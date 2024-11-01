@@ -19,6 +19,8 @@ import { AlertBannerComponent } from './shared/ui-components/alert-banner/alert-
 import { AuthInterceptor } from './features/auth/services/interceptors/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { FirstLoginModule } from './features/first-login/first-login.module';
+import { ConfirmEmailComponent } from './features/profil/components/confirm-email/confirm-email.component';
+import { MatIconModule } from '@angular/material/icon';
 
 // Standalone:
 // import { FooterComponent } from './shared/ui-components/footer/footer.component';
@@ -32,6 +34,7 @@ import { FirstLoginModule } from './features/first-login/first-login.module';
     RegisterPageComponent, 
     UserProfilComponent,
     AlertBannerComponent,
+    ConfirmEmailComponent,
   ],
   imports: [
     BrowserModule, 
@@ -46,6 +49,7 @@ import { FirstLoginModule } from './features/first-login/first-login.module';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatIconModule,
     
     FirstLoginModule,
     SharedModule,

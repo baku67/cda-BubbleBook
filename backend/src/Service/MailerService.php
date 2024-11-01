@@ -19,7 +19,7 @@ class MailerService
             ->from('noreply@yourapp.com')
             ->to($to)
             ->subject('Confirmez votre inscription')
-            ->html('<p>Merci de vous être inscrit ! Cliquez sur ce lien pour confirmer votre inscription : <a href="http://localhost:4200/confirm?token=' . $token . '">Confirmer</a></p>');
+            ->html('<p>Merci de vous être inscrit ! Cliquez sur ce lien pour confirmer votre inscription : <a href="http://localhost:4200/confirm-email?token=' . $token . '&emailAddress=' . $to . '">Confirmer</a></p>');
 
         $this->mailer->send($email);
     }

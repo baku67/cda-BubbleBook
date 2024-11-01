@@ -7,6 +7,7 @@ import { FirstLogin1Component } from './features/first-login/components/first-lo
 import { FirstLogin2Component } from './features/first-login/components/first-login-2/first-login-2.component';
 import { AuthGuard } from './features/auth/services/guards/auth.guard';
 import { RedirectIfAuthenticatedGuard } from './features/auth/services/guards/redirect-if-authenticated-guard';
+import { ConfirmEmailComponent } from './features/profil/components/confirm-email/confirm-email.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent, canActivate: [RedirectIfAuthenticatedGuard] },  // Home page
@@ -20,7 +21,11 @@ export const routes: Routes = [
     { path: 'first-login/step-one', component: FirstLogin1Component, canActivate: [AuthGuard] },
     { path: 'first-login/step-two', component: FirstLogin2Component, canActivate: [AuthGuard] },
 
+    // Confirmation mail:
+    { path: 'confirm-email', component: ConfirmEmailComponent },
+
     // EN DERNIER:
     { path: '**', redirectTo: '' },  // Wildcard, redirect all unknown paths to home
 ];
+
 

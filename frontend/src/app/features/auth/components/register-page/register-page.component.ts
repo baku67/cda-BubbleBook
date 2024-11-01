@@ -43,8 +43,6 @@ export class RegisterPageComponent implements OnInit{
       password: ['', [Validators.required, Validators.minLength(6)]], //TODO (dev) + regex specialchars etc
       passwordCheck: ['', [Validators.required]],
       is2fa: [false], // Todo: false par defaut et demandé sur prochain écran (les 2-3 premiers login)
-      roles: [['user']],
-      isVerified: [false]
     }, { validator: passwordMatchValidator });
   }
 

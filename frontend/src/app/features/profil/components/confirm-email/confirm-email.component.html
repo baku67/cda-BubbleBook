@@ -1,0 +1,24 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+
+<div *ngIf="!isLoading && confirmSuccess">
+    <p>Email confirmé avec succès.</p>
+    <mat-icon>task_alt</mat-icon>
+    <br>
+    <a [routerLink]="['/login']">
+        <button mat-flat-button class="cta-btn-primary">Login</button>
+    </a>
+</div>
+
+
+<!-- TODO Check si deja vérifié ? -->
+<!-- TODO Check si lien expiré -->
+<div *ngIf="!isLoading && !confirmSuccess">
+    <p>Erreur lors de la confirmation de l'email ou lien expiré.</p>
+    <p>Connectez-vous pour renvoyer un lien</p>
+    <mat-icon>unpublished</mat-icon>
+    <br>
+    <a [routerLink]="['/login']">
+        <button mat-flat-button class="cta-btn-primary">Login</button>
+    </a>
+</div>

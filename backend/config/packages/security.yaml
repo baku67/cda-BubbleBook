@@ -32,9 +32,15 @@ security:
             stateless: true
             security: false
 
+        resend_confirmation:
+            pattern: ^/api/resend-confirmation
+            stateless: true
+            jwt: ~  # Utilisation de JWT pour l'authentification
+            provider: app_user_provider
+
         api:
             # pattern: ^/api/
-            pattern: ^/api/(?!check-email-exist)  # Exclure /api/check-email-exist du firewall JWT
+            pattern: ^/api/(?!check-email-exist|confirm-email)  # Exclure /api/check-email-exist du firewall JWT
             stateless: true
             jwt: ~  # Utilisation de JWT pour l'authentification
             provider: app_user_provider
@@ -43,15 +49,13 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # Autoriser l'accès à la route de login et de register sans authentification
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [OPTIONS, POST] }
         - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-
-        # Exclusion de la route /api/check-email-exist
         - { path: ^/api/check-email-exist, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-
+        - { path: ^/api/confirm-email, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # Toutes les autres routes API doivent être sécurisées par JWT
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY, methods : [OPTIONS] }
+        - { path: ^/api/resend-confirmation, roles: IS_AUTHENTICATED_FULLY } 
 
 when@test:
     security:

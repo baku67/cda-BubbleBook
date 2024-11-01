@@ -94,6 +94,19 @@ export class AuthService {
     });
   }
 
+  // Fonction pour renvoyer l'email de confirmation
+  resendConfirmationEmail(email: string): Observable<unknown> {
+    const url = `${environment.apiUrl}/api/resend-confirmation`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const body = JSON.stringify({ email: email });
+
+    return this.http.post(url, body, { headers: headers });
+  }
+
+
+
 
   getTokenExpirationDate(token: string): Date | null {
     const decodedToken = this.decodeToken(token);
