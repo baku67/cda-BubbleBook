@@ -42,9 +42,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 64, nullable: true)]
     private ?string $confirmationToken = null;
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $refreshToken = null; // Persistence session
-
 
 
     public function getId(): ?int
@@ -165,21 +162,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-
-
-    // REFRESHTOKEN
-    public function getRefreshToken(): ?string
-    {
-        return $this->refreshToken;
-    }
-
-    public function setRefreshToken(?string $refreshToken): self
-    {
-        $this->refreshToken = $refreshToken;
-
-        return $this;
-    }
-
 
 }

@@ -10,20 +10,13 @@ export class TokenService {
     return sessionStorage.getItem('accessToken');
   }
 
-  // Récupération du refreshToken depuis le localStorage
-  getRefreshToken(): string | null {
-    return localStorage.getItem('refreshToken');
-  }
-
   // Enregistrer les tokens dans le storage
-  setTokens(accessToken: string, refreshToken: string): void {
+  setTokens(accessToken: string): void {
     sessionStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', refreshToken);
   }
 
   // Supprimer les tokens lors de la déconnexion
   clearTokens(): void {
     sessionStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
   }
 }

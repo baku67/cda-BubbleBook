@@ -28,7 +28,6 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         $this->jwtPassphrase = $jwtPassphrase;
         $this->jwtConfig = Configuration::forSymmetricSigner(
             new Sha256(),
-            // Key\InMemory::plainText($this->jwtPassphrase)
             Key\InMemory::file('/var/www/html/config/jwt/private.pem', $this->jwtPassphrase)
         );
 
@@ -46,31 +45,9 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         // Génère l'Access Token
         $accessToken = $this->jwtManager->create($user);
 
-        // Récupère ou génère le Refresh Token
-        // $refreshToken = $user->getRefreshToken();
-        // if (!$refreshToken) {
-        //     $refreshToken = bin2hex(random_bytes(64));
-        //     $user->setRefreshToken($refreshToken);
-        //     $this->entityManager->persist($user);
-        //     $this->entityManager->flush();
-        // }
-        
-        // Génère le Refresh Token au format JWT
-        $now = new \DateTimeImmutable();
-        $refreshToken = $this->jwtConfig->builder()
-            ->issuedBy('http://localhost') // émetteur
-            ->permittedFor('http://localhost') // audience
-            ->issuedAt($now)
-            ->expiresAt($now->modify('+1 month')) // Durée de validité du refresh token
-            ->withClaim('user_id', $user->getId()) // Ajouter des claims si nécessaire
-            ->getToken($this->jwtConfig->signer(), $this->jwtConfig->signingKey())
-            ->toString();
-
-
         // Renvoie une réponse JSON avec les deux tokens
         return new JsonResponse([
             'accessToken' => $accessToken,
-            'refreshToken' => $refreshToken,
         ]);
     }
 }
