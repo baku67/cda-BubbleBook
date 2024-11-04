@@ -61,9 +61,8 @@ class RegisterController extends AbstractController
         $user->set2fa($data['is2fa'] ?? false);
         $user->setVerified(false);
 
-        // Générer un token de confirmation à l'aide du service
-        $confirmationToken = $this->mailConfirmationTokenService->generateToken();
-        $user->setConfirmationToken($confirmationToken);
+        // Nouveau token de confirmation d'email:
+        $confirmationToken = $this->mailConfirmationTokenService->generateUserMailConfirmToken($user);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
