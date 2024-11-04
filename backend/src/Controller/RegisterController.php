@@ -16,24 +16,15 @@ use App\Service\MailerService;
 
 class RegisterController extends AbstractController
 {
-    private $entityManager;
-    private $passwordHasher;
-    private $userRepository;
-    private $mailConfirmationTokenService;
-
     public function __construct(
         private MailerService $mailService, 
-        EntityManagerInterface $entityManager, 
-        UserPasswordHasherInterface $passwordHasher, 
-        UserRepository $userRepository,
-        MailConfirmationTokenService $mailConfirmationTokenService
+        private MailConfirmationTokenService $mailConfirmationTokenService,
+        private EntityManagerInterface $entityManager, 
+        private UserPasswordHasherInterface $passwordHasher, 
+        private UserRepository $userRepository,
     )
-    {
-        $this->entityManager = $entityManager;
-        $this->passwordHasher = $passwordHasher;
-        $this->userRepository = $userRepository;
-        $this->mailConfirmationTokenService = $mailConfirmationTokenService;
-    }
+    {}
+
 
     #[Route('/api/register', name: 'api_register', methods: ['POST'])]
     public function register(Request $request)
@@ -61,18 +52,11 @@ class RegisterController extends AbstractController
         $user->set2fa($data['is2fa'] ?? false);
         $user->setVerified(false);
 
-        // Nouveau token de confirmation d'email:
-        $confirmationToken = $this->mailConfirmationTokenService->generateUserMailConfirmToken($user);
+        // Envoi et persistence BDD d'un token de confirmation d'email (avec expiration):
+        $this->mailConfirmationTokenService->generateUserMailConfirmToken($data['email'], $user);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
-
-       // Envoi du mail de confirmation (à faire après `flush()` pour garantir la persistance)
-        try {
-            $this->mailService->sendConfirmationEmail($data['email'], $confirmationToken);
-        } catch (\Exception $e) {
-            return new JsonResponse(['error' => 'Unable to send confirmation email'], 500);
-        }
 
         return new JsonResponse(['status' => 'User created'], 201);
     }
@@ -94,7 +78,7 @@ class RegisterController extends AbstractController
     }
 
 
-    // Confirmation de mail:
+    // Click sur le lien de Confirmation de mail:
     #[Route('/api/confirm-email', name: 'api_confirm_email', methods: ['GET'])]
     public function confirmEmail(Request $request): JsonResponse
     {
@@ -118,6 +102,7 @@ class RegisterController extends AbstractController
     }
 
 
+    // Renvoi d'un lien de confirmation de mail:
     #[Route('/api/resend-confirmation', name: 'resend_confirmation', methods: ['POST'])]
     public function resendConfirmationEmail(Request $request): JsonResponse
     {
@@ -136,18 +121,10 @@ class RegisterController extends AbstractController
         }
 
         // Générer un nouveau token avec le service
-        $confirmationToken = $this->mailConfirmationTokenService->generateToken();
-        $user->setConfirmationToken($confirmationToken);
+        $this->mailConfirmationTokenService->generateUserMailConfirmToken($data['email'], $user);
 
         // Mettre à jour l'utilisateur
         $this->entityManager->flush();
-
-        // Envoyer un nouvel email de confirmation
-        try {
-            $this->mailService->sendConfirmationEmail($user->getEmail(), $confirmationToken);
-        } catch (\Exception $e) {
-            return new JsonResponse(['error' => 'Unable to send confirmation email'], 500);
-        }
 
         return new JsonResponse(['status' => 'Confirmation email sent'], 200);
     }

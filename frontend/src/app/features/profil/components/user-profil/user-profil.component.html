@@ -7,7 +7,7 @@
 
 
 
- <div *ngIf="!user!.isVerified">
+ <div *ngIf="!user?.isVerified">
 
     <button 
         *ngIf="!emailConfirmResent"
@@ -24,6 +24,13 @@
     </div>
 
  </div>
+
+ <div *ngIf="user?.isVerified">
+djiefjejfzeijfz
+    </div>
+
+    <div>{{ user?.isVerified }}</div>
+
 
 
 
