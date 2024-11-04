@@ -83,17 +83,21 @@ class RegisterController extends AbstractController
     public function confirmEmail(Request $request): JsonResponse
     {
         $token = $request->query->get('token');
-
-        // Vérifier si le token est valide
         $user = $this->userRepository->findOneBy(['confirmationToken' => $token]);
 
         if (!$user) {
             return new JsonResponse(['error' => 'Invalid token'], 400);
         }
 
-        // Mettre à jour l'utilisateur comme vérifié
+        // Vérifier si le token est expiré
+        if ($user->getConfirmationTokenExpiry() < new \DateTime()) {
+            return new JsonResponse(['error' => 'Token expired'], 400);
+        }
+
+        // Màj User: email confirmé
         $user->setVerified(true);
-        $user->setConfirmationToken(null); // Supprime le token, car il n'est plus nécessaire
+        $user->setConfirmationToken(null); 
+        $user->setConfirmationTokenExpiry(null); 
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
@@ -102,7 +106,7 @@ class RegisterController extends AbstractController
     }
 
 
-    // Renvoi d'un lien de confirmation de mail:
+    // Renvoi d'un lien de confirmation de mail (TODO logged in ?):
     #[Route('/api/resend-confirmation', name: 'resend_confirmation', methods: ['POST'])]
     public function resendConfirmationEmail(Request $request): JsonResponse
     {

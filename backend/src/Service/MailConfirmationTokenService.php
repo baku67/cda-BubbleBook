@@ -21,6 +21,11 @@ class MailConfirmationTokenService
         $newToken = bin2hex(random_bytes(32));
         $user->setConfirmationToken($newToken);
 
+        // Définir la date d'expiration du token à 1 heure après la génération
+        $expiryDate = new \DateTime('+1 hour');
+        // $expiryDate = new \DateTime('+1 minute'); // TODO test (OK), comment tu test ça ?
+        $user->setConfirmationTokenExpiry($expiryDate);
+
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 

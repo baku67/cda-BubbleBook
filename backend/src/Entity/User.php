@@ -42,6 +42,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 64, nullable: true)]
     private ?string $confirmationToken = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $confirmationTokenExpiry = null;
+
 
 
     public function getId(): ?int
@@ -159,6 +162,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setConfirmationToken(?string $confirmationToken): static
     {
         $this->confirmationToken = $confirmationToken;
+
+        return $this;
+    }
+
+    public function getConfirmationTokenExpiry(): ?\DateTimeInterface
+    {
+        return $this->confirmationTokenExpiry;
+    }
+
+    public function setConfirmationTokenExpiry(?\DateTimeInterface $confirmationTokenExpiry): static
+    {
+        $this->confirmationTokenExpiry = $confirmationTokenExpiry;
 
         return $this;
     }
