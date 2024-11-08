@@ -17,10 +17,10 @@ class LoginController extends AbstractController
 {
 
     public function __construct(
-        private EntityManagerInterface $entityManager, 
-        private UserPasswordHasherInterface $passwordHasher, 
-        private JWTTokenManagerInterface $jwtManager, 
-        private UserRepository $userRepository
+        // private EntityManagerInterface $entityManager, 
+        // private UserPasswordHasherInterface $passwordHasher, 
+        // private JWTTokenManagerInterface $jwtManager, 
+        // private UserRepository $userRepository
     )
     { }
 
@@ -28,7 +28,7 @@ class LoginController extends AbstractController
     #[Route('/api/login', name: 'api_login', methods: ['POST'])]
     public function login(
         // Request $request
-    )
+    ): JsonResponse
     {
         // *** ByPass json_login:
         // - JWTCreatedListener

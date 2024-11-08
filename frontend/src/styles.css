@@ -71,3 +71,15 @@ p, span, a, input, button, select, textarea {
 .btn-underlined {
     text-decoration: underline;
 }
+
+.loadingLine {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.iconLine {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}

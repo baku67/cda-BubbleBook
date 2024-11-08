@@ -20,6 +20,23 @@
         >
       </mat-form-field>
 
+      <!-- Loadinf check email dispo -->
+      <div *ngIf="emailChecking" class="loadingLine">
+        <mat-spinner [diameter]="30"></mat-spinner>
+        <span>{{ emailStatusMessage }}</span>
+      </div>
+        <!-- Réponse check email dispo -->
+      <div *ngIf="!emailChecking && emailAvailable !== null">
+        <mat-error *ngIf="!emailAvailable" class="formFieldError iconLine">
+          <mat-icon>unpublished</mat-icon>
+          <span>{{ emailStatusMessage }}</span>
+        </mat-error>
+        <mat-hint *ngIf="emailAvailable" class="formFieldSuccess iconLine">
+          <mat-icon>task_alt</mat-icon>
+          <span>{{ emailStatusMessage }}</span>
+        </mat-hint>
+      </div>
+
       <!-- Erreur pour email déjà pris (emailTaken) -->
       <div *ngIf="registerForm.get('email')?.hasError('emailTaken') && registerForm.get('email')?.touched">
         <mat-error class="formFieldError">Cet email est déjà utilisé.</mat-error>

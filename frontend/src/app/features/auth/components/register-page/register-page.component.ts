@@ -21,7 +21,9 @@ export class RegisterPageComponent implements OnInit{
 
   registerForm!: FormGroup;
   isLoading: boolean;
-  emailExists = false;
+
+  emailChecking = false;
+  emailAvailable: boolean | null = null;
  
   constructor(
     private authService: AuthService,
@@ -38,7 +40,7 @@ export class RegisterPageComponent implements OnInit{
       email: [
         '', 
         [Validators.required, Validators.email], // Validateurs synchrones
-        [EmailAsyncValidator.createValidator(this.emailCheckService)] // Validateur asynchrone
+        [EmailAsyncValidator.createValidator(this.emailCheckService, this)] // Validateur asynchrone (on lui passe le composant)
       ],
       username: ['', Validators.required], 
       password: [
@@ -80,19 +82,24 @@ export class RegisterPageComponent implements OnInit{
 
 
   // Fonction de vérification si l'email existe déjà
-  checkEmail() {
-    const email = this.registerForm.get('email')?.value;
-    if (email) {
-      this.emailCheckService.checkEmailExists(email).subscribe((response) => {
-        this.emailExists = response.exists;
-      });
+  // Méthode pour afficher l'état de l'email
+  get emailStatusMessage(): string {
+    if (this.emailChecking) {
+      return 'Vérification de la disponibilité de l\'email...';
     }
+    if (this.emailAvailable === true) {
+      return 'Adresse email disponible !';
+    }
+    if (this.emailAvailable === false) {
+      return 'Cet email est déjà utilisé.';
+    }
+    return '';
   }
 
   // passwordComplexityValidator: construction de la phrase d'erreur
   get passwordErrorMessage(): string | null {
     const passwordControl = this.registerForm.get('password');
-    
+
     if (passwordControl?.hasError('required')) {
       return 'Le mot de passe est requis.';
     }
