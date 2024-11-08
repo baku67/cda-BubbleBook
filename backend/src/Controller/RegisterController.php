@@ -19,14 +19,15 @@ use App\Service\MailerService;
 class RegisterController extends AbstractController
 {
     public function __construct(
-        private MailerService $mailService, 
+        private MailerService $mailService,
         private MailConfirmationTokenService $mailConfirmationTokenService,
-        private EntityManagerInterface $entityManager, 
-        private UserPasswordHasherInterface $passwordHasher, 
+        private EntityManagerInterface $entityManager,
+        private UserPasswordHasherInterface $passwordHasher,
         private UserRepository $userRepository,
         private RoleRepository $roleRepository,
-    )
-    {}
+    ) {
+        
+    }
 
 
     #[Route('/api/register', name: 'api_register', methods: ['POST'])]

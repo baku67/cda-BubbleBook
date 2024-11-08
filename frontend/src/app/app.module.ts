@@ -39,17 +39,17 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   ],
   imports: [
     BrowserModule, 
-    // RouterModule.forRoot([]),
     RouterModule.forRoot(routes),
+    ReactiveFormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+
     MatButtonModule,
     MatFormField,
     MatLabel,
     MatInputModule,
     MatFormFieldModule,
     MatProgressSpinner,
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
     MatIconModule,
     MatSlideToggleModule,
     
