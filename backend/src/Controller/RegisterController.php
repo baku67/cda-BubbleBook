@@ -156,6 +156,9 @@ class RegisterController extends AbstractController
     
         // Récupérer l'utilisateur connecté
         $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
     
         if (!$user || $user->getEmail() !== $email) {
             return new JsonResponse(['error' => 'Unauthorized'], 403);

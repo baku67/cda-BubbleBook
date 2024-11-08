@@ -26,8 +26,6 @@ class UserController extends AbstractController
     {
         // Récupérer l'utilisateur connecté
         $user = $this->getUser();
-
-        // Vérifier si l'utilisateur est connecté
         if (!$user instanceof User) {
             return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
         }
