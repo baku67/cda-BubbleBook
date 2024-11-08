@@ -26,7 +26,13 @@
     padding: 0;
     box-sizing: border-box;
 
+    color: white;
+}
+input {
     color: white !important;
+}
+input::placeholder {
+    color: rgb(182, 182, 182) !important;
 }
 
 
@@ -58,4 +64,10 @@ h1, h2, h3 {
 }
 
 p, span, a, input, button, select, textarea {
+}
+
+
+
+.btn-underlined {
+    text-decoration: underline;
 }

@@ -25,8 +25,9 @@ export class LoginPageComponent implements OnInit{
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]], // Ici les validateurs synchrones doivent être dans un tableau
-      password: ['', [Validators.required]], // 
+      email: ['', [Validators.required, Validators.email]], 
+      password: ['', [Validators.required]], 
+      rememberMe: [false], // defaut false
     });
   } 
 

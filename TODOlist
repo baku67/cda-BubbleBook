@@ -1,3 +1,16 @@
+feedback: FlashBag sur la page après redirection quand on a créé son compte
+Mail de confirmation d'activation de compte
+
+Débouncing vérif mail exist et petit loader ?
+Forms Validator = dirty
+
+Sécurités/validateurs backend et flashBags correspondant (ou pas parce que normalement pas souvent visibles)
+
+
+
+
+
+
 Test curl CORS login (après un register echec CORS):
 curl -v -X POST http://localhost:8000/api/login -H "Origin: http://localhost:4200" -H "Content-Type: application/json" -d '{"email": "basile@hotmail.fr", "password": "basile"}'
 
@@ -5,10 +18,6 @@ curl -v -X POST http://localhost:8000/api/login -H "Origin: http://localhost:420
 STOP UserInterface et generation/validation des JWT automatique avec json_login ou login_sjon (lexik-jwt-bidule)
 (et penser au onJWTCreated symfony)
 
-
-
-
-Vérif email already in use à l'input: +warning correspondant
 
 Username + avatar plutot sur 2eme étape de register (!), avec un bandeau suggestion 2FA
 -> banque d'avatars (générés IA) ou upload (compress et redim intégré si l'user met une bombre de 10MB)

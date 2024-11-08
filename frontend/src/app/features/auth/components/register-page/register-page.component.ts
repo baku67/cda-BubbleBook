@@ -5,10 +5,11 @@ import { Router } from '@angular/router';
 // rxjs: debounce/throttlong input checkEmail:
 // import { debounceTime, distinctUntilChanged } from 'rxjs/operators'; // Import des opérateurs rxjs
 // Customs:
-import { passwordMatchValidator } from '../../../../shared/error/passwordMatchValidator.directive';
+import { passwordMatchValidator } from '../../../../shared/validators/passwordMatchValidator';
 import { EmailCheckService } from '../../services/email-disponibility.service';
-import { EmailAsyncValidator } from '../../../../shared/error/emailExistValidator';
+import { EmailAsyncValidator } from '../../../../shared/validators/emailExistValidator';
 import { AuthService } from '../../services/auth.service';
+import { passwordComplexityValidator } from '../../../../shared/validators/passwordComplexityValidator';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class RegisterPageComponent implements OnInit{
   registerForm!: FormGroup;
   isLoading: boolean;
   emailExists = false;
-
+ 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder, 
@@ -39,10 +40,18 @@ export class RegisterPageComponent implements OnInit{
         [Validators.required, Validators.email], // Validateurs synchrones
         [EmailAsyncValidator.createValidator(this.emailCheckService)] // Validateur asynchrone
       ],
-      username: ['', Validators.required], // TODO (dev)
-      password: ['', [Validators.required, Validators.minLength(6)]], //TODO (dev) + regex specialchars etc
+      username: ['', Validators.required], 
+      password: [
+        '', 
+        [
+          Validators.required, 
+          Validators.minLength(8),
+          passwordComplexityValidator(), // multiples regex de validation des critères mdp
+        ]
+      ], 
       passwordCheck: ['', [Validators.required]],
-      is2fa: [false], // Todo: false par defaut et demandé sur prochain écran (les 2-3 premiers login)
+      is2fa: [false], // false par defaut TODO
+      acceptTerms: [false, Validators.requiredTrue],
     }, { validator: passwordMatchValidator });
   }
 
@@ -78,5 +87,23 @@ export class RegisterPageComponent implements OnInit{
         this.emailExists = response.exists;
       });
     }
+  }
+
+  // passwordComplexityValidator: construction de la phrase d'erreur
+  get passwordErrorMessage(): string | null {
+    const passwordControl = this.registerForm.get('password');
+    
+    if (passwordControl?.hasError('required')) {
+      return 'Le mot de passe est requis.';
+    }
+    if (passwordControl?.hasError('minlength')) {
+      return 'Le mot de passe doit contenir au moins 8 caractères.';
+    }
+    if (passwordControl?.hasError('passwordComplexity')) {
+      const errors = passwordControl.getError('passwordComplexity');
+      const missingCriteria = Object.values(errors).join(', ');
+      return `Le mot de passe doit contenir au moins ${missingCriteria}.`;
+    }
+    return null;
   }
 }

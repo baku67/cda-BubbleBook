@@ -5,19 +5,21 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        // Utilisateur 1 (Vérifié, pas de 2FA, [user, admin])
+        // Utilisateur 1 (Vérifié, pas de 2FA, [user])
         $user = new User();
         $user->setUsername("admin");
         $user->setEmail("admin@admin.com");
         $user->setPassword("admin");
         $user->setVerified(true);
         $user->set2fa(false);
-        $user->setRoles(["user", "admin"]);
+        // Ajout des rôles à partir des références
+        $user->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE));
         $manager->persist($user);
 
 
@@ -28,9 +30,18 @@ class UserFixtures extends Fixture
         $user1->setPassword("admin1");
         $user1->setVerified(false);
         $user1->set2fa(false);
-        $user1->setRoles(["user", "admin"]);
+        // Ajout des rôles à partir des références
+        $user1->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE));
+        $user1->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE));
         $manager->persist($user1);
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            RoleFixtures::class,
+        ];
     }
 }

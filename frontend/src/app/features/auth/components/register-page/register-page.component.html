@@ -9,13 +9,13 @@
 
     <div>
       <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>Email:</mat-label>
+        <mat-label>Adresse mail:</mat-label>
         <input 
           matInput 
           matFormFieldControl 
           formControlName="email" 
           type="email" 
-          placeholder="Enter your email"
+          placeholder="Entrez votre adresse mail"
           autocomplete="email"
         >
       </mat-form-field>
@@ -24,21 +24,20 @@
       <div *ngIf="registerForm.get('email')?.hasError('emailTaken') && registerForm.get('email')?.touched">
         <mat-error class="formFieldError">Cet email est déjà utilisé.</mat-error>
       </div>
-
-      <!-- Erreur pour email requis ou invalide -->
+      <!-- Erreur pour email requis -->
       <div *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
-        <mat-error class="formFieldError">Email is required.</mat-error>
+        <mat-error class="formFieldError">L'adresse mail est obligatoire.</mat-error>
       </div>
-
+      <!-- Erreur pour email invalide -->
       <div *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
-        <mat-error class="formFieldError">Invalid email format.</mat-error>
+        <mat-error class="formFieldError">Format d'email invalide.</mat-error>
       </div>
     </div>
 
     <!-- // migrer vers profil (et first-connection) -->
     <div>
       <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>Username:</mat-label>
+        <mat-label>Nom d'utilisateur:</mat-label>
         <input 
           matInput 
           matFormFieldControl 
@@ -48,14 +47,15 @@
         >
       </mat-form-field>
 
+      <!-- Erreur pour username requis -->
       <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
-        <mat-error class="formFieldError">Username is required.</mat-error>
+        <mat-error class="formFieldError">Nom d'utilisateur obligatoire.</mat-error>
       </div>
     </div>
 
     <div>
       <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>Password:</mat-label>
+        <mat-label>Mot de passe:</mat-label>
         <input 
           matInput 
           matFormFieldControl 
@@ -64,14 +64,15 @@
           autocomplete="new-password">
       </mat-form-field>
 
-      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-        <mat-error>Password is required (minimum 6 characters).</mat-error>
+      <!-- Phase d'erreur généré via le passwordComplexityValidator -->
+      <div *ngIf="registerForm.get('password')?.touched && passwordErrorMessage">
+        <mat-error>{{ passwordErrorMessage }}</mat-error>
       </div>
     </div>
 
     <div>
       <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>Confirm password:</mat-label>
+        <mat-label>Confirmer le mot de passe:</mat-label>
         <input 
           matInput 
           matFormFieldControl 
@@ -81,31 +82,32 @@
           >
       </mat-form-field>
       
+      <!-- Erreur pour mdp confirm ou Mismatch -->
       <div *ngIf="registerForm.get('passwordCheck')?.invalid && registerForm.get('passwordCheck')?.touched">
-        <mat-error>Password confirmation is required</mat-error>
+        <mat-error class="formFieldError">La confirmation de mot de passe est obligatoire.</mat-error>
       </div>
       <div *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('passwordCheck')?.touched">
-        <mat-error>Les mots de passe ne correspondent pas.</mat-error>
+        <mat-error class="formFieldError">Les mots de passe ne correspondent pas.</mat-error>
+      </div>
+    </div>
+
+    <div>
+      <mat-slide-toggle formControlName="acceptTerms">J'accepte les termes et conditions d'utilisation du site.</mat-slide-toggle>
+
+      <!-- Erreur pour conditions d'utilisation non acceptés -->
+      <div *ngIf="registerForm.get('acceptTerms')?.invalid && registerForm.get('acceptTerms')?.touched">
+        <mat-error class="formFieldError">Vous devez accepter les termes et conditions d'utilisation.</mat-error>
       </div>
     </div>
   
-    <!-- *** 2FA par defaut à false et demandé au prochain écran en meme temps que Username et avatars -->
-    <!-- <div>
-      <label for="is2fa">Enable 2FA:</label>
-      <input id="is2fa" formControlName="is2fa" type="checkbox" />
-    </div> -->
-
-
     <!-- Submit & Spinner -->
     <button mat-flat-button class="cta-btn-primary" type="submit" [disabled]="registerForm.invalid">
-      <span *ngIf="!isLoading">Register</span>
+      <span *ngIf="!isLoading">S'inscrire</span>
       <mat-spinner *ngIf="isLoading"></mat-spinner>
     </button>
 
-    <a [routerLink]="['/login']">
-      <button mat-flat-button class="cta-btn-primary">
-        Déjà un compte ?
-      </button>
+    <a [routerLink]="['/login']" mat-button>
+        <span class="btn-underlined">Vous possédez déjà un compte ?</span>
     </a>
 
   </form>

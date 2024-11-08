@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,17 +35,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $is2fa = null;
 
-    /**
-     * @var string[]
-     */
-    #[ORM\Column(type: Types::JSON)]
-    private array $roles = [];
-
     #[ORM\Column(length: 64, nullable: true)]
     private ?string $confirmationToken = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $confirmationTokenExpiry = null;
+
+
+    /**
+     * @var Collection<int, Role>
+     */
+    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users')]
+    private Collection $roles;
+
+
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+    }
 
 
 
@@ -112,25 +121,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getRoles(): array
-    {
-        // return $this->roles;
-        // Garantie que chaque utilisateur a au moins le rôle ROLE_USER
-        return array_unique(array_merge(['ROLE_USER'], $this->roles));
-    }
 
-    /**
-     * @param string[] $roles
-     */
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
 
 
     // OBLIGE PAR UserInterface
@@ -174,6 +165,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setConfirmationTokenExpiry(?\DateTimeInterface $confirmationTokenExpiry): static
     {
         $this->confirmationTokenExpiry = $confirmationTokenExpiry;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return string[]
+     */
+    public function getRoles(): array
+    {
+        $roles = [];
+
+        foreach ($this->roles as $role) {
+            $roles[] = $role->getName();
+        }
+
+        // Assure qu'au moins un rôle par défaut est toujours présent
+        $roles[] = 'ROLE_USER';
+
+        // Élimine les doublons au cas où
+        return array_unique($roles);
+    }
+
+    public function addRole(Role $role): static
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles->add($role);
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): static
+    {
+        $this->roles->removeElement($role);
 
         return $this;
     }

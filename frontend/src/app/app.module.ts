@@ -21,6 +21,7 @@ import { SharedModule } from './shared/shared.module';
 import { FirstLoginModule } from './features/first-login/first-login.module';
 import { ConfirmEmailComponent } from './features/profil/components/confirm-email/confirm-email.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 // Standalone:
 // import { FooterComponent } from './shared/ui-components/footer/footer.component';
@@ -50,6 +51,7 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatSlideToggleModule,
     
     FirstLoginModule,
     SharedModule,

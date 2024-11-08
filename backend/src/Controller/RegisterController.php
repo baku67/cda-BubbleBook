@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Service\MailConfirmationTokenService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 // use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface; // déprécié pour UserPasswordHasher
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -22,6 +24,7 @@ class RegisterController extends AbstractController
         private EntityManagerInterface $entityManager, 
         private UserPasswordHasherInterface $passwordHasher, 
         private UserRepository $userRepository,
+        private RoleRepository $roleRepository,
     )
     {}
 
@@ -30,35 +33,73 @@ class RegisterController extends AbstractController
     public function register(Request $request)
     {
         $data = json_decode($request->getContent(), true);
+
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            return new JsonResponse([
+                'message' => 'L\'email fourni n\'est pas valide.'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+        
+        if (strlen($data['password']) < 6) {
+            return new JsonResponse([
+                'message' => 'Le mot de passe doit contenir au moins 6 caractères.'
+            ], Response::HTTP_BAD_REQUEST);
+        }
         
         // Validation des données
         if (empty($data['email']) || empty($data['password']) || empty($data['username'])) {
-            return new JsonResponse(['error' => 'Invalid data provided'], 400);
+            return new JsonResponse([
+                'message' => 'Erreur lors de la création du compte. Les données envoyés sont invalides.'
+            ], Response::HTTP_BAD_REQUEST); // 400
         }
 
         // Vérifier si l'utilisateur existe déjà avec cet email
         if ($this->userRepository->findOneBy(['email' => $data['email']])) {
-            return new JsonResponse(['error' => 'Email already in use'], 400);
+            return new JsonResponse([
+                'message' => 'Erreur lors de la création du compte. L\'email est déjà utilisé.'
+            ], Response::HTTP_BAD_REQUEST); // 400
         }
 
-        // Création de l'utilisateur & initialisations (Default Values SQL ?)
+        // Récupération du rôle 'ROLE_USER' depuis la table des rôles
+        $defaultRole = $this->roleRepository->findOneBy(['name' => 'ROLE_USER']);
+        if (!$defaultRole) {
+            return new JsonResponse([
+                'message' => 'Erreur interne : le rôle par défaut n\'existe pas.'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        // Création de l'utilisateur & initialisations 
         $user = new User();
         $user->setEmail($data['email']);
         $user->setPassword($this->passwordHasher->hashPassword($user, $data['password']));
-        $user->setUsername($data['username']);
+        $user->setUsername($data['username']); // Initialisé avec un random "diver#43232"
         // Définir les rôles 
-        $user->setRoles(['ROLE_USER']); // Rôle par défaut
+        $user->addRole($defaultRole); // Rôle par défaut
         // Envoyés/Initialisés à false:
         $user->set2fa($data['is2fa'] ?? false);
         $user->setVerified(false);
 
         // Envoi et persistence BDD d'un token de confirmation d'email (avec expiration):
-        $this->mailConfirmationTokenService->generateUserMailConfirmToken($data['email'], $user);
+        try {
+            $this->mailConfirmationTokenService->generateUserMailConfirmToken($data['email'], $user);
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'message' => 'Erreur lors de l\'envoi du mail de confirmation. Veuillez réessayer plus tard.'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        try {
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'message' => 'Erreur lors de l\'inscription. Veuillez réessayer plus tard.'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
-        return new JsonResponse(['status' => 'User created'], 201);
+        return new JsonResponse([
+            'message' => 'Votre compte a bien été créé.'
+        ], Response::HTTP_CREATED); // 201
     }
 
 
