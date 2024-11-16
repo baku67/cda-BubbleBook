@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
+import { environment } from '../../../../../environments/environments';
 
 @Component({
   selector: 'app-confirm-email',
@@ -28,7 +29,7 @@ export class ConfirmEmailComponent implements OnInit {
       this.emailAddress = params['emailAddress'];
       if (token && params['emailAddress']) {
         // Envoyer une requête au backend pour confirmer l'email
-        this.http.get(`http://localhost:8000/api/confirm-email?token=${token}`)
+        this.http.get(`http://${environment.apiUrl}/api/confirm-email?token=${token}`)
           .subscribe({
             next: () => {
               this.isLoading = false;
