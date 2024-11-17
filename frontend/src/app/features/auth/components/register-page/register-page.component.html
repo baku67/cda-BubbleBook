@@ -71,8 +71,21 @@
           matFormFieldControl 
           formControlName="password" 
           type="password" 
+          (input)="onPasswordInput()"
           autocomplete="new-password">
       </mat-form-field>
+
+      <div class="icone-et-jauge">
+        <mat-icon>key</mat-icon>
+        <div class="progress-bar-container">
+          <!-- "6" car 6 niveaux de complexité -->
+          <div 
+            class="progress-bar" 
+            [style.width.%]="(passwordComplexityScore / 6) * 100" 
+            [ngClass]="passwordStrengthColor"
+          ></div>
+        </div>
+      </div>
 
       <!-- Phase d'erreur généré via le passwordComplexityValidator -->
       <div *ngIf="registerForm.get('password')?.touched && passwordErrorMessage">

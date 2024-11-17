@@ -50,4 +50,42 @@ form {
     margin-bottom: 0px;
     padding-right: 12px;
   }
+
+
+  .icone-et-jauge {
+    display: inline-flex;
+    width: 100%;
+    gap: 9px;
+  }
+  .icone-et-jauge mat-icon {
+    overflow: visible;
+  }
+
+  /* Jauge complexité mot de passe: */
+  .progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.3s ease, background-color 0.3s ease; /* Ajout de la transition pour l'effet fluide */
+  }
+  
+  .progress-bar.weak {
+    background-color: var(--red); /* Rouge */
+  }
+  
+  .progress-bar.medium {
+    background-color: #ffcc00; /* Jaune */
+  }
+  
+  .progress-bar.strong {
+    background-color: var(--green); /* Vert */
+  }
+
   

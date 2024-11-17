@@ -129,3 +129,7 @@ footer {
     width: 100%; /* Faire en sorte que le bouton occupe toute la largeur de son conteneur */
     box-sizing: border-box; /* Inclure le padding et la bordure dans la taille de l'élément */
   }
+
+.mat-mdc-form-field-subscript-wrapper {
+    height: 4px;
+}

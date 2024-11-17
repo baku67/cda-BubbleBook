@@ -3,25 +3,36 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 export function passwordComplexityValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value || '';
-    const errors: Record<string, string> = {};
+    let complexityScore = 0;
 
-    // Vérifie chaque critère et ajoute une erreur correspondante si le critère n'est pas respecté
-    if (!/[A-Z]/.test(value)) {
-      errors['uppercase'] = 'une lettre majuscule';
+    //***** */ Vérifie chaque critère et augmente le score de complexité
+
+    // 1 majuscule:
+    if (/[A-Z]/.test(value)) {
+      complexityScore++;
+    }
+    // 1 minuscule:
+    if (/[a-z]/.test(value)) {
+      complexityScore++;
+    }
+    // 1 chiffre
+    if (/[0-9]/.test(value)) {
+      complexityScore++;
+    }
+    // 1 specialChar
+    if (/[@$!%*?&]/.test(value)) {
+      complexityScore++;
     }
 
-    if (!/[a-z]/.test(value)) {
-      errors['lowercase'] = 'une lettre minuscule';
+    // Ajoute des points supplémentaires pour la longueur du mot de passe
+    if (value.length >= 10) {
+      complexityScore++;
+    }
+    if (value.length >= 12) {
+      complexityScore++;
     }
 
-    if (!/[0-9]/.test(value)) {
-      errors['digit'] = 'un chiffre';
-    }
-
-    if (!/[@$!%*?&]/.test(value)) {
-      errors['special'] = 'un caractère spécial (@$!%*?&)';
-    }
-
-    return Object.keys(errors).length > 0 ? { passwordComplexity: errors } : null;
+    // Retourner le score de complexité
+    return { passwordComplexityScore: complexityScore };
   };
 }

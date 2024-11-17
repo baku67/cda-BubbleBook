@@ -22,6 +22,8 @@ export class RegisterPageComponent implements OnInit{
 
   emailChecking = false;
   emailAvailable: boolean | null = null;
+
+  passwordComplexityScore = 0;
  
   constructor(
     private authService: AuthService,
@@ -43,14 +45,27 @@ export class RegisterPageComponent implements OnInit{
         '', 
         [
           Validators.required, 
-          Validators.minLength(8),
-          passwordComplexityValidator(), // multiples regex de validation des critères mdp
+          Validators.minLength(8), // seul critère bloquant (jauge -> onPasswordInput())
         ]
       ], 
       passwordCheck: ['', [Validators.required]],
       is2fa: [false], // false par defaut TODO
       acceptTerms: [false, Validators.requiredTrue],
     }, { validator: passwordMatchValidator });
+  }
+
+
+  // passwordComplexityValidator.ts  (jauge mot de passe)
+  onPasswordInput(): void {
+    const passwordControl = this.registerForm.get('password');
+    if (passwordControl) {
+      const errors = passwordComplexityValidator()(passwordControl);
+      if (errors && errors['passwordComplexityScore'] !== undefined) {
+        this.passwordComplexityScore = errors['passwordComplexityScore'];
+      } else {
+        this.passwordComplexityScore = 0;
+      }
+    }
   }
 
 
@@ -90,6 +105,17 @@ export class RegisterPageComponent implements OnInit{
     return '';
   }
 
+  get passwordStrengthColor(): string {
+    if (this.passwordComplexityScore <= 2) {
+      return 'weak'; // Rouge
+    } else if (this.passwordComplexityScore <= 4) {
+      return 'medium'; // Jaune
+    } else {
+      return 'strong'; // Vert
+    }
+  }
+
+
   // passwordComplexityValidator: construction de la phrase d'erreur
   get passwordErrorMessage(): string | null {
     const passwordControl = this.registerForm.get('password');
@@ -99,11 +125,6 @@ export class RegisterPageComponent implements OnInit{
     }
     if (passwordControl?.hasError('minlength')) {
       return 'Le mot de passe doit contenir au moins 8 caractères.';
-    }
-    if (passwordControl?.hasError('passwordComplexity')) {
-      const errors = passwordControl.getError('passwordComplexity');
-      const missingCriteria = Object.values(errors).join(', ');
-      return `Le mot de passe doit contenir au moins ${missingCriteria}.`;
     }
     return null;
   }
