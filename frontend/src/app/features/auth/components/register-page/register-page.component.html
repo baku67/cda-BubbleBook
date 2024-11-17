@@ -1,15 +1,14 @@
-
-<header>
-  <h2>Créez un compte</h2>
-  <p>Créez un compte pour commencer à explorer et remplir votre carnet de plongée</p>
-</header>
+<app-header title="Créez un compte" paragraph="Créez un compte pour commencer à explorer et remplir votre carnet de plongée"/>
 
 
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<div class="pageContent">
+
+  <form *ngIf="!isLoading" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
     <div>
       <mat-form-field appearance="outline" class="matFieldInput">
         <mat-label>Adresse mail:</mat-label>
+
         <input 
           matInput 
           matFormFieldControl 
@@ -18,36 +17,30 @@
           placeholder="Entrez votre adresse mail"
           autocomplete="email"
         >
-      </mat-form-field>
 
-      <!-- Loadinf check email dispo -->
-      <div *ngIf="emailChecking" class="loadingLine">
-        <mat-spinner [diameter]="30"></mat-spinner>
-        <span>{{ emailStatusMessage }}</span>
-      </div>
-        <!-- Réponse check email dispo -->
-      <div *ngIf="!emailChecking && emailAvailable !== null">
-        <mat-error *ngIf="!emailAvailable" class="formFieldError iconLine">
-          <mat-icon>unpublished</mat-icon>
-          <span>{{ emailStatusMessage }}</span>
-        </mat-error>
-        <mat-hint *ngIf="emailAvailable" class="formFieldSuccess iconLine">
-          <mat-icon>task_alt</mat-icon>
-          <span>{{ emailStatusMessage }}</span>
-        </mat-hint>
-      </div>
+        <!-- Loadinf check email dispo -->
+        <div *ngIf="emailChecking" class="loadingLine" class="emailCheckSuffix" matSuffix>
+          <mat-spinner [diameter]="20" matTooltip="{{ emailStatusMessage }}"></mat-spinner>
+        </div>
+          <!-- Réponse check email dispo -->
+        <div *ngIf="!emailChecking && emailAvailable !== null" class="emailCheckSuffix" matSuffix>
+          <mat-icon *ngIf="!emailAvailable" class="color-red" matTooltip="{{ emailStatusMessage }}">unpublished</mat-icon>
+          <mat-icon *ngIf="emailAvailable" class="color-green" matTooltip="{{ emailStatusMessage }}">task_alt</mat-icon>
+        </div>
+
+      </mat-form-field>
 
       <!-- Erreur pour email déjà pris (emailTaken) -->
       <div *ngIf="registerForm.get('email')?.hasError('emailTaken') && registerForm.get('email')?.touched">
-        <mat-error class="formFieldError">Cet email est déjà utilisé.</mat-error>
+        <mat-error>Cet email est déjà utilisé.</mat-error>
       </div>
       <!-- Erreur pour email requis -->
       <div *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
-        <mat-error class="formFieldError">L'adresse mail est obligatoire.</mat-error>
+        <mat-error>L'adresse mail est obligatoire.</mat-error>
       </div>
       <!-- Erreur pour email invalide -->
       <div *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
-        <mat-error class="formFieldError">Format d'email invalide.</mat-error>
+        <mat-error>Format d'email invalide.</mat-error>
       </div>
     </div>
 
@@ -110,23 +103,36 @@
 
     <div>
       <mat-slide-toggle formControlName="acceptTerms">J'accepte les termes et conditions d'utilisation du site.</mat-slide-toggle>
-
-      <!-- Erreur pour conditions d'utilisation non acceptés -->
-      <div *ngIf="registerForm.get('acceptTerms')?.invalid && registerForm.get('acceptTerms')?.touched">
-        <mat-error class="formFieldError">Vous devez accepter les termes et conditions d'utilisation.</mat-error>
-      </div>
     </div>
   
     <!-- Submit & Spinner -->
-    <button mat-flat-button class="cta-btn-primary" type="submit" [disabled]="registerForm.invalid">
-      <span *ngIf="!isLoading">S'inscrire</span>
-      <mat-spinner *ngIf="isLoading"></mat-spinner>
-    </button>
+    <div [matTooltip]="registerForm.get('acceptTerms')?.value ? '' : 'Vous devez accepter les conditions d\'utilisation du site pour vous inscrire'">
+      <button 
+        mat-flat-button 
+        class="cta-btn-primary" 
+        type="submit" 
+        [disabled]="!registerForm.valid || emailChecking || isLoading"
+      >
+        <span *ngIf="!isLoading">S'inscrire</span>
+      </button>
+    </div>
 
     <a [routerLink]="['/login']" mat-button>
         <span class="btn-underlined">Vous possédez déjà un compte ?</span>
     </a>
 
   </form>
+
+  <div class="spinner-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+</div>
+
+
+
+
+
+<app-footer />
 
 

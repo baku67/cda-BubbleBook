@@ -1,66 +1,73 @@
+<app-header title="Se connecter" />
 
+<div class="pageContent">
 
-<h2>Se connecter</h2>
+  <form *ngIf="!isLoading" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-    <div>
-      <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>Adresse mail:</mat-label>
-        <input 
-          matInput 
-          matFormFieldControl 
-          formControlName="email" 
-          type="email" 
-          placeholder="Entrez votre adresse mail"
-          autocomplete="email"
-        >
-      </mat-form-field>
-
-      <!-- Erreur pour email requis -->
-      <div *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
-        <mat-error class="formFieldError">L'adresse mail est obligatoire.</mat-error>
-      </div>
-      <!-- Erreur pour email invalide -->
-      <div *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">
-        <mat-error class="formFieldError">Format d'email invalide.</mat-error>
-      </div>
-    </div>
-
-    <div>
-      <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>Mot de passe:</mat-label>
-        <input 
-          matInput 
-          matFormFieldControl 
-          formControlName="password" 
-          type="password"
-          autocomplete="current-password"
+      <div>
+        <mat-form-field appearance="outline" class="matFieldInput">
+          <mat-label>Adresse mail:</mat-label>
+          <input 
+            matInput 
+            matFormFieldControl 
+            formControlName="email" 
+            type="email" 
+            placeholder="Entrez votre adresse mail"
+            autocomplete="email"
           >
-      </mat-form-field>
+        </mat-form-field>
 
-      <!-- Erreur pour mdp requis -->
-      <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
-        <mat-error>Mot de passe requis.</mat-error>
+        <!-- Erreur pour email requis -->
+        <div *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
+          <mat-error class="formFieldError">L'adresse mail est obligatoire.</mat-error>
+        </div>
+        <!-- Erreur pour email invalide -->
+        <div *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">
+          <mat-error class="formFieldError">Format d'email invalide.</mat-error>
+        </div>
       </div>
-    </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="matFieldInput">
+          <mat-label>Mot de passe:</mat-label>
+          <input 
+            matInput 
+            matFormFieldControl 
+            formControlName="password" 
+            type="password"
+            autocomplete="current-password"
+            >
+        </mat-form-field>
+
+        <!-- Erreur pour mdp requis -->
+        <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+          <mat-error>Mot de passe requis.</mat-error>
+        </div>
+      </div>
 
 
-    <div>
-      <mat-slide-toggle formControlName="rememberMe">Se souvenir de moi</mat-slide-toggle>
-    </div>
+      <div>
+        <mat-slide-toggle formControlName="rememberMe">Se souvenir de moi</mat-slide-toggle>
+      </div>
 
-    <!-- Submit & Spinner -->
-    <button mat-flat-button class="cta-btn-primary" type="submit" [disabled]="loginForm.invalid">
-      <span *ngIf="!isLoading">Se connecter</span>
-      <mat-spinner *ngIf="isLoading"></mat-spinner>
-    </button>
+      <!-- Submit & Spinner -->
+      <button mat-flat-button class="cta-btn-primary" type="submit" [disabled]="loginForm.invalid">
+        <span *ngIf="!isLoading">Se connecter</span>
+      </button>
 
-    <p>Pas encore inscrit ?</p>
-    <a [routerLink]="['/register']" mat-button>
-      <span class="btn-underlined">Créer un compte</span>
-    </a>
+      <p>Pas encore inscrit ?</p>
+      <a [routerLink]="['/register']" mat-button>
+        <span class="btn-underlined">Créer un compte</span>
+      </a>
 
   </form>
+
+  <div class="spinner-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+</div>
+
+
+<app-footer />
 

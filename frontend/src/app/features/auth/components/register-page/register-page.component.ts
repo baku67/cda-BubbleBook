@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 // rxjs: debounce/throttlong input checkEmail:
 // import { debounceTime, distinctUntilChanged } from 'rxjs/operators'; // Import des opérateurs rxjs
 // Customs:
@@ -28,8 +26,6 @@ export class RegisterPageComponent implements OnInit{
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder, 
-    private http: HttpClient, 
-    private router: Router,
     private emailCheckService: EmailCheckService,
   ) {
     this.isLoading = false;
@@ -80,9 +76,7 @@ export class RegisterPageComponent implements OnInit{
     }
   }
 
-
-  // Fonction de vérification si l'email existe déjà
-  // Méthode pour afficher l'état de l'email
+  // Message de status de la vérification de disponibilité de l'adresse mail (ToolTip de l'icon de champs)
   get emailStatusMessage(): string {
     if (this.emailChecking) {
       return 'Vérification de la disponibilité de l\'email...';

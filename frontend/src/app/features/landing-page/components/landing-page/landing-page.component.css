@@ -1,8 +1,6 @@
 :host {
-    display: block;
     height: 100%;
 
-    /* width: 94%; */
     padding: 15px;
     margin: 0 auto;
 
@@ -10,6 +8,11 @@
     background-size: cover;
     background-position: center; 
     background-repeat: no-repeat; 
+
+    /* Pour footer */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -53,16 +56,7 @@
     margin: 0 10px; /* Espacement entre les éléments */
   }
   
-  .cta-btn-primary, .cta-btn-secondary {
-    display: block; /* Rendre les liens comme des blocs */
-    text-align: center; /* Centrer le texte à l'intérieur des boutons */
-    padding: 10px 20px; /* Ajuster le padding */
-    background-color: #009688; /* Couleur d'arrière-plan */
-    color: #fff; /* Couleur du texte */
-    text-decoration: none; /* Enlever la décoration du texte */
-    width: 100%; /* Faire en sorte que le bouton occupe toute la largeur de son conteneur */
-    box-sizing: border-box; /* Inclure le padding et la bordure dans la taille de l'élément */
-  }
+
   
   .cta-btn-secondary {
     background-color: #ffffff00; /* Couleur différente pour le bouton secondaire */

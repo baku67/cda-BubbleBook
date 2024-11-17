@@ -1,3 +1,10 @@
+:host {
+  /* Pour footer */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 form {
     display: flex;
     flex-direction: column;

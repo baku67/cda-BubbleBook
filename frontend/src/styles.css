@@ -2,7 +2,9 @@
 :root {
     --primary-color: #7FFFD4; /* Aquamarine */
     --background-color: #010e27; /* Brewers Blue */
-    
+
+    --green: greenyellow;
+    --red: indianred;
 
     --font-size-small: 0.875rem;   /* 14px */
     --font-size-base: 1rem;        /* 16px */
@@ -67,6 +69,23 @@ p, span, a, input, button, select, textarea {
 }
 
 
+header {
+
+}
+.pageContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+    padding: 10px 20px;
+}
+footer {
+
+}
+
+
 
 .btn-underlined {
     text-decoration: underline;
@@ -83,3 +102,30 @@ p, span, a, input, button, select, textarea {
     align-items: center;
     gap: 10px;
 }
+
+.color-green {
+    color: var(--green);
+}
+.color-red {
+    color: var(--red);
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: -webkit-fill-available;
+    min-height: 300px;
+}
+
+
+.cta-btn-primary, .cta-btn-secondary {
+    display: block; /* Rendre les liens comme des blocs */
+    text-align: center; /* Centrer le texte à l'intérieur des boutons */
+    padding: 10px 20px; /* Ajuster le padding */
+    background-color: #009688; /* Couleur d'arrière-plan */
+    color: #fff; /* Couleur du texte */
+    text-decoration: none; /* Enlever la décoration du texte */
+    width: 100%; /* Faire en sorte que le bouton occupe toute la largeur de son conteneur */
+    box-sizing: border-box; /* Inclure le padding et la bordure dans la taille de l'élément */
+  }

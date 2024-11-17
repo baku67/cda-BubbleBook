@@ -8,7 +8,7 @@ import { routes } from './app.routes';  // Import the routes
 import { LoginPageComponent } from './features/auth/components/login-page/login-page.component';
 import { RegisterPageComponent } from './features/auth/components/register-page/register-page.component';
 import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
@@ -22,6 +22,7 @@ import { FirstLoginModule } from './features/first-login/first-login.module';
 import { ConfirmEmailComponent } from './features/profil/components/confirm-email/confirm-email.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Standalone:
 // import { FooterComponent } from './shared/ui-components/footer/footer.component';
@@ -41,6 +42,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     BrowserModule, 
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
 
@@ -52,6 +54,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatProgressSpinner,
     MatIconModule,
     MatSlideToggleModule,
+    MatTooltipModule,
     
     FirstLoginModule,
     SharedModule,

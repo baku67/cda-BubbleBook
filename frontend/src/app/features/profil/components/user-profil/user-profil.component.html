@@ -1,43 +1,42 @@
 
-<div *ngIf="isLoading">
-    <mat-spinner></mat-spinner>
-</div>
+<app-header title="Profil" />
 
+<div class="pageContent">
 
-<div *ngIf="!isLoading">
+    <div *ngIf="!isLoading">
 
-    <h1>Profil</h1>
+        <p>Email: {{ user?.email }}</p>
+        <p>Nom d'utilisateur:{{ user?.username }}</p>
+        <p>Email vérifié: {{ user?.isVerified }}</p>
+        <p>Authentification à 2 facteurs:{{ user?.is2fa }}</p>
 
-    <p>Email: {{ user?.email }}</p>
-    <p>Nom d'utilisateur:{{ user?.username }}</p>
-    <p>Email vérifié: {{ user?.isVerified }}</p>
-    <p>Authentification à 2 facteurs:{{ user?.is2fa }}</p>
+        <div *ngIf="!user?.isVerified">
 
+            <button 
+                *ngIf="!emailConfirmResent"
+                mat-flat-button 
+                (click)="resendConfirmationEmail()"
+            >
+                <span *ngIf="!emailConfirmResentLoading">Renvoyer le mail de confirmation</span>
+                <mat-spinner *ngIf="emailConfirmResentLoading"></mat-spinner>
+            </button>
 
+            <div *ngIf="emailConfirmResent">
+                <mat-icon>task_alt</mat-icon>
+                <p>Un email de confirmation vous a été renvoyé à l'adresse {{ user?.email }}</p>
+            </div>
 
-    <div *ngIf="!user?.isVerified">
-
-        <button 
-            *ngIf="!emailConfirmResent"
-            mat-flat-button 
-            (click)="resendConfirmationEmail()"
-        >
-            <span *ngIf="!emailConfirmResentLoading">Renvoyer le mail de confirmation</span>
-            <mat-spinner *ngIf="emailConfirmResentLoading"></mat-spinner>
-        </button>
-
-        <div *ngIf="emailConfirmResent">
-            <mat-icon>task_alt</mat-icon>
-            <p>Un email de confirmation vous a été renvoyé à l'adresse {{ user?.email }}</p>
         </div>
+
+        <!-- <app-alert-banner *ngIf="user.isVerified" msgAlert="Confirmez votre email pour profiter de toutes les fonctionalitées !"/> -->
 
     </div>
 
-
-    <!-- <app-alert-banner *ngIf="user.isVerified" msgAlert="Confirmez votre email pour profiter de toutes les fonctionalitées !"/> -->
-
-
+    <div *ngIf="isLoading" class="spinner-container">
+        <mat-spinner></mat-spinner>
+    </div>
 
 </div>
 
+<app-footer />
 

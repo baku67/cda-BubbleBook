@@ -1,3 +1,11 @@
+:host {
+  /* Pour footer */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
 form {
     display: flex;
     flex-direction: column;
@@ -35,5 +43,11 @@ form {
 
   .matFieldInput {
     width: 100%;
+  }
+
+
+  .emailCheckSuffix {
+    margin-bottom: 0px;
+    padding-right: 12px;
   }
   
