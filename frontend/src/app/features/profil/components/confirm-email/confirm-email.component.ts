@@ -29,7 +29,7 @@ export class ConfirmEmailComponent implements OnInit {
       this.emailAddress = params['emailAddress'];
       if (token && params['emailAddress']) {
         // Envoyer une requête au backend pour confirmer l'email
-        this.http.get(`http://${environment.apiUrl}/api/confirm-email?token=${token}`)
+        this.http.get(`${environment.apiUrl}/api/confirm-email?token=${token}`)
           .subscribe({
             next: () => {
               this.isLoading = false;
