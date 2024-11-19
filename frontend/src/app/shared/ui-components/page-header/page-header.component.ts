@@ -3,13 +3,13 @@ import { AuthService } from '../../../features/auth/services/auth.service';
 import { NavComponent } from "../nav/nav.component";
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-page-header',
   standalone: true,
   imports: [NavComponent],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  templateUrl: './page-header.component.html',
+  styleUrl: './page-header.component.css'
 })
-export class HeaderComponent implements OnInit {
+export class PageHeaderComponent implements OnInit {
 
   @Input() title!: string;
   @Input() subtitle?: string | null;
