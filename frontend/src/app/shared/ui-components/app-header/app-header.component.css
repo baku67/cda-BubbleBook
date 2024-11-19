@@ -1,3 +1,8 @@
+:host {
+    border-bottom: 1px solid #80808038;
+
+}
+
 .hero-header {
     display: inline-flex;
     align-items: center;

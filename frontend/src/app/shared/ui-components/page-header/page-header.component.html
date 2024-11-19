@@ -5,7 +5,7 @@
         <h2>{{ title }}</h2>    
     </div>
 
-    <span>{{ paragraph }}</span>
+    <span *ngIf="paragraph" class="page-description">{{ paragraph }}</span>
 
 </header>
 

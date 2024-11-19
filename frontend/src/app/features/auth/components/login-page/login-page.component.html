@@ -1,9 +1,11 @@
 <app-header />
 
-<app-page-header title="Se connecter" />
-
 
 <div class="pageContent">
+
+
+  <app-page-header title="Connexion" />
+
 
   <form *ngIf="!isLoading" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 

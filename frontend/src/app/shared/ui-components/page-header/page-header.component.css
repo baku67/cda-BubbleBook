@@ -1,7 +1,6 @@
 :host {
     padding: 5px 10px;
 
-    border-bottom: 1px solid #80808038;
 }
 
 .page-title-line {
@@ -17,4 +16,17 @@
 }
 .page-title-icon {
     font-size: 42px;
+}
+
+
+.page-description {
+    display: block;
+    /* width: 90%; */
+
+    padding: 7px 17px;
+    margin: 10px auto;
+
+    border: 1px solid #80808026;
+    border-radius: 13px;
+    background-color: #00ffff12;
 }

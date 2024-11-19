@@ -1,9 +1,10 @@
 <app-header />
 
-<app-page-header title="Créez un compte" paragraph="Créez un compte pour commencer à explorer et remplir votre carnet de plongée"/>
-
 
 <div class="pageContent">
+
+  <app-page-header title="Créer un compte" paragraph="Créez un compte pour commencer à explorer et remplir votre carnet de plongée"/>
+
 
   <form *ngIf="!isLoading" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 

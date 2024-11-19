@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../../features/auth/services/auth.service';
 import { NavComponent } from "../nav/nav.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-page-header',
   standalone: true,
-  imports: [NavComponent],
+  imports: [NavComponent, CommonModule],
   templateUrl: './page-header.component.html',
   styleUrl: './page-header.component.css'
 })
