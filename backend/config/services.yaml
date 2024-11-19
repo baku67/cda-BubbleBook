@@ -46,3 +46,8 @@ services:
 
     App\Service\ConfirmationTokenService:
         public: true
+
+
+    App\Service\MailerService:
+        arguments:
+            $frontendBaseUrl: '%env(FRONT_LOCAL_NETWORK)%'

@@ -23,7 +23,11 @@ export class RegisterPageComponent implements OnInit{
   emailChecking = false;
   emailAvailable: boolean | null = null;
 
+  hidePassword1 = true;
+  hidePassword2 = true;
+
   passwordComplexityScore = 0;
+
  
   constructor(
     private authService: AuthService,
@@ -89,6 +93,13 @@ export class RegisterPageComponent implements OnInit{
     } else {
       console.error('Form is invalid');
     }
+  }
+
+  togglePassword1Visibility(): void {
+    this.hidePassword1 = !this.hidePassword1;
+  }
+  togglePassword2Visibility(): void {
+    this.hidePassword2 = !this.hidePassword2;
   }
 
   // Message de status de la vérification de disponibilité de l'adresse mail (ToolTip de l'icon de champs)

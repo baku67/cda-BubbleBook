@@ -4,6 +4,9 @@
 
 <div class="pageContent">
 
+    <app-page-header *ngIf="isLoading" title="Confirmation de l'email..." matIcon="alternate_email" />
+    <app-page-header *ngIf="!isLoading" title="Adresse email confirmée" matIcon="alternate_email" />
+
     <mat-spinner *ngIf="isLoading"></mat-spinner>
 
     <div *ngIf="!isLoading && confirmSuccess">

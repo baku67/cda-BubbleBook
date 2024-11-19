@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -15,11 +14,11 @@ export class LoginPageComponent implements OnInit{
   loginForm!: FormGroup;
   isLoading = false;
   errorMessage: string | null = null;
+  hidePassword = true;
 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder, 
-    private http: HttpClient, 
     private router: Router,
   ) {}
 
@@ -52,6 +51,11 @@ export class LoginPageComponent implements OnInit{
       console.error('Form is invalid');
       this.errorMessage = 'Please fill in all required fields correctly.';
     }
+  }
+
+
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
   }
 
 }

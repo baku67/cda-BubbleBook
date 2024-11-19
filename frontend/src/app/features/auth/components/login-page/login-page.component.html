@@ -4,7 +4,7 @@
 <div class="pageContent">
 
 
-  <app-page-header title="Connexion" />
+  <app-page-header title="Connexion" matIcon="account_circle" />
 
 
   <form *ngIf="!isLoading" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -33,21 +33,26 @@
       </div>
 
       <div>
+
         <mat-form-field appearance="outline" class="matFieldInput">
+
           <mat-label>Mot de passe:</mat-label>
           <input 
             matInput 
             matFormFieldControl 
             formControlName="password" 
-            type="password"
+            [type]="hidePassword ? 'password' : 'text'"
             autocomplete="current-password"
             >
+          <mat-icon matSuffix (click)="togglePasswordVisibility()">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+
         </mat-form-field>
 
         <!-- Erreur pour mdp requis -->
         <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
           <mat-error>Mot de passe requis.</mat-error>
         </div>
+
       </div>
 
 

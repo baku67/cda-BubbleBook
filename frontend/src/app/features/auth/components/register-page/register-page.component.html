@@ -3,7 +3,11 @@
 
 <div class="pageContent">
 
-  <app-page-header title="Créer un compte" paragraph="Créez un compte pour commencer à explorer et remplir votre carnet de plongée"/>
+  <app-page-header 
+    [title]="!isLoading ? 'Créer un compte' : 'Création du compte...'" 
+    paragraph="Créez un compte pour commencer à explorer et remplir votre carnet de plongée" 
+    matIcon="account_circle" 
+  />
 
 
   <form *ngIf="!isLoading" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -73,9 +77,10 @@
           matInput 
           matFormFieldControl 
           formControlName="password" 
-          type="password" 
+          [type]="hidePassword1 ? 'password' : 'text'"
           (input)="onPasswordInput()"
           autocomplete="new-password">
+        <mat-icon matSuffix (click)="togglePassword1Visibility()">{{ hidePassword1 ? 'visibility_off' : 'visibility' }}</mat-icon>
       </mat-form-field>
 
       <div class="icone-et-jauge">
@@ -103,9 +108,10 @@
           matInput 
           matFormFieldControl 
           formControlName="passwordCheck" 
-          type="password"
+          [type]="hidePassword2 ? 'password' : 'text'"
           autocomplete="new-password"
           >
+        <mat-icon matSuffix (click)="togglePassword2Visibility()">{{ hidePassword2 ? 'visibility_off' : 'visibility' }}</mat-icon>
       </mat-form-field>
       
       <!-- Erreur pour mdp confirm ou Mismatch -->

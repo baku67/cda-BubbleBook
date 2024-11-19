@@ -1,5 +1,5 @@
 :host {
-    padding: 5px 10px;
+    padding: 15px 2px;
 
 }
 
@@ -8,14 +8,18 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
 }
 .page-title-line h2 {
     margin-bottom: 0;
     font-size: 30px;
 }
 .page-title-icon {
-    font-size: 42px;
+    font-size: 44px;
+    height: 44px;
+    width: 44px;
+    position: relative;
+    bottom: 2px;
 }
 
 
