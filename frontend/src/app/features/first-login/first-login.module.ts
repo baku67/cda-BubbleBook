@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { FirstLogin1Component } from './components/first-login-1/first-login-1.component';
 import { FirstLogin2Component } from './components/first-login-2/first-login-2.component';
 import { routes } from '../../app.routes';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -26,6 +27,8 @@ import { routes } from '../../app.routes';
     MatLabel,
     MatInputModule,
     MatFormFieldModule,
+
+    SharedModule,
 
     RouterModule.forRoot(routes),
   ]

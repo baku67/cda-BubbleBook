@@ -1,23 +1,32 @@
-<!-- SI PLONGEUR (reel première page) -->
-<h1>Bienvenue sur votre carnet de plongée</h1>
-<p>Personalisez votre expérience en complétant votre profil en 2-3 clics</p>
+<app-header />
 
+<div class="pageContent">
 
-<!-- CHOIX Plongeur ou Club -->
-<span>Plongeur</span>
-<span>Club</span>
+    <app-page-header title="Vous êtes..." matIcon="account_circle" />
 
-<!-- Retour -->
-<!-- <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" >
-    <button mat-flat-button class="cta-btn-primary">Retour</button>
-</a> -->
+    <!-- TODO form type user (Héritage backend), même si club pas la priorité (ouverture pour projet) -->
+    <div>
+    
+        <!-- CHOIX Plongeur ou Club -->
+        <span>Plongeur</span>
+        <span>Club</span>
 
-<!-- Validation de Form -->
-<a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" >
-    <button mat-flat-button class="cta-btn-primary">Suivant</button>
-</a>
+        <!-- Username / Clubname -->
 
-<!-- SKIP -->
-<a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" >
-    <button mat-flat-button class="cta-btn-primary">Skip</button>
-</a>
+        <!-- Avatar (listes ou custom, default diver.png) -->
+    
+
+        
+        <!-- Validation de Form -->
+        <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" >
+            <button mat-flat-button class="cta-btn-primary">Suivant</button>
+        </a> 
+    
+
+        <!-- SKIP (default diver#4242 & diver.png) -->
+        <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" >
+            <button mat-flat-button class="cta-btn-primary">Skip</button>
+        </a>
+    </div>
+
+</div>

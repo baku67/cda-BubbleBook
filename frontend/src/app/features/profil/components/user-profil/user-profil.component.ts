@@ -12,7 +12,7 @@ export class UserProfilComponent implements OnInit{
 
   user?:UserProfil;
 
-  isLoading = true;
+  isUserLoading = true;
 
   emailConfirmResent = false;
   emailConfirmResentLoading = false;
@@ -27,11 +27,11 @@ export class UserProfilComponent implements OnInit{
     this.userService.getUserProfil().subscribe({ 
       next: (userData: UserProfil) => {
         this.user = userData;  // Stocker les données reçues
-        this.isLoading = false;
+        this.isUserLoading = false;
       },
       error: (error: unknown) => {
         console.error('Erreur lors de la récupération du profil utilisateur', error);
-        this.isLoading = false;
+        this.isUserLoading = false;
       }
     });
   }
