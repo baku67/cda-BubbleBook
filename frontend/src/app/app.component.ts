@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './features/auth/services/auth.service';
+import { LanguageService } from './shared/services/utils/language.service';
 
 
 @Component({
@@ -12,7 +13,10 @@ export class AppComponent implements OnInit {
 
   isLoggedIn = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private languageService: LanguageService
+  ) {}
 
   ngOnInit() {
     // S'abonner à l'observable pour suivre l'état de connexion

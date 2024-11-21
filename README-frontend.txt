@@ -11,3 +11,11 @@ Dans les services:
 
 proxy.conf.json pour debugger sur mobile:
       //"target": "http://192.168.x.x:8000", // Remplace par l'IP locale de ton PC (ipconfig, puis sur chrome pc: chrome://inspect/#devices)
+
+
+
+Liste des containers docker (git bash):
+docker ps
+
+Bash container angular:
+docker exec -it cda-bubblebook-angular-1 bash

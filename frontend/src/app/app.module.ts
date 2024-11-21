@@ -27,6 +27,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 // Standalone:
 // import { FooterComponent } from './shared/ui-components/footer/footer.component';
 
+// ngxTranslate:
+import { HttpClient } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// Fonction qui crée une instance de TranslateHttpLoader
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -55,6 +64,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatIconModule,
     MatSlideToggleModule,
     MatTooltipModule,
+
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     
     FirstLoginModule,
     SharedModule,
