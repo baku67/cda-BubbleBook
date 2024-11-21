@@ -1,5 +1,6 @@
-<div style="text-align: center;">
-    <button mat-button (click)="switchLanguage()">
-      {{ languageService.getCurrentLang().toUpperCase() }}
-    </button>
-  </div>
+
+    <div style="text-align: center; position: absolute;">
+        <button mat-button (click)="switchLanguage()">
+          {{ currentLang === 'fr-FR' ? 'FR' : 'EN' }}
+        </button>
+      </div>
