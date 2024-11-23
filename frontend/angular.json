@@ -28,6 +28,7 @@
               }
             ],
             "styles": [
+              // "src/assets/custom-theme.scss",
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],

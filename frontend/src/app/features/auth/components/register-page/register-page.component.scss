@@ -27,18 +27,6 @@ form {
     font-size: 1em;
   }
   
-  button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button[disabled] {
-    background-color: #1a759f70;
-    cursor: not-allowed;
-  } 
 
 
   .matFieldInput {

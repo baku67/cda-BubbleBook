@@ -1,23 +1,63 @@
-@use '../node_modules/@angular/material' as mat;
-@use '../node_modules/@angular/material/core' as mat-core;
+@use '@angular/material' as mat;
+@include mat.core();
 
-@include mat-core.core();
+// Définir une palette personnalisée complète
+$custom-blue-palette: (
+  50: #1976d2, /* Bleu primaire */
+  100: #1976d2,
+  500: #1976d2,
+  700: #1976d2,
+  default: #1976d2,
+  contrast: (
+    50: #1976d2,
+    default: #1976d2
+  )
+);
 
-$primary: mat-core.define-palette(mat-core.$blue-palette);
-$accent: mat-core.define-palette(mat-core.$light-blue-palette);
-$warn: mat-core.define-palette(mat-core.$red-palette);
+// Créer une palette Angular Material valide
+$myapp-theme-primary: mat.m2-define-palette($custom-blue-palette);
+$myapp-theme-accent: mat.m2-define-palette(mat.$m2-light-blue-palette);
+$myapp-theme-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
-$theme: mat-core.define-light-theme((
+$myapp-theme: mat.m2-define-light-theme((
   color: (
-    primary: $primary,
-    accent: $accent,
-    warn: $warn,
-  ),
-  typography: mat-core.define-typography-config(),
-  density: 0,
+    primary: $myapp-theme-primary,
+    accent: $myapp-theme-accent,
+    warn: $myapp-theme-warn,
+  )
 ));
 
-@include mat.all-component-themes($theme);
+@include mat.all-component-themes($myapp-theme);
+// // Notez que mat-core est utilisé pour définir les palettes et les thèmes, et mat pour appliquer les thèmes aux composants.
 
 
-// Notez que mat-core est utilisé pour définir les palettes et les thèmes, et mat pour appliquer les thèmes aux composants.
+
+// @use '@angular/material' as mat;
+// @include mat.core();
+
+// $myapp-theme-primary: mat.m2-define-palette(mat.$m2-blue-palette, (
+//   0: #e3f2fd,
+//   10: #bbdefb,
+//   20: #90caf9,
+//   30: #64b5f6,
+//   40: #42a5f5,
+//   50: #2196f3, // Active
+//   60: #1e88e5,
+//   70: #1976d2,
+//   80: #1565c0,
+//   90: #0d47a1,
+//   disabled: #b0bec5 // Disabled
+// ));
+
+// $myapp-theme-accent: mat.m2-define-palette(mat.$m2-light-blue-palette);
+// $myapp-theme-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+// $myapp-theme: mat.m2-define-light-theme((
+//   color: (
+//     primary: $myapp-theme-primary,
+//     accent: $myapp-theme-accent,
+//     warn: $myapp-theme-warn,
+//   )
+// ));
+
+// @include mat.all-component-themes($myapp-theme);
