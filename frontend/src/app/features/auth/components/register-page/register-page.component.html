@@ -4,8 +4,8 @@
 <div class="pageContent">
 
   <app-page-header 
-    [title]="!isLoading ? 'Créer un compte' : 'Création du compte...'" 
-    paragraph="Créez un compte pour commencer à explorer et remplir votre carnet de plongée" 
+    [title]="!isLoading ? ('CREATE_ACCOUNT' | translate) : ('CREATING_ACCOUNT' | translate)" 
+    [paragraph]="'CREATE_ACCOUNT_PARAGRAPHE' | translate"
     matIcon="account_circle" 
   />
 
@@ -14,14 +14,14 @@
 
     <div>
       <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>Adresse mail:</mat-label>
+        <mat-label>{{ 'EMAIL_ADDRESS_LABEL' | translate }}</mat-label>
 
         <input 
           matInput 
           matFormFieldControl 
           formControlName="email" 
           type="email" 
-          placeholder="Entrez votre adresse mail"
+          [placeholder]="'EMAIL_ADDRESS_PLACEHOLDER' | translate"
           autocomplete="email"
         >
 
@@ -39,22 +39,22 @@
 
       <!-- Erreur pour email déjà pris (emailTaken) -->
       <div *ngIf="registerForm.get('email')?.hasError('emailTaken') && registerForm.get('email')?.touched">
-        <mat-error>Cet email est déjà utilisé.</mat-error>
+        <mat-error>{{ "EMAIL_ADDRESS_ALREADY_USED" | translate }}</mat-error>
       </div>
       <!-- Erreur pour email requis -->
       <div *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
-        <mat-error>L'adresse mail est obligatoire.</mat-error>
+        <mat-error>{{ "EMAIL_ADDRESS_REQUIRED" | translate }}</mat-error>
       </div>
       <!-- Erreur pour email invalide -->
       <div *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
-        <mat-error>Format d'email invalide.</mat-error>
+        <mat-error>{{ "EMAIL_ADDRESS_INVALID" | translate }}</mat-error>
       </div>
     </div>
 
     <!-- // migrer vers profil (et first-connection) -->
     <div>
       <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>Nom d'utilisateur:</mat-label>
+      <mat-label>{{ "USERNAME_LABEL" | translate }}</mat-label>
         <input 
           matInput 
           matFormFieldControl 
@@ -66,13 +66,13 @@
 
       <!-- Erreur pour username requis -->
       <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
-        <mat-error class="formFieldError">Nom d'utilisateur obligatoire.</mat-error>
+        <mat-error class="formFieldError">{{ "USERNAME_REQUIRED" | translate }}</mat-error>
       </div>
     </div>
 
     <div>
       <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>Mot de passe:</mat-label>
+        <mat-label>{{ "PASSWORD_LABEL" | translate }}</mat-label>
         <input 
           matInput 
           matFormFieldControl 
@@ -95,7 +95,7 @@
         </div>
       </div>
 
-      <!-- Phase d'erreur généré via le passwordComplexityValidator -->
+      <!-- Phase d'erreur généré par le composant -->
       <div *ngIf="registerForm.get('password')?.touched && passwordErrorMessage">
         <mat-error>{{ passwordErrorMessage }}</mat-error>
       </div>
@@ -103,7 +103,7 @@
 
     <div>
       <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>Confirmer le mot de passe:</mat-label>
+        <mat-label>{{ "PASSWORD_CONFIRM_LABEL" | translate }}</mat-label>
         <input 
           matInput 
           matFormFieldControl 
@@ -116,42 +116,41 @@
       
       <!-- Erreur pour mdp confirm ou Mismatch -->
       <div *ngIf="registerForm.get('passwordCheck')?.invalid && registerForm.get('passwordCheck')?.touched">
-        <mat-error class="formFieldError">La confirmation de mot de passe est obligatoire.</mat-error>
+        <mat-error class="formFieldError">{{ "PASSWORD_CONFIRM_REQUIRED" | translate }}</mat-error>
       </div>
       <div *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('passwordCheck')?.touched">
-        <mat-error class="formFieldError">Les mots de passe ne correspondent pas.</mat-error>
+        <mat-error class="formFieldError">{{ "PASSWORD_CONFIRM_MISMATCH" | translate }}</mat-error>
       </div>
     </div>
 
     <div>
-      <mat-slide-toggle formControlName="acceptTerms">J'accepte les termes et conditions d'utilisation du site.</mat-slide-toggle>
+      <mat-slide-toggle formControlName="acceptTerms">{{ "ACCEPT_TERMS" | translate }}</mat-slide-toggle>
     </div>
   
     <!-- Submit & Spinner -->
-    <div [matTooltip]="registerForm.get('acceptTerms')?.value ? '' : 'Vous devez accepter les conditions d\'utilisation du site pour vous inscrire'">
+    <div [matTooltip]="acceptTermsTooltip">
       <button 
         mat-flat-button 
         class="cta-btn-primary" 
         type="submit" 
         [disabled]="!registerForm.valid || emailChecking || isLoading"
       >
-        <span *ngIf="!isLoading">S'inscrire</span>
+        <span *ngIf="!isLoading">{{ "REGISTER" | translate }}</span>
       </button>
     </div>
 
     <a [routerLink]="['/login']" mat-button>
-        <span class="btn-underlined">Vous possédez déjà un compte ?</span>
+        <span class="btn-underlined">{{ "ALREADY_SIGNED_IN" | translate }}</span>
     </a>
 
   </form>
 
+  <!-- Loader/Spinner page -->
   <div class="spinner-container" *ngIf="isLoading">
     <mat-spinner></mat-spinner>
   </div>
 
 </div>
-
-
 
 
 

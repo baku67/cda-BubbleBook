@@ -4,20 +4,20 @@
 
 <div class="pageContent">
 
-    <app-page-header *ngIf="isLoading" title="Confirmation de l'email..." matIcon="alternate_email" />
-    <app-page-header *ngIf="!isLoading" title="Adresse email confirmée" matIcon="alternate_email" />
+    <app-page-header *ngIf="isLoading" [title]="('CONFIRMING_EMAIL_ADDRESS' | translate)" matIcon="alternate_email" />
+    <!-- <app-page-header *ngIf="!isLoading" [title]="('EMAIL_ADDRESS_CONFIRMED' | translate)" matIcon="alternate_email" /> -->
 
     <mat-spinner *ngIf="isLoading"></mat-spinner>
 
     <div *ngIf="!isLoading && confirmSuccess">
         <div class="iconLine">
             <mat-icon>task_alt</mat-icon>
-            <span>Email confirmé avec succès.</span>
+            <span>{{ "EMAIL_ADDRESS_CONFIRMED" | translate }}</span>
         </div>
         
         <br>
         <a [routerLink]="['/login']">
-            <button mat-flat-button class="cta-btn-primary">Login</button>
+            <button mat-flat-button class="cta-btn-primary">{{ "LOGIN" | translate }}</button>
         </a>
     </div>
 
@@ -26,13 +26,13 @@
     <div *ngIf="!isLoading && !confirmSuccess">
         <div class="iconLine">
             <mat-icon>unpublished</mat-icon>
-            <span>Erreur lors de la confirmation de l'email ou lien expiré.</span>    
+            <span>{{ "EMAIL_ADDRESS_NOT_CONFIRMED" | translate }}</span>    
         </div>
         
         <br>
-        <p>Connectez-vous pour renvoyer un lien</p>
+        <p>{{ "LOGIN_TO_RESEND_CONFIRMATION" | translate }}</p>
         <a [routerLink]="['/login']">
-            <button mat-flat-button class="cta-btn-primary">Login</button>
+            <button mat-flat-button class="cta-btn-primary">{{ "LOGIN" | translate }}</button>
         </a>
     </div>
 

@@ -1,6 +1,55 @@
 {
     "LP_SPEECH": "Your divelog, anywhere, anytime.",
-
     "LP_REGISTER_NOW": "Sign in",
-    "LP_LOGIN": "Login"
+    "LP_LOGIN": "Log in",
+
+    "CREATE_ACCOUNT": "Create your account",
+    "CREATING_ACCOUNT": "Creating account...",
+    "CREATE_ACCOUNT_PARAGRAPHE": "Create an account to start exploring and fill in your logbook",
+    "EMAIL_ADDRESS_LABEL": "Email address:",
+    "EMAIL_ADDRESS_PLACEHOLDER": "Enter your e-mail address",
+    "EMAIL_ADDRESS_ALREADY_USED": "This email is already in use",
+    "EMAIL_ADDRESS_REQUIRED": "The e-mail address is mandatory",
+    "EMAIL_ADDRESS_INVALID": "Invalid email format",
+    "EMAIL_ADDRESS_CHECKING": "Check email availability...",
+    "EMAIL_ADDRESS_AVAILABLE": "Email address available",
+    "USERNAME_LABEL": "Username:",
+    "USERNAME_REQUIRED": "The username is mandatory",
+    "PASSWORD_LABEL": "Password:",
+    "PASSWORD_REQUIRED": "Password is mandatory",
+    "PASSWORD_MIN_LENGTH": "Password must contain at least {{minLength}} characters",
+    "PASSWORD_CONFIRM_LABEL": "Confirm password:",
+    "PASSWORD_CONFIRM_REQUIRED": "Password confirmation is mandatory",
+    "PASSWORD_CONFIRM_MISMATCH": "The passwords don't match",
+    "ACCEPT_TERMS": "I accept the terms and conditions of use of the site.",
+    "ACCEPT_TERMS_MANDATORY": "You must accept the site's terms of use to register.",
+
+    "CONFIRMING_EMAIL_ADDRESS": "Confirming email address...",
+    "EMAIL_ADDRESS_CONFIRMED": "Email address successfully confirmed",
+    "EMAIL_ADDRESS_NOT_CONFIRMED": "Email confirmation error or link expired",
+    "LOGIN_TO_RESEND_CONFIRMATION": "Log in to resend a link",
+    "EMAIL_RESEND_CONFIRMATION": "Resend confirmation e-mail",
+    "EMAIL_CONFIRMATION_SENT": "A confirmation email has been sent to {{ email }}",
+
+    "REGISTER": "Sign in",
+    "ALREADY_SIGNED_IN": "Already have an account ?",
+
+    "LOGIN": "Log in",
+    "REMEMBER_ME": "Remember me",
+    "NOT_REGISTERED_YET": "Not registered yet ?",
+
+    "FOOTER_ALL_RIGHTS_RESERVED": "© 2024 BubbleBook. All rights reserved.",
+    "TERMS_OF_USE": "Terms of use",
+    "PRIVACY_POLICY": "Privacy policy",
+
+    "YOU_ARE": "You are...",
+    "DIVER": "Diver",
+    "DIVING_CLUB": "Diving club",
+    "PREVIOUS": "Previous",
+    "NEXT": "Next",
+    "SKIP": "Skip",
+
+    "CERTIFICATES": "Diving certificates",
+
+    "MY_SPACE": "My space"
 }

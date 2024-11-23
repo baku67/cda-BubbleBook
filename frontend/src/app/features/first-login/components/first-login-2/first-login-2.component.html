@@ -2,26 +2,24 @@
 
 <div class="pageContent">
 
-    <app-page-header title="Certifications" matIcon="account_circle" />
+    <app-page-header [title]="('CERTIFICATES' | translate)" matIcon="account_circle" />
 
-
-    <h2>Certificats</h2>
     <!-- Enums pasi et ffssem ou catalog de certificats et tu clique dessus -->
 
 
     <!-- Retour -->
     <a [routerLink]="['/first-login/step-one']" routerLinkActive="router-link-active" >
-        <button mat-flat-button class="cta-btn-primary">Retour</button>
+        <button mat-flat-button class="cta-btn-primary">{{ "PREVIOUS" | translate }}</button>
     </a>
 
     <!-- Validation de Form -->
     <a [routerLink]="['/user-profil']" routerLinkActive="router-link-active" >
-        <button mat-flat-button class="cta-btn-primary">Suivant</button>
+        <button mat-flat-button class="cta-btn-primary">{{ "NEXT" | translate }}</button>
     </a>
 
     <!-- SKIP (0 certifs) OPTIONNEL -->
     <a [routerLink]="['/user-profil']" routerLinkActive="router-link-active" >
-        <button mat-flat-button class="cta-btn-primary">Skip</button>
+        <button mat-flat-button class="cta-btn-primary">{{ "SKIP" | translate }}</button>
     </a>
 
 </div>

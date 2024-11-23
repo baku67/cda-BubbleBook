@@ -10,6 +10,7 @@ import { FirstLogin1Component } from './components/first-login-1/first-login-1.c
 import { FirstLogin2Component } from './components/first-login-2/first-login-2.component';
 import { routes } from '../../app.routes';
 import { SharedModule } from '../../shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { SharedModule } from '../../shared/shared.module';
     CommonModule, 
     FormsModule,
     RouterModule,
+    TranslateModule,
     
     MatButtonModule,
     MatFormField,

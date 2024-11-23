@@ -8,6 +8,7 @@ import { EmailCheckService } from '../../services/email-disponibility.service';
 import { EmailAsyncValidator } from '../../../../shared/validators/emailExistValidator';
 import { AuthService } from '../../services/auth.service';
 import { passwordComplexityValidator } from '../../../../shared/validators/passwordComplexityValidator';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -33,10 +34,12 @@ export class RegisterPageComponent implements OnInit{
     private authService: AuthService,
     private formBuilder: FormBuilder, 
     private emailCheckService: EmailCheckService,
+    private translateService: TranslateService,
   ) {
     this.isLoading = false;
   }
 
+  
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       email: [
@@ -56,20 +59,6 @@ export class RegisterPageComponent implements OnInit{
       is2fa: [false], // false par defaut TODO
       acceptTerms: [false, Validators.requiredTrue],
     }, { validator: passwordMatchValidator });
-  }
-
-
-  // passwordComplexityValidator.ts  (jauge mot de passe)
-  onPasswordInput(): void {
-    const passwordControl = this.registerForm.get('password');
-    if (passwordControl) {
-      const errors = passwordComplexityValidator()(passwordControl);
-      if (errors && errors['passwordComplexityScore'] !== undefined) {
-        this.passwordComplexityScore = errors['passwordComplexityScore'];
-      } else {
-        this.passwordComplexityScore = 0;
-      }
-    }
   }
 
 
@@ -102,16 +91,32 @@ export class RegisterPageComponent implements OnInit{
     this.hidePassword2 = !this.hidePassword2;
   }
 
+
+  // passwordComplexityValidator.ts  (jauge mot de passe)
+  onPasswordInput(): void {
+    const passwordControl = this.registerForm.get('password');
+    if (passwordControl) {
+      const errors = passwordComplexityValidator()(passwordControl);
+      if (errors && errors['passwordComplexityScore'] !== undefined) {
+        this.passwordComplexityScore = errors['passwordComplexityScore'];
+      } else {
+        this.passwordComplexityScore = 0;
+      }
+    }
+  }
+
+
+
   // Message de status de la vérification de disponibilité de l'adresse mail (ToolTip de l'icon de champs)
   get emailStatusMessage(): string {
     if (this.emailChecking) {
-      return 'Vérification de la disponibilité de l\'email...';
+      return this.translateService.instant('EMAIL_ADDRESS_CHECKING');
     }
     if (this.emailAvailable === true) {
-      return 'Adresse email disponible !';
+      return this.translateService.instant('EMAIL_ADDRESS_AVAILABLE');
     }
     if (this.emailAvailable === false) {
-      return 'Cet email est déjà utilisé.';
+      return this.translateService.instant('EMAIL_ADDRESS_ALREADY_USED');
     }
     return '';
   }
@@ -126,17 +131,25 @@ export class RegisterPageComponent implements OnInit{
     }
   }
 
-
-  // passwordComplexityValidator: construction de la phrase d'erreur
   get passwordErrorMessage(): string | null {
     const passwordControl = this.registerForm.get('password');
 
     if (passwordControl?.hasError('required')) {
-      return 'Le mot de passe est requis.';
+      return this.translateService.instant('PASSWORD_REQUIRED');
     }
+
     if (passwordControl?.hasError('minlength')) {
-      return 'Le mot de passe doit contenir au moins 8 caractères.';
+      return this.translateService.instant('PASSWORD_MIN_LENGTH', { minLength: 8 });
     }
     return null;
+  }
+
+  // Tooltip sur le bouton de validation de form
+  get acceptTermsTooltip(): string {
+    if (this.registerForm.get('acceptTerms')?.value) {
+      return '';
+    } else {
+      return this.translateService.instant('ACCEPT_TERMS_MANDATORY');
+    }
   }
 }

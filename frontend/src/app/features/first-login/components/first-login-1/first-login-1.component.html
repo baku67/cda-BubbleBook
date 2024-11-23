@@ -2,14 +2,14 @@
 
 <div class="pageContent">
 
-    <app-page-header title="Vous êtes..." matIcon="account_circle" />
+    <app-page-header [title]="('YOU_ARE' | translate )" matIcon="account_circle" />
 
     <!-- TODO form type user (Héritage backend), même si club pas la priorité (ouverture pour projet) -->
     <div>
     
         <!-- CHOIX Plongeur ou Club -->
-        <span>Plongeur</span>
-        <span>Club</span>
+        <span>{{ "DIVER" | translate }}</span>
+        <span>{{ "DIVING_CLUB" | translate }}</span>
 
         <!-- Username / Clubname -->
 
@@ -19,13 +19,12 @@
         
         <!-- Validation de Form -->
         <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" >
-            <button mat-flat-button class="cta-btn-primary">Suivant</button>
+            <button mat-flat-button class="cta-btn-primary">{{ "NEXT" | translate }}</button>
         </a> 
     
-
         <!-- SKIP (default diver#4242 & diver.png) -->
         <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" >
-            <button mat-flat-button class="cta-btn-primary">Skip</button>
+            <button mat-flat-button class="cta-btn-primary">{{ "SKIP" | translate }}</button>
         </a>
     </div>
 

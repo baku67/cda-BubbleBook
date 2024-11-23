@@ -1,6 +1,60 @@
 {
     "LP_SPEECH": "Votre carnet de plongée numérique. Organisé, partagé, toujours à portée de main.",
-
     "LP_REGISTER_NOW": "S'inscrire maintenant",
-    "LP_LOGIN": "Connexion"
+    "LP_LOGIN": "Connexion",
+
+    "CREATE_ACCOUNT": "Créer un compte",
+    "CREATING_ACCOUNT": "Création du compte...",
+    "CREATE_ACCOUNT_PARAGRAPHE": "Créez un compte pour commencer à explorer et remplir votre carnet de plongée",
+    "EMAIL_ADDRESS_LABEL": "Adresse mail:",
+    "EMAIL_ADDRESS_PLACEHOLDER": "Entrez votre adresse mail",
+    "EMAIL_ADDRESS_ALREADY_USED": "Cet email est déjà utilisé",
+    "EMAIL_ADDRESS_REQUIRED": "L'adresse mail est obligatoire",
+    "EMAIL_ADDRESS_INVALID": "Format d'email invalide",
+    "EMAIL_ADDRESS_CHECKING": "Vérification de la disponibilité de l'email...",
+    "EMAIL_ADDRESS_AVAILABLE": "Adresse email disponible",
+    "USERNAME_LABEL": "Nom d'utilisateur:",
+    "USERNAME_REQUIRED": "Nom d'utilisateur obligatoire",
+    "PASSWORD_LABEL": "Mot de passe:",
+    "PASSWORD_REQUIRED": "Le mot de passe est requis",
+    "PASSWORD_MIN_LENGTH": "Le mot de passe doit contenir au moins {{minLength}} caractères",
+    "PASSWORD_CONFIRM_LABEL": "Confirmer le mot de passe:",
+    "PASSWORD_CONFIRM_REQUIRED": "La confirmation de mot de passe est obligatoire",
+    "PASSWORD_CONFIRM_MISMATCH": "Les mots de passe ne correspondent pas",
+    "ACCEPT_TERMS": "J'accepte les termes et conditions d'utilisation du site.",
+    "ACCEPT_TERMS_MANDATORY": "Vous devez accepter les conditions d'utilisation du site pour vous inscrire",
+
+    "CONFIRMING_EMAIL_ADDRESS": "Confirmation de l'email...",
+    "EMAIL_ADDRESS_CONFIRMED": "Adresse email confirmée avec succès",
+    "EMAIL_ADDRESS_NOT_CONFIRMED": "Erreur lors de la confirmation de l'email ou lien expiré",
+    "LOGIN_TO_RESEND_CONFIRMATION": "Connectez-vous pour renvoyer un lien",
+    "EMAIL_RESEND_CONFIRMATION": "Renvoyer le mail de confirmation",
+    "EMAIL_CONFIRMATION_SENT": "Un email de confirmation vous a été renvoyé à l'adresse {{ email }}",
+
+    "REGISTER": "S'inscrire",
+    "ALREADY_SIGNED_IN": "Vous possédez déjà un compte ?",
+
+    "LOGIN": "Connexion",
+    "REMEMBER_ME": "Se souvenir de moi",
+    "NOT_REGISTERED_YET": "Pas encore inscrit ?",
+
+
+
+
+
+    "FOOTER_ALL_RIGHTS_RESERVED": "© 2024 BubbleBook. Tous droits réservés.",
+    "TERMS_OF_USE": "Mentions légales",
+    "PRIVACY_POLICY": "Politique de confidentialité",
+
+    "YOU_ARE": "Vous êtes...",
+    "DIVER": "Plongeur",
+    "DIVING_CLUB": "Club de plongée",
+    "PREVIOUS": "Retour",
+    "NEXT": "Suivant",
+    "SKIP": "Passer",
+
+    "CERTIFICATES": "Certificats de plongée",
+
+
+    "MY_SPACE": "Mon espace"
 }

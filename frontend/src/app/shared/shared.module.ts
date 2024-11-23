@@ -19,7 +19,7 @@ import { LanguageSwitchComponent } from './ui-components/language-switch/languag
     FooterComponent,
     NavComponent, 
     LanguageSwitchComponent,
-    MatIcon
+    MatIcon,
   ],
   exports: [
     PageHeaderComponent,
