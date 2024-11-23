@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './flash-message.component.html',
-  styleUrl: './flash-message.component.css'
+  styleUrl: './flash-message.component.scss'
 })
 export class FlashMessageComponent {
 

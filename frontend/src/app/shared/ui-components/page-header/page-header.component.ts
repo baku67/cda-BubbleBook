@@ -10,7 +10,7 @@ import { LanguageSwitchComponent } from "../language-switch/language-switch.comp
   standalone: true,
   imports: [NavComponent, CommonModule, MatIcon, LanguageSwitchComponent],
   templateUrl: './page-header.component.html',
-  styleUrl: './page-header.component.css'
+  styleUrl: './page-header.component.scss'
 })
 export class PageHeaderComponent implements OnInit {
 

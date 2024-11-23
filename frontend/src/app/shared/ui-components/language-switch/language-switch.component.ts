@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [CommonModule, TranslateModule, MatButtonModule],
   templateUrl: './language-switch.component.html',
-  styleUrl: './language-switch.component.css'
+  styleUrl: './language-switch.component.scss'
 })
 export class LanguageSwitchComponent implements OnInit {
 

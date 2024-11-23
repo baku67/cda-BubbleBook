@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './app-header.component.html',
-  styleUrl: './app-header.component.css'
+  styleUrl: './app-header.component.scss'
 })
 export class AppHeaderComponent {
 
