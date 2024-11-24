@@ -18,4 +18,4 @@ Liste des containers docker (git bash):
 docker ps
 
 Bash container angular:
-docker exec -it cda-bubblebook-angular-1 bash
+docker exec -it angular bash

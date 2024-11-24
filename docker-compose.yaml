@@ -82,14 +82,13 @@ services:
 
 
   angular:
-    image: node:18
+    build:
+      context: ./frontend  # Répertoire contenant ton Dockerfile
+      dockerfile: Dockerfile  # Nom du Dockerfile 
+    container_name: angular
     working_dir: /app
     volumes:
-      - ./frontend:/app
-      # - node_modules:/app/node_modules  # Volume nommé pour node_modules
-    # command: ["npm", "start"]
-    # command: ["/bin/sh", "-c", "npm install && npm install -g @angular/cli && ng serve --host 0.0.0.0"]
-    command: ["/bin/sh", "-c", "npm install && npm install -g @angular/cli && ng serve --host 0.0.0.0 --poll 2000"]
+      - ./frontend:/app  # Monte le code source
     ports:
       - "4200:4200"
     networks:

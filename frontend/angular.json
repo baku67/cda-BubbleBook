@@ -28,7 +28,8 @@
               }
             ],
             "styles": [
-              // "src/assets/custom-theme.scss",
+              // "src/assets/assetsm3-theme.scss", // Pas de style Material
+              // "src/assets/custom-theme.scss", // Style fonctionne mais palette HS
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],

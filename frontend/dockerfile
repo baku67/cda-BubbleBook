@@ -1,10 +1,9 @@
-# Utilisez l'image Node.js
 FROM node:20.15.1
 
 # Créez le répertoire de l'application
 WORKDIR /app
 
-# Copiez package.json et package-lock.json
+# Copiez les fichiers de dépendances
 COPY package*.json ./
 
 # Installez les dépendances
@@ -13,15 +12,15 @@ RUN npm install
 # Permet un "watch" plus efficace sur Docker (surveille les fichiers)
 RUN npm install chokidar --save-dev
 
-# Installer Angular Material
-RUN npm install @angular/material @angular/cdk @angular/animations
+# Installez Angular CLI et Angular Material
+RUN npm install -g @angular/cli
+# RUN npm install @angular/material @angular/cdk @angular/animations // deja dans le package.json
 
-# Copiez tout le reste du code de l'application
+# Copiez tout le reste
 COPY . .
 
-# Exposez le port
+# Exposez le port Angular
 EXPOSE 4200
 
 # Commande pour démarrer l'application
-# CMD ["npm", "start"]
 CMD ["ng", "serve", "--host", "0.0.0.0", "--poll", "2000"]
