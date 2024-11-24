@@ -1,18 +1,38 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
-// Créer une palette Angular Material valide
+// Palette principale (utilisée dans les deux thèmes)
 $myapp-theme-primary: mat.m2-define-palette(mat.$m2-blue-palette);
 $myapp-theme-accent: mat.m2-define-palette(mat.$m2-light-blue-palette);
 $myapp-theme-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
-$myapp-theme: mat.m2-define-light-theme((
+// Thème clair
+$myapp-light-theme: mat.m2-define-light-theme((
   color: (
     primary: $myapp-theme-primary,
     accent: $myapp-theme-accent,
     warn: $myapp-theme-warn,
+  ),
+  bg-color: (
+    default: #f5f5f5, // Couleur d'arrière-plan claire
+    appBar: #ffffff // Couleur des surfaces
   )
 ));
 
-@include mat.all-component-themes($myapp-theme);
-// // Notez que mat-core est utilisé pour définir les palettes et les thèmes, et mat pour appliquer les thèmes aux composants.
+// Thème sombre
+$myapp-dark-theme: mat.m2-define-dark-theme((
+  color: (
+    primary: $myapp-theme-primary,
+    accent: $myapp-theme-accent,
+    warn: $myapp-theme-warn,
+  ),
+  bg-color: (
+    default: #121212, // Couleur d'arrière-plan sombre
+    appBar: #1e1e1e // Couleur des surfaces
+  )
+));
+
+
+// @include mat.all-component-themes($myapp-light-theme);
+
+

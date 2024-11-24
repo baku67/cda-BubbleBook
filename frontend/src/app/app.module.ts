@@ -31,6 +31,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ThemeSwitchComponent } from "./shared/ui-components/theme-switch/theme-switch.component";
 
 // Fonction qui crée une instance de TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -48,13 +49,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ConfirmEmailComponent,
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-
     MatButtonModule,
     MatFormField,
     MatLabel,
@@ -64,18 +64,17 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatIconModule,
     MatSlideToggleModule,
     MatTooltipModule,
-
     TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+        }
     }),
-    
     FirstLoginModule,
     SharedModule,
-  ],
+    ThemeSwitchComponent
+],
   providers: [
     { 
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, 
