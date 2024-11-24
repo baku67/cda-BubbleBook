@@ -61,7 +61,13 @@
       </div>
 
       <!-- Submit & Spinner -->
-      <button mat-flat-button class="cta-btn-primary" type="submit" [disabled]="loginForm.invalid">
+      <button 
+        mat-flat-button 
+        color="primary"
+        class="cta-btn-primary" 
+        type="submit" 
+        [disabled]="loginForm.invalid"
+      >
         <span *ngIf="!isLoading">{{ "LOGIN" | translate }}</span>
       </button>
 

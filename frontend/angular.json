@@ -28,9 +28,9 @@
               }
             ],
             "styles": [
-              // "src/assets/assetsm3-theme.scss", // Pas de style Material
-              // "src/assets/custom-theme.scss", // Style fonctionne mais palette HS
-              "@angular/material/prebuilt-themes/azure-blue.css",
+              // "src/assets/m3-theme.scss", // (généré avec "ng generate @angular/material:m3-theme")
+              "src/assets/custom-theme.scss", 
+              // "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
             "scripts": []

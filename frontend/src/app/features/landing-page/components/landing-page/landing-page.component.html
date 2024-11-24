@@ -11,10 +11,22 @@
             <div class="cta-buttons">
                 <ul>
                     <li>
-                        <a mat-flat-button [routerLink]="['/register']" class="cta-btn-primary">{{ 'LP_REGISTER_NOW' | translate }}</a>
+                        <a 
+                            mat-flat-button 
+                            color="primary"
+                            [routerLink]="['/register']" 
+                            class="cta-btn-primary"
+                        >
+                            {{ 'LP_REGISTER_NOW' | translate }}
+                        </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/login']" class="cta-btn-secondary">{{ 'LP_LOGIN' | translate }}</a>
+                        <a 
+                            [routerLink]="['/login']" 
+                            class="cta-btn-secondary"
+                        >
+                            {{ 'LP_LOGIN' | translate }}
+                        </a>
                     </li>
                 </ul>
             </div>

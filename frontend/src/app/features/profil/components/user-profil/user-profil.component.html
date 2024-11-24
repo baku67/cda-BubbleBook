@@ -25,6 +25,7 @@
                 <button 
                     *ngIf="!emailConfirmResent"
                     mat-flat-button 
+                    color="primary"
                     (click)="resendConfirmationEmail()"
                 >
                     <span *ngIf="!emailConfirmResentLoading">{{ "EMAIL_RESEND_CONFIRMATION" | translate }}</span>

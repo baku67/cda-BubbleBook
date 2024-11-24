@@ -2,7 +2,7 @@
 
 
 <div class="pageContent">
-  
+
   <app-page-header 
     [title]="!isLoading ? ('CREATE_ACCOUNT' | translate) : ('CREATING_ACCOUNT' | translate)" 
     [paragraph]="'CREATE_ACCOUNT_PARAGRAPHE' | translate"
@@ -131,6 +131,7 @@
     <div [matTooltip]="acceptTermsTooltip">
       <button 
         mat-flat-button 
+        color="primary"
         class="cta-btn-primary" 
         type="submit" 
         [disabled]="!registerForm.valid || emailChecking || isLoading"

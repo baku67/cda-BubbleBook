@@ -9,17 +9,17 @@
 
     <!-- Retour -->
     <a [routerLink]="['/first-login/step-one']" routerLinkActive="router-link-active" >
-        <button mat-flat-button class="cta-btn-primary">{{ "PREVIOUS" | translate }}</button>
+        <button mat-flat-button color="accent" class="cta-btn-primary">{{ "PREVIOUS" | translate }}</button>
     </a>
 
     <!-- Validation de Form -->
     <a [routerLink]="['/user-profil']" routerLinkActive="router-link-active" >
-        <button mat-flat-button class="cta-btn-primary">{{ "NEXT" | translate }}</button>
+        <button mat-flat-button color="primary" class="cta-btn-primary">{{ "NEXT" | translate }}</button>
     </a>
 
     <!-- SKIP (0 certifs) OPTIONNEL -->
     <a [routerLink]="['/user-profil']" routerLinkActive="router-link-active" >
-        <button mat-flat-button class="cta-btn-primary">{{ "SKIP" | translate }}</button>
+        <button mat-flat-button color="accent" class="cta-btn-primary">{{ "SKIP" | translate }}</button>
     </a>
 
 </div>
