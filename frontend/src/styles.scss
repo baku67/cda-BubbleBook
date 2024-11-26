@@ -24,22 +24,23 @@
 
 .light-theme {
     @include mat.all-component-themes($myapp-light-theme); // Applique les styles du thème clair
-    // En fait marche pas:
-    // body {
-    // //   background-color: map-get(map-get($myapp-light-theme, bg-color), default); // Utilise la clé background
-    //   background-color: white !important;
-    //   color: #ff0000; // Texte noir pour thème clair
-    // }
 }
 .dark-theme {
     @include mat.all-component-themes($myapp-dark-theme); // Applique les styles du thème sombre
-    // En fait marche pas:
-    // body {
-    //     // background-color: map-get(map-get($myapp-dark-theme, bg-color), default); // Utilise la clé background
-    //     background-color: black !important;
-    //     color: #ff0000; // Texte blanc pour thème sombre
-    // }
+
 }
+
+body.light-theme {
+    // background-color: white !important;
+    color: #000 !important;
+    background-color: map-get(map-get($myapp-light-theme, bg-color), default); // Utilise la clé background
+  }
+  
+  body.dark-theme {
+    // background-color: black !important;
+    color: #fff !important;
+    background-color: map-get(map-get($myapp-dark-theme, bg-color), default); // Utilise la clé background
+  }
 
 
 
@@ -55,10 +56,10 @@
     font-family: 'Roboto', sans-serif;
 }
 input {
-    color: white !important;
+    // color: white !important;
 }
 input::placeholder {
-    color: rgb(182, 182, 182) !important;
+    // color: rgb(182, 182, 182) !important;
 }
 
 
