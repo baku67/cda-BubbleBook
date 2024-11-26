@@ -4,7 +4,9 @@
   <app-language-switch />
   <app-theme-switch />
 
+  <app-header *ngIf="showHeader" />
   <router-outlet />
+  <app-footer *ngIf="showFooter" />
 
 </main>
 

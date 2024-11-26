@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './features/auth/services/auth.service';
-import { LanguageService } from './shared/services/utils/language.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -9,14 +9,30 @@ import { LanguageService } from './shared/services/utils/language.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  title = 'BubbleBook';
 
+  title = 'BubbleBook';
   isLoggedIn = false;
+
+  // Conditions d'affichage : Pour spécifier quels routes sans PageHeaderComponent ou/et FooterComponent
+  showHeader = true;
+  showFooter = true;
 
   constructor(
     private authService: AuthService,
-    private languageService: LanguageService
-  ) {}
+    private router: Router
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Routes sans header
+        const noHeaderRoutes = ['', '/']; // LP = ""
+        // Routes sans footer 
+        const noFooterRoutes: string[] = []; 
+  
+        this.showHeader = !noHeaderRoutes.includes(event.urlAfterRedirects);
+        this.showFooter = !noFooterRoutes.includes(event.urlAfterRedirects);
+      }
+    });
+  }
 
   ngOnInit() {
     // S'abonner à l'observable pour suivre l'état de connexion
