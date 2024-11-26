@@ -22,7 +22,7 @@ interface AuthResponse {
 })
 export class AuthService {
 
-  private loggedIn = new BehaviorSubject<boolean>(false); // Initialisation à false par défaut
+  private loggedIn = new BehaviorSubject<boolean>(false); // Init false par défaut
   // Observable pour savoir si l'utilisateur est connecté
   isLoggedIn$ = this.loggedIn.asObservable();
 

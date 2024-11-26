@@ -48,7 +48,7 @@ class RegisterController extends AbstractController
         }
         
         // Validation des données
-        if (empty($data['email']) || empty($data['password']) || empty($data['username'])) {
+        if (empty($data['email']) || empty($data['password'])) {
             return new JsonResponse([
                 'message' => 'Erreur lors de la création du compte. Les données envoyés sont invalides.'
             ], Response::HTTP_BAD_REQUEST); // 400
@@ -73,7 +73,7 @@ class RegisterController extends AbstractController
         $user = new User();
         $user->setEmail($data['email']);
         $user->setPassword($this->passwordHasher->hashPassword($user, $data['password']));
-        $user->setUsername($data['username']); // Initialisé avec un random "diver#43232"
+        // $user->setUsername($data['username']); // Initialisé avec un random "diver#43232"-> profil
         // Définir les rôles 
         $user->addRole($defaultRole); // Rôle par défaut
         // Envoyés/Initialisés à false:

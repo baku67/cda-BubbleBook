@@ -47,7 +47,6 @@ export class RegisterPageComponent implements OnInit{
         [Validators.required, Validators.email], // Validateurs synchrones
         [EmailAsyncValidator.createValidator(this.emailCheckService, this)] // Validateur asynchrone (on lui passe le composant)
       ],
-      username: ['', Validators.required], 
       password: [
         '', 
         [

@@ -4,23 +4,60 @@
     <app-page-header [title]="('YOU_ARE' | translate )" matIcon="account_circle" />
 
     <!-- TODO form type user (Héritage backend), même si club pas la priorité (ouverture pour projet) -->
-    <div>
+    <div class="">
     
         <!-- CHOIX Plongeur ou Club -->
         <span>{{ "DIVER" | translate }}</span>
         <span>{{ "DIVING_CLUB" | translate }}</span>
 
         <!-- Username / Clubname -->
+        <form [formGroup]="firstLoginForm" (ngSubmit)="onSubmit()" class="firstLoginForm">
+
+            <!-- // migré vers profil (et first-connection) -->
+            <div>
+                <mat-form-field appearance="outline" class="matFieldInput">
+                <mat-label>{{ "USERNAME_LABEL" | translate }}</mat-label>
+                <input 
+                    matInput 
+                    matFormFieldControl 
+                    formControlName="username" 
+                    type="text"
+                    autocomplete="username"
+                >
+                </mat-form-field>
+        
+                <!-- Erreur pour username requis -->
+                <div *ngIf="firstLoginForm.get('username')?.invalid && firstLoginForm.get('username')?.touched">
+                <mat-error class="formFieldError">{{ "USERNAME_REQUIRED" | translate }}</mat-error>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- Submit & Spinner -->
+            <div>
+                <button 
+                    mat-flat-button 
+                    color="primary"
+                    class="cta-btn-primary" 
+                    type="submit" 
+                    [disabled]="!firstLoginForm.valid || isLoading"
+                >
+                    <span *ngIf="!isLoading">METTRE A JOUR</span>
+                </button>
+            </div>
+
+        </form>
 
         <!-- Avatar (listes ou custom, default diver.png) -->
     
 
-        
-        <!-- Validation de Form -->
-        <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" >
-            <button mat-flat-button color="primary" class="cta-btn-primary">{{ "NEXT" | translate }}</button>
-        </a> 
-    
+
+
+
+
         <!-- SKIP (default diver#4242 & diver.png) -->
         <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" >
             <button mat-flat-button color="accent" class="cta-btn-primary">{{ "SKIP" | translate }}</button>

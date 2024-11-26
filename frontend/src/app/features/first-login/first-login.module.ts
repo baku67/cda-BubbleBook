@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 // Customs
@@ -11,6 +11,8 @@ import { FirstLogin2Component } from './components/first-login-2/first-login-2.c
 import { routes } from '../../app.routes';
 import { SharedModule } from '../../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../auth/services/interceptors/auth.interceptor';
 
 
 @NgModule({
@@ -21,6 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule, 
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     TranslateModule,
     
@@ -33,6 +36,17 @@ import { TranslateModule } from '@ngx-translate/core';
     SharedModule,
 
     RouterModule.forRoot(routes),
-  ]
+  ],
+  providers: [
+    { 
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, 
+      useValue: { appearance: 'outline' }  
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true  
+    }
+  ],
 })
 export class FirstLoginModule { }

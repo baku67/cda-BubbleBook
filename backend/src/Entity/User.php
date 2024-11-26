@@ -20,7 +20,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    // Nullable pour le register() mais go default généré()
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
