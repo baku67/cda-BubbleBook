@@ -3,8 +3,9 @@
 
     <app-page-header [title]="('YOU_ARE' | translate )" matIcon="account_circle" />
 
+
     <!-- TODO form type user (Héritage backend), même si club pas la priorité (ouverture pour projet) -->
-    <div class="">
+    <div *ngIf="!isLoading" class="">
     
         <!-- CHOIX Plongeur ou Club -->
         <span>{{ "DIVER" | translate }}</span>
@@ -62,6 +63,11 @@
         <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" >
             <button mat-flat-button color="accent" class="cta-btn-primary">{{ "SKIP" | translate }}</button>
         </a>
+    </div>
+
+
+    <div class="spinner-container" *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
     </div>
 
 </div>

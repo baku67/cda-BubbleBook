@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\DTO\FirstLogin1DTO;
 
 class UserController extends AbstractController
 {
@@ -42,39 +45,55 @@ class UserController extends AbstractController
 
 
     #[Route('/api/firstLoginUpdate', name: 'api_firstLoginUpdate', methods: ['POST'])]
-    public function firstLoginUpdate(Request $request): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-
-
+    public function firstLoginUpdate(
+        Request $request,
+        SerializerInterface $serializer,
+        ValidatorInterface $validator
+    ): JsonResponse {
+        // Désérialiser les données JSON dans le DTO
+        try {
+            $dto = $serializer->deserialize($request->getContent(), FirstLogin1DTO::class, 'json');
+        } catch (\Exception $e) {
+            return new JsonResponse(
+                ['error' => 'Données mal formatées ou incomplètes.'],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+    
+        // Valider le DTO
+        $errors = $validator->validate($dto);
+        if (count($errors) > 0) {
+            $errorMessages = [];
+            foreach ($errors as $error) {
+                $errorMessages[] = $error->getMessage();
+            }
+    
+            return new JsonResponse(['errors' => $errorMessages], Response::HTTP_BAD_REQUEST);
+        }
+    
         // Récupérer l'utilisateur connecté
         $user = $this->getUser();
         if (!$user instanceof User) {
-            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+            return new JsonResponse(['error' => 'Utilisateur non authentifié'], Response::HTTP_UNAUTHORIZED);
         }
-
-
-        if (strlen($data['username']) < 3) {
-            return new JsonResponse([
-                'message' => 'Le nom d\'utilisateur doit contenir au moins 3 caractères.'
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
-        $user->setUsername($data['username']); // Initialisé avec un random "diver#43232"-> profil
-
-
+    
+        // Mise à jour des données utilisateur
+        $user->setUsername($dto->username);
+    
         try {
             $this->entityManager->persist($user);
             $this->entityManager->flush();
         } catch (\Exception $e) {
-            return new JsonResponse([
-                'message' => 'Erreur lors de l\'inscription. Veuillez réessayer plus tard.'
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return new JsonResponse(
+                ['error' => 'Erreur lors de la mise à jour. Veuillez réessayer plus tard.'],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
-
-        return new JsonResponse([
-            'message' => 'Profil updaté (firstLogin, username etc)'
-        ], Response::HTTP_OK); // 200 alors que UPDATE mais c'est un POST bref
+    
+        return new JsonResponse(
+            ['message' => 'Profil mis à jour avec succès.'],
+            Response::HTTP_OK
+        );
     }
 
 }
