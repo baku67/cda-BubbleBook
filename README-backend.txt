@@ -1,59 +1,34 @@
 dev:
 
-    prerequis: Installer PostgreSQL dans le dossier Laragon/bin, 
-    
+    Projet cloné =
     .env DATABASE_URL
-    Dans doctrine.yaml: url:'%env(resolve:DATABASE_URL)%'
 
-    Bien mettre le dossier du projet dans www de Laragon (pour le php.ini)
+    Attention a environements.ts qui spécifie l'ApiUrl si on test sur PC ou sur mobile (debuggage USB via chrome PC: chrome://inspect/#devices)
 
-    Et faire pointer Laragon sur le dossier racine du projet
-
-
-    Version de PHP de Laragon:
-    $env:PATH="C:\laragon\bin\php\php-8.1.10-Win32-vs16-x64;$env:PATH"
-
-    Vérifier l'extension postgres:
-    php -m | findstr pgsql
-
-    
-
-
-    php.ini: décommenter extension=pgsql et extension=pdo_pgsql
-
-
-
-
-    #####################################################
-
-
-    Attention au environements.ts qui spécifie l'ApiUrl si on test sur PC ou sur mobile (debuggage USB via chrome PC: chrome://inspect/#devices)
-
-
-    ######################################################
-    Quand j'ajoute une route, si elle peut etre appelé sans etre authentifié:
+    Exemple d'ajout route, si elle peut etre appelée sans etre authentifié:
     -> dans backend/config/security.yaml: 
     access_control:
         - { path: ^/api/check-email, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
 
-
-
     #####################################################
+    CMD:
+    docker-compose exec php php bin/console cache:clear 
 
-    symfony console cache:clear 
-
-    symfony console make:entity Name
-    symfony console doctrine:database:create
-
-    symfony console make:migration
-    symfony console doctrine:make:migration
-
-    symfony console doctrine:schema:update --force
+    docker-compose exec php php bin/console make:entity Name
 
 
-    symfony console make:fixture
+    (NON je crois : )
+    docker-compose exec php php bin/console make:migration
+    (OUI DOCKER :)
+    docker-compose exec php php bin/console doctrine:migrations:diff
+    docker-compose exec php php bin/console doctrine:migrations:migrate
 
+    (! plutot préférer migrations):
+    docker-compose exec php php bin/console doctrine:schema:update --force
+
+    docker-compose exec php php bin/console doctrine:database:create
+    docker-compose exec php php bin/console make:fixture
 
 
 ############## Acces au container (bash): 
@@ -76,3 +51,16 @@ Il faut Openssl (dl een ligne) pour générer les clées localement:
     mkdir -p config/jwt
     openssl genpkey -out config/jwt/private.pem -algorithm rsa -pkeyopt rsa_keygen_bits:4096
     openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+
+
+
+# OSEF parce qu'on dev que dans environnement docker:
+    prerequis: Installer PostgreSQL dans le dossier Laragon/bin, 
+    Bien mettre le dossier du projet dans www de Laragon (pour le php.ini, + décommenter ext ;sodium et pdo_pgsql/pdo_mysql)
+    Et faire pointer Laragon sur le dossier racine du projet
+    Version de PHP de Laragon:
+    $env:PATH="C:\laragon\bin\php\php-8.1.10-Win32-vs16-x64;$env:PATH"
+    ->> EDIT il faut la PHP 8.2 !!!!!!!!!!!!!! (%PATH% 8.2 tout en haut de la liste )
+    Vérifier l'extension postgres:
+    php -m | findstr pgsql
+    php.ini: décommenter extension=pgsql et extension=pdo_pgsql

@@ -14,8 +14,11 @@ done
 # Créer la base de données si elle n'existe pas
 php bin/console doctrine:database:create --if-not-exists
 
-# Mettre à jour le schéma
-php bin/console doctrine:schema:update --force
+## Mettre à jour le schéma
+# php bin/console doctrine:schema:update --force
+## OU
+# Appliquer les migrations existantes
+php bin/console doctrine:migrations:migrate --no-interaction
 
 # Charger les fixtures
 php bin/console doctrine:fixtures:load --no-interaction

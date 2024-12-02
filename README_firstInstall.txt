@@ -1,12 +1,9 @@
 **************************************
-.env et .env.test
-environments.ts (check apiUrl ! et IP réseau)
+.env (gitignored)
+environments.ts (url api local network)
+backend/config/jwt/private.pem + public.pem (gitignored) (même si bundle!)
 
-#######################################
-docker exec -it php-symfony sh
-composer require symfony/monolog-bundle
-
-
+OU
 **************************************
 Il faut Openssl (dl een ligne) pour générer les clées localement:
 (se placer dans le dossier backend, git bash)

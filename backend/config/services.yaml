@@ -21,7 +21,7 @@ services:
             - '../src/Kernel.php'
 
     # Enregistre le listener JWT pour modifier le payload
-    App\EventListener\JWTCreatedListener:
+    App\EventListeners\JWTCreatedListener:
         tags:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
 
