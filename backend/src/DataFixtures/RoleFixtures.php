@@ -6,7 +6,7 @@ use App\Entity\Role;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class RoleFixtures extends Fixture 
+class RoleFixtures extends Fixture
 {
     public const ROLE_USER_REFERENCE = 'role-user';
     public const ROLE_ADMIN_REFERENCE = 'role-admin';

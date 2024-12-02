@@ -16,17 +16,24 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Directory
 WORKDIR /var/www/html
 
+# Copier uniquement composer.json et composer.lock pour installer les dépendances
+COPY composer.json composer.lock ./
+
+# # # Install Symfony Runtime (ajout important)
+# RUN composer require symfony/runtime
+RUN composer require symfony/runtime:"^6.4" --update-with-dependencies
+
+RUN composer install --optimize-autoloader
+
+# Copier le reste des fichiers de l'application
 COPY . .
 
-# Symfony/doctrine/php composer bundles etc..
-RUN composer require symfony/serializer \
-    && composer require symfony/validator \
-    && composer require symfony/monolog-bundle \
-    && composer require symfony/maker-bundle --dev doctrine/doctrine-fixtures-bundle --dev nelmio/cors-bundle \
-    && composer install --no-interaction --prefer-dist --optimize-autoloader
-
-# Install Symfony Runtime (ajout important)
-RUN composer require symfony/runtime
+# # Symfony/doctrine/php composer bundles etc..
+# RUN composer require symfony/serializer -W \
+#     && composer require symfony/validator -W \
+#     RUN composer require symfony/monolog-bundle \
+#     && composer require symfony/maker-bundle --dev doctrine/doctrine-fixtures-bundle --dev nelmio/cors-bundle \
+#     && composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Fix "Forbidden 403"
 COPY apache.conf /etc/apache2/sites-available/000-default.conf

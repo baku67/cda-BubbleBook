@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use App\DTO\FirstLogin1DTO;
+use App\DTO\User\FirstLogin1DTO;
 
 class UserController extends AbstractController
 {

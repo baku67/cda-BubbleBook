@@ -1,0 +1,6 @@
+/vendor
+/node_modules
+
+/.git
+/.gitignore
+/.dockerignore

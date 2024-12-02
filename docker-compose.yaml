@@ -18,15 +18,16 @@ services:
     container_name: php-symfony
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html/public
-      MAILER_DSN: smtp://mailer:1025 # osef vu que dans .env copié ?
+      # MAILER_DSN: smtp://mailer:1025 # osef vu que dans .env copié ?
     ports:
       - "8000:80"
     volumes:
       - ./backend:/var/www/html
-      # - ./backend/vendor:/var/www/html/vendor
-      - ./backend/var:/var/www/html/var
-      - ./backend/composer.json:/var/www/html/composer.json
-      - ./backend/composer.lock:/var/www/html/composer.lock
+      - vendor:/var/www/html/vendor  # Préserve le dossier vendor
+      - var:/var/www/html/var
+      # - ./backend/var:/var/www/html/var
+      # - ./backend/composer.json:/var/www/html/composer.json
+      # - ./backend/composer.lock:/var/www/html/composer.lock
     networks:
       - mynetwork
     depends_on:
@@ -89,6 +90,10 @@ services:
     working_dir: /app
     volumes:
       - ./frontend:/app  # Monte le code source
+      - node_modules:/app/node_modules # Préserve le dossier node_modules du conteneur
+      # Le volume node_modules monte le répertoire /app/node_modules du conteneur dans un volume Docker nommé node_modules, évitant ainsi qu'il soit écrasé par le montage de votre répertoire local ./frontend.
+      # Cela permet de conserver les modules Node.js installés lors du build de l'image Docker, y compris @angular/cli.
+      # Même si normalement node_module .dockerignoré
     ports:
       - "4200:4200"
     networks:
@@ -98,6 +103,8 @@ volumes:
   pg_data:
   pgadmin_data:
   node_modules:  # Ajout du volume nommé node_modules
+  vendor:  # Ajout du volume nommé vendor
+  var:
 
 
 networks:

@@ -12,10 +12,6 @@ RUN npm install
 # Permet un "watch" plus efficace sur Docker (surveille les fichiers)
 RUN npm install chokidar --save-dev
 
-# Installez Angular CLI et Angular Material
-RUN npm install -g @angular/cli
-# RUN npm install @angular/material @angular/cdk @angular/animations // deja dans le package.json
-
 # Copiez tout le reste
 COPY . .
 
@@ -23,4 +19,4 @@ COPY . .
 EXPOSE 4200
 
 # Commande pour démarrer l'application
-CMD ["ng", "serve", "--host", "0.0.0.0", "--poll", "2000"]
+CMD ["npx", "ng", "serve", "--host", "0.0.0.0", "--poll", "2000"]
