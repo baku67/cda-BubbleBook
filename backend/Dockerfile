@@ -28,13 +28,6 @@ RUN composer install --optimize-autoloader
 # Copier le reste des fichiers de l'application
 COPY . .
 
-# # Symfony/doctrine/php composer bundles etc..
-# RUN composer require symfony/serializer -W \
-#     && composer require symfony/validator -W \
-#     RUN composer require symfony/monolog-bundle \
-#     && composer require symfony/maker-bundle --dev doctrine/doctrine-fixtures-bundle --dev nelmio/cors-bundle \
-#     && composer install --no-interaction --prefer-dist --optimize-autoloader
-
 # Fix "Forbidden 403"
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite

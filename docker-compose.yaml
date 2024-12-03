@@ -25,9 +25,6 @@ services:
       - ./backend:/var/www/html
       - vendor:/var/www/html/vendor  # Préserve le dossier vendor
       - var:/var/www/html/var
-      # - ./backend/var:/var/www/html/var
-      # - ./backend/composer.json:/var/www/html/composer.json
-      # - ./backend/composer.lock:/var/www/html/composer.lock
     networks:
       - mynetwork
     depends_on:
