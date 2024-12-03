@@ -8,7 +8,7 @@ describe('LandingPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LandingPageComponent]
+      declarations: [LandingPageComponent], // Corrigé ici : `declarations` au lieu de `imports`
     })
     .compileComponents();
 

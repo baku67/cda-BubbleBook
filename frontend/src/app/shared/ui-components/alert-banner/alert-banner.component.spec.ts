@@ -8,7 +8,7 @@ describe('AlertBannerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AlertBannerComponent]
+      declarations: [AlertBannerComponent]
     })
     .compileComponents();
 
