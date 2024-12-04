@@ -3,15 +3,16 @@ import { AuthService } from '../../../features/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-nav',
+  selector: 'app-nav-bottom-mobile',
   standalone: true,
-  imports: [MatButton, CommonModule],
-  templateUrl: './nav.component.html',
-  styleUrl: './nav.component.scss'
+  imports: [MatButton, MatIcon, CommonModule],
+  templateUrl: './nav-bottom-mobile.component.html',
+  styleUrl: './nav-bottom-mobile.component.scss'
 })
-export class NavComponent {
+export class NavBottomMobileComponent {
 
   @Input() isLoggedIn!: boolean;
 

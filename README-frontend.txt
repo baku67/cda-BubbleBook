@@ -18,4 +18,6 @@ Liste des containers docker (git bash):
 docker ps
 
 Bash container angular:
-docker exec -it angular bash
+-> docker exec -it angular bash
+
+npm run test -- --watch=false --browsers=ChromeHeadless

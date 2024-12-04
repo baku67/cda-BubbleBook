@@ -1,0 +1,45 @@
+<!-- Bottom Nav Mobile  -->
+
+<!-- Rouage: onClick mini menu (/profil, /deco, light/dark, langue) -->
+
+<nav>
+
+    <div class="flex1">
+        <button 
+            *ngIf="isLoggedIn"
+            class="navBottomMobile-btn"
+            mat-flat-button
+            color="primary"
+            (click)="logout()"
+        >
+            Carnet(lgt)
+        </button>
+    </div>
+
+    <div class="flex1">
+        <mat-icon 
+            *ngIf="isLoggedIn"
+            class="navBottomMobile-btn"
+            mat-flat-button
+            color="primary"
+            (click)="logout()"
+        >
+            menu_book
+        </mat-icon>
+    </div>
+
+    <div class="flex1">
+        <mat-icon
+            *ngIf="isLoggedIn"
+            class="navBottomMobile-btn"
+            mat-button
+            color="warn"
+            (click)="logout()"
+        >
+            power_settings_new
+        </mat-icon>
+    </div>
+    
+</nav>
+
+

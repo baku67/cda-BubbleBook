@@ -4,8 +4,12 @@
   <app-language-switch />
   <app-theme-switch />
 
+  <!-- ngIf pour vérifier quelles routes ont/n'ont pas le composant: -->
   <app-header *ngIf="showHeader" />
+  
   <router-outlet />
+
+  <app-nav-bottom-mobile *ngIf="showNavBottomMobile && isLoggedIn" [isLoggedIn]="isLoggedIn" />
   <app-footer *ngIf="showFooter" />
 
 </main>
