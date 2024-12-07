@@ -33,13 +33,13 @@
 body.light-theme {
     // background-color: white !important;
     color: #000 !important;
-    background-color: map-get(map-get($myapp-light-theme, bg-color), default); // Utilise la clé background
+    background-image: map-get(map-get($myapp-light-theme, bg-color), default); // Utilise la clé background
   }
   
   body.dark-theme {
     // background-color: black !important;
-    color: #fff !important;
-    background-color: map-get(map-get($myapp-dark-theme, bg-color), default); // Utilise la clé background
+    color: #ffffff !important;
+    background-image: map-get(map-get($myapp-dark-theme, bg-color), default); // Utilise la clé background
   }
 
 
@@ -63,6 +63,9 @@ body {
 
 
 
+button {
+    padding: 38px !important;
+}
 
 a {
     text-decoration: none;
