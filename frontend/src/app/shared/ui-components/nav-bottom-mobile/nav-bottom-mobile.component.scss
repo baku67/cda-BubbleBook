@@ -11,12 +11,25 @@
     height: 6vh;
     display: inline-flex;
     justify-content: space-between;
+
+    // border-top: 1px solid grey;
+    border-top-right-radius: 13%;
+    border-top-left-radius: 13%;
 }
 
 
-.navBottomMobile-btn {
-    width: 100%;
+.navBottomMobile-div {
+    display: inline-flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+.navBottomMobile-icon {
     height: -webkit-fill-available;
     background-color: transparent;
     border-radius: 0px;
+
+    display: inline-flex;
+    align-items: center;
 }

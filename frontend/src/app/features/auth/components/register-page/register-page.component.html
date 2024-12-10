@@ -51,29 +51,33 @@
 
 
     <div>
-      <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>{{ "PASSWORD_LABEL" | translate }}</mat-label>
-        <input 
-          matInput 
-          matFormFieldControl 
-          formControlName="password" 
-          [type]="hidePassword1 ? 'password' : 'text'"
-          (input)="onPasswordInput()"
-          autocomplete="new-password">
-        <mat-icon matSuffix (click)="togglePassword1Visibility()">{{ hidePassword1 ? 'visibility_off' : 'visibility' }}</mat-icon>
-      </mat-form-field>
 
-      <div class="icone-et-jauge">
-        <!-- <mat-icon>key</mat-icon> -->
-        <div class="progress-bar-container">
-          <!-- "6" car 6 niveaux de complexité -->
-          <div 
-            class="progress-bar" 
-            [style.width.%]="(passwordComplexityScore / 6) * 100" 
-            [ngClass]="passwordStrengthColor"
-          ></div>
+      <div class="relative noMargin">
+        <mat-form-field appearance="outline" class="matFieldInput">
+          <mat-label>{{ "PASSWORD_LABEL" | translate }}</mat-label>
+          <input 
+            matInput 
+            matFormFieldControl 
+            formControlName="password" 
+            [type]="hidePassword1 ? 'password' : 'text'"
+            (input)="onPasswordInput()"
+            autocomplete="new-password">
+          <mat-icon matSuffix (click)="togglePassword1Visibility()">{{ hidePassword1 ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </mat-form-field>
+
+        <div class="icone-et-jauge">
+          <!-- <mat-icon>key</mat-icon> -->
+          <div class="progress-bar-container">
+            <!-- "6" car 6 niveaux de complexité -->
+            <div 
+              class="progress-bar" 
+              [style.width.%]="(passwordComplexityScore / 6) * 100" 
+              [ngClass]="passwordStrengthColor"
+            ></div>
+          </div>
         </div>
       </div>
+      <!-- <span>Force:</span> -->
 
       <!-- Phase d'erreur généré par le composant -->
       <div *ngIf="registerForm.get('password')?.touched && passwordErrorMessage">
@@ -115,7 +119,7 @@
       <button 
         mat-flat-button 
         color="primary"
-        class="cta-btn-primary" 
+        class="cta-btn-primary bigButton" 
         type="submit" 
         [disabled]="!registerForm.valid || emailChecking || isLoading"
       >

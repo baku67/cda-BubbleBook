@@ -31,16 +31,30 @@
 }
 
 body.light-theme {
-    // background-color: white !important;
-    color: #000 !important;
+    color: #0a0a0a !important;
     background-image: map-get(map-get($myapp-light-theme, bg-color), default); // Utilise la clé background
-  }
-  
-  body.dark-theme {
-    // background-color: black !important;
-    color: #ffffff !important;
+}
+body.dark-theme {
+    color: #f5f0f0 !important;
     background-image: map-get(map-get($myapp-dark-theme, bg-color), default); // Utilise la clé background
-  }
+}
+
+// Material sub Menu bg écrasé
+body.light-theme .matSubMenu {
+    background-color: map-get(map-get($myapp-light-theme, matMenu-bgColor), default); 
+}
+body.dark-theme .matSubMenu {
+    background-color: map-get(map-get($myapp-dark-theme, matMenu-bgColor), default);
+}
+
+// NavBottomMobile bg
+body.light-theme .navBottomMobile {
+    background-color: map-get(map-get($myapp-light-theme, matMenu-bgColor), default); 
+}
+body.dark-theme .navBottomMobile {
+    background-color: map-get(map-get($myapp-dark-theme, matMenu-bgColor), default);
+}
+
 
 
 * {
@@ -64,7 +78,11 @@ body {
 
 
 button {
-    padding: 38px !important;
+    // padding: 38px !important;
+    color: inherit;
+}
+.bigButton {
+    padding: 32px !important;
 }
 
 a {
@@ -145,9 +163,48 @@ h1, h2, h3 {
 }
 
 
+.relative {
+    position: relative;
+}
+
+.noMargin {
+    margin: 0px !important;
+}
+
 .flex1 {
     flex: 1;
 }
 .flex0 {
     flex: 0;
 }
+
+
+// Bouton pas Material
+.custom-button {
+    background: none;
+    border: none;
+    padding: 0 !important;
+    margin: 0;
+    width: 100%; /* facultatif */
+    height: auto; /* facultatif */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer; /* optionnel, pour garder le comportement de "lien" */
+}
+.custom-button:focus {
+    outline: none; /* Supprime le focus par défaut */
+}
+.custom-button:active {
+    background-color: transparent; /* Évite l'effet "cliqué" */
+}
+.custom-button:hover {
+    background-color: transparent; /* Évite l'effet "hover" de Material */
+}
+
+
+// sub Menu Material
+// .matSubMenu {
+//     background-color: red !important;
+// }

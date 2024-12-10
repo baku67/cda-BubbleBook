@@ -2,43 +2,45 @@
 
 <!-- Rouage: onClick mini menu (/profil, /deco, light/dark, langue) -->
 
-<nav>
+<nav class="navBottomMobile">
 
-    <div class="flex1">
-        <button 
-            *ngIf="isLoggedIn"
-            class="navBottomMobile-btn"
-            mat-flat-button
-            color="primary"
-            (click)="logout()"
-        >
-            Carnet(lgt)
-        </button>
-    </div>
+    <a [routerLink]="['/user-profil']" routerLinkActive="router-link-active" class="navBottomMobile-div flex1" tabindex="0">
+        <div class="">
+            <mat-icon class="navBottomMobile-icon">
+                menu_book
+            </mat-icon>
+        </div>
+    </a>
 
-    <div class="flex1">
-        <mat-icon 
-            *ngIf="isLoggedIn"
-            class="navBottomMobile-btn"
-            mat-flat-button
-            color="primary"
-            (click)="logout()"
-        >
-            menu_book
-        </mat-icon>
-    </div>
+    <a [routerLink]="['/user-profil']" routerLinkActive="router-link-active" class="navBottomMobile-div flex1" tabindex="1">
+        <div class="navBottomMobile-div flex1">
+            <mat-icon class="navBottomMobile-icon">
+                menu_book
+            </mat-icon>
+        </div>
+    </a>
 
-    <div class="flex1">
-        <mat-icon
-            *ngIf="isLoggedIn"
-            class="navBottomMobile-btn"
-            mat-button
-            color="warn"
-            (click)="logout()"
-        >
-            power_settings_new
-        </mat-icon>
-    </div>
+    <!--  La méthode logout() qui appelle le authService pour logout et suppr le accesstoken  -->
+    <button 
+        [routerLink]="['/user-settings']" 
+        routerLinkActive="router-link-active" 
+        [matMenuTriggerFor]="menu" 
+        class="navBottomMobile-div flex1 custom-button"
+        tabindex="2"
+    >
+        <div class="navBottomMobile-div flex1">
+            <mat-icon class="navBottomMobile-icon">
+                settings
+            </mat-icon>
+        </div>
+    </button>
+
+    <mat-menu #menu="matMenu" class="matSubMenu">
+        <button mat-menu-item (click)="logout()">Logout</button>
+        <button mat-menu-item>light/dark</button>
+        <button mat-menu-item>lang</button>
+    </mat-menu>
+
     
 </nav>
 
