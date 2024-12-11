@@ -1,4 +1,6 @@
-
+# Effectivement, ce n’est pas du tout “con”. 
+# C’est même une bonne pratique d’allier les deux : bind mounts pour le code, volumes nommés pour les dépendances. 
+# Cela combine l’agilité du développement avec la stabilité du rendu final.
 
 services:
 
@@ -14,29 +16,28 @@ services:
 
   php:
     build:
-      context: ./backend  # chemin du Dockerfile
+      context: ./backend 
+      dockerfile: Dockerfile 
     container_name: php-symfony
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html/public
-      # MAILER_DSN: smtp://mailer:1025 # osef vu que dans .env copié ?
     ports:
       - "8000:80"
     volumes:
-      - ./backend:/var/www/html
-      - vendor:/var/www/html/vendor  # Préserve le dossier vendor
-      - var:/var/www/html/var
+      - ./backend:/var/www/html # bind mounts
+      - vendor:/var/www/html/vendor # volume nommé
+      - var:/var/www/html/var # volume nommé
     networks:
       - mynetwork
     depends_on:
       - postgres
       - mailer
-    # command: ["apache2-foreground"]  # plus besoin car géré par le Dockerfile/docker_entrypoint.sh
 
 
 
 
   postgres:
-    image: postgres:15  # Utilisez une version spécifique de PostgreSQL (plutot que "latest")
+    image: postgres:15  # mieux que "latest"
     environment:
       POSTGRES_DB: bubblebook
       POSTGRES_USER: postgres
@@ -51,7 +52,6 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
-    # privileged: true
     environment:
       PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
       PGADMIN_DEFAULT_PASSWORD: postgres
@@ -65,7 +65,6 @@ services:
       - pgadmin_data:/var/lib/pgadmin  # Persiste les données de session et la configuration
 
 
-  ###> symfony/mailer ###
   mailer:
     image: axllent/mailpit
     ports:
@@ -76,21 +75,17 @@ services:
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
-    ###< symfony/mailer ###
 
 
   angular:
     build:
-      context: ./frontend  # Répertoire contenant ton Dockerfile
-      dockerfile: Dockerfile  # Nom du Dockerfile 
+      context: ./frontend
+      dockerfile: Dockerfile 
     container_name: angular
     working_dir: /app
     volumes:
-      - ./frontend:/app  # Monte le code source
-      - node_modules:/app/node_modules # Préserve le dossier node_modules du conteneur
-      # Le volume node_modules monte le répertoire /app/node_modules du conteneur dans un volume Docker nommé node_modules, évitant ainsi qu'il soit écrasé par le montage de votre répertoire local ./frontend.
-      # Cela permet de conserver les modules Node.js installés lors du build de l'image Docker, y compris @angular/cli.
-      # Même si normalement node_module .dockerignoré
+      - ./frontend:/app  # bind mounts
+      - node_modules:/app/node_modules # volume nommé
     ports:
       - "4200:4200"
     networks:
@@ -101,7 +96,7 @@ volumes:
   pgadmin_data:
   node_modules:  # Ajout du volume nommé node_modules
   vendor:  # Ajout du volume nommé vendor
-  var:
+  var:  # Ajout du volume nommé var
 
 
 networks:

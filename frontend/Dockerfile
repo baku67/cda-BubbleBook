@@ -10,6 +10,7 @@ COPY package*.json ./
 RUN npm install
 
 # Permet un "watch" plus efficace sur Docker (surveille les fichiers)
+# marche sans parce code source en bind mounts et non volumes nommés
 RUN npm install chokidar --save-dev
 
 # Copiez tout le reste
