@@ -5,12 +5,9 @@ import { Observable, tap, BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environments';
 import { TokenService } from './token.service';
 
-
-
 interface DecodedToken {
   exp?: number;  // Le champ exp représente la date d'expiration en secondes depuis Epoch
 }
-
 interface AuthResponse {
   accessToken: string;
 }
@@ -26,7 +23,11 @@ export class AuthService {
   // Observable pour savoir si l'utilisateur est connecté
   isLoggedIn$ = this.loggedIn.asObservable();
 
-  constructor(private http: HttpClient, private router: Router, private tokenService: TokenService) {
+  constructor(
+    private http: HttpClient, 
+    private router: Router, 
+    private tokenService: TokenService
+  ) {
     // Initialisation après que TokenService soit injecté
     this.loggedIn.next(this.hasToken());
   }
