@@ -1,5 +1,12 @@
 FROM node:20.15.1
 
+## TESTING dans container docker (inutile pour ci github actions)
+# Installer Chromium et d'autres dépendances
+RUN apt-get update && apt-get install -y chromium && rm -rf /var/lib/apt/lists/*
+# Définir la variable d'environnement pour Karma
+ENV CHROME_BIN=/usr/bin/chromium
+ENV CHROMIUM_BIN=/usr/bin/chromium
+
 # Créez le répertoire de l'application
 WORKDIR /app
 

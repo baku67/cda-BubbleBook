@@ -20,4 +20,4 @@ docker ps
 Bash container angular:
 -> docker exec -it angular bash
 
-npm run test -- --watch=false --browsers=ChromeHeadless
+npm run test -- --watch=false --browsers=ChromeHeadlessNoSandbox
