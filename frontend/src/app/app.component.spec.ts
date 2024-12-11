@@ -1,10 +1,24 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LanguageSwitchComponent } from './shared/ui-components/language-switch/language-switch.component';
+import { ThemeSwitchComponent } from './shared/ui-components/theme-switch/theme-switch.component';
+import { RouterModule } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AppComponent],
+      declarations: [
+        AppComponent,
+      ],
+      imports: [
+        TranslateModule.forRoot(),
+        HttpClientTestingModule,
+        LanguageSwitchComponent,
+        ThemeSwitchComponent,
+        RouterModule,
+      ]
     }).compileComponents();
   });
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { ProfilService } from '../../services/profil.service';
+import { FirstLoginService } from '../../services/first-login.service';
 import { Router } from '@angular/router';
 import { FirstLoginUserUpdate1 } from '../../models/first-login-1.model';
 
@@ -20,7 +20,7 @@ export class FirstLogin1Component implements OnInit {
     // private authService: AuthService,
     private formBuilder: FormBuilder, 
     private translateService: TranslateService,
-    private profilService: ProfilService,
+    private FirstLoginService: FirstLoginService,
     private router: Router,
   ) {
     this.isLoading = false;
@@ -45,7 +45,7 @@ export class FirstLogin1Component implements OnInit {
       // Conversion explicite du formulaire en FirstLoginUserUpdate1
       const formData: FirstLoginUserUpdate1 = this.firstLoginForm.value;
 
-      this.profilService.firstLoginForm(formData).subscribe({
+      this.FirstLoginService.firstLoginForm(formData).subscribe({
         // redirection step 2 après UPDATE User
         next: (response) => {
           console.log('Mise à jour User réussie', response);

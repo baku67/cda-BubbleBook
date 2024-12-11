@@ -8,7 +8,7 @@ describe('FlashMessageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FlashMessageComponent]
+      imports: [FlashMessageComponent]
     })
     .compileComponents();
 

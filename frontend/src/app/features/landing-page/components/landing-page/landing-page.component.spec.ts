@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { LandingPageComponent } from './landing-page.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LandingPageComponent', () => {
   let component: LandingPageComponent;
@@ -8,7 +9,13 @@ describe('LandingPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LandingPageComponent], // Corrigé ici : `declarations` au lieu de `imports`
+      declarations: [
+        LandingPageComponent
+      ],
+      imports: [
+        RouterTestingModule,
+        TranslateModule.forRoot(),
+      ]
     })
     .compileComponents();
 

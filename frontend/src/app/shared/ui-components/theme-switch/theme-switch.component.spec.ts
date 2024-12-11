@@ -8,7 +8,7 @@ describe('ThemeSwitchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ThemeSwitchComponent]
+      imports: [ThemeSwitchComponent]
     })
     .compileComponents();
 

@@ -8,7 +8,7 @@ import { FirstLoginUserUpdate1 } from '../models/first-login-1.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ProfilService {
+export class FirstLoginService {
 
   constructor(private http: HttpClient) { }
 

@@ -1,15 +1,17 @@
 import { TestBed } from '@angular/core/testing';
-import { EmailCheckService } from '../../../features/auth/services/email-disponibility.service';
+import { FirstLoginService } from './first-login.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('EmailCheckServiceService', () => {
-  let service: EmailCheckService;
+describe('FirstLoginService', () => {
+  let service: FirstLoginService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [
+        HttpClientTestingModule,
+      ]
     });
-    service = TestBed.inject(EmailCheckService);
+    service = TestBed.inject(FirstLoginService);
   });
 
   it('should be created', () => {

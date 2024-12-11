@@ -16,7 +16,6 @@
 
         <input 
           matInput 
-          matFormFieldControl 
           formControlName="email" 
           type="email" 
           [placeholder]="'EMAIL_ADDRESS_PLACEHOLDER' | translate"
@@ -57,7 +56,6 @@
           <mat-label>{{ "PASSWORD_LABEL" | translate }}</mat-label>
           <input 
             matInput 
-            matFormFieldControl 
             formControlName="password" 
             [type]="hidePassword1 ? 'password' : 'text'"
             (input)="onPasswordInput()"
@@ -91,7 +89,6 @@
         <mat-label>{{ "PASSWORD_CONFIRM_LABEL" | translate }}</mat-label>
         <input 
           matInput 
-          matFormFieldControl 
           formControlName="passwordCheck" 
           [type]="hidePassword2 ? 'password' : 'text'"
           autocomplete="new-password"
