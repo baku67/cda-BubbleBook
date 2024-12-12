@@ -1,8 +1,9 @@
 <!-- Container global app -->
 <main class="globalMain">
 
-  <app-language-switch />
-  <app-theme-switch />
+  <!-- TODO MatMenu en haut à droite pour les pages hors-co (landingPage, Login, Register, ect) -->
+  <app-language-switch *ngIf="!isLoggedIn" />
+  <app-theme-switch *ngIf="!isLoggedIn" />
 
   <!-- ngIf pour vérifier quelles routes ont/n'ont pas le composant: -->
   <app-header *ngIf="showHeader" />

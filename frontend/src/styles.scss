@@ -3,11 +3,10 @@
 
 /* https://cssgradient.io/shades-of-blue/ */
 :root {
-    --primary-color: #69f0d9; /* Aquamarine */
-    --background-color: #010e27; /* Brewers Blue */
+    --primary-color: #0093E9; /* Aquamarine */
 
-    --green: greenyellow;
-    --red: indianred;
+    --green: #4CAF50;
+    --red: #FF5252;
 
     --font-size-small: 0.875rem;   /* 14px */
     --font-size-base: 1rem;        /* 16px */
@@ -22,37 +21,41 @@
     font-style: normal;
 }
 
+// Styles Composants Angular Material !
 .light-theme {
     @include mat.all-component-themes($myapp-light-theme); // Applique les styles du thème clair
 }
 .dark-theme {
     @include mat.all-component-themes($myapp-dark-theme); // Applique les styles du thème sombre
-
 }
+
 
 body.light-theme {
-    color: #0a0a0a !important;
-    background-image: map-get(map-get($myapp-light-theme, bg-color), default); // Utilise la clé background
+    color: #333333 !important;
+    background-image: map-get(map-get($myapp-light-theme, bg-color), default); 
 }
 body.dark-theme {
-    color: #f5f0f0 !important;
-    background-image: map-get(map-get($myapp-dark-theme, bg-color), default); // Utilise la clé background
+    color: #F5F5F5 !important;
+    background-image: map-get(map-get($myapp-dark-theme, bg-color), default); 
 }
 
-// Material sub Menu bg écrasé
-body.light-theme .matSubMenu {
-    background-color: map-get(map-get($myapp-light-theme, matMenu-bgColor), default); 
-}
-body.dark-theme .matSubMenu {
-    background-color: map-get(map-get($myapp-dark-theme, matMenu-bgColor), default);
-}
-
-// NavBottomMobile bg
+body.light-theme .matSubMenu,
 body.light-theme .navBottomMobile {
     background-color: map-get(map-get($myapp-light-theme, matMenu-bgColor), default); 
 }
+body.dark-theme .matSubMenu,
 body.dark-theme .navBottomMobile {
     background-color: map-get(map-get($myapp-dark-theme, matMenu-bgColor), default);
+}
+
+// TODO: tester
+body.light-theme .card {
+    background-color: map-get(map-get($myapp-light-theme, bg-color), appBar);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+body.dark-theme .card {
+    background-color: map-get(map-get($myapp-dark-theme, bg-color), appBar);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 
@@ -75,6 +78,10 @@ body {
     height: 100%;
 }
 
+.card {
+    padding: 25px;
+    border-radius: 10px;
+}
 
 
 button {

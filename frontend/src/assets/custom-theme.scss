@@ -15,11 +15,12 @@ $myapp-light-theme: mat.m2-define-light-theme((
   ),
   bg-color: (
     // default: linear-gradient(to left bottom, #17ae66, #009d8a, #00889d, #007199, #355982), // Gradient background-color body
-    default: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%), 
-    appBar: #ffffff // Couleur des surfaces
+    // default: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%), 
+    default: linear-gradient(160deg, #E3F2FD 0%, #E0F7FA 100%),
+    appBar: #F8F9FA // Couleur des surfaces
   ),
   matMenu-bgColor: (
-    default: #80D0C7,
+    default: #F8F9FA,
   )
 ));
 
@@ -31,15 +32,15 @@ $myapp-dark-theme: mat.m2-define-dark-theme((
     warn: $myapp-theme-warn,
   ),
   bg-color: (
-    default: linear-gradient(315deg, #2b5562 0%, #12100e 74%),
-    appBar: #1e1e1e // Couleur des surfaces
+    // default: linear-gradient(315deg, #2b5562 0%, #12100e 74%),
+    default: linear-gradient(315deg, #1e1e1e 0%, #121212 100%),
+    appBar: #252526 // Couleur des surfaces
   ),
   matMenu-bgColor: (
-    default: #12100e,
+    default: #252526,
   )
 ));
 
 
-// @include mat.all-component-themes($myapp-light-theme);
 
 
