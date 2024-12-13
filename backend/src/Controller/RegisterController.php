@@ -89,6 +89,8 @@ class RegisterController extends AbstractController
         // Envoyés/Initialisés à false:
         $user->set2fa($data['is2fa'] ?? false);
         $user->setVerified(false);
+        // Type de compte ("option-club" ou "option-diver")
+        $user->setAccountType("option-diver"); // "option-diver" / "option-club" (TODO enum)
 
         // Envoi et persistence BDD d'un token de confirmation d'email (avec expiration):
         try {

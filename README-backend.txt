@@ -12,20 +12,20 @@ dev:
 
 
     #####################################################
-    CMD:
+    /!\ ~ docker-compose exec php <commande symfony en "php bin/console ..." au lieu de "symfony console ...">
+    /!\ Entrer dans le container: ~ docker exec -it php-symfony bash
+
     docker-compose exec php php bin/console cache:clear 
 
     docker-compose exec php php bin/console make:entity Name
 
-
-    (NON je crois : )
-    docker-compose exec php php bin/console make:migration
-    (OUI DOCKER :)
+    Il faut faire les modifications de schémas entités ET/PUIS créer la migration correspondante durant la vie du container php (en gros)
+        docker-compose exec php php bin/console make:migration
+        ou container: php bin/console make:migration
+    
     docker-compose exec php php bin/console doctrine:migrations:diff
     docker-compose exec php php bin/console doctrine:migrations:migrate
-
-    (! plutot préférer migrations):
-    docker-compose exec php php bin/console doctrine:schema:update --force
+    // docker-compose exec php php bin/console doctrine:schema:update --force
 
     docker-compose exec php php bin/console doctrine:database:create
     docker-compose exec php php bin/console make:fixture

@@ -14,11 +14,11 @@ class FirstLogin1DTO
     )]
     public string $username;
 
-    // #[Assert\Choice(
-    //     choices: ['admin', 'user', 'editor'],
-    //     message: 'Le type d\'utilisateur doit être l\'un de : admin, user ou editor.'
-    // )]
-    // public ?string $typeUser = null;
+    #[Assert\Choice(
+        choices: ['option-diver', 'option-club'],
+        message: 'Le type d\'utilisateur doit être l\'un de "diver" ou "club".'
+    )]
+    public ?string $toggle = null;
 
     // #[Assert\Url(message: 'L\'URL de l\'avatar n\'est pas valide.')]
     // public ?string $avatar = null;

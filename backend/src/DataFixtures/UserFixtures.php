@@ -12,29 +12,44 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        // Utilisateur 1 (Vérifié, pas de 2FA, [user])
-        $user = new User();
-        $user->setUsername("admin");
-        $user->setEmail("admin@admin.com");
-        $user->setPassword("admin");
-        $user->setVerified(true);
-        $user->set2fa(false);
+        // 0 (Vérifié, DIVER, pas de 2FA, !![ADMIN]!!)
+        $user0 = new User();
+        $user0->setUsername("admin");
+        $user0->setEmail("admin@admin.com");
+        $user0->setPassword("admin");
+        $user0->setVerified(true);
+        $user0->setAccountType("option-diver");
+        $user0->set2fa(false);
         // Ajout des rôles à partir des références
-        $user->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
-        $manager->persist($user);
+        $user0->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
+        $user0->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
+        $manager->persist($user0);
 
 
-        // Utilisateur 1 (Non vérifié, pas de 2FA, [user, admin])
+        // 1 (Non vérifié, DIVER, no 2FA, [user])
         $user1 = new User();
-        $user1->setUsername("admin1");
-        $user1->setEmail("admin1@admin1.com");
-        $user1->setPassword("admin1");
+        $user1->setUsername("user1");
+        $user1->setEmail("user1@user1.com");
+        $user1->setPassword("user1");
         $user1->setVerified(false);
-        $user1->set2fa(false);
+        $user1->setAccountType("option-diver");
+        $user1->set2fa(is2fa: false);
         // Ajout des rôles à partir des références
         $user1->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user1->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
         $manager->persist($user1);
+
+        // 2 (Non vérifié, CLUB, pas de 2FA, [user])
+        $user2 = new User();
+        $user2->setUsername("user2");
+        $user2->setEmail("user2@user2.com");
+        $user2->setPassword("user2");
+        $user2->setVerified(false);
+        $user2->setAccountType("option-club");
+        $user2->set2fa(is2fa: false);
+        // Ajout des rôles à partir des références
+        $user2->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
+        $manager->persist($user2);
 
         $manager->flush();
     }

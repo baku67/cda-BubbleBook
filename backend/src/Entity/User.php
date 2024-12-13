@@ -42,12 +42,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $confirmationTokenExpiry = null;
 
-
     /**
      * @var Collection<int, Role>
      */
     #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users')]
     private Collection $roles;
+
+    #[ORM\Column(length: 255)]
+    private ?string $accountType = null;
+
+
 
 
     public function __construct()
@@ -201,6 +205,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeRole(Role $role): static
     {
         $this->roles->removeElement($role);
+
+        return $this;
+    }
+
+    public function getAccountType(): ?string
+    {
+        return $this->accountType;
+    }
+
+    public function setAccountType(?string $accountType): static
+    {
+        $this->accountType = $accountType;
 
         return $this;
     }

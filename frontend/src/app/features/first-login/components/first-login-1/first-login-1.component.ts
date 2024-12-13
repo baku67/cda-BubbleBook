@@ -40,7 +40,7 @@ export class FirstLogin1Component implements OnInit {
               Validators.minLength(3)
             ]
           ], 
-          // toggle: ['option-diver'], // values: "option-diver" / "option-club"
+          toggle: ['option-diver'], // values: "option-diver" / "option-club"
         });
       },
       error: (error) => {
@@ -50,9 +50,9 @@ export class FirstLogin1Component implements OnInit {
   }
 
   
-  // setToggleValue(value: string): void {
-  //   this.firstLoginForm.get('toggle')?.setValue(value);
-  // }
+  setToggleValue(value: string): void {
+    this.firstLoginForm.get('toggle')?.setValue(value);
+  }
 
 
 
