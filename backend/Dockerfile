@@ -33,11 +33,10 @@ COPY apache.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
 
-# Copier le script d'entrée
+# ENTRYPOINT: Script qui se lance automatiquement lorsque le conteneur démarre. Il définit le point d'entrée du conteneur et contrôle le processus principal à exécuter.
 COPY docker-entrypoint.sh /usr/local/bin/
-# Donner les permissions d'exécution au script d'entrée
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-# Définir le point d'entrée
+# Initialisation et la préparation de l'environnement et BDD avant de lancer le serveur Apache
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 # Exposer le port 80

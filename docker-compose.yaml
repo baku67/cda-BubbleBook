@@ -1,15 +1,15 @@
-# Effectivement, ce n’est pas du tout “con”. 
+# ChatGPT à propos des volumes:
 # C’est même une bonne pratique d’allier les deux : bind mounts pour le code, volumes nommés pour les dépendances. 
 # Cela combine l’agilité du développement avec la stabilité du rendu final.
 
 services:
 
   apache:
-    image: httpd:latest
+    image: httpd:latest # pas d'image custom 
     ports:
-      - "8080:80" # machineHôte:DockerEngine
+      - "8080:80" # "machineHôte:DockerEngine"
     volumes:
-      - ./frontend:/var/www/html
+      - ./frontend:/var/www/html # "./" => bind mounts (liaison de dossier)
     networks:
       - mynetwork
 
@@ -17,14 +17,15 @@ services:
   php:
     build:
       context: ./backend 
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile # image custom
     container_name: php-symfony
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html/public
     ports:
-      - "8000:80" # machineHôte:DockerEngine
+      - "8000:80" # "machineHôte:DockerEngine"
     volumes:
-      - ./backend:/var/www/html # bind mounts
+      # synchronisation entre volume:conteneur
+      - ./backend:/var/www/html:delegated # "./" => bind mounts (liaison de dossier), utile pour éviter de rebuild et remonter les container a chaque changement dans le code source du projet
       - vendor:/var/www/html/vendor # volume nommé
       - var:/var/www/html/var # volume nommé
     networks:
@@ -37,36 +38,38 @@ services:
 
 
   postgres:
-    image: postgres:15  # mieux que "latest"
+    image: postgres:15  # pas d'image custom (mieux que "latest")
     environment:
       POSTGRES_DB: bubblebook
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432" # machineHôte:DockerEngine
+      - "5432:5432" # "machineHôte:DockerEngine"
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      # synchronisation entre volume:conteneur
+      - pg_data:/var/lib/postgresql/data # volume nommé
     networks:
       - mynetwork
 
 
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4 # pas d'image custom
     environment:
       PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
       PGADMIN_DEFAULT_PASSWORD: postgres
     ports:
-      - "5050:80" # machineHôte:DockerEngine
+      - "5050:80" # "machineHôte:DockerEngine"
     depends_on:
       - postgres
     networks:
       - mynetwork
     volumes:
-      - pgadmin_data:/var/lib/pgadmin  # Persiste les données de session et la configuration
+      # synchronisation entre volume:conteneur
+      - pgadmin_data:/var/lib/pgadmin  # volume nommé (données de session et configuration)
 
 
   mailer:
-    image: axllent/mailpit
+    image: axllent/mailpit # pas d'image custom
     ports:
       - "1025:1025" 
       - "8025:8025"  # Interface web de Mailpit
@@ -80,24 +83,31 @@ services:
   angular:
     build:
       context: ./frontend
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile # image custom
     container_name: angular
     working_dir: /app
     volumes:
-      - ./frontend:/app  # bind mounts
+      # synchronisation entre volume:conteneur
+      - ./frontend:/app:delegated # "./" => bind mounts (liaison de dossier), utile pour éviter de rebuild et remonter les container a chaque changement dans le code source du projet
       - node_modules:/app/node_modules # volume nommé
     ports:
-      - "4200:4200" # machineHôte:DockerEngine
+      - "4200:4200" # "machineHôte:DockerEngine"
     networks:
       - mynetwork
 
+
+# Déclaration des volumes utilisés dans les services
 volumes:
   pg_data:
   pgadmin_data:
-  node_modules:  # Ajout du volume nommé node_modules
-  vendor:  # Ajout du volume nommé vendor
-  var:  # Ajout du volume nommé var
+  node_modules: 
+  vendor:  
+  var:  
 
-
+# Déclaration des services utilisés dans les services
 networks:
   mynetwork:
+
+
+# -d: detached, --build: pour reconstruire les images si les Dockerfiles ont changé
+# docker-compose up --build -d
