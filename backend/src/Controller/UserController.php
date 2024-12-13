@@ -80,7 +80,7 @@ class UserController extends AbstractController
         // Mise à jour des données utilisateur
         $user->setUsername($dto->username);
 
-        $user->setAccountType($dto->toggle);
+        $user->setAccountType($dto->accountType);
     
         try {
             $this->entityManager->persist($user);

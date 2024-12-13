@@ -37,10 +37,11 @@ export class FirstLogin1Component implements OnInit {
             user.username || 'diver#00000', // Par défaut
             [
               Validators.required,
-              Validators.minLength(3)
+              Validators.minLength(3),
+              Validators.maxLength(30), // User entity column:length
             ]
           ], 
-          toggle: ['option-diver'], // values: "option-diver" / "option-club"
+          accountType: ['option-diver'], // values: "option-diver" / "option-club"
         });
       },
       error: (error) => {
@@ -50,8 +51,8 @@ export class FirstLogin1Component implements OnInit {
   }
 
   
-  setToggleValue(value: string): void {
-    this.firstLoginForm.get('toggle')?.setValue(value);
+  setAccountTypeValue(value: string): void {
+    this.firstLoginForm.get('accountType')?.setValue(value);
   }
 
 

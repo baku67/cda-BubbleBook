@@ -14,16 +14,16 @@
             <div class="toggleType-container">
                 <button 
                     class="toggleButton"
-                    [class.active]="firstLoginForm.get('toggle')?.value === 'option-diver'"
-                    (click)="setToggleValue('option-diver')"
+                    [class.active]="firstLoginForm.get('accountType')?.value === 'option-diver'"
+                    (click)="setAccountTypeValue('option-diver')"
                     type="button"
                 >
                     {{ "DIVER" | translate }}
                 </button>
                 <button 
                     class="toggleButton"
-                    [class.active]="firstLoginForm.get('toggle')?.value === 'option-club'"
-                    (click)="setToggleValue('option-club')"
+                    [class.active]="firstLoginForm.get('accountType')?.value === 'option-club'"
+                    (click)="setAccountTypeValue('option-club')"
                     type="button"
                 >
                     {{ "DIVING_CLUB" | translate }}
