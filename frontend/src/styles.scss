@@ -170,6 +170,9 @@ h1, h2, h3 {
     height: 4px;
 }
 
+.matFieldInput {
+    width: 100%;
+  }
 
 .relative {
     position: relative;
@@ -177,6 +180,10 @@ h1, h2, h3 {
 
 .noMargin {
     margin: 0px !important;
+}
+.marginTopBottom {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .flex1 {

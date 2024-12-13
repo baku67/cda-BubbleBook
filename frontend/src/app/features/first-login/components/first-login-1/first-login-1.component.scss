@@ -10,3 +10,72 @@
 .firstLoginForm {
     margin: 25px auto;
 }
+
+.toggleType-container {
+    display: flex;
+    border: 2px solid #1976d2; /* Bordure du toggle */
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  
+    button {
+        /*Reset's every elements apperance*/
+        background: none repeat scroll 0 0 transparent;
+        border: medium none;
+        border-spacing: 0;
+        color: #26589F;
+        font-family: 'PT Sans Narrow',sans-serif;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 1.42rem;
+        list-style: none outside none;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        text-decoration: none;
+        text-indent: 0;
+
+      // sutom toggleswitch
+      flex: 1;
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      transition: background-color 0.3s;
+  
+      &:hover {
+        background-color: #e3f2fd;
+      }
+  
+      &.active {
+        background-color: #1976d2;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .submit-section {
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    margin-top: 45px;
+    align-items: end;
+  }
+
+  .btns-container {
+    width: 60%;  
+  }
+
+  .cta-btn-secondary {
+    background-color: transparent;
+  }
+
+  .information-msg {
+    opacity: 0.7;
+    font-style: italic;
+    font-size: 80%;
+  }

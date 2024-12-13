@@ -1,21 +1,37 @@
 
 <div class="pageContent">
 
-    <app-page-header [title]="('YOU_ARE' | translate )" matIcon="account_circle" />
-
-
-    <!-- TODO form type user (Héritage backend), même si club pas la priorité (ouverture pour projet) -->
-    <div *ngIf="!isLoading" class="">
     
-        <!-- CHOIX Plongeur ou Club -->
-        <span>{{ "DIVER" | translate }}</span>
-        <span>{{ "DIVING_CLUB" | translate }}</span>
+    <!-- TODO form type user (Héritage backend), même si club pas la priorité (ouverture pour projet) -->
+    <div *ngIf="!isLoading" class="card">
 
+        <app-page-header [title]="('YOU_ARE' | translate )" matIcon="account_circle" />
+    
         <!-- Username / Clubname -->
         <form *ngIf="firstLoginForm" [formGroup]="firstLoginForm" (ngSubmit)="onSubmit()" class="firstLoginForm">
 
+            <!-- CHOIX Plongeur ou Club -->
+            <div class="toggleType-container">
+                <!-- <button 
+                    class="toggleButton"
+                    [class.active]="firstLoginForm.get('toggle')?.value === 'option-diver'"
+                    (click)="setToggleValue('option-diver')"
+                    type="button"
+                >
+                    {{ "DIVER" | translate }}
+                </button>
+                <button 
+                    class="toggleButton"
+                    [class.active]="firstLoginForm.get('toggle')?.value === 'option-club'"
+                    (click)="setToggleValue('option-club')"
+                    type="button"
+                >
+                    {{ "DIVING_CLUB" | translate }}
+                </button> -->
+            </div>
+
             <!-- // migré vers profil (et first-connection) -->
-            <div>
+            <div class="matFieldInput">
                 <mat-form-field appearance="outline" class="matFieldInput">
                 <mat-label>{{ "USERNAME_LABEL" | translate }}</mat-label>
                 <input 
@@ -32,19 +48,31 @@
                 </div>
             </div>
 
-
-            <!-- Submit & Spinner -->
-            <div>
-                <button 
-                    mat-flat-button 
-                    color="primary"
-                    class="cta-btn-primary" 
-                    type="submit" 
-                    [disabled]="!firstLoginForm.valid || isLoading"
-                >
-                    <span *ngIf="!isLoading">METTRE A JOUR</span>
-                </button>
+            <div class="submit-section">
+                <!-- Submit & Spinner -->
+                <div class="btns-container">
+                    <div>
+                        <button 
+                            mat-flat-button 
+                            color="primary"
+                            class="cta-btn-primary" 
+                            type="submit" 
+                            [disabled]="!firstLoginForm.valid || isLoading"
+                        >
+                            <span *ngIf="!isLoading">METTRE A JOUR</span>
+                        </button>
+                    </div>
+                    <!-- SKIP -->
+                    <div>
+                        <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" class="cta-btn-secondary">
+                            {{ "SKIP" | translate }}
+                        </a>
+                    </div>
+                </div>
+                <span class="information-msg">Vous pourrez personaliser votre profil plus tard</span>
             </div>
+
+            
 
         </form>
 
@@ -58,11 +86,7 @@
 
 
 
-        <!-- SKIP (default diver#4242 & diver.png) -->
-        <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" >
-            <button mat-flat-button color="accent" class="cta-btn-primary">{{ "SKIP" | translate }}</button>
-        </a>
-        <span>Vous pourrez personaliser votre profil plus tard</span>
+
     </div>
 
 
