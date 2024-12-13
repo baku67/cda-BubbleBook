@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { FirstLoginService } from '../../services/first-login.service';
 import { Router } from '@angular/router';
 import { FirstLoginUserUpdate1 } from '../../models/first-login-1.model';
+import { UserService } from '../../../profil/services/user.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class FirstLogin1Component implements OnInit {
     // private authService: AuthService,
     private formBuilder: FormBuilder, 
     private translateService: TranslateService,
+    private userService: UserService,
     private FirstLoginService: FirstLoginService,
     private router: Router,
   ) {
@@ -28,11 +30,21 @@ export class FirstLogin1Component implements OnInit {
 
 
   ngOnInit() {
-    this.firstLoginForm = this.formBuilder.group({
-      username: [
-        'Dave', // défault random : #diver#4381 ? (username pas unique comme FESSBOUK)
-         Validators.required
-      ], 
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.firstLoginForm = this.formBuilder.group({
+          username: [
+            user.username || 'diver#00000', // Par défaut
+            [
+              Validators.required,
+              Validators.minLength(3)
+            ]
+          ], 
+        });
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération de l\'utilisateur', error);
+      }
     });
   }
 
@@ -71,7 +83,5 @@ export class FirstLogin1Component implements OnInit {
       console.error('Form is invalid');
     }
   }
-
-
 
 }

@@ -5,6 +5,8 @@
 
 
 
+Pseudonyme généré aléatoirement puis l'utilisateur peut le changer dans la page post-inscription ou adns la page profil
+-> réduit la friction et facilite l'onboarding
 
  Utilisation d'un Refresh Token
  Quand on quitte le navigateur ou le site, le SessionStorage est cleared, ducoup refreshToken dans le localStorage (voir plus)

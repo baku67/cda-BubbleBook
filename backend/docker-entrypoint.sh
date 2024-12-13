@@ -1,11 +1,3 @@
-# 1.Attendre la disponibilité de la base de données PostgreSQL.
-# 2.Créer la base de données si elle n'existe pas.
-# 3.Mettre à jour le schéma de la base de données ou appliquer les migrations.
-# 4.Charger les fixtures (données de test ou de base).
-# 5.Démarrer Apache (le serveur web) comme processus principal.
-################################################################
-
-### Indique quel interpréteur le systeme doit utiliser (ici Shell, puis comment se comporter en cas d'erreurs)
 #!/bin/sh
 set -e
 

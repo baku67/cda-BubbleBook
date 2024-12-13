@@ -24,7 +24,7 @@ export class UserProfilComponent implements OnInit{
 
   // récupération de l'user connecté
   ngOnInit(): void { 
-    this.userService.getUserProfil().subscribe({ 
+    this.userService.getCurrentUser().subscribe({ 
       next: (userData: UserProfil) => {
         this.user = userData;  // Stocker les données reçues
         this.isUserLoading = false;

@@ -12,7 +12,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
  
-  getUserProfil(): Observable<UserProfil> {
+  getCurrentUser(): Observable<UserProfil> {
     return this.http.get<UserProfil>(`${environment.apiUrl}/api/user`);
   }
 

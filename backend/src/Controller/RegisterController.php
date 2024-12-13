@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Service\MailConfirmationTokenService;
+use App\Service\UsernameService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,7 @@ class RegisterController extends AbstractController
     public function __construct(
         private MailerService $mailService,
         private MailConfirmationTokenService $mailConfirmationTokenService,
+        private UsernameService $usernameService,
         private EntityManagerInterface $entityManager,
         private UserPasswordHasherInterface $passwordHasher,
         private UserRepository $userRepository,
@@ -73,7 +75,15 @@ class RegisterController extends AbstractController
         $user = new User();
         $user->setEmail($data['email']);
         $user->setPassword($this->passwordHasher->hashPassword($user, $data['password']));
-        // $user->setUsername($data['username']); // Initialisé avec un random "diver#43232"-> profil
+        // Initialisé avec un random "diver#432324"
+        // ** Génération du pseudonyme unique **
+        // **Appel au service pour générer le pseudonyme**
+        try {
+            $username = $this->usernameService->generateUniqueUsername();
+            $user->setUsername($username);
+        } catch (\Exception $e) {
+            return new JsonResponse(['message' => 'Erreur lors de la génération du pseudonyme.'], 500);
+        }        
         // Définir les rôles 
         $user->addRole($defaultRole); // Rôle par défaut
         // Envoyés/Initialisés à false:

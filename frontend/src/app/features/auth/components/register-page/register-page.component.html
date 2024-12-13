@@ -1,14 +1,15 @@
 
 <div class="pageContent">
 
-  <app-page-header 
-    [title]="!isLoading ? ('CREATE_ACCOUNT' | translate) : ('CREATING_ACCOUNT' | translate)" 
-    [paragraph]="'CREATE_ACCOUNT_PARAGRAPHE' | translate"
-    matIcon="account_circle" 
-  />
-
 
   <form *ngIf="!isLoading" [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="card">
+
+    <app-page-header 
+      [title]="!isLoading ? ('CREATE_ACCOUNT' | translate) : ('CREATING_ACCOUNT' | translate)" 
+      [paragraph]="'CREATE_ACCOUNT_PARAGRAPHE' | translate"
+      matIcon="account_circle" 
+      style="padding-top:0px;"
+    />
 
     <div>
       <mat-form-field appearance="outline" class="matFieldInput">
