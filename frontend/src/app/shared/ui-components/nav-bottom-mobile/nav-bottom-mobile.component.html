@@ -1,40 +1,66 @@
-<!-- Bottom Nav Mobile  -->
-
-<!-- Rouage: onClick mini menu (/profil, /deco, light/dark, langue) -->
-
 <nav class="navBottomMobile">
 
-    <a [routerLink]="['/user-profil']" routerLinkActive="router-link-active" class="navBottomMobile-div flex1" tabindex="0">
-        <div class="">
-            <mat-icon class="navBottomMobile-icon">
-                menu_book
-            </mat-icon>
-        </div>
-    </a>
-
-    <a [routerLink]="['/user-profil']" routerLinkActive="router-link-active" class="navBottomMobile-div flex1" tabindex="1">
-        <div class="navBottomMobile-div flex1">
-            <mat-icon class="navBottomMobile-icon">
-                menu_book
-            </mat-icon>
-        </div>
-    </a>
-
-    <!--  La méthode logout() qui appelle le authService pour logout et suppr le accesstoken  -->
-    <button 
-        [routerLink]="['/user-settings']" 
+    <a 
+        [routerLink]="['/user-profil']" 
         routerLinkActive="router-link-active" 
-        [matMenuTriggerFor]="menu" 
-        class="navBottomMobile-div flex1 custom-button"
-        tabindex="2"
+        [routerLinkActiveOptions]="{ exact: true }" 
+        class="navBottomMobile-a flex1"
     >
-        <div class="navBottomMobile-div flex1">
+        <div class="navBottomMobile-div">
             <mat-icon class="navBottomMobile-icon">
-                settings
+                account_circle
             </mat-icon>
+        </div>
+    </a>
+
+    <mat-divider [vertical]="true"></mat-divider>
+
+    <a 
+        [routerLink]="['/user-divelog']" 
+        routerLinkActive="router-link-active" 
+        [routerLinkActiveOptions]="{ exact: true }" 
+        class="navBottomMobile-a flex1"
+    >
+        <div class="navBottomMobile-div">
+            <mat-icon class="navBottomMobile-icon">
+                menu_book
+            </mat-icon>
+        </div>
+    </a>
+
+    <mat-divider [vertical]="true"></mat-divider>
+
+    <a 
+        [routerLink]="['/user-newsfeed']" 
+        routerLinkActive="router-link-active" 
+        [routerLinkActiveOptions]="{ exact: true }" 
+        class="navBottomMobile-a flex1"
+    >
+        <div class="navBottomMobile-div">
+            <mat-icon class="navBottomMobile-icon">
+                newspaper
+            </mat-icon>
+        </div>
+    </a>
+
+    <mat-divider [vertical]="true"></mat-divider>
+
+    <!-- Bouton-onglet "actif" lorsque route "/account-settings" active (comme un routerLinkActive)  -->
+    <button 
+        [matMenuTriggerFor]="menu" 
+        class="navBottomMobile-a flex1 custom-button"
+        [ngClass]="{'router-link-active': isSettingsRouteActive}" 
+    >
+        <div class="flex1" style="height: 100%;">
+            <div class="navBottomMobile-div">
+                <mat-icon class="navBottomMobile-icon">
+                    settings
+                </mat-icon>
+            </div>
         </div>
     </button>
 
+    <!-- SubMenu (Settings) -->
     <mat-menu #menu="matMenu" class="matSubMenu">
         <button mat-menu-item (click)="logout()">
             <mat-icon>logout</mat-icon>
@@ -49,7 +75,7 @@
             <span>{{ "LANG" | translate }}</span>
         </button>
         <!-- Redirection route/page account-settings (vie privée, mentions légales, suppression compte, changement mdp, etc...) -->
-        <button mat-menu-item>
+        <button mat-menu-item (click)="navigateAccountSettings()">
             <mat-icon>manage_accounts</mat-icon>
             <span>{{ "ACCOUNT" | translate }}</span>
         </button>

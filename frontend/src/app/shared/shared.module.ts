@@ -7,6 +7,7 @@ import { AppHeaderComponent } from './ui-components/app-header/app-header.compon
 import { MatIcon } from '@angular/material/icon';
 import { LanguageSwitchComponent } from './ui-components/language-switch/language-switch.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     PageHeaderComponent,
     AppHeaderComponent,
     FooterComponent,

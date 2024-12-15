@@ -8,6 +8,7 @@ import { FirstLogin2Component } from './features/first-login/components/first-lo
 import { AuthGuard } from './features/auth/services/guards/auth.guard';
 import { RedirectIfAuthenticatedGuard } from './features/auth/services/guards/redirect-if-authenticated-guard';
 import { ConfirmEmailComponent } from './features/profil/components/confirm-email/confirm-email.component';
+import { AccountSettingsComponent } from './features/account-settings/account-settings.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent, canActivate: [RedirectIfAuthenticatedGuard] },  // Home page
@@ -17,6 +18,7 @@ export const routes: Routes = [
 
     // Pour empêcher un utilisateur déconnecté d'accéder à certaines pages protégées: GUARD
     { path: 'user-profil', component: UserProfilComponent, canActivate: [AuthGuard] },
+    { path: 'account-settings', component: AccountSettingsComponent, canActivate: [AuthGuard] },
 
     { path: 'first-login/step-one', component: FirstLogin1Component, canActivate: [AuthGuard] },
     { path: 'first-login/step-two', component: FirstLogin2Component, canActivate: [AuthGuard] },

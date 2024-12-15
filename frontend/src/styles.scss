@@ -4,6 +4,7 @@
 /* https://cssgradient.io/shades-of-blue/ */
 :root {
     --primary-color: #0093E9; /* Aquamarine */
+    --color: #ffffff;
 
     --green: #4CAF50;
     --red: #FF5252;
@@ -12,6 +13,7 @@
     --font-size-base: 1rem;        /* 16px */
     --font-size-large: 1.25rem;    /* 20px */
     --font-size-heading: 2rem;     /* 32px */
+
 }
 
 @font-face {
@@ -24,9 +26,11 @@
 // Styles Composants Angular Material !
 .light-theme {
     @include mat.all-component-themes($myapp-light-theme); // Applique les styles du thème clair
+    --color: #ffffff;
 }
 .dark-theme {
     @include mat.all-component-themes($myapp-dark-theme); // Applique les styles du thème sombre
+    --color: #000000;
 }
 
 

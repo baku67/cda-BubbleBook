@@ -58,5 +58,7 @@
     "LANG": "Language",
     "ACCOUNT": "Account",
 
-    "DIVES": "Dives"
+    "DIVES": "Dives",
+
+    "ACCOUNT_SETTINGS": "Account Settings"
 }

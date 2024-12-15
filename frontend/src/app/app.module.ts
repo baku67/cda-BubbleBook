@@ -37,6 +37,7 @@ import { NavBottomMobileComponent } from './shared/ui-components/nav-bottom-mobi
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserCardComponent } from './features/profil/components/user-card/user-card.component';
 import { MatSelectCountryModule } from "@angular-material-extensions/select-country";
+import { AccountSettingsComponent } from './features/account-settings/account-settings.component';
 
 
 // Fonction qui crée une instance de TranslateHttpLoader
@@ -54,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     UserCardComponent,
     AlertBannerComponent,
     ConfirmEmailComponent,
+    AccountSettingsComponent,
   ],
   imports: [
     MatSelectCountryModule.forRoot('fr'),
