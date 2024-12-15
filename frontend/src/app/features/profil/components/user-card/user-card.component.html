@@ -1,11 +1,14 @@
 <!-- <div> -->
 
     <!-- click sur la card: afficher le btn edit en haut à droite -->
-    <div class="surface matSubMenu inner-container">
+    <div class="surface matSubMenu inner-container border">
 
         <div class="section-top">
             <!-- TODO img dynamique -->
             <img src="assets/images/todelete/default-banner-15.webp" alt="user banner" />
+
+            <!-- Btn Edit caché (apparait au premier clic sur card) -->
+             <mat-icon class="float-editBtn">edit</mat-icon>
         </div>
 
         <div class="avatar-container">
@@ -18,7 +21,15 @@
         <div class="section-bottom">
             <!-- ligne gauche/droite -->
             <div class="section-bottom-line">
-                <span>French</span>
+                <div *ngIf="flagSvgUrl">
+                    <img 
+                        [src]="flagSvgUrl" 
+                        [alt]="country?.name" 
+                        width="24" 
+                        height="24"
+                        [matTooltip]="country?.name"
+                    >
+                </div>
                 <div class="section-bottom-line-right">
                     <span class="dive-value">206</span>
                     <span class="dive-label">Dives</span>

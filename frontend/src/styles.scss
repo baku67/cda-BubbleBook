@@ -49,15 +49,21 @@ body.dark-theme .navBottomMobile {
 }
 
 // bg et box-shadow
-body.light-theme .card {
+body.light-theme .card, body.light-theme .surface {
     background-color: map-get(map-get($myapp-light-theme, bg-color), surfaces);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
-body.dark-theme .card {
+body.dark-theme .card, body.dark-theme .surface {
     background-color: map-get(map-get($myapp-dark-theme, bg-color), surfaces);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
+body.light-theme .border {
+    border-color: map-get(map-get($myapp-light-theme, bg-color), border);
+}
+body.dark-theme .border {
+    border-color: map-get(map-get($myapp-dark-theme, bg-color), border);
+}
 
 
 * {
@@ -82,6 +88,15 @@ body {
     padding: 17px 20px;
     border-radius: 10px;
     width: 100%; // temporaire mobile
+}
+.surface {
+    border-radius: 10px;
+    width: 100%; // temporaire mobile
+    position: relative;
+}
+
+.border {
+    border: 1px solid;
 }
 
 
