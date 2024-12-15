@@ -37,6 +37,7 @@ class UserController extends AbstractController
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
             'accountType' => $user->getAccountType(),
+            'nationality' => $user->getNationality(),
             'isVerified' => $user->isVerified(),
             'is2fa' => $user->is2fa(),
             // Ajouter d'autres informations utilisateur si nécessaire
@@ -82,6 +83,8 @@ class UserController extends AbstractController
         $user->setUsername($dto->username);
 
         $user->setAccountType($dto->accountType);
+
+        $user->setNationality($dto->nationality);
     
         try {
             $this->entityManager->persist($user);

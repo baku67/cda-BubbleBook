@@ -30,7 +30,7 @@
                 </button>
             </div>
 
-            <!-- // migré vers profil (et first-connection) -->
+            <!-- // Username -->
             <div class="matFieldInput">
                 <mat-form-field appearance="outline" class="matFieldInput">
                 <mat-label>{{ "USERNAME_LABEL" | translate }}</mat-label>
@@ -47,6 +47,18 @@
                 <mat-error class="formFieldError">{{ "USERNAME_REQUIRED" | translate }}</mat-error>
                 </div>
             </div>
+
+
+            <div>
+                <mat-select-country
+                    [label]="'Pays'"
+                    [appearance]="'outline'"
+                    (onCountrySelected)="onCountrySelected($event)"
+                    class="matFieldInput"
+                >
+              </mat-select-country>         
+            </div>
+
 
             <div class="submit-section">
                 <!-- Submit & Spinner -->

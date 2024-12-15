@@ -51,6 +51,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $accountType = null;
 
+    #[ORM\Column(length: 3, nullable: true)]
+    private ?string $nationality = null;
+
 
 
 
@@ -217,6 +220,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAccountType(?string $accountType): static
     {
         $this->accountType = $accountType;
+
+        return $this;
+    }
+
+    public function getNationality(): ?string
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(?string $nationality): static
+    {
+        $this->nationality = $nationality;
 
         return $this;
     }

@@ -1,5 +1,6 @@
 export interface FirstLoginUserUpdate1 {
     username: string;
-    // userType: string; // enum
+    accountType: string;
+    nationality: string;
     // avatar: string;
   }

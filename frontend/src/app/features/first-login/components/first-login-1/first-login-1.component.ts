@@ -5,6 +5,7 @@ import { FirstLoginService } from '../../services/first-login.service';
 import { Router } from '@angular/router';
 import { FirstLoginUserUpdate1 } from '../../models/first-login-1.model';
 import { UserService } from '../../../profil/services/user.service';
+import { Country } from '@angular-material-extensions/select-country';
 
 
 @Component({
@@ -42,6 +43,9 @@ export class FirstLogin1Component implements OnInit {
             ]
           ], 
           accountType: ['option-diver'], // values: "option-diver" / "option-club"
+          nationality: [
+            null,
+          ]
         });
       },
       error: (error) => {
@@ -53,6 +57,11 @@ export class FirstLogin1Component implements OnInit {
   
   setAccountTypeValue(value: string): void {
     this.firstLoginForm.get('accountType')?.setValue(value);
+  }
+
+
+  onCountrySelected(country: Country | null) {
+    this.firstLoginForm.get('nationality')?.setValue(country?.alpha3Code ?? null); // On envoie le code en 3 lettre au backend
   }
 
 

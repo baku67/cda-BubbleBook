@@ -24,5 +24,9 @@ class FirstLogin1DTO
     // public ?string $avatar = null;
 
 
-    // Nationalité
+    #[Assert\Length(
+        max: 3,
+        maxMessage: 'Le code Pays "ISO 3166-1 alpha-3" requiert {{ limit }} caractères.'
+    )]
+    public ?string $nationality;
 }

@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-material-extensions/select-country": "^17.0.0",
     "@angular/animations": "^18.2.0",
     "@angular/cdk": "^18.2.8",
     "@angular/common": "^18.2.0",
@@ -25,6 +26,7 @@
     "@ngx-translate/http-loader": "^16.0.0",
     "rxjs": "~7.8.0",
     "standard": "^17.1.2",
+    "svg-country-flags": "^1.2.10",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },
@@ -48,5 +50,15 @@
     "sass": "^1.81.0",
     "typescript": "~5.5.2",
     "typescript-eslint": "8.2.0"
+  },
+  "overrides": {
+    "@angular-material-extensions/select-country": {
+      "@angular/cdk": "^18.2.8",
+      "@angular/material": "^18.2.8",
+      "@angular/core": "^18.2.0",
+      "@angular/common": "^18.2.0",
+      "@angular/forms": "^18.2.0",
+      "@angular/platform-browser": "^18.2.0"
+    }
   }
 }

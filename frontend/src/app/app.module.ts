@@ -31,10 +31,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import { ThemeSwitchComponent } from "./shared/ui-components/theme-switch/theme-switch.component";
 import { NavBottomMobileComponent } from './shared/ui-components/nav-bottom-mobile/nav-bottom-mobile.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserCardComponent } from './features/profil/components/user-card/user-card.component';
+import { MatSelectCountryModule } from "@angular-material-extensions/select-country";
+
 
 // Fonction qui crée une instance de TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -53,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ConfirmEmailComponent,
   ],
   imports: [
+    MatSelectCountryModule.forRoot('fr'),
     BrowserModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,

@@ -19,7 +19,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        // 0 (Vérifié, DIVER, pas de 2FA, !![ADMIN]!!)
+        // 0 (Vérifié, DIVER, pas de 2FA, !![ADMIN]!!, FRA)
         $user0 = new User();
         $user0->setUsername("admin");
         $user0->setEmail("admin@admin.com");
@@ -27,13 +27,14 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user0->setVerified(true);
         $user0->setAccountType("option-diver");
         $user0->set2fa(false);
+        $user0->setNationality("FRA");
         // Ajout des rôles à partir des références
         $user0->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user0->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
         $manager->persist($user0);
 
 
-        // 1 (Non vérifié, DIVER, no 2FA, [user])
+        // 1 (Non vérifié, DIVER, no 2FA, [user], DZA)
         $user1 = new User();
         $user1->setUsername("user1");
         $user1->setEmail("user1@user1.com");
@@ -41,12 +42,13 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user1->setVerified(false);
         $user1->setAccountType("option-diver");
         $user1->set2fa(is2fa: false);
+        $user1->setNationality("DZA");
         // Ajout des rôles à partir des références
         $user1->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user1->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
         $manager->persist($user1);
 
-        // 2 (Non vérifié, CLUB, pas de 2FA, [user])
+        // 2 (Non vérifié, CLUB, pas de 2FA, [user], pas de nationality)
         $user2 = new User();
         $user2->setUsername("user2");
         $user2->setEmail("user2@user2.com");
@@ -54,6 +56,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user2->setVerified(false);
         $user2->setAccountType("option-club");
         $user2->set2fa(is2fa: false);
+        $user2->setNationality(null);
         // Ajout des rôles à partir des références
         $user2->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $manager->persist($user2);
