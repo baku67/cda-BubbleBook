@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { UserProfil } from '../../models/userProfile.model';
 
 @Component({
   selector: 'app-user-card',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class UserCardComponent {
 
+  @Input() user?:UserProfil; 
 }

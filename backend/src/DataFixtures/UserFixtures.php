@@ -7,16 +7,23 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
+    private UserPasswordHasherInterface $passwordHasher;
+    public function __construct(UserPasswordHasherInterface $passwordHasher) 
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         // 0 (Vérifié, DIVER, pas de 2FA, !![ADMIN]!!)
         $user0 = new User();
         $user0->setUsername("admin");
         $user0->setEmail("admin@admin.com");
-        $user0->setPassword("admin");
+        $user0->setPassword($this->passwordHasher->hashPassword($user0, "admin"));
         $user0->setVerified(true);
         $user0->setAccountType("option-diver");
         $user0->set2fa(false);
@@ -30,7 +37,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user1 = new User();
         $user1->setUsername("user1");
         $user1->setEmail("user1@user1.com");
-        $user1->setPassword("user1");
+        $user1->setPassword($this->passwordHasher->hashPassword($user1, "user1"));
         $user1->setVerified(false);
         $user1->setAccountType("option-diver");
         $user1->set2fa(is2fa: false);
@@ -43,7 +50,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user2 = new User();
         $user2->setUsername("user2");
         $user2->setEmail("user2@user2.com");
-        $user2->setPassword("user2");
+        $user2->setPassword($this->passwordHasher->hashPassword($user2, "user2"));
         $user2->setVerified(false);
         $user2->setAccountType("option-club");
         $user2->set2fa(is2fa: false);

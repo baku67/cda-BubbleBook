@@ -36,6 +36,7 @@ class UserController extends AbstractController
         return new JsonResponse([
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
+            'accountType' => $user->getAccountType(),
             'isVerified' => $user->isVerified(),
             'is2fa' => $user->is2fa(),
             // Ajouter d'autres informations utilisateur si nécessaire
