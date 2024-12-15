@@ -11,15 +11,17 @@ export class LanguageService {
   public currentLang$: Observable<string> = this.currentLangSubject.asObservable();
 
   constructor(private translate: TranslateService) {
-    const initialLang = this.currentLangSubject.value;
-    this.translate.setDefaultLang(initialLang);
-    this.translate.use(initialLang);
+    const savedLang = localStorage.getItem('language') || 'fr-FR';
+    this.currentLangSubject.next(savedLang);
+    this.translate.setDefaultLang(savedLang);
+    this.translate.use(savedLang);
   }
 
   switchLanguage(): void {
     const newLang = this.currentLangSubject.value === 'en-EN' ? 'fr-FR' : 'en-EN';
     this.currentLangSubject.next(newLang); // Émettre la nouvelle langue
     this.translate.use(newLang); // Appliquer la nouvelle langue avec ngx-translate
+    localStorage.setItem('language', newLang);
   }
 
   getCurrentLang(): string {
