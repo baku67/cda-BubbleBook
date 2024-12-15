@@ -88,10 +88,16 @@
     padding-top: 7px;
     padding-bottom: 0px;
 }
+.section-bottom-line-left {
+    width: 50%;
+    text-align: center;
+}
 .section-bottom-line-right {
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
+
+    width: 50%;
     text-align: center;
 }
 .dive-value {

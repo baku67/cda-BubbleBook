@@ -21,7 +21,7 @@
         <div class="section-bottom">
             <!-- ligne gauche/droite -->
             <div class="section-bottom-line">
-                <div *ngIf="flagSvgUrl">
+                <div *ngIf="flagSvgUrl" class="section-bottom-line-left">
                     <img 
                         [src]="flagSvgUrl" 
                         [alt]="country?.name" 
@@ -32,7 +32,7 @@
                 </div>
                 <div class="section-bottom-line-right">
                     <span class="dive-value">206</span>
-                    <span class="dive-label">Dives</span>
+                    <span class="dive-label">{{ "DIVES" | translate }}</span>
                 </div>
             </div>
 

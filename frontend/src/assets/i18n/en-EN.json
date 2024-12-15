@@ -37,6 +37,7 @@
     "LOGIN": "Log in",
     "REMEMBER_ME": "Remember me",
     "NOT_REGISTERED_YET": "Not registered yet ?",
+    "LOGOUT": "Logout",
 
     "FOOTER_ALL_RIGHTS_RESERVED": "© 2024 BubbleBook. All rights reserved.",
     "TERMS_OF_USE": "Terms of use",
@@ -51,5 +52,11 @@
 
     "CERTIFICATES": "Diving certificates",
 
-    "MY_SPACE": "My space"
+    "MY_SPACE": "My space",
+
+    "THEME": "Theme",
+    "LANG": "Language",
+    "ACCOUNT": "Account",
+
+    "DIVES": "Dives"
 }

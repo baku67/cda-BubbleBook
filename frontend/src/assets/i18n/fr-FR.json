@@ -37,9 +37,7 @@
     "LOGIN": "Connexion",
     "REMEMBER_ME": "Se souvenir de moi",
     "NOT_REGISTERED_YET": "Pas encore inscrit ?",
-
-
-
+    "LOGOUT": "Déconnexion",
 
 
     "FOOTER_ALL_RIGHTS_RESERVED": "© 2024 BubbleBook. Tous droits réservés.",
@@ -56,5 +54,12 @@
     "CERTIFICATES": "Certificats de plongée",
 
 
-    "MY_SPACE": "Mon espace"
+    "MY_SPACE": "Mon espace", 
+
+    "THEME": "Thème",
+    "LANG": "Langue",
+    "ACCOUNT": "Compte",
+
+
+    "DIVES": "Plongées"
 }

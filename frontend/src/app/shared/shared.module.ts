@@ -6,6 +6,7 @@ import { PageHeaderComponent } from './ui-components/page-header/page-header.com
 import { AppHeaderComponent } from './ui-components/app-header/app-header.component';
 import { MatIcon } from '@angular/material/icon';
 import { LanguageSwitchComponent } from './ui-components/language-switch/language-switch.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { LanguageSwitchComponent } from './ui-components/language-switch/languag
     NavBottomMobileComponent, 
     LanguageSwitchComponent,
     MatIcon,
+    TranslateModule,
   ],
   exports: [
     PageHeaderComponent,

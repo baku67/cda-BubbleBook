@@ -36,9 +36,23 @@
     </button>
 
     <mat-menu #menu="matMenu" class="matSubMenu">
-        <button mat-menu-item (click)="logout()">Logout</button>
-        <button mat-menu-item>light/dark</button>
-        <button mat-menu-item>lang</button>
+        <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>{{ "LOGOUT" | translate }}</span>
+        </button>
+        <button mat-menu-item (click)="switchTheme()">
+            <mat-icon>contrast</mat-icon>
+            <span>{{ "THEME" | translate }}</span>
+        </button>
+        <button mat-menu-item (click)="switchLang()">
+            <mat-icon>translate</mat-icon>
+            <span>{{ "LANG" | translate }}</span>
+        </button>
+        <!-- Redirection route/page account-settings (vie privée, mentions légales, suppression compte, changement mdp, etc...) -->
+        <button mat-menu-item>
+            <mat-icon>manage_accounts</mat-icon>
+            <span>{{ "ACCOUNT" | translate }}</span>
+        </button>
     </mat-menu>
 
     
