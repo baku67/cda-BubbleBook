@@ -1,3 +1,114 @@
 :host{
     width: 100%;
 }
+
+.surface {
+    box-shadow: none;
+    border-radius: 10px;
+    width: 100%; // temporaire mobile
+    position: relative;
+}
+
+.inner-container {
+    
+}
+.section-top {
+    width: 100%; 
+    height: 70px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section-top img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+
+.avatar-container {
+    position: absolute;
+    z-index: 99999999;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 80px;
+    width: 80px;
+    border: 4px solid white; // TODO "line bg" & "border-colors" black/light
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.avatar-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+
+
+.middle-line {
+    position: relative;
+    width: 100%;
+    height: 2px;
+    background-color: white; // TODO "line bg" & "border-colors" black/light
+}
+.section-bottom {
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.section-bottom-line {
+    // flex: 0; pas besoin
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-around;
+    gap: 15vw;
+
+    padding-top: 7px;
+    padding-bottom: 5px;
+}
+.section-bottom-line-right {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.dive-value {
+    color: var(--green);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.dive-label {
+    opacity: 0.7;
+    font-size: 90%;
+}
+
+
+
+.section-bottom-pseudo-container {
+    flex: 1;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    // Pour ajuster la hauteur:
+    padding-bottom: 15px;
+}
+.section-bottom-pseudo {
+    // color: var(--primary-color);
+    font-weight: 600;
+    font-size: 140%;
+    letter-spacing: 1px;
+}
