@@ -29,7 +29,12 @@ export class AppComponent implements OnInit {
         // Routes sans footer 
         const noFooterRoutes: string[] = []; 
         // Routes sans navBottomMobile
-        const noNavBottomMobileRoutes = ['', '/'];
+        const noNavBottomMobileRoutes = [
+          '',
+          '/',
+          '/first-login/step-one', // à voir (plus de paramétrages)
+          '/first-login/step-two' // à voir (plus de paramétrages)
+        ];
   
         this.showHeader = !noHeaderRoutes.includes(event.urlAfterRedirects);
         this.showFooter = !noFooterRoutes.includes(event.urlAfterRedirects);

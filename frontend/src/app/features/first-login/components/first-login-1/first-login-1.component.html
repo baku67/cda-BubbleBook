@@ -5,7 +5,7 @@
     <!-- TODO form type user (Héritage backend), même si club pas la priorité (ouverture pour projet) -->
     <div *ngIf="!isLoading" class="card">
 
-        <app-page-header [title]="('YOU_ARE' | translate )" matIcon="account_circle" />
+        <app-page-header [title]="('FIRST_LOGIN_1_PAGE_TITLE' | translate )" matIcon="account_circle" />
     
         <!-- Username / Clubname -->
         <form *ngIf="firstLoginForm" [formGroup]="firstLoginForm" (ngSubmit)="onSubmit()" class="firstLoginForm">
@@ -71,7 +71,7 @@
                             type="submit" 
                             [disabled]="!firstLoginForm.valid || isLoading"
                         >
-                            <span *ngIf="!isLoading">METTRE A JOUR</span>
+                            <span *ngIf="!isLoading">{{ "VALIDATE" | translate }}</span>
                         </button>
                     </div>
                     <!-- SKIP -->

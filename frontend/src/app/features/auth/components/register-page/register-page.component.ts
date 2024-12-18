@@ -42,11 +42,14 @@ export class RegisterPageComponent implements OnInit{
   
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      email: [
+      email: this.formBuilder.control(
         '', 
-        [Validators.required, Validators.email], // Validateurs synchrones
-        [EmailAsyncValidator.createValidator(this.emailCheckService, this)] // Validateur asynchrone (on lui passe le composant)
-      ],
+        {
+          validators: [Validators.required, Validators.email], 
+          asyncValidators: [EmailAsyncValidator.createValidator(this.emailCheckService, this)], 
+          updateOn: 'blur' // mise à jour seulement au blur
+        }
+      ),
       password: [
         '', 
         [

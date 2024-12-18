@@ -2,8 +2,14 @@
     padding: 20px 2px;
 }
 
+header {
+    display: flex;
+    flex-direction: column;
+}
+
 .page-title-line {
     display: flex;
+    flex: 1;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -11,7 +17,8 @@
 }
 .page-title-line h2 {
     margin-bottom: 0;
-    font-size: 30px;
+    font-size: 25px;
+    flex: 1;
 }
 .page-title-icon {
     font-size: 44px;

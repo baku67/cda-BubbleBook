@@ -1,4 +1,6 @@
 {
+    "VALIDATE": "Validate",
+
     "LP_SPEECH": "Your divelog, anywhere, anytime.",
     "LP_REGISTER_NOW": "Sign in",
     "LP_LOGIN": "Log in",
@@ -44,6 +46,7 @@
     "PRIVACY_POLICY": "Privacy policy",
 
     "YOU_ARE": "You are...",
+    "FIRST_LOGIN_1_PAGE_TITLE": "Customize your profil",
     "DIVER": "Diver",
     "DIVING_CLUB": "Diving club",
     "PREVIOUS": "Previous",

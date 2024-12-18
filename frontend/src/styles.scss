@@ -27,10 +27,14 @@
 .light-theme {
     @include mat.all-component-themes($myapp-light-theme); // Applique les styles du thème clair
     --color: #ffffff;
+    --colorContrast: #080808;
+    --surface-grised: #00000008;
 }
 .dark-theme {
     @include mat.all-component-themes($myapp-dark-theme); // Applique les styles du thème sombre
     --color: #000000;
+    --colorContrast: #f7f8f8;
+    --surface-grised: #00000017;
 }
 
 
@@ -86,6 +90,12 @@ html {
 }
 body {
     height: 100%;
+}
+h1,h2,h3,h4,h5,h6, span, p  {
+    user-select: none;
+}
+.mdc-text-field {
+    background-color: var(--surface-grised);
 }
 
 .card {
@@ -180,7 +190,7 @@ h1, h2, h3 {
     text-align: center; /* Centrer le texte à l'intérieur des boutons */
     padding: 10px 20px; /* Ajuster le padding */
     background-color: #009688; /* Couleur d'arrière-plan */
-    color: #fff; /* Couleur du texte */
+    color: var(--colorContrast); /* Couleur du texte */
     text-decoration: none; /* Enlever la décoration du texte */
     width: 100%; /* Faire en sorte que le bouton occupe toute la largeur de son conteneur */
     box-sizing: border-box; /* Inclure le padding et la bordure dans la taille de l'élément */

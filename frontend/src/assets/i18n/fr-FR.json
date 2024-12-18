@@ -1,4 +1,6 @@
 {
+    "VALIDATE": "Valider",
+
     "LP_SPEECH": "Votre carnet de plongée numérique. Organisé, partagé, toujours à portée de main.",
     "LP_REGISTER_NOW": "S'inscrire maintenant",
     "LP_LOGIN": "Connexion",
@@ -45,6 +47,7 @@
     "PRIVACY_POLICY": "Politique de confidentialité",
 
     "YOU_ARE": "Vous êtes...",
+    "FIRST_LOGIN_1_PAGE_TITLE": "Personalisez votre profil",
     "DIVER": "Plongeur",
     "DIVING_CLUB": "Club de plongée",
     "PREVIOUS": "Retour",
