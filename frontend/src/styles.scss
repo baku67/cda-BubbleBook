@@ -185,7 +185,7 @@ h1, h2, h3 {
 }
 
 
-.cta-btn-primary, .cta-btn-secondary {
+.cta-btn-primary {
     display: block; /* Rendre les liens comme des blocs */
     text-align: center; /* Centrer le texte à l'intérieur des boutons */
     padding: 10px 20px; /* Ajuster le padding */
@@ -194,7 +194,16 @@ h1, h2, h3 {
     text-decoration: none; /* Enlever la décoration du texte */
     width: 100%; /* Faire en sorte que le bouton occupe toute la largeur de son conteneur */
     box-sizing: border-box; /* Inclure le padding et la bordure dans la taille de l'élément */
-  }
+}
+.cta-btn-secondary {
+    display: block; /* Rendre les liens comme des blocs */
+    text-align: center; /* Centrer le texte à l'intérieur des boutons */
+    padding: 10px 20px; /* Ajuster le padding */
+    color: var(--colorContrast); /* Couleur du texte */
+    text-decoration: none; /* Enlever la décoration du texte */
+    width: 100%; /* Faire en sorte que le bouton occupe toute la largeur de son conteneur */
+    box-sizing: border-box; /* Inclure le padding et la bordure dans la taille de l'élément */
+}
 
 .mat-mdc-form-field-subscript-wrapper {
     height: 4px;

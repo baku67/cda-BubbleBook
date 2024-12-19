@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { FirstLoginService } from '../../services/first-login.service';
 import { Router } from '@angular/router';
 import { FirstLoginUserUpdate1 } from '../../models/first-login-1.model';
 import { UserService } from '../../../profil/services/user.service';
-import { Country } from '@angular-material-extensions/select-country';
 
 
 @Component({
@@ -16,10 +15,10 @@ import { Country } from '@angular-material-extensions/select-country';
 export class FirstLogin1Component implements OnInit {
 
   firstLoginForm!: FormGroup;
+  private allowedAccountTypes = ['option-diver', 'option-club'];
   isLoading: boolean;
 
   constructor(
-    // private authService: AuthService,
     private formBuilder: FormBuilder, 
     private translateService: TranslateService,
     private userService: UserService,
@@ -34,17 +33,10 @@ export class FirstLogin1Component implements OnInit {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
         this.firstLoginForm = this.formBuilder.group({
-          username: [
-            user.username || 'diver#00000', // Par défaut
-            [
-              Validators.required,
-              Validators.minLength(3),
-              Validators.maxLength(30), // User entity column:length
-            ]
-          ], 
-          accountType: ['option-diver'], // values: "option-diver" / "option-club"
-          nationality: [
-            null,
+          accountType: 
+          [
+            'option-diver', // values: "option-diver" / "option-club"
+            [Validators.required, Validators.pattern(/^(option-diver|option-club)$/)]
           ]
         });
       },
@@ -58,12 +50,6 @@ export class FirstLogin1Component implements OnInit {
   setAccountTypeValue(value: string): void {
     this.firstLoginForm.get('accountType')?.setValue(value);
   }
-
-
-  onCountrySelected(country: Country | null) {
-    this.firstLoginForm.get('nationality')?.setValue(country?.alpha3Code ?? null); // On envoie le code en 3 lettre au backend
-  }
-
 
 
   onSubmit(): void {
@@ -84,7 +70,8 @@ export class FirstLogin1Component implements OnInit {
 
           setTimeout(() => {
             this.router.navigate(['/first-login/step-two']);
-          }, 1000)
+          }, 0);
+          // }, 1000);
         },
 
         error: (error) => {

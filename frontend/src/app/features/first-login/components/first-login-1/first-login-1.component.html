@@ -30,36 +30,7 @@
                 </button>
             </div>
 
-            <!-- // Username -->
-            <div class="matFieldInput">
-                <mat-form-field appearance="outline" class="matFieldInput">
-                <mat-label>{{ "USERNAME_LABEL" | translate }}</mat-label>
-                <input 
-                    matInput 
-                    formControlName="username" 
-                    type="text"
-                    autocomplete="username"
-                >
-                </mat-form-field>
-        
-                <!-- Erreur pour username requis -->
-                <div *ngIf="firstLoginForm.get('username')?.invalid && firstLoginForm.get('username')?.touched">
-                <mat-error class="formFieldError">{{ "USERNAME_REQUIRED" | translate }}</mat-error>
-                </div>
-            </div>
-
-
-            <div>
-                <mat-select-country
-                    [label]="'Pays'"
-                    [appearance]="'outline'"
-                    (onCountrySelected)="onCountrySelected($event)"
-                    class="matFieldInput"
-                >
-              </mat-select-country>         
-            </div>
-
-
+            
             <div class="submit-section">
                 <!-- Submit & Spinner -->
                 <div class="btns-container">
@@ -74,30 +45,23 @@
                             <span *ngIf="!isLoading">{{ "VALIDATE" | translate }}</span>
                         </button>
                     </div>
-                    <!-- SKIP -->
-                    <div>
+                    <!-- pas de SKIP -->
+                    <!-- <div>
                         <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" class="cta-btn-secondary">
                             {{ "SKIP" | translate }}
                         </a>
-                    </div>
+                    </div> -->
                 </div>
                 <span class="information-msg">Vous pourrez personaliser votre profil plus tard</span>
             </div>
 
-            
-
         </form>
 
-        <!-- Avatar (listes ou custom, default diver.png) -->
-    
 
         <!-- Loader/Spinner page -->
         <div class="spinner-container" *ngIf="!firstLoginForm">
             <mat-spinner></mat-spinner>
         </div>
-
-
-
 
     </div>
 
