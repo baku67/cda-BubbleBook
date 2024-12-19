@@ -23,10 +23,13 @@ export class UserCardComponent implements OnInit {
         console.log(this.country.name);
         // Les SVG sont sous form alpha2.svg (en lowercase, et alpha2 = 2 lettres)
         const alpha2 = this.country.alpha2Code.toLowerCase();
-        this.flagSvgUrl = `assets/svg-country-flags/svg/${alpha2}.svg`;
+        this.flagSvgUrl = `assets/svg-country-flags/svg/${alpha2}.svg`; // dans ng_module/svg-country-flags
       } else {
         console.warn('Pays introuvable pour le code', code);
       }
+    }
+    else {
+      this.flagSvgUrl = `assets/images/default-flag.png`; // dans ng_module/svg-country-flags
     }
   }
 }

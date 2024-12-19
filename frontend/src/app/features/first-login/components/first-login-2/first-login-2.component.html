@@ -61,15 +61,10 @@
 
         </form>
 
-        <!-- Loader/Spinner page -->
-        <div class="spinner-container" *ngIf="!firstLoginForm2">
-            <mat-spinner></mat-spinner>
-        </div>
-
     </div>
 
     <!-- Loader/Spinner page -->
-    <div class="spinner-container" *ngIf="isLoading">
+    <div class="spinner-container" *ngIf="isLoading || !firstLoginForm2">
         <mat-spinner></mat-spinner>
     </div>
 
