@@ -2,8 +2,11 @@
 <main class="globalMain">
 
   <!-- TODO MatMenu en haut à droite pour les pages hors-co (landingPage, Login, Register, ect) -->
-  <app-language-switch *ngIf="!isLoggedIn" />
-  <app-theme-switch *ngIf="!isLoggedIn" />
+  <div *ngIf="!isLoggedIn" class="app-div-settings" style="display: inline-flex; flex-direction: column;">
+    <app-language-switch  />
+    <app-theme-switch />
+  </div>
+  
 
   <!-- ngIf pour vérifier quelles routes ont/n'ont pas le composant: -->
   <app-header *ngIf="showHeader" />

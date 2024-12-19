@@ -16,6 +16,7 @@ import { AuthInterceptor } from '../auth/services/interceptors/auth.interceptor'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // Extension Material 
 import { MatSelectCountryModule } from "@angular-material-extensions/select-country";
+import { MatDividerModule } from '@angular/material/divider';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { MatSelectCountryModule } from "@angular-material-extensions/select-coun
     RouterModule,
     TranslateModule,
     MatProgressSpinnerModule,
+    MatDividerModule,
     
     MatButtonModule,
     MatFormField,

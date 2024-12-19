@@ -3,7 +3,13 @@
 
   <!-- app-page-header dans le form -->
 
-  <form *ngIf="!isLoading" [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="card">
+  <form 
+    *ngIf="!isLoading" 
+    [formGroup]="loginForm" 
+    (ngSubmit)="onSubmit()" 
+    class="card"
+    style="gap:15px"
+  >
 
       <app-page-header 
         [title]="('LOGIN' | translate)" 
@@ -12,69 +18,72 @@
       />
 
       <div>
-        <mat-form-field appearance="outline" class="matFieldInput">
-          <mat-label>{{ "EMAIL_ADDRESS_LABEL" | translate }}</mat-label>
-          <input 
-            matInput 
-            formControlName="email" 
-            type="email" 
-            [placeholder]="('EMAIL_ADDRESS_PLACEHOLDER' | translate)"
-            autocomplete="email"
-          >
-        </mat-form-field>
 
-        <!-- Erreur pour email requis -->
-        <div *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
-          <mat-error class="formFieldError">{{ "EMAIL_ADDRESS_REQUIRED" | translate }}</mat-error>
-        </div>
-        <!-- Erreur pour email invalide -->
-        <div *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">
-          <mat-error class="formFieldError">{{ "EMAIL_ADDRESS_INVALID" | translate }}</mat-error>
-        </div>
-      </div>
-
-      <div>
-
-        <mat-form-field appearance="outline" class="matFieldInput">
-
-          <mat-label>{{ "PASSWORD_LABEL" | translate }}</mat-label>
-          <input 
-            matInput 
-            formControlName="password" 
-            [type]="hidePassword ? 'password' : 'text'"
-            autocomplete="current-password"
+        <div>
+          <mat-form-field appearance="outline" class="matFieldInput">
+            <mat-label>{{ "EMAIL_ADDRESS_LABEL" | translate }}</mat-label>
+            <input 
+              matInput 
+              formControlName="email" 
+              type="email" 
+              [placeholder]="('EMAIL_ADDRESS_PLACEHOLDER' | translate)"
+              autocomplete="email"
             >
-          <mat-icon matSuffix (click)="togglePasswordVisibility()">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </mat-form-field>
 
-        </mat-form-field>
-
-        <!-- Erreur pour mdp requis -->
-        <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
-          <mat-error>{{ "PASSWORD_REQUIRED" | translate }}</mat-error>
+          <!-- Erreur pour email requis -->
+          <div *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
+            <mat-error class="formFieldError">{{ "EMAIL_ADDRESS_REQUIRED" | translate }}</mat-error>
+          </div>
+          <!-- Erreur pour email invalide -->
+          <div *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">
+            <mat-error class="formFieldError">{{ "EMAIL_ADDRESS_INVALID" | translate }}</mat-error>
+          </div>
         </div>
 
+        <div>
+
+          <mat-form-field appearance="outline" class="matFieldInput">
+
+            <mat-label>{{ "PASSWORD_LABEL" | translate }}</mat-label>
+            <input 
+              matInput 
+              formControlName="password" 
+              [type]="hidePassword ? 'password' : 'text'"
+              autocomplete="current-password"
+              >
+            <mat-icon matSuffix (click)="togglePasswordVisibility()">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+
+          </mat-form-field>
+
+          <!-- Erreur pour mdp requis -->
+          <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+            <mat-error>{{ "PASSWORD_REQUIRED" | translate }}</mat-error>
+          </div>
+
+        </div>
+
+
+        <div>
+          <mat-slide-toggle formControlName="rememberMe">{{ "REMEMBER_ME" | translate }}</mat-slide-toggle>
+        </div>
+
+        <!-- Submit & Spinner -->
+        <button 
+          mat-flat-button 
+          color="primary"
+          class="cta-btn-primary bigButton" 
+          type="submit" 
+          [disabled]="loginForm.invalid"
+        >
+          <span *ngIf="!isLoading">{{ "LOGIN" | translate }}</span>
+        </button>
+
+        <a [routerLink]="['/register']" mat-button>
+          <span class="btn-underlined">{{ "NOT_REGISTERED_YET" | translate }}</span>
+        </a>
+
       </div>
-
-
-      <div>
-        <mat-slide-toggle formControlName="rememberMe">{{ "REMEMBER_ME" | translate }}</mat-slide-toggle>
-      </div>
-
-      <!-- Submit & Spinner -->
-      <button 
-        mat-flat-button 
-        color="primary"
-        class="cta-btn-primary bigButton" 
-        type="submit" 
-        [disabled]="loginForm.invalid"
-      >
-        <span *ngIf="!isLoading">{{ "LOGIN" | translate }}</span>
-      </button>
-
-      <p>{{ "NOT_REGISTERED_YET" | translate }}</p>
-      <a [routerLink]="['/register']" mat-button>
-        <span class="btn-underlined">{{ "CREATE_ACCOUNT" | translate }}</span>
-      </a>
 
   </form>
 

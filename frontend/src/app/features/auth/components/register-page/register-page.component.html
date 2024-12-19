@@ -1,8 +1,15 @@
 
 <div class="pageContent">
 
+  <!-- app-page-header dans le form -->
 
-  <form *ngIf="!isLoading" [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="card">
+  <form 
+    *ngIf="!isLoading" 
+    [formGroup]="registerForm" 
+    (ngSubmit)="onSubmit()" 
+    class="card"
+    style="gap:15px"
+  >
 
     <app-page-header 
       [title]="!isLoading ? ('CREATE_ACCOUNT' | translate) : ('CREATING_ACCOUNT' | translate)" 
@@ -12,122 +19,126 @@
     />
 
     <div>
-      <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>{{ 'EMAIL_ADDRESS_LABEL' | translate }}</mat-label>
 
-        <input 
-          matInput 
-          formControlName="email" 
-          type="email" 
-          [placeholder]="'EMAIL_ADDRESS_PLACEHOLDER' | translate"
-          autocomplete="email"
-        >
-
-        <!-- Loadinf check email dispo -->
-        <div *ngIf="emailChecking" class="loadingLine" class="emailCheckSuffix" matSuffix>
-          <mat-spinner [diameter]="20" matTooltip="{{ emailStatusMessage }}"></mat-spinner>
-        </div>
-          <!-- Réponse check email dispo -->
-        <div *ngIf="!emailChecking && emailAvailable !== null" class="emailCheckSuffix" matSuffix>
-          <mat-icon *ngIf="!emailAvailable" class="color-red" matTooltip="{{ emailStatusMessage }}">unpublished</mat-icon>
-          <mat-icon *ngIf="emailAvailable" class="color-green" matTooltip="{{ emailStatusMessage }}">task_alt</mat-icon>
-        </div>
-
-      </mat-form-field>
-
-      <!-- Erreur pour email déjà pris (emailTaken) -->
-      <div *ngIf="registerForm.get('email')?.hasError('emailTaken') && registerForm.get('email')?.touched">
-        <mat-error>{{ "EMAIL_ADDRESS_ALREADY_USED" | translate }}</mat-error>
-      </div>
-      <!-- Erreur pour email requis -->
-      <div *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
-        <mat-error>{{ "EMAIL_ADDRESS_REQUIRED" | translate }}</mat-error>
-      </div>
-      <!-- Erreur pour email invalide -->
-      <div *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
-        <mat-error>{{ "EMAIL_ADDRESS_INVALID" | translate }}</mat-error>
-      </div>
-    </div>
-
-
-    <div>
-
-      <div class="relative noMargin">
+      <div>
         <mat-form-field appearance="outline" class="matFieldInput">
-          <mat-label>{{ "PASSWORD_LABEL" | translate }}</mat-label>
+          <mat-label>{{ 'EMAIL_ADDRESS_LABEL' | translate }}</mat-label>
+
           <input 
             matInput 
-            formControlName="password" 
-            [type]="hidePassword1 ? 'password' : 'text'"
-            (input)="onPasswordInput()"
-            autocomplete="new-password">
-          <mat-icon matSuffix (click)="togglePassword1Visibility()">{{ hidePassword1 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            formControlName="email" 
+            type="email" 
+            [placeholder]="'EMAIL_ADDRESS_PLACEHOLDER' | translate"
+            autocomplete="email"
+          >
+
+          <!-- Loadinf check email dispo -->
+          <div *ngIf="emailChecking" class="loadingLine" class="emailCheckSuffix" matSuffix>
+            <mat-spinner [diameter]="20" matTooltip="{{ emailStatusMessage }}"></mat-spinner>
+          </div>
+            <!-- Réponse check email dispo -->
+          <div *ngIf="!emailChecking && emailAvailable !== null" class="emailCheckSuffix" matSuffix>
+            <mat-icon *ngIf="!emailAvailable" class="color-red" matTooltip="{{ emailStatusMessage }}">unpublished</mat-icon>
+            <mat-icon *ngIf="emailAvailable" class="color-green" matTooltip="{{ emailStatusMessage }}">task_alt</mat-icon>
+          </div>
+
         </mat-form-field>
 
-        <div class="icone-et-jauge">
-          <!-- <mat-icon>key</mat-icon> -->
-          <div class="progress-bar-container">
-            <!-- "6" car 6 niveaux de complexité -->
-            <div 
-              class="progress-bar" 
-              [style.width.%]="(passwordComplexityScore / 6) * 100" 
-              [ngClass]="passwordStrengthColor"
-            ></div>
-          </div>
+        <!-- Erreur pour email déjà pris (emailTaken) -->
+        <div *ngIf="registerForm.get('email')?.hasError('emailTaken') && registerForm.get('email')?.touched">
+          <mat-error>{{ "EMAIL_ADDRESS_ALREADY_USED" | translate }}</mat-error>
+        </div>
+        <!-- Erreur pour email requis -->
+        <div *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
+          <mat-error>{{ "EMAIL_ADDRESS_REQUIRED" | translate }}</mat-error>
+        </div>
+        <!-- Erreur pour email invalide -->
+        <div *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
+          <mat-error>{{ "EMAIL_ADDRESS_INVALID" | translate }}</mat-error>
         </div>
       </div>
-      <!-- <span>Force:</span> -->
 
-      <!-- Phase d'erreur généré par le composant -->
-      <div *ngIf="registerForm.get('password')?.touched && passwordErrorMessage">
-        <mat-error>{{ passwordErrorMessage }}</mat-error>
+
+      <div>
+
+        <div class="relative noMargin">
+          <mat-form-field appearance="outline" class="matFieldInput">
+            <mat-label>{{ "PASSWORD_LABEL" | translate }}</mat-label>
+            <input 
+              matInput 
+              formControlName="password" 
+              [type]="hidePassword1 ? 'password' : 'text'"
+              (input)="onPasswordInput()"
+              autocomplete="new-password">
+            <mat-icon matSuffix (click)="togglePassword1Visibility()">{{ hidePassword1 ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </mat-form-field>
+
+          <div class="icone-et-jauge">
+            <!-- <mat-icon>key</mat-icon> -->
+            <div class="progress-bar-container">
+              <!-- "6" car 6 niveaux de complexité -->
+              <div 
+                class="progress-bar" 
+                [style.width.%]="(passwordComplexityScore / 6) * 100" 
+                [ngClass]="passwordStrengthColor"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <!-- <span>Force:</span> -->
+
+        <!-- Phase d'erreur généré par le composant -->
+        <div *ngIf="registerForm.get('password')?.touched && passwordErrorMessage">
+          <mat-error>{{ passwordErrorMessage }}</mat-error>
+        </div>
       </div>
-    </div>
 
 
-    <div>
-      <mat-form-field appearance="outline" class="matFieldInput">
-        <mat-label>{{ "PASSWORD_CONFIRM_LABEL" | translate }}</mat-label>
-        <input 
-          matInput 
-          formControlName="passwordCheck" 
-          [type]="hidePassword2 ? 'password' : 'text'"
-          autocomplete="new-password"
-          >
-        <mat-icon matSuffix (click)="togglePassword2Visibility()">{{ hidePassword2 ? 'visibility_off' : 'visibility' }}</mat-icon>
-      </mat-form-field>
-      
-      <!-- Erreur pour mdp confirm ou Mismatch -->
-      <div *ngIf="registerForm.get('passwordCheck')?.invalid && registerForm.get('passwordCheck')?.touched">
-        <mat-error class="formFieldError">{{ "PASSWORD_CONFIRM_REQUIRED" | translate }}</mat-error>
+      <div>
+        <mat-form-field appearance="outline" class="matFieldInput">
+          <mat-label>{{ "PASSWORD_CONFIRM_LABEL" | translate }}</mat-label>
+          <input 
+            matInput 
+            formControlName="passwordCheck" 
+            [type]="hidePassword2 ? 'password' : 'text'"
+            autocomplete="new-password"
+            >
+          <mat-icon matSuffix (click)="togglePassword2Visibility()">{{ hidePassword2 ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </mat-form-field>
+        
+        <!-- Erreur pour mdp confirm ou Mismatch -->
+        <div *ngIf="registerForm.get('passwordCheck')?.invalid && registerForm.get('passwordCheck')?.touched">
+          <mat-error class="formFieldError">{{ "PASSWORD_CONFIRM_REQUIRED" | translate }}</mat-error>
+        </div>
+        <div *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('passwordCheck')?.touched">
+          <mat-error class="formFieldError">{{ "PASSWORD_CONFIRM_MISMATCH" | translate }}</mat-error>
+        </div>
       </div>
-      <div *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('passwordCheck')?.touched">
-        <mat-error class="formFieldError">{{ "PASSWORD_CONFIRM_MISMATCH" | translate }}</mat-error>
+
+      <br>
+
+      <div>
+        <mat-slide-toggle formControlName="acceptTerms">{{ "ACCEPT_TERMS" | translate }}</mat-slide-toggle>
       </div>
-    </div>
+    
+      <!-- Submit & Spinner -->
+      <div [matTooltip]="acceptTermsTooltip">
+        <button 
+          mat-flat-button 
+          color="primary"
+          class="cta-btn-primary bigButton" 
+          type="submit" 
+          [disabled]="!registerForm.valid || emailChecking || isLoading"
+        >
+          <span *ngIf="!isLoading">{{ "REGISTER" | translate }}</span>
+        </button>
+      </div>
 
-    <br>
+      <a [routerLink]="['/login']" mat-button>
+          <span class="btn-underlined">{{ "ALREADY_SIGNED_IN" | translate }}</span>
+      </a>
 
-    <div>
-      <mat-slide-toggle formControlName="acceptTerms">{{ "ACCEPT_TERMS" | translate }}</mat-slide-toggle>
     </div>
-  
-    <!-- Submit & Spinner -->
-    <div [matTooltip]="acceptTermsTooltip">
-      <button 
-        mat-flat-button 
-        color="primary"
-        class="cta-btn-primary bigButton" 
-        type="submit" 
-        [disabled]="!registerForm.valid || emailChecking || isLoading"
-      >
-        <span *ngIf="!isLoading">{{ "REGISTER" | translate }}</span>
-      </button>
-    </div>
-
-    <a [routerLink]="['/login']" mat-button>
-        <span class="btn-underlined">{{ "ALREADY_SIGNED_IN" | translate }}</span>
-    </a>
 
   </form>
 
