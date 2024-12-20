@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { UserProfil } from '../../models/userProfile.model';
 import { AuthService } from '../../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profil',
@@ -19,7 +20,8 @@ export class UserProfilComponent implements OnInit{
 
   constructor(
     private userService: UserService, 
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
   ) {}
 
   // récupération de l'user connecté
@@ -55,5 +57,9 @@ export class UserProfilComponent implements OnInit{
         }
       );
     }
+  }
+
+  navigateCertificates(): void {
+    this.router.navigate(['/certificates']);
   }
 }
