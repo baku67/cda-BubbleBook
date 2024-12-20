@@ -21,7 +21,7 @@ class UserCertificate
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Certificate $certificate = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $obtained_at = null;
 
     public function getId(): ?int

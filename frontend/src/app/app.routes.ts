@@ -9,7 +9,7 @@ import { AuthGuard } from './features/auth/services/guards/auth.guard';
 import { RedirectIfAuthenticatedGuard } from './features/auth/services/guards/redirect-if-authenticated-guard';
 import { ConfirmEmailComponent } from './features/profil/components/confirm-email/confirm-email.component';
 import { AccountSettingsComponent } from './features/account-settings/account-settings.component';
-import { CertificateManagerPageComponent } from './features/certificates/certificate-manager-page/certificate-manager-page.component';
+import { CertificateManagerPageComponent } from './features/certificates/components/certificate-manager-page/certificate-manager-page.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent, canActivate: [RedirectIfAuthenticatedGuard] },  // Home page

@@ -38,7 +38,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserCardComponent } from './features/profil/components/user-card/user-card.component';
 import { MatSelectCountryModule } from "@angular-material-extensions/select-country";
 import { AccountSettingsComponent } from './features/account-settings/account-settings.component';
-import { CertificateManagerPageComponent } from './features/certificates/certificate-manager-page/certificate-manager-page.component';
+import { CertificateManagerPageComponent } from './features/certificates/components/certificate-manager-page/certificate-manager-page.component';
 
 
 // Fonction qui crée une instance de TranslateHttpLoader
