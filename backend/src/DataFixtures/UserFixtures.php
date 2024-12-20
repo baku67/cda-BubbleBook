@@ -11,7 +11,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const USER_0_REFERENCE = 'user0';
+    public const USER_1_REFERENCE = 'user1';
+    public const USER_2_REFERENCE = 'user2';
     private UserPasswordHasherInterface $passwordHasher;
+
     public function __construct(UserPasswordHasherInterface $passwordHasher) 
     {
         $this->passwordHasher = $passwordHasher;
@@ -32,6 +36,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user0->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user0->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
         $manager->persist($user0);
+        $this->addReference(self::USER_0_REFERENCE, $user0);
 
 
         // 1 (Non vérifié, DIVER, no 2FA, [user], DZA)
@@ -47,6 +52,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user1->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user1->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
         $manager->persist($user1);
+        $this->addReference(self::USER_1_REFERENCE, $user0);
 
         // 2 (Non vérifié, CLUB, pas de 2FA, [user], pas de nationality)
         $user2 = new User();
@@ -60,6 +66,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         // Ajout des rôles à partir des références
         $user2->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $manager->persist($user2);
+        $this->addReference(self::USER_2_REFERENCE, $user0);
 
         $manager->flush();
     }

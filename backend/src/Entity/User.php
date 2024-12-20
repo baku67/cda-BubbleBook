@@ -54,12 +54,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 3, nullable: true)]
     private ?string $nationality = null;
 
+    /**
+     * @var Collection<int, UserCertificate>
+     */
+    #[ORM\OneToMany(targetEntity: UserCertificate::class, mappedBy: 'user_id', orphanRemoval: true)]
+    private Collection $userCertificates;
+
 
 
 
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->userCertificates = new ArrayCollection();
     }
 
 
@@ -232,6 +239,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNationality(?string $nationality): static
     {
         $this->nationality = $nationality;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserCertificate>
+     */
+    public function getUserCertificates(): Collection
+    {
+        return $this->userCertificates;
+    }
+
+    public function addUserCertificate(UserCertificate $userCertificate): static
+    {
+        if (!$this->userCertificates->contains($userCertificate)) {
+            $this->userCertificates->add($userCertificate);
+            $userCertificate->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserCertificate(UserCertificate $userCertificate): static
+    {
+        if ($this->userCertificates->removeElement($userCertificate)) {
+            // set the owning side to null (unless already changed)
+            if ($userCertificate->getUser() === $this) {
+                $userCertificate->setUser(null);
+            }
+        }
 
         return $this;
     }
