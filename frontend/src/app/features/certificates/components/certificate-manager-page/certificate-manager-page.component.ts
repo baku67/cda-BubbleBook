@@ -9,7 +9,8 @@ import { CertificateService } from '../../services/certificate.service';
 })
 export class CertificateManagerPageComponent implements OnInit{
 
-  certificates: Certificate[] = [];
+  allCertificates: Certificate[] = [];
+  userCertificates: Certificate[] = [];
 
   constructor(
     private certificateService: CertificateService,
@@ -18,13 +19,21 @@ export class CertificateManagerPageComponent implements OnInit{
   
   ngOnInit(): void {
     // TODO load liste complète 
+    this.loadCertificates();
     this.loadUserCertificates();
+  }
+
+  private loadCertificates(): void {
+    this.certificateService.getCertificates().subscribe({
+      next: (certificates) => this.allCertificates = certificates,
+      error: (error) => console.error('Failed to load globalzzz certificates', error)
+    });
   }
 
   private loadUserCertificates(): void {
     this.certificateService.getCurrentUserCertificates().subscribe({
-      next: (certificates) => this.certificates = certificates,
-      error: (error) => console.error('Failed to load certificates', error)
+      next: (certificates) => this.userCertificates = certificates,
+      error: (error) => console.error('Failed to load userzzzz certificates', error)
     });
   }
 

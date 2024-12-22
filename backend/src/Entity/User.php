@@ -57,7 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, UserCertificate>
      */
-    #[ORM\OneToMany(targetEntity: UserCertificate::class, mappedBy: 'user_id', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: UserCertificate::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $userCertificates;
 
 

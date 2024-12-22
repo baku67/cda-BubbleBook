@@ -6,6 +6,7 @@ use App\Repository\CertificateRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: CertificateRepository::class)]
 class Certificate
@@ -25,6 +26,7 @@ class Certificate
      * @var Collection<int, UserCertificate>
      */
     #[ORM\OneToMany(targetEntity: UserCertificate::class, mappedBy: 'certificate', orphanRemoval: true)]
+    #[Ignore] // Ignore cette propriété lors de la sérialisation (fix circular reference) + utilisation de DTO dans le controller, on s'en moque de récupérer les utilisateurs qui possède ce certificat
     private Collection $userCertificates;
 
     public function __construct()

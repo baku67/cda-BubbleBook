@@ -11,9 +11,15 @@ import { Certificate } from '../models/certificate.model';
 export class CertificateService {
 
   constructor(private http: HttpClient) { }
+
+  getCertificates(): Observable<Certificate[]> {
+    return this.http.get<Certificate[]>(`${environment.apiUrl}/api/certificates`);
+  }
  
   getCurrentUserCertificates(): Observable<Certificate[]> {
     return this.http.get<Certificate[]>(`${environment.apiUrl}/api/user/certificates`);
   }
+
+
 
 }

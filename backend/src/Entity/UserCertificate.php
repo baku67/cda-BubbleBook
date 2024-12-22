@@ -13,11 +13,11 @@ class UserCertificate
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'userCertificate')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'userCertificates')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(targetEntity: Certificate::class, inversedBy: 'userCertificate')]
+    #[ORM\ManyToOne(targetEntity: Certificate::class, inversedBy: 'userCertificates')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Certificate $certificate = null;
 
