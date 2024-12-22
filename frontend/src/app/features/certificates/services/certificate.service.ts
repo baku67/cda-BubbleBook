@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environments';
 import { Certificate } from '../models/certificate.model';
+import { UserCertificate } from '../models/userCertificate.model';
 
 
 @Injectable({
@@ -16,8 +17,8 @@ export class CertificateService {
     return this.http.get<Certificate[]>(`${environment.apiUrl}/api/certificates`);
   }
  
-  getCurrentUserCertificates(): Observable<Certificate[]> {
-    return this.http.get<Certificate[]>(`${environment.apiUrl}/api/user/certificates`);
+  getCurrentUserCertificates(): Observable<UserCertificate[]> {
+    return this.http.get<UserCertificate[]>(`${environment.apiUrl}/api/user/certificates`);
   }
 
 

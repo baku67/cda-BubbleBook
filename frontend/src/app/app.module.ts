@@ -39,6 +39,7 @@ import { UserCardComponent } from './features/profil/components/user-card/user-c
 import { MatSelectCountryModule } from "@angular-material-extensions/select-country";
 import { AccountSettingsComponent } from './features/account-settings/account-settings.component';
 import { CertificateManagerPageComponent } from './features/certificates/components/certificate-manager-page/certificate-manager-page.component';
+import { CdkDrag, CdkDragPlaceholder, CdkDropList } from '@angular/cdk/drag-drop';
 
 
 // Fonction qui crée une instance de TranslateHttpLoader
@@ -88,6 +89,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     SharedModule,
     ThemeSwitchComponent,
     NavBottomMobileComponent,
+
+    // Pour le drag-drop/move list (ccertifs)
+    CdkDropList, 
+    CdkDrag, 
+    CdkDragPlaceholder,
 ],
   providers: [
     { 

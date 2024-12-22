@@ -2,4 +2,31 @@
 
     <app-page-header [title]='("CERTIFICATES" | translate)' matIcon="account_circle" />
 
+
+    <section *ngIf="!isAllCertifsLoading && !isUserCertifsLoading">
+        <div>
+            <h2>Mes certificats</h2>
+            <button>Ajouter</button>
+            <button>Edit</button>
+        </div>
+
+        <div>
+            <!-- Liste Matrerial avec drag and drop order (ou que quand edit toggled) -->
+            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+                @for (userCertif of userCertificates; track userCertif) {
+                <div class="example-box" cdkDrag>
+                    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                    {{userCertif.certificateName}}
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Loader/Spinner page -->
+    <div class="spinner-container" *ngIf="isAllCertifsLoading && isUserCertifsLoading">
+        <mat-spinner></mat-spinner>
+    </div>
+
 </div>

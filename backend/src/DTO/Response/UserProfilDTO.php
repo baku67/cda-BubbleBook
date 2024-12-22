@@ -2,6 +2,7 @@
 
 namespace App\DTO\Response;
 
+// ResponseDTO
 class UserProfilDTO
 {
     public function __construct(
