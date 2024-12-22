@@ -67,4 +67,12 @@ export class CertificateManagerPageComponent implements OnInit{
     });
   }
 
+  trackByCertificateId(index: number, userCertif: UserCertificate): number | string {
+    return userCertif.certificateId; 
+  }
+
+  public addCertificate() {
+
+  }
+
 }

@@ -1,0 +1,18 @@
+:host {
+    position: absolute;
+    z-index: 999999999;
+    bottom: 70px;
+    right: 15px;
+}
+
+button {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    padding: 20px;
+}
+
+button mat-icon {
+    position: relative;
+    top: 3px;
+}

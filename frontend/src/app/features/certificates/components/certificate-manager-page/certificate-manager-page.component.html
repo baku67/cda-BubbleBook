@@ -6,22 +6,30 @@
     <section *ngIf="!isAllCertifsLoading && !isUserCertifsLoading">
         <div>
             <h2>Mes certificats</h2>
-            <button>Ajouter</button>
             <button>Edit</button>
         </div>
 
         <div>
             <!-- Liste Matrerial avec drag and drop order (ou que quand edit toggled) -->
             <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-                @for (userCertif of userCertificates; track userCertif) {
-                <div class="example-box" cdkDrag>
-                    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-                    {{userCertif.certificateName}}
+                <!-- Itération sur les certificats -->
+                <div class="example-box" *ngFor="let userCertif of userCertificates; trackBy: trackByCertificateId" cdkDrag>
+                  <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                  {{ userCertif.certificateName }}
                 </div>
-                }
+            
+                <!-- Bouton d'ajout (non draggable) -->
+                <button class="example-box non-draggable addCertif-button" (click)="addCertificate()">
+                    <div class="addCertif-button-container">
+                        <mat-icon>add</mat-icon>
+                        <span>Ajouter un certificat</span>
+                    </div>
+                </button>
             </div>
         </div>
     </section>
+
+    <app-back-button></app-back-button>
 
 
     <!-- Loader/Spinner page -->

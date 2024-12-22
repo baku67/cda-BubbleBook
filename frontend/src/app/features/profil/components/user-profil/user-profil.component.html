@@ -61,13 +61,11 @@
 
 
      <button 
-        *ngIf="!emailConfirmResent"
         mat-flat-button 
         color="primary"
         (click)="navigateCertificates()"
     >
-        <span *ngIf="!emailConfirmResentLoading">{{ "CERTIFICATES" | translate }}</span>
-        <mat-spinner *ngIf="emailConfirmResentLoading"></mat-spinner>
+        <span>{{ "CERTIFICATES" | translate }}</span>
     </button>
 
      
