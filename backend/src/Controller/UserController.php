@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\DTO\User\FirstLogin2DTO;
+use App\DTO\Response\UserProfilDTO;
+use App\DTO\Request\FirstLogin2DTO;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use App\DTO\User\FirstLogin1DTO;
+use App\DTO\Request\FirstLogin1DTO;
 
 class UserController extends AbstractController
 {
@@ -33,16 +34,17 @@ class UserController extends AbstractController
             return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
         }
 
-        // Retourner les informations utilisateur sous forme de JSON
-        return new JsonResponse([
-            'username' => $user->getUsername(),
-            'email' => $user->getEmail(),
-            'accountType' => $user->getAccountType(),
-            'nationality' => $user->getNationality(),
-            'isVerified' => $user->isVerified(),
-            'is2fa' => $user->is2fa(),
-            // Ajouter d'autres informations utilisateur si nécessaire
-        ]);
+        // Créer le DTO à partir des données de l'utilisateur
+        $userProfilDTO = new UserProfilDTO(
+            $user->getUsername(),
+            $user->getEmail(),
+            $user->getAccountType(),
+            $user->getNationality(),
+            $user->isVerified(),
+            $user->is2fa()
+        );
+
+        return $this->json($userProfilDTO);
     }
 
 

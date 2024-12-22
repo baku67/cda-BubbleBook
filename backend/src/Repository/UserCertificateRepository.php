@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\UserCertificate;
 use App\Entity\User;
-use App\DTO\User\UserCertificateDTO;
+use App\DTO\Response\UserCertificateDTO;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

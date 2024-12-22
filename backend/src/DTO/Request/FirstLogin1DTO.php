@@ -1,10 +1,10 @@
 <?php
 
-namespace App\DTO\User;
+namespace App\DTO\Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-
+// RequestDTO
 class FirstLogin1DTO
 {
     #[Assert\Choice(

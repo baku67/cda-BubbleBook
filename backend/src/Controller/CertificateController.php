@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use App\DTO\CertificateDTO;
-use App\DTO\User\UserCertificateDTO;
+use App\DTO\Response\CertificateDTO;
+use App\DTO\Response\UserCertificateDTO;
 
 class CertificateController extends AbstractController
 {

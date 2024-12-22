@@ -1,7 +1,8 @@
 <?php
 
-namespace App\DTO;
+namespace App\DTO\Response;
 
+// ResponseDTO
 class CertificateDTO
 {
     public int $id;

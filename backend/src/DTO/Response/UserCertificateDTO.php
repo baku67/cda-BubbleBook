@@ -1,7 +1,8 @@
 <?php
 
-namespace App\DTO\User;
+namespace App\DTO\Response;
 
+// ResponseDTO
 class UserCertificateDTO
 {
     public ?int $certificateId = null;
