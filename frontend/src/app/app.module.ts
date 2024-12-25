@@ -43,6 +43,7 @@ import { CdkDrag, CdkDragPlaceholder, CdkDropList } from '@angular/cdk/drag-drop
 import { CertificateFormComponent } from './features/certificates/components/certificate-form/certificate-form.component';
 import { ModalComponent } from './shared/ui-components/modal/modal.component';
 import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 
 // Fonction qui crée une instance de TranslateHttpLoader
@@ -100,6 +101,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CdkDrag, 
     CdkDragPlaceholder,
     ModalComponent,
+    MatSelectModule,
 ],
   providers: [
     { 

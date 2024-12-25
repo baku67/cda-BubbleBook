@@ -271,6 +271,11 @@ h1, h2, h3 {
     background-color: transparent; /* Évite l'effet "hover" de Material */
 }
 
+// Fix mat-select options derriere le modal:
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+    z-index: 99999 !important;
+ }
+
 
 // sub Menu Material
 // .matSubMenu {

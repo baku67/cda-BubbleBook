@@ -40,7 +40,7 @@ export class CertificateManagerPageComponent implements OnInit{
   }
 
   openAddCertifModal(): void {
-    this.modalService.open(CertificateFormComponent);
+    this.modalService.open(CertificateFormComponent, { certificates: this.allCertificates });
   }
 
   // cdk drag-drop dans list certifs

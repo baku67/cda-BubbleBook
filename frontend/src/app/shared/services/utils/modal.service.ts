@@ -14,7 +14,9 @@ export class ModalService {
     private injector: Injector
   ) {}
 
-  open(component: any): void {
+  open(component: any, data?: any): void {
+    console.log("Data reçu en paramètre de open() modal.service: " + JSON.stringify(data)); // OK
+
     // Si un modal existe déjà, on le ferme
     if (this.modalRef) {
       this.close();
@@ -35,7 +37,16 @@ export class ModalService {
     const factory = this.componentFactoryResolver.resolveComponentFactory(component);
     const viewContainerRef = this.modalRef.instance.viewContainerRef;
     viewContainerRef.clear();
-    viewContainerRef.createComponent(factory);
+
+    // Créer le composant et capturer sa référence
+    const componentRef = viewContainerRef.createComponent(factory);
+
+    // Passer les données via @Input()
+    if (data) {
+      Object.keys(data).forEach((key) => {
+        componentRef.instance[key] = data[key];
+      });
+    }
   }
 
   close(): void {

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environments';
 import { Certificate } from '../models/certificate.model';
 import { UserCertificate } from '../models/userCertificate.model';
+import { CertificateFormData } from '../models/certificateFormData.model';
 
 
 @Injectable({
@@ -19,6 +20,11 @@ export class CertificateService {
  
   getCurrentUserCertificates(): Observable<UserCertificate[]> {
     return this.http.get<UserCertificate[]>(`${environment.apiUrl}/api/user/certificates`);
+  }
+
+  addCertificateToUser(data: CertificateFormData): Observable<unknown> {
+
+    return new Observable;
   }
 
 
