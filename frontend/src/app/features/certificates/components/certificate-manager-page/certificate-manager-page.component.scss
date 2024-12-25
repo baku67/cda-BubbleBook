@@ -78,3 +78,7 @@
   gap: 10px;
   font-size: 1.1em;
 }
+
+.drag-disabled {
+  cursor: default !important; /* Change le curseur en flèche classique */
+}

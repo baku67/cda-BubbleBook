@@ -40,6 +40,9 @@ import { MatSelectCountryModule } from "@angular-material-extensions/select-coun
 import { AccountSettingsComponent } from './features/account-settings/account-settings.component';
 import { CertificateManagerPageComponent } from './features/certificates/components/certificate-manager-page/certificate-manager-page.component';
 import { CdkDrag, CdkDragPlaceholder, CdkDropList } from '@angular/cdk/drag-drop';
+import { CertificateFormComponent } from './features/certificates/components/certificate-form/certificate-form.component';
+import { ModalComponent } from './shared/ui-components/modal/modal.component';
+import { MatOptionModule } from '@angular/material/core';
 
 
 // Fonction qui crée une instance de TranslateHttpLoader
@@ -59,6 +62,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ConfirmEmailComponent,
     AccountSettingsComponent,
     CertificateManagerPageComponent,
+    CertificateFormComponent,
   ],
   imports: [
     MatSelectCountryModule.forRoot('fr'),
@@ -70,6 +74,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BrowserAnimationsModule,
     MatButtonModule,
     MatFormField,
+    MatOptionModule,
     MatLabel,
     MatInputModule,
     MatFormFieldModule,
@@ -94,6 +99,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CdkDropList, 
     CdkDrag, 
     CdkDragPlaceholder,
+    ModalComponent,
 ],
   providers: [
     { 

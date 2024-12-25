@@ -9,6 +9,7 @@ import { LanguageSwitchComponent } from './ui-components/language-switch/languag
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { BackButtonComponent } from './ui-components/back-button/back-button.component';
+import { ModalComponent } from './ui-components/modal/modal.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { BackButtonComponent } from './ui-components/back-button/back-button.com
     MatIcon,
     TranslateModule,
     BackButtonComponent,
+    ModalComponent,
   ],
   exports: [
     PageHeaderComponent,
@@ -34,6 +36,7 @@ import { BackButtonComponent } from './ui-components/back-button/back-button.com
     NavBottomMobileComponent,
     LanguageSwitchComponent,
     BackButtonComponent,
+    ModalComponent,
   ]
 })
 export class SharedModule { }

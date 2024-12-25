@@ -9,6 +9,8 @@ import {
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { UserCertificate } from '../../models/userCertificate.model';
+import { ModalService } from '../../../../shared/services/utils/modal.service';
+import { CertificateFormComponent } from '../certificate-form/certificate-form.component';
 
 @Component({
   selector: 'app-certificate-manager-page',
@@ -19,14 +21,26 @@ export class CertificateManagerPageComponent implements OnInit{
 
   isAllCertifsLoading : boolean;
   isUserCertifsLoading : boolean;
+
   allCertificates: Certificate[] = [];
   userCertificates: UserCertificate[] = [];
 
+  isEditMode: boolean = false;
+
   constructor(
     private certificateService: CertificateService,
+    private modalService: ModalService,
   ) {
     this.isAllCertifsLoading = true;
     this.isUserCertifsLoading = true;
+  }
+
+  toggleEditMode() {
+    this.isEditMode = !this.isEditMode;
+  }
+
+  openAddCertifModal(): void {
+    this.modalService.open(CertificateFormComponent);
   }
 
   // cdk drag-drop dans list certifs
@@ -69,10 +83,6 @@ export class CertificateManagerPageComponent implements OnInit{
 
   trackByCertificateId(index: number, userCertif: UserCertificate): number | string {
     return userCertif.certificateId; 
-  }
-
-  public addCertificate() {
-
   }
 
 }
