@@ -33,6 +33,9 @@ export class ModalService {
     const modalDomElem = (this.modalRef.hostView as any).rootNodes[0];
     document.body.appendChild(modalDomElem);
 
+    // Ajoute une classe pour l'animation "fadeIn"
+    modalDomElem.classList.add('modal-opening');
+
     // Instancie dynamiquement le composant passé
     const factory = this.componentFactoryResolver.resolveComponentFactory(component);
     const viewContainerRef = this.modalRef.instance.viewContainerRef;
@@ -51,9 +54,18 @@ export class ModalService {
 
   close(): void {
     if (this.modalRef) {
-      this.appRef.detachView(this.modalRef.hostView);
-      this.modalRef.destroy();
-      this.modalRef = null;
+
+      // Ajoutez la classe d'animation "modal-closing"
+      const modalDomElem = (this.modalRef.hostView as any).rootNodes[0] as HTMLElement;
+      modalDomElem.classList.remove('modal-opening');
+      modalDomElem.classList.add('modal-closing');
+
+      // anim fadeOut puis setTimeOut()
+      setTimeout(() => {
+        this.appRef.detachView(this.modalRef!.hostView);
+        this.modalRef!.destroy();
+        this.modalRef = null;
+      }, 500);
     }
   }
 }

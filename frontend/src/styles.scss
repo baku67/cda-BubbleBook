@@ -165,6 +165,19 @@ h1, h2, h3 {
         width: 100%;
     }
 }
+.modalContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 15px;
+    align-items: center;
+    padding: 10px 20px;
+
+    section {
+        width: 100%;
+    }
+}
 
 
 .btn-underlined {
@@ -285,4 +298,25 @@ h1, h2, h3 {
 
 .mat-internal-form-field>label {
     padding-left: 13px !important;
+}
+
+
+
+// ANIMATIONS
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }

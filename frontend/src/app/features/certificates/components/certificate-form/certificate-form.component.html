@@ -1,4 +1,5 @@
 <form
+    class="modalContent"
     *ngIf="!isLoading" 
     [formGroup]="addCertificateForm" 
     (ngSubmit)="onSubmit()" 
@@ -6,29 +7,34 @@
 
     <h2>{{ "ADD_CERTIFICATE_FORM_TITLE" | translate }} :</h2>
 
-    <!-- // Organismes de plongée (Step 1) -->
-    <mat-form-field>
+    <section>
+
+      <!-- // Organismes de plongée (Step 1) -->
+      <mat-form-field>
         <mat-label>Organisme de plongée</mat-label>
         <mat-select formControlName="organisationValue" name="organisation">
           @for (organisation of organisations; track organisation) {
             <mat-option [value]="organisation.name">{{organisation.name}}</mat-option>
           }
         </mat-select>
-    </mat-form-field>
+      </mat-form-field>
 
-    <!-- // Certificat (Step 2 - caché), enlever ceux déjà ajoutés -->
-    <mat-form-field>
-        <mat-label>Nom du certificat</mat-label>
-        <mat-select formControlName="certificateValue" name="certificate">
-          @for (certificate of certificates; track certificate) {
-            <mat-option [value]="certificate.name">{{certificate.name}}</mat-option>
-          }
-        </mat-select>
-    </mat-form-field>
+      <!-- // Certificat (Step 2 - caché), enlever ceux déjà ajoutés -->
+      <mat-form-field>
+          <mat-label>Nom du certificat</mat-label>
+          <mat-select formControlName="certificateValue" name="certificate">
+            @for (certificate of certificates; track certificate) {
+              <mat-option [value]="certificate.name">{{certificate.name}}</mat-option>
+            }
+          </mat-select>
+      </mat-form-field>
 
-    <!-- // Date d'obtention (optionnel) -->
+      <!-- // Date d'obtention (optionnel) -->
 
-    <!-- // Lieu d'obtention (optionnel) -->
+      <!-- // Lieu d'obtention (optionnel) -->
+
+    </section>
+
 
 </form>
 
