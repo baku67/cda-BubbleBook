@@ -42,9 +42,13 @@ export class LoginPageComponent implements OnInit{
           this.isLoading = false;
         },
         error: (error) => {
-          console.error('There was an error during the request (login)', error);
-          this.errorMessage = 'Login failed. Please check your credentials.';
           this.isLoading = false;
+          console.error('There was an error during the request (login)', error);
+          if (error.status === 401) {
+            this.errorMessage = 'Identifiants incorrects. Veuillez vérifier votre email et mot de passe.';
+          } else {
+            this.errorMessage = 'Une erreur est survenue. Veuillez réessayer plus tard.';
+          }
         }
       });
     } else {

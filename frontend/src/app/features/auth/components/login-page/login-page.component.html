@@ -14,8 +14,12 @@
       <app-page-header 
         [title]="('LOGIN' | translate)" 
         matIcon="account_circle" 
-        style="padding-top:0px;" 
       />
+
+      <div *ngIf="errorMessage" class="errorMsg">
+        <p class="error-message-credentials">{{ errorMessage }}</p>
+      </div>
+      
 
       <div>
 

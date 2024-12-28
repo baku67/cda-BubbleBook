@@ -6,25 +6,32 @@
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    // width: 300px;
-    max-width: 400px;
-    margin: 0 auto;
-  }
+  display: flex;
+  flex-direction: column;
+  // width: 300px;
+  max-width: 400px;
+  margin: 0 auto;
+}
   
-  div {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  input {
-    padding: 8px;
-    font-size: 1em;
-  }
+div {
+  margin-bottom: 15px;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input {
+  padding: 8px;
+  font-size: 1em;
+}
+
+.errorMsg {
+  background-color: #ff000042;
+  border: 1px solid red;
+  padding: 9px 13px;
+  border-radius: 7px;
+}
   
   
