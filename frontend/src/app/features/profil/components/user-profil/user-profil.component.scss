@@ -12,3 +12,16 @@
     background-color: rgba(127, 255, 212, 0.082);
     border-radius: 1px solid rgba(0, 255, 255, 0.11);
 }
+
+
+
+
+.errorMsg {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+.error-message-text {
+    flex: 1; // important sinon icon machée
+}

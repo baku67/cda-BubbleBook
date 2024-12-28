@@ -215,6 +215,18 @@ h1, h2, h3 {
 }
 
 
+
+.errorMsg {
+    background-color: #ff000042;
+    border: 1px solid red;
+    padding: 9px 13px;
+    border-radius: 7px;
+  }
+.warning-message {
+
+}
+
+
 .cta-btn-primary {
     display: block; /* Rendre les liens comme des blocs */
     text-align: center; /* Centrer le texte à l'intérieur des boutons */

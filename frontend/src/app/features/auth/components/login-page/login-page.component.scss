@@ -27,11 +27,16 @@ input {
   font-size: 1em;
 }
 
+
+
 .errorMsg {
-  background-color: #ff000042;
-  border: 1px solid red;
-  padding: 9px 13px;
-  border-radius: 7px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+.error-message-text {
+  flex: 1; // important sinon icon machée
 }
   
   

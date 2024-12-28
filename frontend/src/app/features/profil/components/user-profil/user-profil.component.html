@@ -7,12 +7,17 @@
 
     <app-user-card [user]="user" *ngIf="user" />
 
+    <div *ngIf="user && !user.isVerified" class="errorMsg">
+        <mat-icon>alternate_email</mat-icon>
+        <p class="error-message-text">Confirmez le lien reçu par mail pour profiter de toutes les fontcionalités.</p>
+    </div>
+
     <section class="card">
 
         <div *ngIf="!isUserLoading">
             <h5>Mon profil</h5>
-            <img src="assets/images/diver0.png" class="user-avatar" alt="{{ user?.username }}'s avatar" /> 
-            <p>Email: {{ user?.email }}</p>
+            <!-- <img src="assets/images/diver0.png" class="user-avatar" alt="{{ user?.username }}'s avatar" />  -->
+            <!-- <p>Email: {{ user?.email }}</p> -->
             <p>Nom d'utilisateur:{{ user?.username }}</p>
             <p>Authentification à 2 facteurs:{{ user?.is2fa }}</p>
             
