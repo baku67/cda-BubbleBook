@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environments';
 import { Certificate } from '../models/certificate.model';
@@ -22,10 +22,15 @@ export class CertificateService {
     return this.http.get<UserCertificate[]>(`${environment.apiUrl}/api/user/certificates`);
   }
 
-  addCertificateToUser(data: CertificateFormData): Observable<unknown> {
-
-    return new Observable;
+  addCertificateToUser(certificateData: CertificateFormData): Observable<unknown> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(
+      `${environment.apiUrl}/api/user/addCertificate`,
+      certificateData,
+       { headers }
+    );
   }
+
 
 
 

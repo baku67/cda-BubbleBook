@@ -66,5 +66,6 @@
     "ACCOUNT_SETTINGS": "Account Settings",
 
     "ADD_CERTIFICATE_BUTTON": "Add a certificate",
-    "ADD_CERTIFICATE_FORM_TITLE": "Add a diving certificate"
+    "ADD_CERTIFICATE_FORM_TITLE": "Add a diving certificate",
+    "ADD": "Add"
 }

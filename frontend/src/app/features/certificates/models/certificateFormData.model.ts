@@ -1,8 +1,6 @@
-import { Organization } from "./organization.model";
-
 export interface CertificateFormData {
     name: string,
-    type: Organization,
+    type: string,
     obtainedAt: Date,
     location: string,
 }

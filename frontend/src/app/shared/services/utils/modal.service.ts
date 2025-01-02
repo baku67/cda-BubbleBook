@@ -15,7 +15,7 @@ export class ModalService {
   ) {}
 
   open(component: any, data?: any): void {
-    console.log("Data reçu en paramètre de open() modal.service: " + JSON.stringify(data)); // OK
+    console.log("Data reçu en paramètre de open() modal.service: " + JSON.stringify(data, null, 2)); // OK
 
     // Si un modal existe déjà, on le ferme
     if (this.modalRef) {

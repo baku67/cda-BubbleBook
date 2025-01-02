@@ -69,5 +69,6 @@
     "ACCOUNT_SETTINGS": "Paramètres de compte",
 
     "ADD_CERTIFICATE_BUTTON": "Ajouter un certificat",
-    "ADD_CERTIFICATE_FORM_TITLE": "Ajouter un certificat de plongée"
+    "ADD_CERTIFICATE_FORM_TITLE": "Ajouter un certificat de plongée",
+    "ADD": "Ajouter"
 }

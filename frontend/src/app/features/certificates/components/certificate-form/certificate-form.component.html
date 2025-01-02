@@ -1,6 +1,5 @@
 <form
     class="modalContent"
-    *ngIf="!isLoading" 
     [formGroup]="addCertificateForm" 
     (ngSubmit)="onSubmit()" 
 >
@@ -14,16 +13,16 @@
         <mat-label>Organisme de plongée</mat-label>
         <mat-select formControlName="organisationValue" name="organisation">
           @for (organisation of organisations; track organisation) {
-            <mat-option [value]="organisation.name">{{organisation.name}}</mat-option>
+            <mat-option [value]="organisation">{{organisation}}</mat-option>
           }
         </mat-select>
       </mat-form-field>
 
       <!-- // Certificat (Step 2 - caché), enlever ceux déjà ajoutés -->
-      <mat-form-field>
+      <mat-form-field *ngIf="addCertificateForm.get('organisationValue')?.value">
           <mat-label>Nom du certificat</mat-label>
           <mat-select formControlName="certificateValue" name="certificate">
-            @for (certificate of certificates; track certificate) {
+            @for (certificate of filteredCertificates; track certificate) {
               <mat-option [value]="certificate.name">{{certificate.name}}</mat-option>
             }
           </mat-select>
@@ -34,6 +33,16 @@
       <!-- // Lieu d'obtention (optionnel) -->
 
     </section>
+
+    <button 
+      mat-flat-button 
+      color="primary"
+      class="cta-btn-primary bigButton" 
+      type="submit" 
+      [disabled]="addCertificateForm.invalid"
+    >
+      <span>{{ "ADD" | translate }}</span>
+    </button>
 
 
 </form>
