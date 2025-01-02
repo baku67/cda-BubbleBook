@@ -74,6 +74,9 @@
     "DATE_MUST_BE_IN_THE_PAST": "La date sélectionnée doit être dans le passé",
     "LOCATION_LABEL": "Localité",
     "LOCATION_PLACEHOLDER": "Pays, Ville, Club de plongée...",
-    "EDIT_CERTIFICATE_BUTTON": "Modifier"
+    "EDIT_CERTIFICATE_BUTTON": "Modifier",
 
+    "EQUIPMENT": "Mon équipement",
+    "PUBLISHES": "Mes publications",
+    "GALLERY": "Ma gallerie"
 }

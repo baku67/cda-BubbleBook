@@ -13,7 +13,39 @@
     border-radius: 1px solid rgba(0, 255, 255, 0.11);
 }
 
+.nav-btn-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+}
 
+
+.home-nav-button {
+    width: 100%;
+    height: 80px;
+
+    display: inline-flex;
+    flex-direction: column;
+}
+.home-nav-button mat-icon {
+    font-size: 1.525rem;
+    height: 1.525rem;
+    width: 1.525rem;
+    margin: 0;
+}
+.home-nav-button svg {
+    font-size: 1.525rem;
+    height: 1.525rem;
+    width: 1.525rem;
+    margin: 0;
+}
+.home-nav-button span {
+    border-top: 1px solid #fbfbfb5c;
+    padding-top: 5px;
+    margin-top: 4px;
+}
 
 
 .errorMsg {
