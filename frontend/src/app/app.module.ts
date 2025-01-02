@@ -24,6 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 // Standalone:
 // import { FooterComponent } from './shared/ui-components/footer/footer.component';
 
@@ -42,7 +44,7 @@ import { CertificateManagerPageComponent } from './features/certificates/compone
 import { CdkDrag, CdkDragPlaceholder, CdkDropList } from '@angular/cdk/drag-drop';
 import { CertificateFormComponent } from './features/certificates/components/certificate-form/certificate-form.component';
 import { ModalComponent } from './shared/ui-components/modal/modal.component';
-import { MatOptionModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 
 
@@ -78,6 +80,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatOptionModule,
     MatLabel,
     MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatFormFieldModule,
     MatProgressSpinner,
     MatIconModule,
@@ -112,7 +116,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true  // Ajout de l'Interceptor
-    }
+    },
+    MatDatepickerModule,
   ],
   bootstrap: [AppComponent],
 })

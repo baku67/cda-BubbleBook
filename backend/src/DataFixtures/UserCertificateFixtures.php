@@ -40,7 +40,7 @@ class UserCertificateFixtures extends Fixture implements DependentFixtureInterfa
             $userCertificat = new UserCertificate();
             $userCertificat->setUser($this->getReference($data['userReference'], User::class));
             $userCertificat->setCertificate($this->getReference($data['certificatReference'], Certificate::class));
-            $userCertificat->setObtainedAt(new \DateTimeImmutable($data['obtainedAt']));
+            $userCertificat->setObtainedDate(new \DateTimeImmutable($data['obtainedAt']));
             $manager->persist($userCertificat);
         }
 

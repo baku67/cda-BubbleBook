@@ -5,33 +5,55 @@
 
     <section *ngIf="!isAllCertifsLoading && !isUserCertifsLoading">
 
-        <!-- Bouton pour toggler le mode édition -->
-        <button (click)="toggleEditMode()" class="custom-button">
-            <mat-icon>{{ isEditMode ? 'check' : 'edit' }}</mat-icon>
-        </button>
+
 
         <div>
             <!-- Liste Matrerial avec drag and drop order (ou que quand edit toggled) -->
             <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
 
-                <!-- Bouton d'ajout (non draggable) -->
-                <button class="example-box non-draggable addCertif-button" (click)="openAddCertifModal()">
-                    <div class="addCertif-button-container">
-                        <mat-icon>add</mat-icon>
-                        <span>{{ "ADD_CERTIFICATE_BUTTON" | translate }}</span>
-                    </div>
-                </button>
+                <div style="display:flex">
+                    <!-- Bouton d'ajout (non draggable) -->
+                    <button *ngIf="!isEditMode" class="example-box non-draggable addCertif-button" (click)="openAddCertifModal()">
+                        <div class="addCertif-button-container">
+                            <mat-icon>add</mat-icon>
+                            <span>{{ "ADD_CERTIFICATE_BUTTON" | translate }}</span>
+                        </div>
+                    </button>
+
+                    <!-- Bouton pour toggler le mode édition -->
+                    <button class="example-box non-draggable editCertif-button" (click)="toggleEditMode()" >
+                        <div class="addCertif-button-container">
+                            <mat-icon>{{ isEditMode ? 'check' : 'edit' }}</mat-icon>
+                            <span>{{ (isEditMode ? "VALIDATE" : "EDIT_CERTIFICATE_BUTTON") | translate }}</span>
+                        </div>
+                    </button>
+                </div>
 
                 <!-- Itération sur les certificats -->
                 <div 
                     class="example-box" 
-                    *ngFor="let userCertif of userCertificates; trackBy: trackByCertificateId" 
+                    *ngFor="let userCertif of userCertificates; let i = index; trackBy: trackByCertificateId" 
                     cdkDrag
                     [cdkDragDisabled]="!isEditMode"
                     [ngClass]="{ 'drag-disabled': !isEditMode }"
                 >
                   <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-                  {{ userCertif.certificateName }}
+
+                  <div class="content">
+                    <mat-icon *ngIf="i===0">workspace_premium</mat-icon>
+                    <!-- <mat-icon *ngIf="i!==0">developer_guide</mat-icon> -->
+                    {{ userCertif.certificateName }}
+                  </div>
+                
+                  <div *ngIf="isEditMode" >
+                    <!-- dragHandle -->
+                    <mat-icon cdkDragHandle class="drag-handle">drag_handle</mat-icon>
+
+                    <!-- delete -->
+                    <button mat-icon-button color="warn" (click)="deleteCertificate(userCertif)" class="non-draggable-button">
+                        <mat-icon>delete_forever</mat-icon>
+                    </button>
+                  </div>
                 </div>
             </div>
         </div>

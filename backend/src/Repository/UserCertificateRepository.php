@@ -35,7 +35,7 @@ class UserCertificateRepository extends ServiceEntityRepository
                 'c.id AS certificateId, 
                 c.name AS certificateName, 
                 c.type AS certificateType, 
-                uc.obtained_at AS obtainedAt'
+                uc.obtained_date AS obtainedDate'
             )
             ->join('uc.certificate', 'c')
             ->where('uc.user = :userId')
@@ -50,7 +50,7 @@ class UserCertificateRepository extends ServiceEntityRepository
                 $result['certificateId'],
                 $result['certificateName'],
                 $result['certificateType'],
-                $result['obtainedAt']
+                $result['obtainedDate']
             );
         }, $results);
     }

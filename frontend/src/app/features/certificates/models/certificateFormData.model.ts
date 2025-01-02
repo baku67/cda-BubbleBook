@@ -1,6 +1,6 @@
 export interface CertificateFormData {
     name: string,
     type: string,
-    obtainedAt: Date,
+    obtainedDate: Date,
     location: string,
 }

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Certificate } from '../../models/certificate.model';
 import { CertificateService } from '../../services/certificate.service';
 import { UserCertificate } from '../../models/userCertificate.model';
+import { DateValidator } from '../../../../shared/validators/dateValidator';
+import { ModalService } from '../../../../shared/services/utils/modal.service';
 
 @Component({
   selector: 'app-certificate-form',
@@ -25,10 +27,12 @@ export class CertificateFormComponent {
 
     addCertificateForm!: FormGroup;
     isLoading = false;
+    today: Date = new Date();
     errorMessage: string | null = null;
     
     constructor(
       private formBuilder: FormBuilder, 
+      private modalService: ModalService,
       private certificateService: CertificateService,
       private router: Router,
     ) {}
@@ -38,16 +42,14 @@ export class CertificateFormComponent {
       this.addCertificateForm = this.formBuilder.group({
         organisationValue: ['', [Validators.required]], 
         certificateValue: ['', [Validators.required]], 
-        //
-        //
+        obtainedDate: [null, [DateValidator.pastDateValidator()]],
+        location: [null]
       });
 
-      // Surveillez les changements dans le champ organisationValue
+      // Surveille les changements dans le champ organisationValue
       this.addCertificateForm.get('organisationValue')?.valueChanges.subscribe((selectedOrganisation) => {
         this.filterCertificates(selectedOrganisation);
       });
-      // Initialiser les certificats filtrés avec un tableau vide ou la valeur par défaut
-      this.filteredCertificates = [];
     }
 
 
@@ -70,8 +72,11 @@ export class CertificateFormComponent {
 
         this.certificateService.addCertificateToUser(this.addCertificateForm.value).subscribe({
           next: () => {
-            this.router.navigate(['/certificates']);
+            this.router.navigate(['/certificates']).then(() => {
+              window.location.reload();
+            });
             this.isLoading = false;
+            this.modalService.close();
           },
           error: (error:any) => {
             console.error('There was an error during the request (addCertificateToUser)', error);

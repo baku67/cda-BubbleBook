@@ -85,4 +85,8 @@ export class CertificateManagerPageComponent implements OnInit{
     return userCertif.certificateId; 
   }
 
+  deleteCertificate(userCertif: UserCertificate): void {
+
+  }
+
 }

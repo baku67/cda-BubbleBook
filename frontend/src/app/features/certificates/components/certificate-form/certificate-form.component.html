@@ -1,6 +1,7 @@
 <form
     class="modalContent"
     [formGroup]="addCertificateForm" 
+    *ngIf="!isLoading"
     (ngSubmit)="onSubmit()" 
 >
 
@@ -15,6 +16,9 @@
           @for (organisation of organisations; track organisation) {
             <mat-option [value]="organisation">{{organisation}}</mat-option>
           }
+          <mat-option *ngIf="organisations.length === 0" [disabled]="true">
+            Aucune organisation disponible
+          </mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -25,12 +29,33 @@
             @for (certificate of filteredCertificates; track certificate) {
               <mat-option [value]="certificate.name">{{certificate.name}}</mat-option>
             }
+            <mat-option *ngIf="filteredCertificates.length === 0" [disabled]="true">
+              Aucun certificat disponible
+            </mat-option>
           </mat-select>
       </mat-form-field>
 
       <!-- // Date d'obtention (optionnel) -->
+      <mat-form-field *ngIf="addCertificateForm.get('organisationValue')?.value && addCertificateForm.get('certificateValue')?.value">
+        <mat-label>Date d'obtention</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="obtainedDate" [max]="today">
+        <!-- <mat-hint>MMMM DD, YYYY</mat-hint> -->
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="addCertificateForm.get('obtainedDate')?.hasError('futureDate')">
+          {{ "DATE_MUST_BE_IN_THE_PAST" | translate }}
+        </mat-error>
+      </mat-form-field>
 
       <!-- // Lieu d'obtention (optionnel) -->
+      <mat-form-field appearance="outline" class="matFieldInput" *ngIf="addCertificateForm.get('organisationValue')?.value && addCertificateForm.get('certificateValue')?.value">
+        <mat-label>{{ "LOCATION_LABEL" | translate }}</mat-label>
+        <input 
+          matInput 
+          formControlName="location" 
+          [placeholder]="('LOCATION_PLACEHOLDER' | translate)"
+        >
+      </mat-form-field>
 
     </section>
 
@@ -44,7 +69,12 @@
       <span>{{ "ADD" | translate }}</span>
     </button>
 
-
 </form>
+
+
+<!-- Loader/Spinner page -->
+<div class="spinner-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+</div>
 
 

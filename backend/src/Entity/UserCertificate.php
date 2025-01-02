@@ -22,7 +22,10 @@ class UserCertificate
     private ?Certificate $certificate = null;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    private ?\DateTimeImmutable $obtained_at = null;
+    private ?\DateTimeImmutable $obtained_date = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $location = null;
 
     public function getId(): ?int
     {
@@ -53,14 +56,26 @@ class UserCertificate
         return $this;
     }
 
-    public function getObtainedAt(): ?\DateTimeImmutable
+    public function getObtainedDate(): ?\DateTimeImmutable
     {
-        return $this->obtained_at;
+        return $this->obtained_date;
     }
 
-    public function setObtainedAt(?\DateTimeImmutable $obtained_at): static
+    public function setObtainedDate(?\DateTimeImmutable $obtained_date): static
     {
-        $this->obtained_at = $obtained_at;
+        $this->obtained_date = $obtained_date;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): static
+    {
+        $this->location = $location;
 
         return $this;
     }
