@@ -157,4 +157,44 @@ class CertificateController extends AbstractController
             'message' => 'Votre certificat a bien été ajouté.'
         ], Response::HTTP_CREATED); // 201
     }
+
+
+    #[Route('/api/user/deleteCertificate/{certificateId}', name: 'api_user_delete_certificate', methods: ['DELETE'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function deleteUserCertificate(
+        int $certificateId,
+        UserCertificateRepository $userCertificateRepository,
+        EntityManagerInterface $entityManager
+    ): JsonResponse {
+        // Récupérer l'utilisateur connecté
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'Unauthorized access.'], Response::HTTP_UNAUTHORIZED);
+        }
+    
+        // Trouver le certificat utilisateur
+        $userCertificate = $userCertificateRepository->findOneBy([
+            'certificate' => $certificateId,
+            'user' => $user,
+        ]);
+    
+        if (!$userCertificate) {
+            return new JsonResponse(['error' => 'Certificate not found or does not belong to the user.'], Response::HTTP_NOT_FOUND);
+        }
+    
+        // Supprimer le certificat
+        try {
+            $entityManager->remove($userCertificate);
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'error' => 'An error occurred while deleting the certificate.',
+                'details' => $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    
+        return new JsonResponse(['message' => 'Certificate deleted successfully.'], Response::HTTP_OK);
+    }
+    
+
 }

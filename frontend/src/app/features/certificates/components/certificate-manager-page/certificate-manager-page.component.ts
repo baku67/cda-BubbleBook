@@ -21,6 +21,7 @@ export class CertificateManagerPageComponent implements OnInit{
 
   isAllCertifsLoading : boolean;
   isUserCertifsLoading : boolean;
+  isDeleting: { [id: number]: boolean } = {};
 
   allCertificates: Certificate[] = [];
   userCertificates: UserCertificate[] = [];
@@ -87,6 +88,23 @@ export class CertificateManagerPageComponent implements OnInit{
 
   deleteCertificate(userCertif: UserCertificate): void {
 
+    // Activer le spinner pour ce certificat
+    this.isDeleting[userCertif.certificateId] = true;
+
+    this.certificateService.deleteUserCertificate(userCertif.certificateId).subscribe({
+      next: () => {
+        // Supprimer l'élément localement après la suppression réussie
+        this.userCertificates = this.userCertificates.filter(
+          cert => cert.certificateId !== userCertif.certificateId
+        );
+        this.isDeleting[userCertif.certificateId] = false;
+        console.log('Certificate deleted successfully');
+      },
+      error: (err) => {
+        this.isDeleting[userCertif.certificateId] = false;
+        console.error('Error while deleting certificate:', err);
+      },
+    });
   }
 
 }

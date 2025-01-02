@@ -9,7 +9,7 @@
 
         <div>
             <!-- Liste Matrerial avec drag and drop order (ou que quand edit toggled) -->
-            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+            <div cdkDropList class="example-list surface" (cdkDropListDropped)="drop($event)">
 
                 <div style="display:flex">
                     <!-- Bouton d'ajout (non draggable) -->
@@ -40,9 +40,11 @@
                   <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
 
                   <div class="content">
-                    <mat-icon *ngIf="i===0">workspace_premium</mat-icon>
-                    <!-- <mat-icon *ngIf="i!==0">developer_guide</mat-icon> -->
-                    {{ userCertif.certificateName }}
+                    <mat-icon *ngIf="i===0" class="main-certif-icon">workspace_premium</mat-icon>
+                    <div class="certif-header">
+                        <span class="certif-organization">{{ userCertif.certificateType }}</span>
+                        <span class="cartif-name">{{ userCertif.certificateName }}</span>
+                    </div>
                   </div>
                 
                   <div *ngIf="isEditMode" >
@@ -50,8 +52,19 @@
                     <mat-icon cdkDragHandle class="drag-handle">drag_handle</mat-icon>
 
                     <!-- delete -->
-                    <button mat-icon-button color="warn" (click)="deleteCertificate(userCertif)" class="non-draggable-button">
-                        <mat-icon>delete_forever</mat-icon>
+                    <button 
+                        mat-icon-button 
+                        color="warn" 
+                        (click)="deleteCertificate(userCertif)" 
+                        [disabled]="isDeleting[userCertif.certificateId]"
+                        class="non-draggable-button"
+                    >
+                        <mat-icon *ngIf="!isDeleting[userCertif.certificateId]" >delete_forever</mat-icon>
+                        <mat-spinner 
+                            *ngIf="isDeleting[userCertif.certificateId]" 
+                            diameter="20" 
+                            strokeWidth="3"
+                      ></mat-spinner>
                     </button>
                   </div>
                 </div>

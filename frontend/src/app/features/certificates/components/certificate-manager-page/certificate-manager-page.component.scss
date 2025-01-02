@@ -68,6 +68,24 @@
   gap: 5px;
 }
 
+.main-certif-icon {
+  color: gold;
+}
+.certif-header {
+  display: inline-flex;
+  flex-direction: column;
+}
+.certif-organization {
+  font-size: 0.85em;
+  color: var(--primary-color);
+}
+
+button .mat-spinner {
+  display: inline-block;
+  margin: auto;
+  vertical-align: middle;
+}
+
 .addCertif-button {
   cursor: pointer;
   width: 100%;

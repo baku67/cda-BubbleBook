@@ -31,6 +31,16 @@ export class CertificateService {
     );
   }
 
+  
+  deleteUserCertificate(certificateId: number): Observable<unknown> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+    return this.http.delete(
+      `${environment.apiUrl}/api/user/deleteCertificate/${certificateId}`,
+      { headers }
+    );
+  }
+
 
 
 
