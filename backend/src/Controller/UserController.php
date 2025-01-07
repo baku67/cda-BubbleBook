@@ -24,7 +24,6 @@ class UserController extends AbstractController
         private EntityManagerInterface $entityManager,
     ){}
 
-
     #[Route('/api/user', name: 'api_user', methods: ['GET'])]
     public function getUserProfil(): JsonResponse
     {
@@ -48,112 +47,58 @@ class UserController extends AbstractController
     }
 
 
-
-    #[Route('/api/firstLoginUpdate', name: 'api_firstLoginUpdate', methods: ['POST'])]
-    public function firstLoginUpdate(
+    // #[Route('/api/firstLoginUpdate', name: 'api_firstLoginUpdate', methods: ['PATCH'])]
+    #[Route('/api/user', name: 'api_edit_user', methods: ['PATCH'])]
+    public function updateUser(
         Request $request,
         SerializerInterface $serializer,
         ValidatorInterface $validator
     ): JsonResponse {
-        // Désérialiser les données JSON dans le DTO
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $data = $request->getContent();
+
+        // Essayez de désérialiser dans chaque DTO
+        // selon type de data envoyé depuis le front
         try {
-            $dto = $serializer->deserialize($request->getContent(), FirstLogin1DTO::class, 'json');
+            if (isset(json_decode($data, true)['accountType'])) {
+                $dto = $serializer->deserialize($data, FirstLogin1DTO::class, 'json');
+                $user->setAccountType($dto->accountType);
+            } elseif (isset(json_decode($data, true)['username'])) {
+                $dto = $serializer->deserialize($data, FirstLogin2DTO::class, 'json');
+                $user->setUsername($dto->username);
+                $user->setNationality($dto->nationality);
+            } else {
+                return new JsonResponse(
+                    ['error' => 'Invalid data format.'],
+                    Response::HTTP_BAD_REQUEST
+                );
+            }
         } catch (\Exception $e) {
             return new JsonResponse(
-                ['error' => 'Données mal formatées ou incomplètes.'],
+                ['error' => 'Invalid data format.'],
                 Response::HTTP_BAD_REQUEST
             );
         }
-    
-        // Valider le DTO
+
         $errors = $validator->validate($dto);
         if (count($errors) > 0) {
-            $errorMessages = [];
-            foreach ($errors as $error) {
-                $errorMessages[] = $error->getMessage();
-            }
-    
-            return new JsonResponse(['errors' => $errorMessages], Response::HTTP_BAD_REQUEST);
+            return new JsonResponse(['errors' => (string) $errors], Response::HTTP_BAD_REQUEST);
         }
-    
-        // Récupérer l'utilisateur connecté
-        $user = $this->getUser();
-        if (!$user instanceof User) {
-            return new JsonResponse(['error' => 'Utilisateur non authentifié'], Response::HTTP_UNAUTHORIZED);
-        }
-    
-        // Mise à jour des données utilisateur
-        $user->setAccountType($dto->accountType);
-    
+
         try {
             $this->entityManager->persist($user);
             $this->entityManager->flush();
         } catch (\Exception $e) {
             return new JsonResponse(
-                ['error' => 'Erreur lors de la mise à jour. Veuillez réessayer plus tard.'],
+                ['error' => 'Error updating user. Please try again later.'],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
-    
-        return new JsonResponse(
-            ['message' => 'Profil mis à jour avec succès.'],
-            Response::HTTP_OK
-        );
+
+        return new JsonResponse(['message' => 'User updated successfully.'], Response::HTTP_OK);
     }
-
-
-    #[Route('/api/firstLoginUpdate2', name: 'api_firstLoginUpdate2', methods: ['POST'])]
-    public function firstLoginUpdate2(
-        Request $request,
-        SerializerInterface $serializer,
-        ValidatorInterface $validator
-    ): JsonResponse {
-        // Désérialiser les données JSON dans le DTO
-        try {
-            $dto = $serializer->deserialize($request->getContent(), FirstLogin2DTO::class, 'json');
-        } catch (\Exception $e) {
-            return new JsonResponse(
-                ['error' => 'Données mal formatées ou incomplètes.'],
-                Response::HTTP_BAD_REQUEST
-            );
-        }
-    
-        // Valider le DTO
-        $errors = $validator->validate($dto);
-        if (count($errors) > 0) {
-            $errorMessages = [];
-            foreach ($errors as $error) {
-                $errorMessages[] = $error->getMessage();
-            }
-    
-            return new JsonResponse(['errors' => $errorMessages], Response::HTTP_BAD_REQUEST);
-        }
-    
-        // Récupérer l'utilisateur connecté
-        $user = $this->getUser();
-        if (!$user instanceof User) {
-            return new JsonResponse(['error' => 'Utilisateur non authentifié'], Response::HTTP_UNAUTHORIZED);
-        }
-    
-        // Mise à jour des données utilisateur
-        $user->setUsername($dto->username);
-
-        $user->setNationality($dto->nationality);
-    
-        try {
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
-        } catch (\Exception $e) {
-            return new JsonResponse(
-                ['error' => 'Erreur lors de la mise à jour. Veuillez réessayer plus tard.'],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-    
-        return new JsonResponse(
-            ['message' => 'Profil mis à jour avec succès.'],
-            Response::HTTP_OK
-        );
-    }
-
 }

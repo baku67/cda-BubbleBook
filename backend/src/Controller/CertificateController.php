@@ -25,7 +25,7 @@ class CertificateController extends AbstractController
     ) {}
 
 
-    #[Route('/api/certificates', name: 'api_certificates', methods: ['GET'])]
+    #[Route('/api/certificates', name: 'api_get_certificates', methods: ['GET'])]
     public function getCertificates(
         CertificateRepository $certificateRepository, 
     ): JsonResponse
@@ -47,7 +47,7 @@ class CertificateController extends AbstractController
     }
 
 
-    #[Route('/api/user/certificates', name: 'api_user_certificates', methods: ['GET'])]
+    #[Route('/api/user/certificates', name: 'api_get_user_certificates', methods: ['GET'])]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function getUserCertificates(
         UserCertificateRepository $userCertificateRepository,
@@ -80,7 +80,7 @@ class CertificateController extends AbstractController
 
 
 
-    #[Route('/api/user/addCertificate', name: 'api_user_add_certificate', methods: ['POST'])]
+    #[Route('/api/user/certificates', name: 'api_user_add_certificate', methods: ['POST'])]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function addUserCertificate(
         Request $request,
@@ -159,7 +159,7 @@ class CertificateController extends AbstractController
     }
 
 
-    #[Route('/api/user/deleteCertificate/{certificateId}', name: 'api_user_delete_certificate', methods: ['DELETE'])]
+    #[Route('/api/user/certificates/{certificateId}', name: 'api_user_delete_certificate', methods: ['DELETE'])]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function deleteUserCertificate(
         int $certificateId,

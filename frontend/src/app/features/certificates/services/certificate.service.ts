@@ -25,23 +25,18 @@ export class CertificateService {
   addCertificateToUser(certificateData: CertificateFormData): Observable<unknown> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(
-      `${environment.apiUrl}/api/user/addCertificate`,
+      `${environment.apiUrl}/api/user/certificates`,
       certificateData,
        { headers }
     );
   }
 
-  
   deleteUserCertificate(certificateId: number): Observable<unknown> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  
     return this.http.delete(
-      `${environment.apiUrl}/api/user/deleteCertificate/${certificateId}`,
+      `${environment.apiUrl}/api/user/certificates/${certificateId}`,
       { headers }
     );
   }
-
-
-
 
 }

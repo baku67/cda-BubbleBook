@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { TranslateService } from '@ngx-translate/core';
 import { FirstLoginService } from '../../services/first-login.service';
 import { Router } from '@angular/router';
-import { FirstLoginUserUpdate1 } from '../../models/first-login-1.model';
+// import { FirstLoginUserUpdate1 } from '../../models/first-login-1.model';
 import { UserService } from '../../../profil/services/user.service';
 
 
@@ -22,65 +22,80 @@ export class FirstLogin1Component implements OnInit {
     private formBuilder: FormBuilder, 
     private translateService: TranslateService,
     private userService: UserService,
-    private FirstLoginService: FirstLoginService,
+    private firstLoginService: FirstLoginService,
     private router: Router,
   ) {
     this.isLoading = false;
   }
 
+// OLD
+  // ngOnInit() {
+  //   this.userService.getCurrentUser().subscribe({
+  //     next: (user) => {
+  //       this.firstLoginForm = this.formBuilder.group({
+  //         accountType: 
+  //         [
+  //           'option-diver', // values: "option-diver" / "option-club"
+  //           [Validators.required, Validators.pattern(/^(option-diver|option-club)$/)]
+  //         ]
+  //       });
+  //     },
+  //     error: (error) => {
+  //       console.error('Erreur lors de la récupération de l\'utilisateur', error);
+  //     }
+  //   });
+  // }
 
-  ngOnInit() {
-    this.userService.getCurrentUser().subscribe({
-      next: (user) => {
-        this.firstLoginForm = this.formBuilder.group({
-          accountType: 
-          [
-            'option-diver', // values: "option-diver" / "option-club"
-            [Validators.required, Validators.pattern(/^(option-diver|option-club)$/)]
-          ]
-        });
-      },
-      error: (error) => {
-        console.error('Erreur lors de la récupération de l\'utilisateur', error);
-      }
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  /**
+   * Initialise le formulaire
+   */
+  private initForm(): void {
+    this.firstLoginForm = this.formBuilder.group({
+      accountType: [
+        'option-diver', // Valeur par défaut
+        [Validators.required, Validators.pattern(/^(option-diver|option-club)$/)],
+      ],
     });
   }
 
   
+  /**
+   * Définit une valeur pour le champ accountType
+   * @param value Nouvelle valeur de accountType
+   */
   setAccountTypeValue(value: string): void {
     this.firstLoginForm.get('accountType')?.setValue(value);
   }
 
 
+  /**
+   * Soumet le formulaire pour mettre à jour l'utilisateur
+   */
   onSubmit(): void {
     if (this.firstLoginForm.valid) {
       this.isLoading = true;
 
-      // Conversion explicite du formulaire en FirstLoginUserUpdate1
-      const formData: FirstLoginUserUpdate1 = this.firstLoginForm.value;
+      // Données à envoyer au backend
+      const formData = this.firstLoginForm.value;
 
-      this.FirstLoginService.firstLoginForm(formData).subscribe({
-        // redirection step 2 après UPDATE User
-        next: (response) => {
-          console.log('Mise à jour User réussie', response);
+      this.firstLoginService.updateUser(formData).subscribe({
+        next: () => {
+          console.log('User successfully updated');
           this.isLoading = false;
 
-          // Message de validation avant redirect
-          //
-
-          setTimeout(() => {
-            this.router.navigate(['/first-login/step-two']);
-          }, 0);
-          // }, 1000);
+          // Redirection vers la seconde étape
+          this.router.navigate(['/first-login/step-two']);
         },
-
         error: (error) => {
-          console.error('There was an error during the request (register)', error);
-
-          // Message d'erreur sur la page (pareil pour login etc...)
-
+          console.error('Error updating user:', error);
           this.isLoading = false;
-        }
+
+          // Ajouter des messages d'erreur si nécessaire
+        },
       });
     } else {
       console.error('Form is invalid');
