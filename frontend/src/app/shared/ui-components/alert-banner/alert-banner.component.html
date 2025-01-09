@@ -1,1 +1,5 @@
-<p>{{ msgAlert }}</p>
+<!-- style: 'warn' 'success' 'info' -->
+<div [ngClass]="style" class="errorMsg">
+    <mat-icon>{{ maticon }}</mat-icon>
+    <p class="error-message-text">{{ msgAlert }}</p>
+</div>

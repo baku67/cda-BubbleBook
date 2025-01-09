@@ -16,10 +16,12 @@
         matIcon="account_circle" 
       />
 
-      <div *ngIf="errorMessage" class="errorMsg">
-        <mat-icon>person_alert</mat-icon>
-        <p class="error-message-text">{{ errorMessage }}</p>
-      </div>
+      <app-alert-banner 
+        *ngIf="errorMessage"
+        maticon="person_alert" 
+        [style]="'warn'" 
+        [msgAlert]="errorMessage" 
+      ></app-alert-banner>
       
 
       <div>

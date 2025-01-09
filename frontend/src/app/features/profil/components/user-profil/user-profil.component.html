@@ -7,10 +7,12 @@
 
     <app-user-card [user]="user" *ngIf="user" />
 
-    <div *ngIf="user && !user.isVerified" class="errorMsg">
-        <mat-icon>alternate_email</mat-icon>
-        <p class="error-message-text">Confirmez le lien reçu par mail pour profiter de toutes les fontcionalités.</p>
-    </div>
+    <app-alert-banner 
+        *ngIf="user && !user.isVerified" 
+        maticon="alternate_email" 
+        [style]="'warn'" 
+        msgAlert="Confirmez le lien reçu par mail pour profiter de toutes les fontcionalités." 
+    ></app-alert-banner>
 
     <section class="card">
 
@@ -35,11 +37,13 @@
                     <span *ngIf="!emailConfirmResentLoading">{{ "EMAIL_RESEND_CONFIRMATION" | translate }}</span>
                     <mat-spinner *ngIf="emailConfirmResentLoading"></mat-spinner>
                 </button>
-    
-                <div *ngIf="emailConfirmResent">
-                    <mat-icon>task_alt</mat-icon>
-                    <p>{{ 'EMAIL_CONFIRMATION_SENT' | translate: { email: user?.email } }}</p>
-                </div>
+
+                <app-alert-banner 
+                    *ngIf="emailConfirmResent"
+                    maticon="task_alt" 
+                    [style]="'success'" 
+                    [msgAlert]="'EMAIL_CONFIRMATION_SENT' | translate: { email: user?.email }" 
+                ></app-alert-banner>
     
             </div>
         </div>
@@ -48,7 +52,6 @@
             <mat-spinner></mat-spinner>
         </div>
 
-        <!-- <app-alert-banner *ngIf="user.isVerified" msgAlert="Confirmez votre email pour profiter de toutes les fonctionalitées !"/> -->
     </section>
 
 

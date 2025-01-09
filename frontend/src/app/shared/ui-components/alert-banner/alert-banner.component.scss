@@ -1,0 +1,40 @@
+.errorMsg {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+.error-message-text {
+    flex: 1; // important sinon icon machée
+}
+
+.errorMsg {
+    padding: 9px 13px;
+    border-radius: 7px;
+}
+
+
+.warn {
+    background-color: #ff000042;
+    border: 1px solid red;
+
+    mat-icon {
+        color: #ff436d;
+    }
+}
+.success {
+    background-color: rgb(0 255 170 / 26%);
+    border: 1px solid #00ff6f;
+
+    mat-icon {
+        color: #00ff6f;
+    }
+}
+.info {
+    background-color: rgb(0 140 255 / 26%);
+    border: 1px solid #00d3ff;
+
+    mat-icon {
+        color: #00d3ff;
+    }
+}
