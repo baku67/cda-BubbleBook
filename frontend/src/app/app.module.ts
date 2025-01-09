@@ -70,7 +70,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   imports: [
     MatSelectCountryModule.forRoot('fr'),
     BrowserModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled', // Active la restauration de la position de scroll
+      anchorScrolling: 'enabled', // Active le scrolling vers les ancres si nécessaires
+    }),
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
