@@ -16,6 +16,7 @@ export class FirstLogin2Component {
 
   firstLoginForm2!: FormGroup;
   isLoading: boolean = true;
+  userObtained:any;
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -24,6 +25,8 @@ export class FirstLogin2Component {
     private router: Router,
   ) {
   }
+
+
 
   ngOnInit(): void {
     this.loadUserAndInitForm();
@@ -35,6 +38,7 @@ export class FirstLogin2Component {
   private loadUserAndInitForm(): void {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
+        this.userObtained = user;
         this.isLoading = false;
         this.initForm(user);
       },

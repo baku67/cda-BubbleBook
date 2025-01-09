@@ -17,8 +17,19 @@
     <section class="card">
 
         <div *ngIf="!isUserLoading">
-            <h5>Mon profil</h5>
-            <!-- <img src="assets/images/diver0.png" class="user-avatar" alt="{{ user?.username }}'s avatar" />  -->
+
+            <div class="title-button">
+                <h3>Mon profil</h3>
+
+                <button 
+                    mat-flat-button 
+                    color="primary"
+                >
+                    <mat-icon>settings</mat-icon>
+                    <span>{{ "EDIT_PROFILE" | translate }}</span>
+                </button>
+            </div>
+
             <p>Email: {{ user?.email }}</p>
             <p>Authentification à 2 facteurs:{{ user?.is2fa }}</p>
             

@@ -19,12 +19,13 @@
                 >
                 </mat-form-field>
         
-                <!-- Erreur pour username requis -->
+                <!-- Erreur pour username requis ou < 3 lettres (TODO fix msg) -->
                 <div *ngIf="firstLoginForm2.get('username')?.invalid && firstLoginForm2.get('username')?.touched">
-                <mat-error class="formFieldError">{{ "USERNAME_REQUIRED" | translate }}</mat-error>
+                    <mat-error class="formFieldError">{{ "USERNAME_REQUIRED" | translate }}</mat-error>
                 </div>
             </div>
 
+            <!-- Nationality -->
             <div>
                 <mat-select-country
                     [label]="'Pays'"
@@ -33,6 +34,12 @@
                     class="matFieldInput"
                 >
                 </mat-select-country>         
+            </div>
+
+            <!-- Avatar -->
+            <div class="avatar-container">
+                <!-- TODO img dynamique -->
+                <img src="assets/images/todelete/profil-picture-default-9.png" alt="user avatar" alt="{{ userObtained?.username }}'s avatar" />
             </div>
 
             <div class="submit-section">
