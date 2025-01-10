@@ -10,6 +10,7 @@ class UserProfilDTO
         public string $email,
         public string $accountType,
         public string|null $nationality,
+        public string|null $avatarUrl,
         public bool $isVerified,
         public bool $is2fa
     ) {}

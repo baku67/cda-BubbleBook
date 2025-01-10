@@ -50,10 +50,11 @@
     width: 80px;
     border: 4px solid white; // TODO "line bg" & "border-colors" black/light
     border-radius: 50%;
-
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    background-color: cornsilk;
 }
 .avatar-container img {
     width: 100%;

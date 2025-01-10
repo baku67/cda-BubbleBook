@@ -39,6 +39,7 @@ class UserController extends AbstractController
             $user->getEmail(),
             $user->getAccountType(),
             $user->getNationality(),
+            $user->getAvatarUrl(),
             $user->isVerified(),
             $user->is2fa()
         );
@@ -65,12 +66,15 @@ class UserController extends AbstractController
         // selon type de data envoyé depuis le front
         try {
             if (isset(json_decode($data, true)['accountType'])) {
+                // 1ere étape:
                 $dto = $serializer->deserialize($data, FirstLogin1DTO::class, 'json');
                 $user->setAccountType($dto->accountType);
             } elseif (isset(json_decode($data, true)['username'])) {
+                // 2eme étape:
                 $dto = $serializer->deserialize($data, FirstLogin2DTO::class, 'json');
                 $user->setUsername($dto->username);
                 $user->setNationality($dto->nationality);
+                $user->setAvatarUrl($dto->avatar);
             } else {
                 return new JsonResponse(
                     ['error' => 'Invalid data format.'],

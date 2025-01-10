@@ -60,6 +60,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UserCertificate::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $userCertificates;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $avatar_url = null;
+
 
 
 
@@ -269,6 +272,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $userCertificate->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAvatarUrl(): ?string
+    {
+        return $this->avatar_url;
+    }
+
+    public function setAvatarUrl(?string $avatar_url): static
+    {
+        $this->avatar_url = $avatar_url;
 
         return $this;
     }

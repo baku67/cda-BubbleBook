@@ -5,16 +5,26 @@
     flex-direction: column;
 }
 
-
-
 .firstLoginForm {
     margin: 25px auto;
 }
 
 .avatar-container {
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.avatar-item {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transition: border-color 0.3s;
+}
+.avatar-item.selected {
+    border-color: #007bff;
 }
 .avatar-img {
     width: 50px;
     height: 50px;
+    border-radius: 50%;
 }

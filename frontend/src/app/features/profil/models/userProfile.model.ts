@@ -3,6 +3,7 @@ export interface UserProfil {
     email: string;
     accountType: string,
     nationality: string,
+    avatarUrl: string,
     isVerified: boolean;
     is2fa: boolean;
 }

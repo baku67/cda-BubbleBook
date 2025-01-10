@@ -20,6 +20,20 @@ class FirstLogin2DTO
     )]
     public ?string $nationality;
 
-    // #[Assert\Url(message: 'L\'URL de l\'avatar n\'est pas valide.')]
-    // public ?string $avatar = null;
+    // TODO: à rendre plus flexible si select from file ou photo
+    #[Assert\Choice(
+        choices: [
+            "assets/images/default/avatars/profil-picture-default-1.png",
+            "assets/images/default/avatars/profil-picture-default-2.png",
+            "assets/images/default/avatars/profil-picture-default-3.png",
+            "assets/images/default/avatars/profil-picture-default-4.png",
+            "assets/images/default/avatars/profil-picture-default-5.png",
+            "assets/images/default/avatars/profil-picture-default-6.png",
+            "assets/images/default/avatars/profil-picture-default-7.png",
+            "assets/images/default/avatars/profil-picture-default-8.png",
+            "assets/images/default/avatars/profil-picture-default-9.png",
+        ],
+        message: "The selected avatar is not valid."
+    )]
+    public ?string $avatar = null;
 }

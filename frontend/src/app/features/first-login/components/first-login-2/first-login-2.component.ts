@@ -17,6 +17,18 @@ export class FirstLogin2Component {
   firstLoginForm2!: FormGroup;
   isLoading: boolean = true;
   userObtained:any;
+  avatars: string[] = [
+    'assets/images/default/avatars/profil-picture-default-1.png',
+    'assets/images/default/avatars/profil-picture-default-2.png',
+    'assets/images/default/avatars/profil-picture-default-3.png',
+    'assets/images/default/avatars/profil-picture-default-4.png',
+    'assets/images/default/avatars/profil-picture-default-5.png',
+    'assets/images/default/avatars/profil-picture-default-6.png',
+    'assets/images/default/avatars/profil-picture-default-7.png',
+    'assets/images/default/avatars/profil-picture-default-8.png',
+    'assets/images/default/avatars/profil-picture-default-9.png',
+];
+selectedAvatar: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -25,8 +37,6 @@ export class FirstLogin2Component {
     private router: Router,
   ) {
   }
-
-
 
   ngOnInit(): void {
     this.loadUserAndInitForm();
@@ -64,6 +74,8 @@ export class FirstLogin2Component {
       nationality: [
         user.nationality || null, // Nationalité existante ou valeur par défaut
       ],
+      // avatar url (defaut ok car géré dans le backend => C'est ok si avatar "?", sinon il y en a un selected par defaut et ducoup doit pas etre null)
+      avatar: [null, Validators.required], // pas nul du coup vu que selected par defaut ? ou img "?" si rien selected ?
     });
   }
 
@@ -74,6 +86,16 @@ export class FirstLogin2Component {
    */
   onCountrySelected(country: Country | null) {
     this.firstLoginForm2.get('nationality')?.setValue(country?.alpha3Code ?? null); // On envoie le code en 3 lettre au backend
+  }
+
+
+  /**
+   * Met à jour le path front default avatars lors de la selection d'un avatar
+   * @param country Pays sélectionné ou null
+   */
+  selectAvatar(avatar: string) {
+    this.selectedAvatar = avatar;
+    this.firstLoginForm2.get('avatar')?.setValue(avatar);
   }
 
 

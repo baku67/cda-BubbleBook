@@ -10,7 +10,7 @@
 
         <div class="avatar-container">
             <!-- TODO img dynamique -->
-            <img src="assets/images/todelete/profil-picture-default-9.png" alt="{{ user?.username }}'s avatar" />
+            <img [src]="user?.avatarUrl" alt="{{ user?.username }}'s avatar" />
         </div>
 
         <div class="middle-line"></div>
