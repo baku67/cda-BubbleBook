@@ -36,4 +36,27 @@ class FirstLogin2DTO
         message: "The selected avatar is not valid."
     )]
     public ?string $avatar = null;
+
+    #[Assert\Choice(
+        choices: [
+            'assets/images/default/banners/default-banner-0.webp',
+            'assets/images/default/banners/default-banner-1.webp',
+            'assets/images/default/banners/default-banner-2.webp',
+            'assets/images/default/banners/default-banner-3.webp',
+            'assets/images/default/banners/default-banner-4.webp',
+            'assets/images/default/banners/default-banner-5.webp',
+            'assets/images/default/banners/default-banner-6.webp',
+            'assets/images/default/banners/default-banner-7.webp',
+            'assets/images/default/banners/default-banner-8.webp',
+            'assets/images/default/banners/default-banner-9.webp',
+            'assets/images/default/banners/default-banner-10.webp',
+            'assets/images/default/banners/default-banner-11.webp',
+            'assets/images/default/banners/default-banner-12.webp',
+            'assets/images/default/banners/default-banner-13.webp',
+            'assets/images/default/banners/default-banner-14.webp',
+            'assets/images/default/banners/default-banner-15.webp',
+        ],
+        message: "The selected banner is not valid."
+    )]
+    public ?string $banner = null;
 }

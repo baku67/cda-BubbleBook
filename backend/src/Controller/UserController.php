@@ -40,6 +40,7 @@ class UserController extends AbstractController
             $user->getAccountType(),
             $user->getNationality(),
             $user->getAvatarUrl(),
+            $user->getBannerUrl(),
             $user->isVerified(),
             $user->is2fa()
         );
@@ -75,6 +76,7 @@ class UserController extends AbstractController
                 $user->setUsername($dto->username);
                 $user->setNationality($dto->nationality);
                 $user->setAvatarUrl($dto->avatar);
+                $user->setBannerUrl($dto->banner);
             } else {
                 return new JsonResponse(
                     ['error' => 'Invalid data format.'],

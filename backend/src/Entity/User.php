@@ -63,6 +63,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar_url = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $banner_url = null;
+
 
 
 
@@ -284,6 +287,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAvatarUrl(?string $avatar_url): static
     {
         $this->avatar_url = $avatar_url;
+
+        return $this;
+    }
+
+    public function getBannerUrl(): ?string
+    {
+        return $this->banner_url;
+    }
+
+    public function setBannerUrl(?string $banner_url): static
+    {
+        $this->banner_url = $banner_url;
 
         return $this;
     }

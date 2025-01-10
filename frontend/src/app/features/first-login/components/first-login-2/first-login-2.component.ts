@@ -17,6 +17,7 @@ export class FirstLogin2Component {
   firstLoginForm2!: FormGroup;
   isLoading: boolean = true;
   userObtained:any;
+
   avatars: string[] = [
     'assets/images/default/avatars/profil-picture-default-1.png',
     'assets/images/default/avatars/profil-picture-default-2.png',
@@ -27,8 +28,28 @@ export class FirstLogin2Component {
     'assets/images/default/avatars/profil-picture-default-7.png',
     'assets/images/default/avatars/profil-picture-default-8.png',
     'assets/images/default/avatars/profil-picture-default-9.png',
-];
-selectedAvatar: string | null = null;
+  ];
+  selectedAvatar: string | null = null;
+
+  banners: string[] = [
+    'assets/images/default/banners/default-banner-0.webp',
+    'assets/images/default/banners/default-banner-1.webp',
+    'assets/images/default/banners/default-banner-2.webp',
+    'assets/images/default/banners/default-banner-3.webp',
+    'assets/images/default/banners/default-banner-4.webp',
+    'assets/images/default/banners/default-banner-5.webp',
+    'assets/images/default/banners/default-banner-6.webp',
+    'assets/images/default/banners/default-banner-7.webp',
+    'assets/images/default/banners/default-banner-8.webp',
+    'assets/images/default/banners/default-banner-9.webp',
+    'assets/images/default/banners/default-banner-10.webp',
+    'assets/images/default/banners/default-banner-11.webp',
+    'assets/images/default/banners/default-banner-12.webp',
+    'assets/images/default/banners/default-banner-13.webp',
+    'assets/images/default/banners/default-banner-14.webp',
+    'assets/images/default/banners/default-banner-15.webp',
+  ];
+  selectedBanner: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -76,6 +97,7 @@ selectedAvatar: string | null = null;
       ],
       // avatar url (defaut ok car géré dans le backend => C'est ok si avatar "?", sinon il y en a un selected par defaut et ducoup doit pas etre null)
       avatar: [null, Validators.required], // pas nul du coup vu que selected par defaut ? ou img "?" si rien selected ?
+      banner: [null, Validators.required],
     });
   }
 
@@ -97,6 +119,11 @@ selectedAvatar: string | null = null;
     this.selectedAvatar = avatar;
     this.firstLoginForm2.get('avatar')?.setValue(avatar);
   }
+
+  selectBanner(banner: string) {
+    this.selectedBanner = banner;
+    this.firstLoginForm2.get('banner')?.setValue(banner);
+}
 
 
   /**

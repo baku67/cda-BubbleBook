@@ -32,7 +32,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user0->setAccountType("option-diver");
         $user0->set2fa(false);
         $user0->setNationality("FRA");
-        // Ajout des rôles à partir des références
+        // $user0->setAvatarUrl();
+        // $user0->setBannerUrl(); 
         $user0->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user0->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
         $manager->persist($user0);
@@ -48,7 +49,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user1->setAccountType("option-diver");
         $user1->set2fa(is2fa: false);
         $user1->setNationality("DZA");
-        // Ajout des rôles à partir des références
+        // $user0->setAvatarUrl();
+        // $user0->setBannerUrl(); 
         $user1->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user1->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
         $manager->persist($user1);
@@ -63,7 +65,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user2->setAccountType("option-club");
         $user2->set2fa(is2fa: false);
         $user2->setNationality(null);
-        // Ajout des rôles à partir des références
+        // $user0->setAvatarUrl();
+        // $user0->setBannerUrl(); 
         $user2->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $manager->persist($user2);
         $this->addReference(self::USER_2_REFERENCE, $user0);

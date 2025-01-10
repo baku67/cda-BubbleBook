@@ -43,6 +43,13 @@
                 </div>
             </div>
 
+            <!-- Banner Selection -->
+            <div class="matFieldInput banner-container">
+                <div *ngFor="let banner of banners" class="banner-item" [class.selected]="banner === selectedBanner" (click)="selectBanner(banner)">
+                    <img [src]="banner" class="banner-img" [alt]="'Banner ' + banner" />
+                </div>
+            </div>
+
             <div class="submit-section">
                 <!-- Submit & Spinner -->
                 <div class="btns-container">
