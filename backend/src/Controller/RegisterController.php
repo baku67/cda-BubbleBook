@@ -74,7 +74,8 @@ class RegisterController extends AbstractController
         // Création de l'utilisateur & initialisations 
         $user = new User();
         $user->setEmail($data['email']);
-        $user->setAvatarUrl('assets/images/default/avatars/profil-picture-default-1.png');
+        $user->setAvatarUrl('assets/images/default/avatars/profil-picture-default-1.png'); //defaut avant que l'user choisissent dans LoginForm step2
+        $user->setBannerUrl('assets/images/default/banners/default-banner-8.webp'); //defaut avant que l'user choisissent dans LoginForm step2
         $user->setPassword($this->passwordHasher->hashPassword($user, $data['password']));
         // Initialisé avec un random "diver#432324"
         // ** Génération du pseudonyme unique **

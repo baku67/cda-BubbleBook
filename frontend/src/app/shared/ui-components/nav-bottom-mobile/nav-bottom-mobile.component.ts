@@ -34,17 +34,26 @@ export class NavBottomMobileComponent {
     // Écoute des changements de route, pour rendre actif les boutons-onglets selon les sub-routes:
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.isSettingsRouteActive = this.checkIfRouteIsActive(event.urlAfterRedirects, ["/account-settings"]);
-        this.isProfilRouteActive = this.checkIfRouteIsActive(event.urlAfterRedirects, ["/certificates"]);
+        this.isSettingsRouteActive = this.checkIfRouteIsActive(['/account-settings']);
+        this.isProfilRouteActive = this.checkIfRouteIsActive(['/certificates', '/user-profil']);
       }
     });
   }
 
   // Pour rendre actif un des boutons-onglets:
-  checkIfRouteIsActive(url: string, routeChecked: string[]): boolean {
-    const activeRoutes = routeChecked;
-    return activeRoutes.some(route => url.startsWith(route));
+  /**
+   * Vérifie si l'une des routes données est active.
+   * @param routeChecked Tableau des routes à vérifier.
+   * @returns true si l'une des routes est active.
+   */
+  private checkIfRouteIsActive(routesToCheck: string[]): boolean {
+    // Utilise l'URL actuelle (après redirections)
+    const currentUrl = this.router.url;
+  
+    // Vérifie si l'URL actuelle correspond à l'une des routes
+    return routesToCheck.some(route => currentUrl.startsWith(route));
   }
+
 
   logout(): void {
     this.authService.logout();
