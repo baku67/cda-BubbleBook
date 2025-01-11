@@ -1,0 +1,9 @@
+<!-- Banner Selection -->
+<!-- TODO: un élément seuelement (avec le check), onClick modal avec liste choix et check (pas de btn validate, reactif) -->
+<div *ngIf="banners.length === 0">Aucune bannière disponible.</div>
+<div *ngIf="banners.length > 0" class="matFieldInput banner-container">
+    <div *ngFor="let banner of banners" class="banner-item" [class.selected]="banner === selectedBanner" (click)="selectBanner(banner)">
+        <img [src]="banner" class="banner-img" [alt]="'Banner ' + banner" />
+        <mat-icon class="banner-item-check" [class.selected]="banner === selectedBanner">check</mat-icon>
+    </div>
+</div>

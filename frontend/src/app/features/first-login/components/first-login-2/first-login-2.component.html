@@ -45,12 +45,21 @@
             </div>
 
             <!-- Banner Selection -->
-            <div class="matFieldInput banner-container">
+             <!-- TODO: un élément seuelement (avec le check), onClick modal avec liste choix et check (pas de btn validate, reactif) -->
+            <!-- <div class="matFieldInput banner-container">
                 <div *ngFor="let banner of banners" class="banner-item" [class.selected]="banner === selectedBanner" (click)="selectBanner(banner)">
                     <img [src]="banner" class="banner-img" [alt]="'Banner ' + banner" />
                     <mat-icon class="banner-item-check" [class.selected]="banner === selectedBanner">check</mat-icon>
                 </div>
-            </div>
+            </div> -->
+
+            <!-- Banner Selection -->
+<div class="matFieldInput banner-container">
+    <div class="banner-item" (click)="openBannerSelectionModal()">
+      <img [src]="selectedBanner" class="banner-img" [alt]="'Selected Banner'" />
+      <mat-icon class="banner-item-check">check</mat-icon>
+    </div>
+  </div>
 
             <div class="submit-section">
                 <!-- Submit & Spinner -->

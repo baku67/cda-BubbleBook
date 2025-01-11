@@ -46,6 +46,7 @@ import { CertificateFormComponent } from './features/certificates/components/cer
 import { ModalComponent } from './shared/ui-components/modal/modal.component';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { BannerSelectionComponent } from './features/profil/components/banner-selection/banner-selection.component';
 
 
 // Fonction qui crée une instance de TranslateHttpLoader
@@ -66,6 +67,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AccountSettingsComponent,
     CertificateManagerPageComponent,
     CertificateFormComponent,
+    BannerSelectionComponent,
   ],
   imports: [
     MatSelectCountryModule.forRoot('fr'),

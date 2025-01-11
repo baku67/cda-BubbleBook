@@ -47,9 +47,13 @@ export class ModalService {
     // Passer les données via @Input()
     if (data) {
       Object.keys(data).forEach((key) => {
-        componentRef.instance[key] = data[key];
+        if (componentRef.instance[key] !== undefined) {
+          componentRef.instance[key] = data[key];
+        }
       });
     }
+
+    console.log('Données transmises au modal :', data);
   }
 
   close(): void {

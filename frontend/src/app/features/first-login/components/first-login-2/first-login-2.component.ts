@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../profil/services/user.service';
 import { FirstLoginService } from '../../services/first-login.service';
 import { Router } from '@angular/router';
+import { ModalService } from '../../../../shared/services/utils/modal.service';
+import { BannerSelectionComponent } from '../../../profil/components/banner-selection/banner-selection.component';
 // import { FirstLoginUserUpdate2 } from '../../models/first-login-2.model';
 
 @Component({
@@ -55,6 +57,7 @@ export class FirstLogin2Component {
     private userService: UserService,
     private firstLoginService: FirstLoginService,
     private router: Router,
+    private modalService: ModalService,
   ) {
   }
 
@@ -128,6 +131,11 @@ export class FirstLogin2Component {
         array.unshift(item); // Ajoute l'élément au début du tableau
       }
       return array;
+    }
+
+
+    openBannerSelectionModal() {
+      this.modalService.open(BannerSelectionComponent, { banners: this.banners });
     }
 
   
