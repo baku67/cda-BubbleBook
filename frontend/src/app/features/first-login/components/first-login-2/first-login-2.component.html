@@ -37,9 +37,10 @@
             </div>
 
             <!-- Avatar Selection -->
-            <div class="matFieldInput avatar-container">
+            <div class="matFieldInput scrollable-container avatar-container">
                 <div *ngFor="let avatar of avatars" class="avatar-item" [class.selected]="avatar === selectedAvatar" (click)="selectAvatar(avatar)">
                     <img [src]="avatar" class="avatar-img" [alt]="'Avatar ' + avatar" />
+                    <mat-icon class="avatar-item-check" [class.selected]="avatar === selectedAvatar">check</mat-icon>
                 </div>
             </div>
 
@@ -47,6 +48,7 @@
             <div class="matFieldInput banner-container">
                 <div *ngFor="let banner of banners" class="banner-item" [class.selected]="banner === selectedBanner" (click)="selectBanner(banner)">
                     <img [src]="banner" class="banner-img" [alt]="'Banner ' + banner" />
+                    <mat-icon class="banner-item-check" [class.selected]="banner === selectedBanner">check</mat-icon>
                 </div>
             </div>
 

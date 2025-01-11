@@ -19,8 +19,9 @@ import {MatDividerModule} from '@angular/material/divider';
 export class NavBottomMobileComponent {
 
   @Input() isLoggedIn!: boolean;
-  // Pour rendre actif le bouton-onglet:
-  isSettingsRouteActive: boolean = false;
+  // Pour rendre actif le bouton-onglet selon la route actuelle:
+  isSettingsRouteActive = false;
+  isProfilRouteActive = false;
 
   constructor(
     private authService: AuthService,
@@ -30,18 +31,18 @@ export class NavBottomMobileComponent {
   ) {}
 
   ngOnInit() {
-    // Écoute des changements de route, pour rendre actif le bouton-onglet:
+    // Écoute des changements de route, pour rendre actif les boutons-onglets selon les sub-routes:
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.isSettingsRouteActive = this.checkIfRouteIsActive(event.urlAfterRedirects);
+        this.isSettingsRouteActive = this.checkIfRouteIsActive(event.urlAfterRedirects, ["/account-settings"]);
+        this.isProfilRouteActive = this.checkIfRouteIsActive(event.urlAfterRedirects, ["/certificates"]);
       }
     });
   }
 
-  // Pour rendre actif le bouton-onglet:
-  checkIfRouteIsActive(url: string): boolean {
-    // routes pour lesquelles on veut que le bouton soit actif
-    const activeRoutes = ['/account-settings'];
+  // Pour rendre actif un des boutons-onglets:
+  checkIfRouteIsActive(url: string, routeChecked: string[]): boolean {
+    const activeRoutes = routeChecked;
     return activeRoutes.some(route => url.startsWith(route));
   }
 

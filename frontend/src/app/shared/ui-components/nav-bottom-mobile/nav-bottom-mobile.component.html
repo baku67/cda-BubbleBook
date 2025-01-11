@@ -5,6 +5,7 @@
         routerLinkActive="router-link-active" 
         [routerLinkActiveOptions]="{ exact: true }" 
         class="navBottomMobile-a flex1"
+        [ngClass]="{'router-link-active': isProfilRouteActive}" 
     >
         <div class="navBottomMobile-div">
             <mat-icon class="navBottomMobile-icon">

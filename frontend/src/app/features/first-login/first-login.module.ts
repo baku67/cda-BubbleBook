@@ -17,6 +17,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // Extension Material 
 import { MatSelectCountryModule } from "@angular-material-extensions/select-country";
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -30,9 +31,10 @@ import { MatDividerModule } from '@angular/material/divider';
     ReactiveFormsModule,
     RouterModule,
     TranslateModule,
+
+    MatIconModule,
     MatProgressSpinnerModule,
     MatDividerModule,
-    
     MatButtonModule,
     MatFormField,
     MatLabel,

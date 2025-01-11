@@ -1,7 +1,6 @@
 import { Country } from '@angular-material-extensions/select-country';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '../../../profil/services/user.service';
 import { FirstLoginService } from '../../services/first-login.service';
 import { Router } from '@angular/router';
@@ -87,6 +86,13 @@ export class FirstLogin2Component {
    * @param user Données utilisateur récupérées
    */
   private initForm(user: any): void {
+    this.selectedAvatar = this.getRandomItem(this.avatars);
+    this.selectedBanner = this.getRandomItem(this.banners);
+
+    // Réorganise les listes pour placer l'élément sélectionné en premier
+    this.avatars = this.moveItemToTop(this.avatars, this.selectedAvatar);
+    this.banners = this.moveItemToTop(this.banners, this.selectedBanner);
+
     this.firstLoginForm2 = this.formBuilder.group({
       username: [
         user.username || 'diver#00000', // Utilise le username généré par le backend ou une valeur par défaut
@@ -96,10 +102,33 @@ export class FirstLogin2Component {
         user.nationality || null, // Nationalité existante ou valeur par défaut
       ],
       // avatar url (defaut ok car géré dans le backend => C'est ok si avatar "?", sinon il y en a un selected par defaut et ducoup doit pas etre null)
-      avatar: [null, Validators.required], // pas nul du coup vu que selected par defaut ? ou img "?" si rien selected ?
-      banner: [null, Validators.required],
+      avatar: [this.selectedAvatar], // pas de required ?
+      banner: [this.selectedBanner], // pas de required ?
     });
   }
+
+    /**
+     * Sélectionne un élément aléatoire dans un tableau.
+     * @param array Tableau d'éléments.
+     * @returns Un élément aléatoire.
+     */
+    private getRandomItem(array: string[]): string {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    /**
+     * Déplace un élément spécifique au début d'un tableau.
+     * @param array Tableau dans lequel déplacer l'élément.
+     * @param item Élément à déplacer.
+     */
+    private moveItemToTop(array: string[], item: string): string[] {
+      const index = array.indexOf(item);
+      if (index > -1) {
+        array.splice(index, 1); // Retire l'élément de sa position actuelle
+        array.unshift(item); // Ajoute l'élément au début du tableau
+      }
+      return array;
+    }
 
   
   /**
