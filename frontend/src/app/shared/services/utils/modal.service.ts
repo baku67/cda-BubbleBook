@@ -14,7 +14,7 @@ export class ModalService {
     private injector: Injector
   ) {}
 
-  open(component: any, data?: any): void {
+  open(component: any, data?: any, onClose?: (data?: any) => void): void {
     console.log("Data reçu en paramètre de open() modal.service: " + JSON.stringify(data, null, 2)); // OK
 
     // Si un modal existe déjà, on le ferme
@@ -51,6 +51,11 @@ export class ModalService {
           componentRef.instance[key] = data[key];
         }
       });
+    }
+
+    // Ajouter un callback sur la fermeture (avec data renvoyé au composant appelant)
+    if (onClose) {
+      componentRef.instance['onClose'] = onClose;
     }
 
     console.log('Données transmises au modal :', data);

@@ -62,7 +62,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     RegisterPageComponent, 
     UserProfilComponent,
     UserCardComponent,
-    AlertBannerComponent,
     ConfirmEmailComponent,
     AccountSettingsComponent,
     CertificateManagerPageComponent,

@@ -26,6 +26,8 @@ import { MatIconModule } from '@angular/material/icon';
     FirstLogin2Component,
   ],
   imports: [
+    SharedModule,
+    
     CommonModule, 
     FormsModule,
     ReactiveFormsModule,

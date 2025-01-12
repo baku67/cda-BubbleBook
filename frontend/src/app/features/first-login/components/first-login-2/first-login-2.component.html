@@ -1,9 +1,13 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 
 <div class="pageContent">
 
     <div *ngIf="!isLoading" class="card">
 
         <app-page-header [title]="('FIRST_LOGIN_2_PAGE_TITLE' | translate)" matIcon="account_circle" />
+
+        <app-alert-banner msgAlert="Vous pourrez personaliser votre profil plus tard" maticon="info" [style]="'info'" ></app-alert-banner>
 
         <form *ngIf="firstLoginForm2" [formGroup]="firstLoginForm2" (ngSubmit)="onSubmit()" class="secondLoginForm">
 
@@ -37,7 +41,8 @@
             </div>
 
             <!-- Avatar Selection -->
-            <div class="matFieldInput scrollable-container avatar-container">
+            <!-- <span>Votre avatar</span> -->
+            <div class="matFieldInput scrollable-container avatar-container surface">
                 <div *ngFor="let avatar of avatars" class="avatar-item" [class.selected]="avatar === selectedAvatar" (click)="selectAvatar(avatar)">
                     <img [src]="avatar" class="avatar-img" [alt]="'Avatar ' + avatar" />
                     <mat-icon class="avatar-item-check" [class.selected]="avatar === selectedAvatar">check</mat-icon>
@@ -45,21 +50,15 @@
             </div>
 
             <!-- Banner Selection -->
-             <!-- TODO: un élément seuelement (avec le check), onClick modal avec liste choix et check (pas de btn validate, reactif) -->
-            <!-- <div class="matFieldInput banner-container">
-                <div *ngFor="let banner of banners" class="banner-item" [class.selected]="banner === selectedBanner" (click)="selectBanner(banner)">
-                    <img [src]="banner" class="banner-img" [alt]="'Banner ' + banner" />
-                    <mat-icon class="banner-item-check" [class.selected]="banner === selectedBanner">check</mat-icon>
+            <!-- <span>Votre bannière</span> -->
+            <div class="matFieldInput banner-container">
+                <div class="banner-item selected" (click)="openBannerSelectionModal()">
+                    <img [src]="selectedBanner" class="banner-img" [alt]="'Selected Banner'" />
+                    <mat-icon class="banner-item-check selected">check</mat-icon>
                 </div>
-            </div> -->
+            </div>
 
-            <!-- Banner Selection -->
-<div class="matFieldInput banner-container">
-    <div class="banner-item" (click)="openBannerSelectionModal()">
-      <img [src]="selectedBanner" class="banner-img" [alt]="'Selected Banner'" />
-      <mat-icon class="banner-item-check">check</mat-icon>
-    </div>
-  </div>
+            <mat-divider></mat-divider>
 
             <div class="submit-section">
                 <!-- Submit & Spinner -->
@@ -82,7 +81,6 @@
                         </a>
                     </div>
                 </div>
-                <span class="information-msg">Vous pourrez personaliser votre profil plus tard</span>
             </div>
 
         </form>

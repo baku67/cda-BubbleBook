@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalService } from '../../../../shared/services/utils/modal.service';
 
 @Component({
   selector: 'app-banner-selection',
@@ -6,10 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./banner-selection.component.scss']
 })
 export class BannerSelectionComponent implements OnInit {
-  @Input() banners: string[] = [];
-  selectedBanner: string = '';
 
-  constructor() {}
+  @Input() banners: string[] = [];
+  @Input() onClose!: (data?: string) => void; // Callback de fermeture
+  @Input() selectedBanner: string = '';
+
+  constructor(
+    private modalService: ModalService,
+  ) {}
 
   ngOnInit(): void {
     // this.selectedBanner = this.getRandomBanner();
@@ -26,6 +31,17 @@ export class BannerSelectionComponent implements OnInit {
    */
   selectBanner(banner: string): void {
     this.selectedBanner = banner;
-    // this.dialogRef.close(this.selectedBanner);
+
+    // Appelle le callback pour transmettre la bannière sélectionnée
+    if (this.onClose) {
+      this.onClose(banner);
+    }
+
+    // Anim selection banniere
+    
+    // Ferme le modal
+    setTimeout(() => {
+      this.modalService.close();  
+    }, 500);
   }
 }

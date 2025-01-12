@@ -135,7 +135,12 @@ export class FirstLogin2Component {
 
 
     openBannerSelectionModal() {
-      this.modalService.open(BannerSelectionComponent, { banners: this.banners });
+      this.modalService.open(BannerSelectionComponent, { banners: this.banners, selectedBanner: this.selectedBanner }, (selectedBanner?: string) => {
+        if (selectedBanner) {
+          this.selectedBanner = selectedBanner;
+          this.firstLoginForm2.get('banner')?.setValue(selectedBanner);
+        }
+      });
     }
 
   
@@ -160,7 +165,7 @@ export class FirstLogin2Component {
   selectBanner(banner: string) {
     this.selectedBanner = banner;
     this.firstLoginForm2.get('banner')?.setValue(banner);
-}
+  }
 
 
   /**

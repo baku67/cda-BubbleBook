@@ -2,7 +2,7 @@
 <main class="globalMain">
 
   <!-- TODO MatMenu en haut à droite pour les pages hors-co (landingPage, Login, Register, ect) -->
-  <div *ngIf="!isLoggedIn" class="app-div-settings" style="display: inline-flex; flex-direction: column;">
+  <div *ngIf="showUxButtons" class="app-div-settings" style="display: inline-flex; flex-direction: column;">
     <app-language-switch  />
     <app-theme-switch />
   </div>

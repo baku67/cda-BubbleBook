@@ -1,9 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-alert-banner',
   templateUrl: './alert-banner.component.html',
-  styleUrl: './alert-banner.component.scss'
+  styleUrl: './alert-banner.component.scss',
+  imports: [MatIconModule, CommonModule],
+  standalone: true,
 })
 export class AlertBannerComponent {
   @Input() msgAlert!:string;

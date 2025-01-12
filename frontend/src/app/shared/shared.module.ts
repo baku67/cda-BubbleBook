@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { BackButtonComponent } from './ui-components/back-button/back-button.component';
 import { ModalComponent } from './ui-components/modal/modal.component';
+import { AlertBannerComponent } from './ui-components/alert-banner/alert-banner.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { ModalComponent } from './ui-components/modal/modal.component';
     TranslateModule,
     BackButtonComponent,
     ModalComponent,
+    AlertBannerComponent,
   ],
   exports: [
     PageHeaderComponent,
@@ -37,6 +39,7 @@ import { ModalComponent } from './ui-components/modal/modal.component';
     LanguageSwitchComponent,
     BackButtonComponent,
     ModalComponent,
+    AlertBannerComponent,
   ]
 })
 export class SharedModule { }
