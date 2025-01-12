@@ -38,7 +38,15 @@ export class LoginPageComponent implements OnInit{
 
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
-          this.router.navigate(['/user-profil']);
+          const step = this.authService.getFirstLoginStep();
+          console.log("firstLoginStep BDD:", step);
+          if (step === 1) {
+            this.router.navigate(['/first-login/step-one']);
+          } else if (step === 2) {
+            this.router.navigate(['/first-login/step-two']);
+          } else {
+            this.router.navigate(['/user-profil']);
+          }
           this.isLoading = false;
         },
         error: (error) => {

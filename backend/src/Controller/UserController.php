@@ -61,28 +61,49 @@ class UserController extends AbstractController
             return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
         }
 
-        $data = $request->getContent();
+        // $data = $request->getContent();
+        // Décodez le contenu JSON une fois
+        $data = json_decode($request->getContent(), true);
+        if (!is_array($data)) {
+            return new JsonResponse(['error' => 'Invalid JSON format.'], Response::HTTP_BAD_REQUEST);
+        }
 
         // Essayez de désérialiser dans chaque DTO
         // selon type de data envoyé depuis le front
         try {
-            if (isset(json_decode($data, true)['accountType'])) {
-                // 1ere étape:
-                $dto = $serializer->deserialize($data, FirstLogin1DTO::class, 'json');
+            if (isset($data['accountType'])) {
+                // 1ère étape : Gestion de `accountType`
+                $dto = $serializer->deserialize($request->getContent(), FirstLogin1DTO::class, 'json');
                 $user->setAccountType($dto->accountType);
-            } elseif (isset(json_decode($data, true)['username'])) {
-                // 2eme étape:
-                $dto = $serializer->deserialize($data, FirstLogin2DTO::class, 'json');
+
+                // Mettre à jour `first_login_step`
+                if ($user->getFirstLoginStep() === 1) {
+                    $user->setFirstLoginStep(2); // Passer à l'étape 2
+                }
+            } elseif (isset($data['username'])) {
+                // 2ème étape : Gestion de `username`, `nationality`, etc.
+                $dto = $serializer->deserialize($request->getContent(), FirstLogin2DTO::class, 'json');
                 $user->setUsername($dto->username);
                 $user->setNationality($dto->nationality);
                 $user->setAvatarUrl($dto->avatar);
                 $user->setBannerUrl($dto->banner);
-            } else {
+
+                // Mettre à jour `first_login_step`
+                if ($user->getFirstLoginStep() === 2) {
+                    $user->setFirstLoginStep(null); // Toutes les étapes sont terminées
+                }
+            } elseif (isset($data['passStep'], $data['step']) && $data['passStep'] === true) {
+                // Gestion du cas "passer une étape"
+                if ($user->getFirstLoginStep() === (int)$data['step']) {
+                    $user->setFirstLoginStep(null); // Marque l'étape $data['step'] comme passée 
+                }
+            }
+            else {
                 return new JsonResponse(
                     ['error' => 'Invalid data format.'],
                     Response::HTTP_BAD_REQUEST
                 );
-            }
+            } 
         } catch (\Exception $e) {
             return new JsonResponse(
                 ['error' => 'Invalid data format.'],
@@ -90,9 +111,12 @@ class UserController extends AbstractController
             );
         }
 
-        $errors = $validator->validate($dto);
-        if (count($errors) > 0) {
-            return new JsonResponse(['errors' => (string) $errors], Response::HTTP_BAD_REQUEST);
+        // Exécuter la validation uniquement si un DTO est défini (pas le cas pour le skipStep)
+        if (isset($dto)) {
+            $errors = $validator->validate($dto);
+            if (count($errors) > 0) {
+                return new JsonResponse(['errors' => (string) $errors], Response::HTTP_BAD_REQUEST);
+            }
         }
 
         try {

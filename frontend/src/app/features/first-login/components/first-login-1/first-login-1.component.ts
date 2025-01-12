@@ -28,24 +28,6 @@ export class FirstLogin1Component implements OnInit {
     this.isLoading = false;
   }
 
-// OLD
-  // ngOnInit() {
-  //   this.userService.getCurrentUser().subscribe({
-  //     next: (user) => {
-  //       this.firstLoginForm = this.formBuilder.group({
-  //         accountType: 
-  //         [
-  //           'option-diver', // values: "option-diver" / "option-club"
-  //           [Validators.required, Validators.pattern(/^(option-diver|option-club)$/)]
-  //         ]
-  //       });
-  //     },
-  //     error: (error) => {
-  //       console.error('Erreur lors de la récupération de l\'utilisateur', error);
-  //     }
-  //   });
-  // }
-
   ngOnInit(): void {
     this.initForm();
   }
@@ -62,7 +44,6 @@ export class FirstLogin1Component implements OnInit {
     });
   }
 
-  
   /**
    * Définit une valeur pour le champ accountType
    * @param value Nouvelle valeur de accountType
@@ -70,7 +51,6 @@ export class FirstLogin1Component implements OnInit {
   setAccountTypeValue(value: string): void {
     this.firstLoginForm.get('accountType')?.setValue(value);
   }
-
 
   /**
    * Soumet le formulaire pour mettre à jour l'utilisateur

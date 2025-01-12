@@ -20,12 +20,14 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    # Enregistre le listener JWT pour modifier le payload
+    # Le JWTCreatedListener est un listener d'événement associé à lexik_jwt_authentication.on_jwt_created. Ce listener est déclenché lors de la création du token JWT, juste après l'authentification réussie, mais avant que le token ne soit signé.
+    # Modifier le contenu du payload JWT avant qu’il ne soit signé ou Ajouter des données supplémentaires au JWT, comme des informations sur l’utilisateur ou d’autres métadonnées.
     App\EventListeners\JWTCreatedListener:
         tags:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
 
-    # Pour générer le refreshToken ?
+    # Le LoginSuccessHandler est un handler personnalisé qui est appelé lors du succès de l'authentification via json_login. Il intervient juste après l’authentification réussie, mais avant que la réponse HTTP ne soit renvoyée au client.
+    # Personnaliser la réponse HTTP envoyée après le login ou Retourner des informations supplémentaires dans le JSON de réponse, comme un refresh token, firstLoginStep, ou d’autres données.
     App\Security\LoginSuccessHandler:
         arguments:
             $jwtManager: '@lexik_jwt_authentication.jwt_manager'

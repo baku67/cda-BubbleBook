@@ -35,7 +35,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user0->set2fa(false);
         $user0->setNationality("FRA");
         $user0->setAvatarUrl($this->getRandomEnumValue(Avatar::class));
-        $user0->setBannerUrl($this->getRandomEnumValue(Banner::class)); 
+        $user0->setBannerUrl($this->getRandomEnumValue(Banner::class));
+        $user0->setFirstLoginStep(null); // pas obligatoire parce defaut null en BDD
         $user0->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user0->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
         $manager->persist($user0);
@@ -53,6 +54,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user1->setNationality("DZA");
         $user1->setAvatarUrl($this->getRandomEnumValue(Avatar::class));
         $user1->setBannerUrl($this->getRandomEnumValue(Banner::class)); 
+        $user1->setFirstLoginStep(null); // pas obligatoire parce defaut null en BDD
         $user1->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user1->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
         $manager->persist($user1);
@@ -69,6 +71,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user2->setNationality(null);
         $user2->setAvatarUrl($this->getRandomEnumValue(Avatar::class));
         $user2->setBannerUrl($this->getRandomEnumValue(Banner::class)); 
+        $user2->setFirstLoginStep(2); // pas obligatoire parce defaut null en BDD
         $user2->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $manager->persist($user2);
         $this->addReference(self::USER_2_REFERENCE, $user0);

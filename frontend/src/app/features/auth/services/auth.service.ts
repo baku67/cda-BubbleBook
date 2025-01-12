@@ -10,6 +10,7 @@ interface DecodedToken {
 }
 interface AuthResponse {
   accessToken: string;
+  firstLoginStep: number | null; // Etape de login en BDD
 }
 
 
@@ -22,6 +23,7 @@ export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false); // Init false par défaut
   // Observable pour savoir si l'utilisateur est connecté
   isLoggedIn$ = this.loggedIn.asObservable();
+  private firstLoginStep: number | null = null; // Suivi de l'étape
 
   constructor(
     private http: HttpClient, 
@@ -60,8 +62,6 @@ export class AuthService {
   }
 
 
-
-
   registerUser(registerData: unknown): Observable<unknown> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(
@@ -70,6 +70,7 @@ export class AuthService {
        { headers }
     );
   }
+
   // Connexion et enregistrement des tokens
   login(credentials: { email: string; password: string }): Observable<AuthResponse> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -80,21 +81,15 @@ export class AuthService {
     ).pipe(
       tap((response: AuthResponse) => {
         this.setTokens(response.accessToken);
+        this.firstLoginStep = response.firstLoginStep; // Stocker l'étape
       })
     );
   }
-  // Auto-login après inscription
-  autoLoginAfterRegister(email: string, password: string): void {
-    this.login({ email, password }).subscribe({
-      next: () => {
-        this.router.navigate(['/first-login/step-one']);
-      },
-      error: (error) => {
-        console.error('Auto-login failed', error);
-      }
-    });
+  getFirstLoginStep(): number | null {
+    return this.firstLoginStep;
   }
 
+  
   // Fonction pour renvoyer l'email de confirmation
   resendConfirmationEmail(email: string): Observable<unknown> {
     const url = `${environment.apiUrl}/api/resend-confirmation`;
@@ -105,9 +100,6 @@ export class AuthService {
 
     return this.http.post(url, body, { headers: headers });
   }
-
-
-
 
   getTokenExpirationDate(token: string): Date | null {
     const decodedToken = this.decodeToken(token);

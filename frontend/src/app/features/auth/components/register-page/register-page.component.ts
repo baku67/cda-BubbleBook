@@ -9,6 +9,7 @@ import { EmailAsyncValidator } from '../../../../shared/validators/emailExistVal
 import { AuthService } from '../../services/auth.service';
 import { passwordComplexityValidator } from '../../../../shared/validators/passwordComplexityValidator';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class RegisterPageComponent implements OnInit{
     private formBuilder: FormBuilder, 
     private emailCheckService: EmailCheckService,
     private translateService: TranslateService,
+    private router: Router,
   ) {
     this.isLoading = false;
   }
@@ -71,10 +73,26 @@ export class RegisterPageComponent implements OnInit{
       this.authService.registerUser(this.registerForm.value).subscribe({
         next: () => {
           console.log('User registered successfully');
-          this.authService.autoLoginAfterRegister(
-            this.registerForm.get('email')?.value,
-            this.registerForm.get('password')?.value
-          );
+          this.authService.login({
+            email: this.registerForm.get('email')?.value,
+            password: this.registerForm.get('password')?.value
+          }).subscribe({
+            next: () => {
+              const step = this.authService.getFirstLoginStep();
+              if (step === 1) {
+                this.router.navigate(['/first-login/step-one']);
+              } else if (step === 2) {
+                this.router.navigate(['/first-login/step-two']);
+              } else {
+                this.router.navigate(['/user-profil']);
+              }
+              this.isLoading = false;
+            },
+            error: (error) => {
+              console.error('Auto-login failed', error);
+              this.isLoading = false;
+            }
+          });
         },
         error: (error) => {
           console.error('There was an error during the request (register)', error);

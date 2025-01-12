@@ -88,10 +88,19 @@
                         </button>
                     </div>
                     <!-- SKIP -->
-                    <div>
+                    <!-- <div>
                         <a [routerLink]="['/user-profil']" routerLinkActive="router-link-active" class="cta-btn-secondary">
                             {{ "SKIP" | translate }}
                         </a>
+                    </div> -->
+                    <div>
+                        <button 
+                            mat-button 
+                            class="cta-btn-secondary" 
+                            (click)="onSkipStep()"
+                        >
+                            <span>{{ "SKIP" | translate }}</span>
+                        </button>
                     </div>
                 </div>
             </div>

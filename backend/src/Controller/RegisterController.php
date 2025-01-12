@@ -74,8 +74,8 @@ class RegisterController extends AbstractController
         // Création de l'utilisateur & initialisations 
         $user = new User();
         $user->setEmail($data['email']);
-        $user->setAvatarUrl('assets/images/default/avatars/profil-picture-default-1.png'); //defaut avant que l'user choisissent dans LoginForm step2
-        $user->setBannerUrl('assets/images/default/banners/default-banner-8.webp'); //defaut avant que l'user choisissent dans LoginForm step2
+        $user->setAvatarUrl('assets/images/default/avatars/profil-picture-default-original.webp'); //defaut avant que l'user choisissent dans LoginForm step2
+        $user->setBannerUrl('assets/images/default/banners/default-banner-00.webp'); //defaut avant que l'user choisissent dans LoginForm step2
         $user->setPassword($this->passwordHasher->hashPassword($user, $data['password']));
         // Initialisé avec un random "diver#432324"
         // ** Génération du pseudonyme unique **
@@ -93,6 +93,7 @@ class RegisterController extends AbstractController
         $user->setVerified(false);
         // Type de compte ("option-club" ou "option-diver")
         $user->setAccountType("option-diver"); // "option-diver" / "option-club" (TODO enum)
+        $user->setFirstLoginStep(1); // 1: step1, 2: step2, null: fini
 
         // Envoi et persistence BDD d'un token de confirmation d'email (avec expiration):
         try {

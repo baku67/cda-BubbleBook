@@ -66,6 +66,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $banner_url = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $first_login_step = null;
+
 
 
 
@@ -299,6 +302,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBannerUrl(?string $banner_url): static
     {
         $this->banner_url = $banner_url;
+
+        return $this;
+    }
+
+    public function getFirstLoginStep(): ?int
+    {
+        return $this->first_login_step;
+    }
+
+    public function setFirstLoginStep(?int $first_login_step): static
+    {
+        $this->first_login_step = $first_login_step;
 
         return $this;
     }

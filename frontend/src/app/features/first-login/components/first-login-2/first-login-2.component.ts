@@ -20,15 +20,22 @@ export class FirstLogin2Component {
   userObtained:any;
 
   avatars: string[] = [
-    'assets/images/default/avatars/profil-picture-default-1.png',
-    'assets/images/default/avatars/profil-picture-default-2.png',
-    'assets/images/default/avatars/profil-picture-default-3.png',
-    'assets/images/default/avatars/profil-picture-default-4.png',
-    'assets/images/default/avatars/profil-picture-default-5.png',
-    'assets/images/default/avatars/profil-picture-default-6.png',
-    'assets/images/default/avatars/profil-picture-default-7.png',
-    'assets/images/default/avatars/profil-picture-default-8.png',
-    'assets/images/default/avatars/profil-picture-default-9.png',
+    'assets/images/default/avatars/profil-picture-default-1.webp',
+    'assets/images/default/avatars/profil-picture-default-2.webp',
+    'assets/images/default/avatars/profil-picture-default-3.webp',
+    'assets/images/default/avatars/profil-picture-default-4.webp',
+    'assets/images/default/avatars/profil-picture-default-5.webp',
+    'assets/images/default/avatars/profil-picture-default-6.webp',
+    'assets/images/default/avatars/profil-picture-default-7.webp',
+    'assets/images/default/avatars/profil-picture-default-8.webp',
+    'assets/images/default/avatars/profil-picture-default-9.webp',
+    'assets/images/default/avatars/profil-picture-default-10.webp',
+    'assets/images/default/avatars/profil-picture-default-11.webp',
+    'assets/images/default/avatars/profil-picture-default-12.webp',
+    'assets/images/default/avatars/profil-picture-default-13.webp',
+    'assets/images/default/avatars/profil-picture-default-14.webp',
+    'assets/images/default/avatars/profil-picture-default-15.webp',
+    'assets/images/default/avatars/profil-picture-default-16.webp',
   ];
   selectedAvatar: string | null = null;
 
@@ -193,5 +200,24 @@ export class FirstLogin2Component {
     } else {
       console.error('Form is invalid');
     }
+  }
+
+  // Envoi juste l'information au backend que l'étape a été passée (first_login_step User màj)
+  onSkipStep(): void {
+    this.isLoading = true;
+  
+    this.firstLoginService.skipStep(2).subscribe({
+      next: () => {
+        console.log('Step 2 skipped successfully');
+        this.isLoading = false;
+  
+        // Redirection vers la page de profil ou une autre destination
+        this.router.navigate(['/user-profil']);
+      },
+      error: (error) => {
+        console.error('Error skipping step 2:', error);
+        this.isLoading = false;
+      },
+    });
   }
 }

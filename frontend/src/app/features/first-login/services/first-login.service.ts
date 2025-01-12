@@ -15,31 +15,21 @@ export class FirstLoginService {
 
   constructor(private http: HttpClient) { }
 
-
-  // firstLoginForm(registerData: FirstLoginUserUpdate1): Observable<unknown> {
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  //   return this.http.patch(
-  //     `${environment.apiUrl}/api/user`,
-  //      registerData,
-  //      { headers }
-  //   );
-  // }
-
-  // firstLoginForm2(registerData: FirstLoginUserUpdate2): Observable<unknown> {
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  //   return this.http.patch(
-  //     `${environment.apiUrl}/api/user`,
-  //      registerData,
-  //      { headers }
-  //   );
-  // }
-
-    /**
+  /**
    * Met à jour l'utilisateur avec des données spécifiques
    * @param updateData - Données à envoyer au backend
    */
-    updateUser(updateData: Record<string, unknown>): Observable<unknown> {
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      return this.http.patch(this.apiUrl, updateData, { headers });
-    }
+  updateUser(updateData: Record<string, unknown>): Observable<void> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.patch<void>(this.apiUrl, updateData, { headers });
+  }
+
+  /**
+   * Met à jour le first_login_step utilisateur lors du skip step front
+   * @param step - Etape à passer (pas en place pour l'instant)
+   */
+  skipStep(step: number): Observable<void> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.patch<void>(this.apiUrl, { passStep: true, step: step }, { headers });
+  }
 }

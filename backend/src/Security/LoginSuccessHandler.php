@@ -14,6 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 
+// Le LoginSuccessHandler est un handler personnalisé qui est appelé lors du succès de l'authentification via json_login. Il intervient juste après l’authentification réussie, mais avant que la réponse HTTP ne soit renvoyée au client.
+// Rôle principal :
+// - Personnaliser la réponse HTTP envoyée après le login.
+// - Retourner des informations supplémentaires dans le JSON de réponse, comme un refresh token, firstLoginStep, ou d’autres données.
 class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
     private JWTTokenManagerInterface $jwtManager;
@@ -39,15 +43,20 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         $user = $token->getUser();
 
         if (!$user instanceof User) {
-            throw new \Exception('Invalid user');
+            throw new \InvalidArgumentException('Authenticated user is not an instance of User.');
         }
 
-        // Génère l'Access Token
+        // Récupère l'étape de la première connexion
+        $firstLoginStep = $user->getFirstLoginStep() ?? null;
+
+        // Génère le token JWT
         $accessToken = $this->jwtManager->create($user);
 
-        // Renvoie une réponse JSON avec les deux tokens
+        // Retourne une réponse JSON
         return new JsonResponse([
+            'success' => true,
             'accessToken' => $accessToken,
-        ]);
+            'firstLoginStep' => $firstLoginStep,
+        ], JsonResponse::HTTP_OK);
     }
 }
