@@ -9,6 +9,43 @@
     margin-top: 30px;
 }
 
+.username-nationality-grid {
+    margin: 15px auto;
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: auto; /* Permet à la deuxième ligne de s'adapter à son contenu */
+    gap: 0px 10px; 
+    grid-template-areas: 
+      "username-field nationality-field"
+      "username-error username-error"; 
+}
+.username-error { grid-area: username-error; }
+.username-field { grid-area: username-field; }
+.nationality-field { grid-area: nationality-field; }
+
+.username-nationality-grid mat-form-field {
+    width: 100%;
+}
+::ng-deep .username-nationality-grid mat-select-country {
+    width: 100%;
+
+    mat-form-field {
+        width: 100%;
+    }
+
+    // flag nationalité moins large
+    .ml-1 {
+        margin-left: 0em;
+    }
+}
+/* Fix largeur des éléments */
+.username-nationality-grid > * {
+    width: 100%;
+    min-width: 0; // Annule tout min-width appliqué par défaut
+}
+
+
+
 .mat-divider {
     margin: 20px auto;
 }
@@ -29,21 +66,6 @@
     // border-radius: 10px;
     background-color: #20232a; /* Background similaire à votre exemple */
     position: relative; /* Nécessaire pour positionner ::before et ::after */
-}
-
-.scrollable-container::after {
-    content: '';
-    position: absolute; /* Permet de fixer les gradients au conteneur */
-    top: 0;
-    bottom: 0;
-    width: 30px;
-    pointer-events: none;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent);
-    z-index: 1; /* Assure que les gradients sont au-dessus du contenu */
-}
-.scrollable-container::after {
-    right: 0;
-    background: linear-gradient(to left, rgba(0, 0, 0, 0.5), transparent);
 }
 
 

@@ -11,7 +11,7 @@
         *ngIf="user && !user.isVerified" 
         maticon="alternate_email" 
         [style]="'warn'" 
-        msgAlert="Confirmez le lien reçu par mail pour profiter de toutes les fontcionalités." 
+        msgAlert="{{ 'ALERT_CONFIRM_MAIL' | translate }}" 
     ></app-alert-banner>
 
     <section class="card">

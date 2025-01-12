@@ -11,34 +11,47 @@
 
         <form *ngIf="firstLoginForm2" [formGroup]="firstLoginForm2" (ngSubmit)="onSubmit()" class="secondLoginForm">
 
-            <!-- // Username -->
-            <div class="matFieldInput">
-                <mat-form-field appearance="outline" class="matFieldInput">
-                <mat-label>{{ "USERNAME_LABEL" | translate }}</mat-label>
-                <input 
-                    matInput 
-                    formControlName="username" 
-                    type="text"
-                    autocomplete="username"
-                >
+            <div class="username-nationality-grid">
+                <!-- // Username -->
+                <mat-form-field appearance="outline" class="username-field matFieldInput">
+                    <mat-label>{{ "USERNAME_LABEL" | translate }}</mat-label>
+                    <input 
+                        matInput 
+                        formControlName="username" 
+                        type="text"
+                        autocomplete="username"
+                    >
                 </mat-form-field>
-        
-                <!-- Erreur pour username requis ou < 3 lettres (TODO fix msg) -->
-                <div *ngIf="firstLoginForm2.get('username')?.invalid && firstLoginForm2.get('username')?.touched">
-                    <mat-error class="formFieldError">{{ "USERNAME_REQUIRED" | translate }}</mat-error>
-                </div>
-            </div>
 
-            <!-- Nationality -->
-            <div>
+                <!-- Nationality -->
                 <mat-select-country
                     [label]="'Pays'"
                     [appearance]="'outline'"
                     (onCountrySelected)="onCountrySelected($event)"
-                    class="matFieldInput"
+                    class="nationality-field matFieldInput"
                 >
-                </mat-select-country>         
+                </mat-select-country>    
+                
+                <!-- Erreur pour username requis ou longueur insuffisante -->
+                <div class="username-error" *ngIf="firstLoginForm2.get('username')?.touched">
+                    <mat-error 
+                        *ngIf="firstLoginForm2.get('username')?.errors?.['required']" 
+                        class="formFieldError">
+                        {{ "USERNAME_REQUIRED" | translate }}
+                    </mat-error>
+                    <mat-error 
+                        *ngIf="firstLoginForm2.get('username')?.errors?.['minlength']" 
+                        class="formFieldError">
+                        {{ "USERNAME_MINLENGTH" | translate }}
+                    </mat-error>
+                    <mat-error 
+                        *ngIf="firstLoginForm2.get('username')?.errors?.['maxlength']" 
+                        class="formFieldError">
+                        {{ "USERNAME_MAXLENGTH" | translate }}
+                    </mat-error>
+                </div>
             </div>
+
 
             <!-- Avatar Selection -->
             <!-- <span>Votre avatar</span> -->

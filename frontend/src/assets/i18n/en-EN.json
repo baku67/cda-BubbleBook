@@ -17,6 +17,8 @@
     "EMAIL_ADDRESS_AVAILABLE": "Email address available",
     "USERNAME_LABEL": "Username:",
     "USERNAME_REQUIRED": "The username is mandatory",
+    "USERNAME_MINLENGTH" : "Username must be at least 3 characters long",
+    "USERNAME_MAXLENGTH" : "Username must not exceed 30 characters",
     "PASSWORD_LABEL": "Password:",
     "PASSWORD_REQUIRED": "Password is mandatory",
     "PASSWORD_MIN_LENGTH": "Password must contain at least {{minLength}} characters",
@@ -77,5 +79,7 @@
     "PUBLISHES": "My publications",
     "GALLERY": "My Gallery",
 
-    "EDIT_PROFILE": "Edit"
+    "EDIT_PROFILE": "Edit",
+
+    "ALERT_CONFIRM_MAIL": "Confirm the link sent to you by email to enjoy all the features."
 }

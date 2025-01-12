@@ -17,6 +17,8 @@
     "EMAIL_ADDRESS_AVAILABLE": "Adresse email disponible",
     "USERNAME_LABEL": "Nom d'utilisateur:",
     "USERNAME_REQUIRED": "Nom d'utilisateur obligatoire",
+    "USERNAME_MINLENGTH" : "Le nom d'utilisateur doit faire au minimum 3 caractères",
+    "USERNAME_MAXLENGTH" : "Le nom d'utilisateur ne doit pas dépasser 30 caractères",
     "PASSWORD_LABEL": "Mot de passe:",
     "PASSWORD_REQUIRED": "Le mot de passe est requis",
     "PASSWORD_MIN_LENGTH": "Le mot de passe doit contenir au moins {{minLength}} caractères",
@@ -80,5 +82,7 @@
     "PUBLISHES": "Mes publications",
     "GALLERY": "Ma gallerie",
 
-    "EDIT_PROFILE": "Modifier"
+    "EDIT_PROFILE": "Modifier",
+
+    "ALERT_CONFIRM_MAIL": "Confirmez le lien reçu par mail pour profiter de toutes les fonctionalités."
 }
