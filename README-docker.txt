@@ -11,8 +11,6 @@ permet de régler soucis de persmission dossier var:
 ~chown -R www-data:www-data /var/www/html/var
 ~chmod -R 775 /var/www/html/var
 
-Le container "composer" se lance juste pour effectuer un composer install puis s'arrete (normal)
-
 
 Installer les dépendances manuellement sur l'environnement Linux de Docker:
 ~docker-compose run angular npm install

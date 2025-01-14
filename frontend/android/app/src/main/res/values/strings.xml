@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Bubblebook</string>
+    <string name="title_activity_main">Bubblebook</string>
+    <string name="package_name">fun.bubblebook.app</string>
+    <string name="custom_url_scheme">fun.bubblebook.app</string>
+</resources>

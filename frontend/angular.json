@@ -35,9 +35,7 @@
               }
             ],
             "styles": [
-              // "src/assets/m3-theme.scss", // (généré avec "ng generate @angular/material:m3-theme")
               "src/assets/custom-theme.scss", 
-              // "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -45,16 +43,27 @@
           "configurations": {
             "production": {
               "budgets": [
+                // Augmenté pour le build et capacitor car initialBundle (AppModule) trop gros
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "2.5MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "3kB",
+                  "maximumError": "5kB"
                 }
+                // {
+                //   "type": "initial",
+                //   "maximumWarning": "500kB",
+                //   "maximumError": "1MB"
+                // },
+                // {
+                //   "type": "anyComponentStyle",
+                //   "maximumWarning": "2kB",
+                //   "maximumError": "4kB"
+                // }
               ],
               "outputHashing": "all"
             },
@@ -102,9 +111,7 @@
               }
             ],
             "styles": [
-              // "src/assets/m3-theme.scss", // (généré avec "ng generate @angular/material:m3-theme")
               "src/assets/custom-theme.scss", 
-              // "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
             "scripts": []

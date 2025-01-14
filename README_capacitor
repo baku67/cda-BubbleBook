@@ -1,0 +1,13 @@
+npm install @capacitor/core @capacitor/cli
+npx cap init
+npm install @capacitor/android
+npm install @capacitor/ios
+npx cap add android
+npx cap add ios
+ng build --configuration=production (/dist/angular, attention: budget initial augmenté à la main dans angular.json en attendant de mieux gérer le AppModule)
+npx cap copy (faire pointer capacitor vers build) OU plutot ?:
+npx cap sync android
+
+Ouvrir les projets:
+npx cap open android
+npx cap open ios

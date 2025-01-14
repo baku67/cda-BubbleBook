@@ -54,6 +54,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
 
+// Attention: budget initial bundle augmenté manuellement dans angular.json en attendant de mieux gérer les modules 
 @NgModule({
   declarations: [
     AppComponent,
