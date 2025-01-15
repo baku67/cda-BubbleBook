@@ -9,8 +9,8 @@ class AddUserCertificateDTO
 {
     #[Assert\NotBlank(message: 'L\'organisme certificateur est requis.')]
     #[Assert\Choice(
-        choices: ['PADI', 'FFESSM'],
-        message: 'Le type de compte doit être l\'un de "PADI" ou "FFESSM".'
+        choices: ['PADI', 'FFESSM', 'Autre'],
+        message: 'Le type d\'organisme doit être l\'un de "PADI", "FFESSM" ou "Autre".'
     )]
     public ?string $organisationValue = null;
 

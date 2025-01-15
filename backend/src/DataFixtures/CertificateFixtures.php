@@ -15,6 +15,7 @@ class CertificateFixtures extends Fixture
     public const CERTIFICAT_NIVEAU_1_REFERENCE = 'certificat-niveau-1';
     public const CERTIFICAT_NIVEAU_2_REFERENCE = 'certificat-niveau-2';
     public const CERTIFICAT_NIVEAU_3_REFERENCE = 'certificat-niveau-3';
+    public const CERTIFICAT_DIVING_INITIATION_REFERENCE = 'certificat-diving-initiation';
 
     public function load(ObjectManager $manager): void
     {
@@ -28,6 +29,9 @@ class CertificateFixtures extends Fixture
             ['name' => 'Niveau 1', 'type' => 'FFESSM', 'reference' => self::CERTIFICAT_NIVEAU_1_REFERENCE],
             ['name' => 'Niveau 2', 'type' => 'FFESSM', 'reference' => self::CERTIFICAT_NIVEAU_2_REFERENCE],
             ['name' => 'Niveau 3', 'type' => 'FFESSM', 'reference' => self::CERTIFICAT_NIVEAU_3_REFERENCE],
+            // Autre
+            ['name' => 'Diving initiation', 'type' => 'Autre', 'reference' => self::CERTIFICAT_DIVING_INITIATION_REFERENCE],
+
         ];
 
         foreach ($certificats as $certData) {

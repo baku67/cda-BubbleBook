@@ -14,11 +14,7 @@ import { ModalService } from '../../../../shared/services/utils/modal.service';
 export class CertificateFormComponent implements OnInit {
 
     // @Input() organisations!: Organization[]; 
-    organisations: string[] = 
-    [
-      "PADI",
-      "FFESSM",
-    ];
+    organisations: string[] = [];
   
     @Input() certificates: Certificate[] = []; // Tous les certifs
     @Input() userCertificates: UserCertificate[] = []; // Les certificats du l'user
@@ -43,6 +39,9 @@ export class CertificateFormComponent implements OnInit {
         obtainedDate: [null, [DateValidator.pastDateValidator()]],
         location: [null]
       });
+
+      // Générer dynamiquement les organisations à partir des certificats
+      this.organisations = [...new Set(this.certificates?.map(certificate => certificate.type))];
 
       // Surveille les changements dans le champ organisationValue
       this.addCertificateForm.get('organisationValue')?.valueChanges.subscribe((selectedOrganisation) => {

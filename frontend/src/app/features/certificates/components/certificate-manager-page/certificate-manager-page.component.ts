@@ -1,14 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Certificate } from '../../models/certificate.model';
 import { CertificateService } from '../../services/certificate.service';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop,moveItemInArray } from '@angular/cdk/drag-drop';
 import { UserCertificate } from '../../models/userCertificate.model';
 import { ModalService } from '../../../../shared/services/utils/modal.service';
 import { CertificateFormComponent } from '../certificate-form/certificate-form.component';
-import { Subject, Subscription, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-certificate-manager-page',
@@ -33,35 +29,10 @@ export class CertificateManagerPageComponent implements OnInit{
     this.isUserCertifsLoading = true;
   }
 
-  toggleEditMode() {
-    this.isEditMode = !this.isEditMode;
-  }
-
-  openAddCertifModal(): void {
-    this.modalService.open(CertificateFormComponent, {
-      certificates: this.allCertificates,
-      userCertificates: this.userCertificates,
-    });
-
-    this.modalService.subscribeToClose((createdCertificate: UserCertificate) => {
-      if (createdCertificate) {
-        this.userCertificates = [...this.userCertificates, createdCertificate];
-        console.log("Nouvelle liste de userCertifs :", this.userCertificates);
-      }
-    });
-  }
-
-  // cdk drag-drop dans list certifs
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.userCertificates, event.previousIndex, event.currentIndex);
-  }
-  
   ngOnInit(): void {
-    // TODO load liste complète 
     this.loadCertificates();
     this.loadUserCertificates();
   }
-
   private loadCertificates(): void {
     this.certificateService.getCertificates().subscribe({
       next: (certificates) => {
@@ -89,8 +60,23 @@ export class CertificateManagerPageComponent implements OnInit{
     });
   }
 
-  trackByCertificateId(index: number, userCertif: UserCertificate): number | string {
-    return userCertif.certificate.id || index;
+
+  toggleEditMode() {
+    this.isEditMode = !this.isEditMode;
+  }
+
+  openAddCertifModal(): void {
+    this.modalService.open(CertificateFormComponent, {
+      certificates: this.allCertificates,
+      userCertificates: this.userCertificates,
+    });
+
+    this.modalService.subscribeToClose((createdCertificate: UserCertificate) => {
+      if (createdCertificate) {
+        this.userCertificates = [...this.userCertificates, createdCertificate];
+        console.log("Nouvelle liste de userCertifs :", this.userCertificates);
+      }
+    });
   }
 
   deleteCertificate(userCertif: UserCertificate): void {
@@ -112,6 +98,15 @@ export class CertificateManagerPageComponent implements OnInit{
         console.error('Error while deleting certificate:', err);
       },
     });
+  }
+
+  // cdk drag-drop dans list certifs
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.userCertificates, event.previousIndex, event.currentIndex);
+  }
+  
+  trackByCertificateId(index: number, userCertif: UserCertificate): number | string {
+    return userCertif.certificate.id || index;
   }
 
 }
