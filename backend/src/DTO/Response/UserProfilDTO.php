@@ -1,5 +1,4 @@
 <?php 
-
 namespace App\DTO\Response;
 
 // ResponseDTO
@@ -9,9 +8,9 @@ class UserProfilDTO
         public string $username,
         public string $email,
         public string $accountType,
-        public string|null $nationality,
-        public string|null $avatarUrl,
-        public string|null $bannerUrl,
+        public ?string $nationality,
+        public ?string $avatarUrl,
+        public ?string $bannerUrl,
         public bool $isVerified,
         public bool $is2fa
     ) {}

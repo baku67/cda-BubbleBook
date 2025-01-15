@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\DTO\Response\UserProfilDTO;

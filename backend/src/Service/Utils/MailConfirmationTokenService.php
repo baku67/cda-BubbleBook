@@ -1,20 +1,16 @@
 <?php
-
-namespace App\Service;
+namespace App\Service\Utils;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Service\MailerService;
+use App\Service\Utils\MailerService;
 
 class MailConfirmationTokenService
 {
-
     public function __construct(
         private EntityManagerInterface $entityManager,
         private MailerService $mailerService
-    ) 
-    {}
+    ){}
 
     public function generateUserMailConfirmToken(string $toEmail, User $user): void
     {
@@ -35,6 +31,5 @@ class MailConfirmationTokenService
         } catch (\Exception $e) {
             // return new JsonResponse(['error' => 'Unable to send confirmation email'], 500);
         }
-
     }
 }

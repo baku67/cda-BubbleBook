@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Repository\CertificateRepository;
@@ -14,7 +13,6 @@ class CertificateController extends AbstractController
     public function __construct(
         private EntityManagerInterface $entityManager,
     ) {}
-
 
     #[Route('/api/certificates', name: 'api_get_certificates', methods: ['GET'])]
     public function getCertificates(

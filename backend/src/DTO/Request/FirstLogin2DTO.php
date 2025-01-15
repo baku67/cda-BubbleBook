@@ -1,5 +1,4 @@
 <?php
-
 namespace App\DTO\Request;
 
 use App\Enum\Avatar;

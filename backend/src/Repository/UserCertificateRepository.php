@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Repository;
 
 use App\DTO\Response\CertificateDTO;
 use App\Entity\UserCertificate;
-use App\Entity\User;
 use App\DTO\Response\UserCertificateDTO;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -24,7 +22,6 @@ class UserCertificateRepository extends ServiceEntityRepository
 
     /**
      * Récupère tous les certificats de l'utilisateur connecté et map en UserCertificateDTO 
-     * (On peut aussi utiliser user->getCertifs et mapper dans le controller)
      * 
      * @param int $userId
      * @return UserCertificateDTO[]

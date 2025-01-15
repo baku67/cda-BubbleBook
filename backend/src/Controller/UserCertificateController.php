@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +18,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class UserCertificateController extends AbstractController
 {
-
     #[Route('/api/user/certificates', name: 'api_get_user_certificates', methods: ['GET'])]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function getUserCertificates(
@@ -32,20 +30,7 @@ class UserCertificateController extends AbstractController
             return new JsonResponse(['error' => 'CertificateController2: instanceof User'], Response::HTTP_UNAUTHORIZED);
         }
 
-        // Choix 1: Récupère les certificats de l'utilisateur (mieux car transformation en DTO dans le repo)
         $certificatesDTOs = $userCertificateRepository->findCertificatesByUserId($user->getId());
-
-        // Choix 2: Récupère les certificats de l'utilisateur avec méthode de Collection Doctrine (et transformation en DTO)
-        // $userCertificates = $user->getUserCertificates(); 
-        // $certificatesDTOs = $userCertificates->map(function ($userCertificate) {
-        //     $certificate = $userCertificate->getCertificate(); // Relation
-        //     return new UserCertificateDTO(
-        //         $certificate->getId(),
-        //         $certificate->getName(),
-        //         $certificate->getType(),
-        //         $userCertificate->getObtainedAt()
-        //     );
-        // })->toArray();
 
         return $this->json($certificatesDTOs);
     }

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Enum;
 
 enum Banner: string

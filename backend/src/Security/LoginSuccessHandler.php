@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Security;
 
 use App\Entity\User;
@@ -7,11 +6,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 use Lcobucci\JWT\Signer\Key;
-use Lcobucci\JWT\Signer\Key\InMemory;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 
 // Le LoginSuccessHandler est un handler personnalisé qui est appelé lors du succès de l'authentification via json_login. Il intervient juste après l’authentification réussie, mais avant que la réponse HTTP ne soit renvoyée au client.

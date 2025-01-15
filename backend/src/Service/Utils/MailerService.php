@@ -1,5 +1,5 @@
 <?php
-namespace App\Service;
+namespace App\Service\Utils;
 
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -7,10 +7,8 @@ use Symfony\Component\Mime\Email;
 class MailerService
 {
     private MailerInterface $mailer;
-    // reçu depuis service.yaml %env% :
     private string $frontendBaseUrl;
 
-    
     public function __construct(MailerInterface $mailer, string $frontendBaseUrl)
     {
         $this->mailer = $mailer;

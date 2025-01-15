@@ -1,14 +1,11 @@
 <?php
-
-namespace App\Service;
+namespace App\Service\Utils;
 
 use App\Repository\UserRepository;
 
 class UsernameService
 {
-    public function __construct(private UserRepository $userRepository)
-    {
-    }
+    public function __construct(private UserRepository $userRepository){}
 
     /**
      * Génère un pseudonyme unique sous la forme "diver#123456"

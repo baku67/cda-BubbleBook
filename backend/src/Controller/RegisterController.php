@@ -1,21 +1,19 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
-use App\Service\MailConfirmationTokenService;
-use App\Service\UsernameService;
+use App\Service\Utils\MailConfirmationTokenService;
+use App\Service\Utils\UsernameService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-// use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface; // déprécié pour UserPasswordHasher
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use App\Service\MailerService;
+use App\Service\Utils\MailerService;
 
 class RegisterController extends AbstractController
 {
