@@ -1,3 +1,7 @@
+Installer Android Studio,
+View->Device Manager, ajouter device tec...
+
+
 npm install @capacitor/core @capacitor/cli
 npx cap init
 npm install @capacitor/android
@@ -11,3 +15,5 @@ npx cap sync android
 Ouvrir les projets:
 npx cap open android
 npx cap open ios
+
+
