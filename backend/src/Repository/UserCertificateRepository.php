@@ -56,9 +56,7 @@ class UserCertificateRepository extends ServiceEntityRepository
                     $result['certificateName'],
                     $result['certificateType']
                 ),
-                $result['obtainedAt'] instanceof \DateTimeImmutable
-                    ? $result['obtainedAt']
-                    : \DateTimeImmutable::createFromMutable($result['obtainedAt']),
+                $result['obtainedAt'] instanceof \DateTime ? \DateTimeImmutable::createFromMutable($result['obtainedAt']) : null,
                 $result['location']
             );
         }, $results);

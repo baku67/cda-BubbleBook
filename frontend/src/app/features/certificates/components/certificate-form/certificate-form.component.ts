@@ -69,8 +69,8 @@ export class CertificateFormComponent implements OnInit {
 
         this.certificateService.addCertificateToUser(this.addCertificateForm.value).subscribe({
           next: (createdCertificate) => {
-            this.isLoading = false;
             this.modalService.close(createdCertificate); // Passe l'objet créé au parent
+            // this.isLoading = false; // Commenté pour pas réafficher le form brevement avant l'anim fadeOut du modal
           },
           error: (error:any) => {
             console.error('There was an error during the request (addCertificateToUser)', error);
