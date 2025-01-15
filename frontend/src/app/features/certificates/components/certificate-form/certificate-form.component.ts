@@ -53,7 +53,7 @@ export class CertificateFormComponent implements OnInit {
 
     // Filtrage des options du select certificats (selon oirganisme et certificats deja en possession de l'user)
     filterCertificates(selectedOrganisation: string): void {
-      const userCertificateIds = this.userCertificates.map((uc) => uc.certificateId);
+      const userCertificateIds = this.userCertificates.map((uc) => uc.certificate.id);
     
       this.filteredCertificates = this.certificates.filter(
         (certificate) =>

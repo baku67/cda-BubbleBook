@@ -33,7 +33,7 @@ class UserCertificateController extends AbstractController
         }
 
         // Choix 1: Récupère les certificats de l'utilisateur (mieux car transformation en DTO dans le repo)
-        $certificatesDTOs = $userCertificateRepository->findCertificatesAsDTOByUserId($user->getId());
+        $certificatesDTOs = $userCertificateRepository->findCertificatesByUserId($user->getId());
 
         // Choix 2: Récupère les certificats de l'utilisateur avec méthode de Collection Doctrine (et transformation en DTO)
         // $userCertificates = $user->getUserCertificates(); 

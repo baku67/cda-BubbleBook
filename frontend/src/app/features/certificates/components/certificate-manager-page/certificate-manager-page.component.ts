@@ -44,17 +44,10 @@ export class CertificateManagerPageComponent implements OnInit{
     });
   
     // Ajout du certificat créé 
-    this.modalService.close$.subscribe((createdCertificate: any) => {
+    this.modalService.close$.subscribe((createdCertificate: UserCertificate) => {
       if (createdCertificate) {
-        const mappedCertificate = {
-          certificateId: createdCertificate.certificate?.id,
-          certificateName: createdCertificate.certificate?.name,
-          certificateType: createdCertificate.certificate?.type,
-          obtainedAt: createdCertificate.obtainedDate, 
-        };
-  
-        this.userCertificates = [...this.userCertificates, mappedCertificate];
-        console.log("Nouvelle liste de userCertifs:", this.userCertificates);
+        this.userCertificates = [...this.userCertificates, createdCertificate];
+        console.log("Nouvelle liste de userCertifs :", this.userCertificates);
       }
     });
   }
@@ -98,25 +91,25 @@ export class CertificateManagerPageComponent implements OnInit{
   }
 
   trackByCertificateId(index: number, userCertif: UserCertificate): number | string {
-    return userCertif.certificateId || index;
+    return userCertif.certificate.id || index;
   }
 
   deleteCertificate(userCertif: UserCertificate): void {
 
     // Activer le spinner pour ce certificat
-    this.isDeleting[userCertif.certificateId] = true;
+    this.isDeleting[userCertif.certificate.id] = true;
 
-    this.certificateService.deleteUserCertificate(userCertif.certificateId).subscribe({
+    this.certificateService.deleteUserCertificate(userCertif.certificate.id).subscribe({
       next: () => {
         // Supprimer l'élément localement après la suppression réussie
         this.userCertificates = this.userCertificates.filter(
-          cert => cert.certificateId !== userCertif.certificateId
+          cert => cert.certificate.id !== userCertif.certificate.id
         );
-        this.isDeleting[userCertif.certificateId] = false;
+        this.isDeleting[userCertif.certificate.id] = false;
         console.log('Certificate deleted successfully');
       },
       error: (err) => {
-        this.isDeleting[userCertif.certificateId] = false;
+        this.isDeleting[userCertif.certificate.id] = false;
         console.error('Error while deleting certificate:', err);
       },
     });

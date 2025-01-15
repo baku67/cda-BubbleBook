@@ -1,6 +1,7 @@
+import { Certificate } from "./certificate.model";
+
 export interface UserCertificate {
-    certificateId: number,
-    certificateName: string,
-    certificateType: string,
+    certificate: Certificate
     obtainedAt: string,
+    location: string | null;
 }

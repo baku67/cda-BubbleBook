@@ -5,20 +5,20 @@ namespace App\DTO\Response;
 // ResponseDTO
 class UserCertificateDTO
 {
-    public ?int $certificateId = null;
-    public ?string $certificateName = null;
-    public ?string $certificateType = null;
+    public ?int $id = null;
+    public ?CertificateDTO $certificate = null;
     public ?\DateTimeImmutable $obtainedAt = null;
+    public ?string $location = null;
 
     public function __construct(
-        int $certificateId, 
-        string $certificateName, 
-        string $certificateType, 
-        ?\DateTimeImmutable $obtainedAt = null
+        int $id,
+        CertificateDTO $certificate,
+        ?\DateTimeImmutable $obtainedAt = null,
+        ?string $location = null
     ) {
-        $this->certificateId = $certificateId;
-        $this->certificateName = $certificateName;
-        $this->certificateType = $certificateType;
+        $this->id = $id;
+        $this->certificate = $certificate;
         $this->obtainedAt = $obtainedAt;
+        $this->location = $location;
     }
 }

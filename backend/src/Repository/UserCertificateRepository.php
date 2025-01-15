@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\DTO\Response\CertificateDTO;
 use App\Entity\UserCertificate;
 use App\Entity\User;
 use App\DTO\Response\UserCertificateDTO;
@@ -28,55 +29,38 @@ class UserCertificateRepository extends ServiceEntityRepository
      * @param int $userId
      * @return UserCertificateDTO[]
      */
-    public function findCertificatesAsDTOByUserId(int $userId): array
+    public function findCertificatesByUserId(int $userId): array
     {
         $query = $this->createQueryBuilder('uc')
             ->select(
-                'c.id AS certificateId, 
-                c.name AS certificateName, 
-                c.type AS certificateType, 
-                uc.obtained_date AS obtainedDate'
+                'uc.id AS id, 
+                 c.id AS certificateId, 
+                 c.name AS certificateName, 
+                 c.type AS certificateType, 
+                 uc.obtained_date AS obtainedAt, 
+                 uc.location AS location'
             )
             ->join('uc.certificate', 'c')
             ->where('uc.user = :userId')
             ->setParameter('userId', $userId)
             ->getQuery();
-
+    
         $results = $query->getResult();
-
-        // Transformer les résultats en DTOs
+    
+        // Adapter les résultats au nouveau modèle attendu par le frontend
         return array_map(function ($result) {
             return new UserCertificateDTO(
-                $result['certificateId'],
-                $result['certificateName'],
-                $result['certificateType'],
-                $result['obtainedDate']
+                $result['id'],
+                new CertificateDTO(
+                    $result['certificateId'],
+                    $result['certificateName'],
+                    $result['certificateType']
+                ),
+                $result['obtainedAt'] instanceof \DateTimeImmutable
+                    ? $result['obtainedAt']
+                    : \DateTimeImmutable::createFromMutable($result['obtainedAt']),
+                $result['location']
             );
         }, $results);
     }
-
-    //    /**
-    //     * @return UserCertificate[] Returns an array of UserCertificate objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?UserCertificate
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }
