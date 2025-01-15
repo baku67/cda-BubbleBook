@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Certificate } from '../../models/certificate.model';
 import { CertificateService } from '../../services/certificate.service';
 import { UserCertificate } from '../../models/userCertificate.model';
@@ -12,7 +11,7 @@ import { ModalService } from '../../../../shared/services/utils/modal.service';
   templateUrl: './certificate-form.component.html',
   styleUrl: './certificate-form.component.scss'
 })
-export class CertificateFormComponent {
+export class CertificateFormComponent implements OnInit {
 
     // @Input() organisations!: Organization[]; 
     organisations: string[] = 
@@ -34,7 +33,6 @@ export class CertificateFormComponent {
       private formBuilder: FormBuilder, 
       private modalService: ModalService,
       private certificateService: CertificateService,
-      private router: Router,
     ) {}
 
 
@@ -68,15 +66,11 @@ export class CertificateFormComponent {
     onSubmit(): void {
       if (this.addCertificateForm.valid) {
         this.isLoading = true;
-        // this.errorMessage = null;
 
         this.certificateService.addCertificateToUser(this.addCertificateForm.value).subscribe({
-          next: () => {
-            this.router.navigate(['/certificates']).then(() => {
-              window.location.reload();
-            });
+          next: (createdCertificate) => {
             this.isLoading = false;
-            this.modalService.close();
+            this.modalService.close(createdCertificate); // Passe l'objet créé au parent
           },
           error: (error:any) => {
             console.error('There was an error during the request (addCertificateToUser)', error);

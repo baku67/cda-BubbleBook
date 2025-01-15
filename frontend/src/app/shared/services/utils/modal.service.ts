@@ -1,5 +1,6 @@
 import { Injectable, ComponentRef, ApplicationRef, ComponentFactoryResolver, Injector } from '@angular/core';
 import { ModalComponent } from '../../ui-components/modal/modal.component';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -7,6 +8,8 @@ import { ModalComponent } from '../../ui-components/modal/modal.component';
 })
 export class ModalService {
   private modalRef: ComponentRef<any> | null = null;
+  private closeSubject = new Subject<any>();
+  close$ = this.closeSubject.asObservable();
 
   constructor(
     private appRef: ApplicationRef,
@@ -61,7 +64,10 @@ export class ModalService {
     console.log('Données transmises au modal :', data);
   }
 
-  close(): void {
+  close(result?: any): void {
+
+    this.closeSubject.next(result);
+    
     if (this.modalRef) {
 
       // Ajoutez la classe d'animation "modal-closing"

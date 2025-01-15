@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Certificate } from '../../models/certificate.model';
 import { CertificateService } from '../../services/certificate.service';
 import {
-  CdkDrag,
   CdkDragDrop,
-  CdkDragPlaceholder,
-  CdkDropList,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { UserCertificate } from '../../models/userCertificate.model';
@@ -41,7 +38,25 @@ export class CertificateManagerPageComponent implements OnInit{
   }
 
   openAddCertifModal(): void {
-    this.modalService.open(CertificateFormComponent, { certificates: this.allCertificates, userCertificates: this.userCertificates });
+    this.modalService.open(CertificateFormComponent, {
+      certificates: this.allCertificates,
+      userCertificates: this.userCertificates,
+    });
+  
+    // Ajout du certificat créé 
+    this.modalService.close$.subscribe((createdCertificate: any) => {
+      if (createdCertificate) {
+        const mappedCertificate = {
+          certificateId: createdCertificate.certificate?.id,
+          certificateName: createdCertificate.certificate?.name,
+          certificateType: createdCertificate.certificate?.type,
+          obtainedAt: createdCertificate.obtainedDate, 
+        };
+  
+        this.userCertificates = [...this.userCertificates, mappedCertificate];
+        console.log("Nouvelle liste de userCertifs:", this.userCertificates);
+      }
+    });
   }
 
   // cdk drag-drop dans list certifs
@@ -76,14 +91,14 @@ export class CertificateManagerPageComponent implements OnInit{
         // this.cdr.detectChanges(); // Force l'actualisation
       },
       error: (error) => {
-        console.error('Failed to load userzzzz certificates', error);
+        console.error('Failed to load users certificates', error);
         this.isAllCertifsLoading = false;
       }
     });
   }
 
   trackByCertificateId(index: number, userCertif: UserCertificate): number | string {
-    return userCertif.certificateId; 
+    return userCertif.certificateId || index;
   }
 
   deleteCertificate(userCertif: UserCertificate): void {

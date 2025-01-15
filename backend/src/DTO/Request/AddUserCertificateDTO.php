@@ -3,10 +3,9 @@
 namespace App\DTO\Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\Date;
 
 // RequestDTO
-class AddCertificateDTO
+class AddUserCertificateDTO
 {
     #[Assert\NotBlank(message: 'L\'organisme certificateur est requis.')]
     #[Assert\Choice(
