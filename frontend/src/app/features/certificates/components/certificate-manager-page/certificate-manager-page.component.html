@@ -35,7 +35,7 @@
                     *ngFor="let userCertif of userCertificates; let i = index; trackBy: trackByCertificateId" 
                     cdkDrag
                     [cdkDragDisabled]="!isEditMode"
-                    [ngClass]="{ 'drag-disabled': !isEditMode }"
+                    [ngClass]="{ 'drag-disabled': !isEditMode, 'shrinked-box': isEditMode}"
                 >
                   <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
 
@@ -45,6 +45,11 @@
                         <span class="certif-organization">{{ userCertif.certificate.type }}</span>
                         <span class="cartif-name">{{ userCertif.certificate.name }}</span>
                     </div>
+                  </div>
+
+                  <div *ngIf="!isEditMode" class="certif-infos">
+                    <span>{{userCertif.obtainedDate | date:'dd/MM/yyyy'}}</span>
+                    <span>{{userCertif.location}}</span>
                   </div>
                 
                   <div *ngIf="isEditMode" >

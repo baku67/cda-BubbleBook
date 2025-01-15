@@ -7,18 +7,18 @@ class UserCertificateDTO
 {
     public ?int $id = null;
     public ?CertificateDTO $certificate = null;
-    public ?\DateTimeImmutable $obtainedAt = null;
+    public ?\DateTimeImmutable $obtainedDate = null;
     public ?string $location = null;
 
     public function __construct(
         int $id,
         CertificateDTO $certificate,
-        ?\DateTimeImmutable $obtainedAt = null,
+        ?\DateTimeImmutable $obtainedDate = null,
         ?string $location = null
     ) {
         $this->id = $id;
         $this->certificate = $certificate;
-        $this->obtainedAt = $obtainedAt;
+        $this->obtainedDate = $obtainedDate;
         $this->location = $location;
     }
 }

@@ -1,6 +1,6 @@
 import { Injectable, ComponentRef, ApplicationRef, ComponentFactoryResolver, Injector } from '@angular/core';
 import { ModalComponent } from '../../ui-components/modal/modal.component';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 
 @Injectable({
@@ -10,6 +10,7 @@ export class ModalService {
   private modalRef: ComponentRef<any> | null = null;
   private closeSubject = new Subject<any>();
   close$ = this.closeSubject.asObservable();
+  private subscription: Subscription | null = null; // Ajout pour gérer les abonnements
 
   constructor(
     private appRef: ApplicationRef,
@@ -83,4 +84,16 @@ export class ModalService {
       }, 500);
     }
   }
+
+    /**
+   * Gère l'abonnement à close$ pour éviter les doublons.
+   */
+    subscribeToClose(callback: (result: any) => void): void {
+      // Nettoie tout abonnement précédent
+      if (this.subscription) {
+        this.subscription.unsubscribe();
+      }
+  
+      this.subscription = this.close$.subscribe(callback);
+    }
 }

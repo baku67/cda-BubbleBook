@@ -32,32 +32,24 @@ class UserCertificateRepository extends ServiceEntityRepository
     public function findCertificatesByUserId(int $userId): array
     {
         $query = $this->createQueryBuilder('uc')
-            ->select(
-                'uc.id AS id, 
-                 c.id AS certificateId, 
-                 c.name AS certificateName, 
-                 c.type AS certificateType, 
-                 uc.obtained_date AS obtainedAt, 
-                 uc.location AS location'
-            )
-            ->join('uc.certificate', 'c')
-            ->where('uc.user = :userId')
-            ->setParameter('userId', $userId)
-            ->getQuery();
+        ->select('uc, c') // Récupère directement les entités UserCertificate et Certificate
+        ->join('uc.certificate', 'c')
+        ->where('uc.user = :userId')
+        ->setParameter('userId', $userId)
+        ->getQuery();
     
         $results = $query->getResult();
     
-        // Adapter les résultats au nouveau modèle attendu par le frontend
-        return array_map(function ($result) {
+        return array_map(function (UserCertificate $userCertificate) {
             return new UserCertificateDTO(
-                $result['id'],
+                $userCertificate->getId(),
                 new CertificateDTO(
-                    $result['certificateId'],
-                    $result['certificateName'],
-                    $result['certificateType']
+                    $userCertificate->getCertificate()->getId(),
+                    $userCertificate->getCertificate()->getName(),
+                    $userCertificate->getCertificate()->getType()
                 ),
-                $result['obtainedAt'] instanceof \DateTime ? \DateTimeImmutable::createFromMutable($result['obtainedAt']) : null,
-                $result['location']
+                $userCertificate->getObtainedDate(),
+                $userCertificate->getLocation()
             );
         }, $results);
     }

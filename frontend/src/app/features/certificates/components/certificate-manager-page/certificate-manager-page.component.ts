@@ -8,6 +8,7 @@ import {
 import { UserCertificate } from '../../models/userCertificate.model';
 import { ModalService } from '../../../../shared/services/utils/modal.service';
 import { CertificateFormComponent } from '../certificate-form/certificate-form.component';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-certificate-manager-page',
@@ -18,11 +19,10 @@ export class CertificateManagerPageComponent implements OnInit{
 
   isAllCertifsLoading : boolean;
   isUserCertifsLoading : boolean;
-  isDeleting: { [id: number]: boolean } = {};
-
   allCertificates: Certificate[] = [];
   userCertificates: UserCertificate[] = [];
 
+  isDeleting: { [id: number]: boolean } = {};
   isEditMode: boolean = false;
 
   constructor(
@@ -42,9 +42,8 @@ export class CertificateManagerPageComponent implements OnInit{
       certificates: this.allCertificates,
       userCertificates: this.userCertificates,
     });
-  
-    // Ajout du certificat créé 
-    this.modalService.close$.subscribe((createdCertificate: UserCertificate) => {
+
+    this.modalService.subscribeToClose((createdCertificate: UserCertificate) => {
       if (createdCertificate) {
         this.userCertificates = [...this.userCertificates, createdCertificate];
         console.log("Nouvelle liste de userCertifs :", this.userCertificates);
