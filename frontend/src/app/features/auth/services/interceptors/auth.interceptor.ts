@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-import { AuthService } from '../auth.service'; // Assure-toi d'avoir un service Auth qui gère le stockage du JWT
 import { Router } from '@angular/router';
+import { TokenService } from '../token.service';
+import { AuthService } from '../auth.service';
 
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
+    private tokenService: TokenService,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -16,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
     // Récupérer le token JWT depuis AuthService
-    const token = this.authService.getAccessToken();
+    const token = this.tokenService.getAccessToken();
 
     // Cloner la requête et ajouter l'en-tête Authorization si le token existe
     let clonedRequest = req;

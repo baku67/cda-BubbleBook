@@ -5,18 +5,49 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
 
-  // Récupération du JWT (accessToken) depuis le sessionStorage
+  private readonly ACCESS_TOKEN_KEY = 'accessToken';
+
+  // Récupération du JWT depuis le sessionStorage
   getAccessToken(): string | null {
-    return sessionStorage.getItem('accessToken');
+    return sessionStorage.getItem(this.ACCESS_TOKEN_KEY);
   }
 
-  // Enregistrer les tokens dans le storage
-  setTokens(accessToken: string): void {
-    sessionStorage.setItem('accessToken', accessToken);
+  // Enregistrer le JWT dans le storage
+  setAccessToken(token: string): void {
+    sessionStorage.setItem(this.ACCESS_TOKEN_KEY, token);
   }
 
-  // Supprimer les tokens lors de la déconnexion
-  clearTokens(): void {
-    sessionStorage.removeItem('accessToken');
+  // Supprimer le JWT lors de la déconnexion
+  clearAccessToken(): void {
+    sessionStorage.removeItem(this.ACCESS_TOKEN_KEY);
+  }
+
+  // Vérifie si un token valide existe
+  hasValidToken(): boolean {
+    const token = this.getAccessToken();
+    if (!token) return false;
+
+    const expirationDate = this.getTokenExpirationDate(token);
+    return !!expirationDate && expirationDate > new Date();
+  }
+
+  // Décoder le token JWT pour en extraire les informations
+  decodeToken(token: string): any {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch {
+      return null;
+    }
+  }
+
+  // Obtenir la date d'expiration du token
+  private getTokenExpirationDate(token: string): Date | null {
+    const decoded = this.decodeToken(token);
+    if (decoded?.exp) {
+      const date = new Date(0);
+      date.setUTCSeconds(decoded.exp);
+      return date;
+    }
+    return null;
   }
 }

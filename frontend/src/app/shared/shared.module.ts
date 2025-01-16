@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { BackButtonComponent } from './ui-components/back-button/back-button.component';
 import { ModalComponent } from './ui-components/modal/modal.component';
 import { AlertBannerComponent } from './ui-components/alert-banner/alert-banner.component';
+import { NotFoundPageComponent } from './ui-components/not-found-page/not-found-page.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { AlertBannerComponent } from './ui-components/alert-banner/alert-banner.
     BackButtonComponent,
     ModalComponent,
     AlertBannerComponent,
+    NotFoundPageComponent,
   ],
   exports: [
     PageHeaderComponent,
@@ -40,6 +42,7 @@ import { AlertBannerComponent } from './ui-components/alert-banner/alert-banner.
     BackButtonComponent,
     ModalComponent,
     AlertBannerComponent,
+    NotFoundPageComponent,
   ]
 })
 export class SharedModule { }

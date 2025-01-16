@@ -10,6 +10,7 @@ import { RedirectIfAuthenticatedGuard } from './features/auth/services/guards/re
 import { ConfirmEmailComponent } from './features/profil/components/confirm-email/confirm-email.component';
 import { AccountSettingsComponent } from './features/account-settings/account-settings.component';
 import { CertificateManagerPageComponent } from './features/certificates/components/certificate-manager-page/certificate-manager-page.component';
+import { NotFoundPageComponent } from './shared/ui-components/not-found-page/not-found-page.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent, canActivate: [RedirectIfAuthenticatedGuard] },  // Home page
@@ -30,7 +31,7 @@ export const routes: Routes = [
     { path: 'confirm-email', component: ConfirmEmailComponent },
 
     // EN DERNIER:
-    { path: '**', redirectTo: '' },  // Wildcard, redirect all unknown paths to home
+    { path: '**', component: NotFoundPageComponent },  // Wildcard, redirect all unknown paths to home
 ];
 
 

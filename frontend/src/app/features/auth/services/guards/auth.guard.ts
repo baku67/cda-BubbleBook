@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { TokenService } from '../token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private tokenService: TokenService, 
+    private router: Router
+  ) {}
 
   canActivate(): boolean {
     // Si le JWT est présent, l'accès est autorisé
-    const token = this.authService.getAccessToken();
+    const token = this.tokenService.getAccessToken();
     if (token) {
       return true;
     }

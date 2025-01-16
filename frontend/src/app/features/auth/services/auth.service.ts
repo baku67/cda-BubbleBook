@@ -1,121 +1,67 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../../../../environments/environments';
 import { TokenService } from './token.service';
 
-interface DecodedToken {
-  exp?: number;  // Le champ exp représente la date d'expiration en secondes depuis Epoch
-}
 interface AuthResponse {
   accessToken: string;
-  firstLoginStep: number | null; // Etape de login en BDD
+  firstLoginStep: number | null;
 }
-
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private loggedIn = new BehaviorSubject<boolean>(false); // Init false par défaut
-  // Observable pour savoir si l'utilisateur est connecté
-  isLoggedIn$ = this.loggedIn.asObservable();
-  private firstLoginStep: number | null = null; // Suivi de l'étape
+  private loggedIn$ = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this.loggedIn$.asObservable();
+
+  private firstLoginStep: number | null = null;
 
   constructor(
-    private http: HttpClient, 
-    private router: Router, 
+    private http: HttpClient,
+    private router: Router,
     private tokenService: TokenService
   ) {
-    // Initialisation après que TokenService soit injecté
-    this.loggedIn.next(this.hasToken());
+    this.loggedIn$.next(this.tokenService.hasValidToken());
   }
 
-
-
-  private hasToken(): boolean {
-    const token = this.tokenService.getAccessToken();
-    if (!token) {
-      return false;
-    }
-
-    const expirationDate = this.getTokenExpirationDate(token);
-    return !!expirationDate && expirationDate > new Date();
-  }
-
-  getAccessToken(): string | null {
-    return this.tokenService.getAccessToken();
-  }
-
-
-  setTokens(accessToken: string): void {
-    this.tokenService.setTokens(accessToken);
-    this.loggedIn.next(true);
-  }
-
-  logout(): void {
-    this.tokenService.clearTokens();
-    this.loggedIn.next(false);
-  }
-
-
-  registerUser(registerData: unknown): Observable<unknown> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(
-      `${environment.apiUrl}/api/register`,
-       registerData,
-       { headers }
-    );
-  }
-
-  // Connexion et enregistrement des tokens
+  // Connexion utilisateur
   login(credentials: { email: string; password: string }): Observable<AuthResponse> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<AuthResponse>(
-      `${environment.apiUrl}/api/login`,
-      credentials,
-      { headers }
-    ).pipe(
+    return this.http.post<AuthResponse>(`${environment.apiUrl}/api/login`, credentials, { headers }).pipe(
       tap((response: AuthResponse) => {
-        this.setTokens(response.accessToken);
-        this.firstLoginStep = response.firstLoginStep; // Stocker l'étape
+        this.tokenService.setAccessToken(response.accessToken);
+        this.firstLoginStep = response.firstLoginStep;
+        this.loggedIn$.next(true);
       })
     );
   }
-  getFirstLoginStep(): number | null {
-    return this.firstLoginStep;
+
+  // Déconnexion
+  logout(): void {
+    this.tokenService.clearAccessToken();
+    this.loggedIn$.next(false);
+    this.router.navigate(['/login']); // Redirige vers la page de login
   }
 
-  
-  // Fonction pour renvoyer l'email de confirmation
+  // Inscription
+  registerUser(registerData: unknown): Observable<unknown> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${environment.apiUrl}/api/register`, registerData, { headers });
+  }
+
+  // Renvoi d'email de confirmation
   resendConfirmationEmail(email: string): Observable<unknown> {
     const url = `${environment.apiUrl}/api/resend-confirmation`;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    const body = JSON.stringify({ email: email });
-
-    return this.http.post(url, body, { headers: headers });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(url, { email }, { headers });
   }
 
-  getTokenExpirationDate(token: string): Date | null {
-    const decodedToken = this.decodeToken(token);
-    if (decodedToken && decodedToken.exp) {
-      const date = new Date(0);
-      date.setUTCSeconds(decodedToken.exp);
-      return date;
-    }
-    return null;
-  }
-
-  decodeToken(token: string): DecodedToken | null {
-    try {
-      return JSON.parse(atob(token.split('.')[1])) as DecodedToken;
-    } catch {
-      return null;
-    }
+  // Vérification du statut de connexion
+  getFirstLoginStep(): number | null {
+    return this.firstLoginStep;
   }
 }

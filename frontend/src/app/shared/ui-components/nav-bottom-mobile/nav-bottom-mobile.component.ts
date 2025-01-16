@@ -19,7 +19,6 @@ import {MatDividerModule} from '@angular/material/divider';
 export class NavBottomMobileComponent {
 
   @Input() isLoggedIn!: boolean;
-  // Pour rendre actif le bouton-onglet selon la route actuelle:
   isSettingsRouteActive = false;
   isProfilRouteActive = false;
 
@@ -31,7 +30,6 @@ export class NavBottomMobileComponent {
   ) {}
 
   ngOnInit() {
-    // Écoute des changements de route, pour rendre actif les boutons-onglets selon les sub-routes:
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.isSettingsRouteActive = this.checkIfRouteIsActive(['/account-settings']);
@@ -40,30 +38,20 @@ export class NavBottomMobileComponent {
     });
   }
 
-  // Pour rendre actif un des boutons-onglets:
-  /**
-   * Vérifie si l'une des routes données est active.
-   * @param routeChecked Tableau des routes à vérifier.
-   * @returns true si l'une des routes est active.
-   */
   private checkIfRouteIsActive(routesToCheck: string[]): boolean {
     // Utilise l'URL actuelle (après redirections)
     const currentUrl = this.router.url;
-  
     // Vérifie si l'URL actuelle correspond à l'une des routes
     return routesToCheck.some(route => currentUrl.startsWith(route));
   }
 
-
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/']); // Rediriger vers la landinPage
   }
 
   switchTheme(): void {
     this.themeService.toggleTheme();
   }
-
 
   switchLang(): void {
     this.langService.switchLanguage();
