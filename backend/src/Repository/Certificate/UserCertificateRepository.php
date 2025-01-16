@@ -1,8 +1,8 @@
 <?php
-namespace App\Repository;
+namespace App\Repository\Certificate;
 
 use App\DTO\Response\CertificateDTO;
-use App\Entity\UserCertificate;
+use App\Entity\Certificate\UserCertificate;
 use App\DTO\Response\UserCertificateDTO;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

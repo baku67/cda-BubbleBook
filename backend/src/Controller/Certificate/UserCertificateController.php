@@ -1,14 +1,14 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Certificate;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use App\DTO\Request\AddUserCertificateDTO;
-use App\Entity\User;
-use App\Entity\UserCertificate;
-use App\Repository\UserCertificateRepository;
-use App\Repository\CertificateRepository;
+use App\Entity\User\User;
+use App\Entity\Certificate\UserCertificate;
+use App\Repository\Certificate\UserCertificateRepository;
+use App\Repository\Certificate\CertificateRepository;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Attribute\IsGranted;

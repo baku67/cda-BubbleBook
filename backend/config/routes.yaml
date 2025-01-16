@@ -7,5 +7,5 @@ controllers:
 # config/routes.yaml ou annotations dans le contrôleur
 check_email_exist:
     path: /api/check-email-exist
-    controller: App\Controller\RegisterController::checkEmailExist
+    controller: App\Controller\Auth\RegisterController::checkEmailExist
     methods: [POST, GET]

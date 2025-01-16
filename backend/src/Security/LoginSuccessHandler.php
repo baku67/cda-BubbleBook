@@ -1,7 +1,7 @@
 <?php
 namespace App\Security;
 
-use App\Entity\User;
+use App\Entity\User\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
@@ -31,7 +31,6 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
             new Sha256(),
             Key\InMemory::file('/var/www/html/config/jwt/private.pem', $this->jwtPassphrase)
         );
-
     }
 
     public function onAuthenticationSuccess(Request $request, $token): JsonResponse

@@ -1,8 +1,8 @@
 <?php
 namespace App\DataFixtures;
 
-use App\Entity\Role;
-use App\Entity\User;
+use App\Entity\User\Role;
+use App\Entity\User\User;
 use App\Enum\Avatar;
 use App\Enum\Banner;
 use Doctrine\Bundle\FixturesBundle\Fixture;

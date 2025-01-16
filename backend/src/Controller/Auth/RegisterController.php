@@ -1,9 +1,9 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Auth;
 
-use App\Entity\User;
-use App\Repository\RoleRepository;
-use App\Repository\UserRepository;
+use App\Entity\User\User;
+use App\Repository\User\RoleRepository;
+use App\Repository\User\UserRepository;
 use App\Service\Utils\MailConfirmationTokenService;
 use App\Service\Utils\UsernameService;
 use Doctrine\ORM\EntityManagerInterface;

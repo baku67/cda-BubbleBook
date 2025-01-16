@@ -1,7 +1,7 @@
 <?php
 namespace App\Service\Utils;
 
-use App\Repository\UserRepository;
+use App\Repository\User\UserRepository;
 
 class UsernameService
 {

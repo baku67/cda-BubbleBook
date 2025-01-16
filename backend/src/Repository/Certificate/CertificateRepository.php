@@ -1,7 +1,7 @@
 <?php
-namespace App\Repository;
+namespace App\Repository\Certificate;
 
-use App\Entity\Certificate;
+use App\Entity\Certificate\Certificate;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

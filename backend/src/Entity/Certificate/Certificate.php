@@ -1,5 +1,5 @@
 <?php
-namespace App\Entity;
+namespace App\Entity\Certificate;
 
 use App\Repository\CertificateRepository;
 use Doctrine\Common\Collections\ArrayCollection;

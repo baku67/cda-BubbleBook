@@ -1,5 +1,5 @@
 <?php
-namespace App\Entity;
+namespace App\Entity\User;
 
 use App\Repository\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;

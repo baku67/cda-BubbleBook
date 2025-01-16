@@ -1,7 +1,8 @@
 <?php
-namespace App\Entity;
+namespace App\Entity\User;
 
-use App\Repository\UserRepository;
+use App\Entity\Certificate\UserCertificate;
+use App\Repository\User\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;

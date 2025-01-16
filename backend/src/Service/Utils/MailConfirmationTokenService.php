@@ -1,7 +1,7 @@
 <?php
 namespace App\Service\Utils;
 
-use App\Entity\User;
+use App\Entity\User\User;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\Utils\MailerService;
 

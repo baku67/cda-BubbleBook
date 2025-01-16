@@ -1,6 +1,7 @@
 <?php
-namespace App\Entity;
+namespace App\Entity\Certificate;
 
+use App\Entity\User\User;
 use App\Repository\UserCertificateRepository;
 use Doctrine\ORM\Mapping as ORM;
 

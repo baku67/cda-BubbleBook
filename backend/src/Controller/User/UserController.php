@@ -1,10 +1,10 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\User;
 
 use App\DTO\Response\UserProfilDTO;
 use App\DTO\Request\FirstLogin2DTO;
-use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Entity\User\User;
+use App\Repository\User\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,8 +23,8 @@ class UserController extends AbstractController
         private EntityManagerInterface $entityManager,
     ){}
 
-    #[Route('/api/user', name: 'api_user', methods: ['GET'])]
-    public function getUserProfil(): JsonResponse
+    #[Route('/api/user/me', name: 'api_user_me', methods: ['GET'])]
+    public function getCurrentUserProfil(): JsonResponse
     {
         // Récupérer l'utilisateur connecté
         $user = $this->getUser();
@@ -60,7 +60,6 @@ class UserController extends AbstractController
             return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
         }
 
-        // $data = $request->getContent();
         // Décodez le contenu JSON une fois
         $data = json_decode($request->getContent(), true);
         if (!is_array($data)) {

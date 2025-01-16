@@ -1,9 +1,9 @@
 <?php
 namespace App\DataFixtures;
 
-use App\Entity\Certificate;
-use App\Entity\User;
-use App\Entity\UserCertificate;
+use App\Entity\Certificate\Certificate;
+use App\Entity\User\User;
+use App\Entity\Certificate\UserCertificate;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
