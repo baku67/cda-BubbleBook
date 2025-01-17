@@ -1,12 +1,11 @@
 <?php
 namespace App\Controller\Certificate;
 
-use App\Repository\Certificate\CertificateRepository;
+use App\Service\Certificate\CertificateService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
-use App\DTO\Response\CertificateDTO;
 
 class CertificateController extends AbstractController
 {
@@ -15,20 +14,14 @@ class CertificateController extends AbstractController
     ) {}
 
     #[Route('/api/certificates', name: 'api_get_certificates', methods: ['GET'])]
-    public function getCertificates(
-        CertificateRepository $certificateRepository, 
-    ): JsonResponse
+    public function getCertificates(CertificateService $certificateService): JsonResponse
     {
-        $allCertificates = $certificateRepository->findAll();
+        $certificateDTOs = $certificateService->getAllCertificates();
 
-        // Transformer les résultats en DTOs
-        $certificateDTOs = array_map(function ($certificate) {
-            return new CertificateDTO($certificate->getId(), $certificate->getName(), $certificate->getType());
-        }, $allCertificates);
-        
-        if (!$allCertificates) {
-            return new JsonResponse(['error' => 'Aucuns certificats disponibles']);
+        if (empty($certificateDTOs)) {
+            return new JsonResponse(['error' => 'Aucuns certificats disponibles'], JsonResponse::HTTP_NOT_FOUND);
         }
+
         return $this->json($certificateDTOs);
     }
 

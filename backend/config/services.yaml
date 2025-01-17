@@ -46,10 +46,10 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    App\Service\Utils\ConfirmationTokenService:
+    App\Service\Auth\ConfirmationTokenService:
         public: true
 
 
-    App\Service\Utils\MailerService:
+    App\Service\Auth\MailerService:
         arguments:
             $frontendBaseUrl: '%env(FRONT_LOCAL_NETWORK)%'

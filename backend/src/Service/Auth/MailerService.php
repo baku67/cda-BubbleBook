@@ -1,5 +1,5 @@
 <?php
-namespace App\Service\Utils;
+namespace App\Service\Auth;
 
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;

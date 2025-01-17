@@ -1,10 +1,9 @@
 <?php
-namespace App\Service\Utils;
+namespace App\Service\Auth;
 
 use App\Entity\User\User;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Service\Utils\MailerService;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Service\Auth\MailerService;
 
 class MailConfirmationTokenService
 {

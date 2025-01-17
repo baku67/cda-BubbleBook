@@ -1,5 +1,5 @@
 <?php
-namespace App\Service\Utils;
+namespace App\Service\Auth;
 
 use App\Repository\User\UserRepository;
 
