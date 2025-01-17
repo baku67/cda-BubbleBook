@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { FirstLogin1Component } from './first-login-1.component';
-import { FirstLoginService } from '../../services/first-login.service';
+import { FirstLoginStep1Component } from './first-login-step1.component';
+import { FirstLoginStepsService } from '../../services/first-login-steps.service';
 import { UserService } from '../../../profil/services/user.service';
 import { of, throwError } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -13,18 +13,18 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('FirstLogin1Component', () => {
-  let component: FirstLogin1Component;
-  let fixture: ComponentFixture<FirstLogin1Component>;
-  let firstLoginServiceSpy: jasmine.SpyObj<FirstLoginService>;
+describe('FirstLoginStep1Component', () => {
+  let component: FirstLoginStep1Component;
+  let fixture: ComponentFixture<FirstLoginStep1Component>;
+  let firstLoginServiceSpy: jasmine.SpyObj<FirstLoginStepsService>;
   let routerSpy: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
-    const firstLoginSpy = jasmine.createSpyObj('FirstLoginService', ['updateUser']);
+    const firstLoginSpy = jasmine.createSpyObj('FirstLoginStepsService', ['updateUser']);
     const routerSpyObj = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
-      declarations: [FirstLogin1Component],
+      declarations: [FirstLoginStep1Component],
       imports: [
         ReactiveFormsModule, 
         TranslateModule.forRoot(),
@@ -37,15 +37,15 @@ describe('FirstLogin1Component', () => {
         BrowserAnimationsModule,
       ],
       providers: [
-        { provide: FirstLoginService, useValue: firstLoginSpy },
+        { provide: FirstLoginStepsService, useValue: firstLoginSpy },
         { provide: Router, useValue: routerSpyObj },
         { provide: UserService, useValue: {} }, // Mock minimal si le UserService n'est pas utilisé directement
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FirstLogin1Component);
+    fixture = TestBed.createComponent(FirstLoginStep1Component);
     component = fixture.componentInstance;
-    firstLoginServiceSpy = TestBed.inject(FirstLoginService) as jasmine.SpyObj<FirstLoginService>;
+    firstLoginServiceSpy = TestBed.inject(FirstLoginStepsService) as jasmine.SpyObj<FirstLoginStepsService>;
     routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
 
     fixture.detectChanges();

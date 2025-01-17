@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FirstLoginService } from '../../services/first-login.service';
+import { FirstLoginStepsService } from '../../services/first-login-steps.service';
 import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-first-login-1',
-  templateUrl: './first-login-1.component.html',
-  styleUrl: './first-login-1.component.scss'
+  selector: 'app-first-login-step1',
+  templateUrl: './first-login-step1.component.html',
+  styleUrl: './first-login-step1.component.scss'
 })
-export class FirstLogin1Component implements OnInit {
+export class FirstLoginStep1Component implements OnInit {
 
   firstLoginForm!: FormGroup;
   isLoading: boolean;
 
   constructor(
     private formBuilder: FormBuilder, 
-    private firstLoginService: FirstLoginService,
+    private firstLoginService: FirstLoginStepsService,
     private router: Router,
   ) {
     this.isLoading = false;

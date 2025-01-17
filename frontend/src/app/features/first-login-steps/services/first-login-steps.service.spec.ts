@@ -1,20 +1,20 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { FirstLoginService } from './first-login.service';
+import { FirstLoginStepsService } from './first-login-steps.service';
 import { environment } from '../../../../environments/environments';
 
-describe('FirstLoginService', () => {
-  let service: FirstLoginService;
+describe('FirstLoginStepsService', () => {
+  let service: FirstLoginStepsService;
   let httpMock: HttpTestingController;
   const apiUrl = `${environment.apiUrl}/api/user`;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [FirstLoginService],
+      providers: [FirstLoginStepsService],
     });
 
-    service = TestBed.inject(FirstLoginService);
+    service = TestBed.inject(FirstLoginStepsService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 

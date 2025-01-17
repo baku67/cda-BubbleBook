@@ -107,17 +107,18 @@
 
         </form>
 
+        <!-- Retour -->
+         <br>
+        <a [routerLink]="['/first-login/step-one']" routerLinkActive="router-link-active" >
+            <button mat-button color="accent" class="cta-btn-primary">{{ "PREVIOUS" | translate }}</button>
+        </a>
+
     </div>
 
     <!-- Loader/Spinner page -->
     <div class="spinner-container" *ngIf="isLoading || !firstLoginForm2">
         <mat-spinner></mat-spinner>
     </div>
-
-    <!-- Retour -->
-    <a [routerLink]="['/first-login/step-one']" routerLinkActive="router-link-active" >
-        <button mat-flat-button color="accent" class="cta-btn-primary">{{ "PREVIOUS" | translate }}</button>
-    </a>
 
 </div>
 

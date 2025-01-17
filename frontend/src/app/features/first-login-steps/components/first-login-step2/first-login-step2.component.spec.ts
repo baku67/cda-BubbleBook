@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { FirstLogin2Component } from './first-login-2.component';
+import { FirstLoginStep2Component } from './first-login-step2.component';
 import { UserService } from '../../../profil/services/user.service';
-import { FirstLoginService } from '../../services/first-login.service';
+import { FirstLoginStepsService } from '../../services/first-login-steps.service';
 import { ModalService } from '../../../../shared/services/utils/modal.service';
 import { of, throwError } from 'rxjs';
 import { PageHeaderComponent } from '../../../../shared/ui-components/page-header/page-header.component';
@@ -23,21 +23,21 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
 
-describe('FirstLogin2Component', () => {
-  let component: FirstLogin2Component;
-  let fixture: ComponentFixture<FirstLogin2Component>;
+describe('FirstLoginStep2Component', () => {
+  let component: FirstLoginStep2Component;
+  let fixture: ComponentFixture<FirstLoginStep2Component>;
   let userServiceSpy: jasmine.SpyObj<UserService>;
-  let firstLoginServiceSpy: jasmine.SpyObj<FirstLoginService>;
+  let firstLoginServiceSpy: jasmine.SpyObj<FirstLoginStepsService>;
   let modalServiceSpy: jasmine.SpyObj<ModalService>;
 
   beforeEach(async () => {
     const userSpy = jasmine.createSpyObj('UserService', ['getCurrentUser']);
-    const firstLoginSpy = jasmine.createSpyObj('FirstLoginService', ['updateUser', 'skipStep']);
+    const firstLoginSpy = jasmine.createSpyObj('FirstLoginStepsService', ['updateUser', 'skipStep']);
     const modalSpy = jasmine.createSpyObj('ModalService', ['open']);
 
     await TestBed.configureTestingModule({
       declarations: [
-        FirstLogin2Component,
+        FirstLoginStep2Component,
         MatSelectCountryComponent,
       ],
       imports: [
@@ -60,16 +60,16 @@ describe('FirstLogin2Component', () => {
       ],
       providers: [
         { provide: UserService, useValue: userSpy },
-        { provide: FirstLoginService, useValue: firstLoginSpy },
+        { provide: FirstLoginStepsService, useValue: firstLoginSpy },
         { provide: ModalService, useValue: modalSpy },
         { provide: MatSelectCountryLangToken, useValue: 'en' },
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FirstLogin2Component);
+    fixture = TestBed.createComponent(FirstLoginStep2Component);
     component = fixture.componentInstance;
     userServiceSpy = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
-    firstLoginServiceSpy = TestBed.inject(FirstLoginService) as jasmine.SpyObj<FirstLoginService>;
+    firstLoginServiceSpy = TestBed.inject(FirstLoginStepsService) as jasmine.SpyObj<FirstLoginStepsService>;
     modalServiceSpy = TestBed.inject(ModalService) as jasmine.SpyObj<ModalService>;
 
     userServiceSpy.getCurrentUser.and.returnValue(of({ username: 'testUser', email: 'test@test.fr', accountType: 'option-diver', nationality: 'FR', avatarUrl: '', bannerUrl: '', isVerified: false, is2fa: false }));

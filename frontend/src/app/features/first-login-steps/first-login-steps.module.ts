@@ -6,8 +6,8 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldModule, MatLa
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 // Customs
-import { FirstLogin1Component } from './components/first-login-1/first-login-1.component';
-import { FirstLogin2Component } from './components/first-login-2/first-login-2.component';
+import { FirstLoginStep1Component } from './components/first-login-step1/first-login-step1.component';
+import { FirstLoginStep2Component } from './components/first-login-step2/first-login-step2.component';
 import { routes } from '../../app.routes';
 import { SharedModule } from '../../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,8 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
-    FirstLogin1Component,
-    FirstLogin2Component,
+    FirstLoginStep1Component,
+    FirstLoginStep2Component,
   ],
   imports: [
     SharedModule,
@@ -60,4 +60,4 @@ import { MatIconModule } from '@angular/material/icon';
     }
   ],
 })
-export class FirstLoginModule { }
+export class FirstLoginStepsModule { }

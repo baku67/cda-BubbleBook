@@ -15,7 +15,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { UserProfilComponent } from './features/profil/components/user-profil/user-profil.component';
 import { AuthInterceptor } from './features/auth/services/interceptors/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
-import { FirstLoginModule } from './features/first-login/first-login.module';
+import { FirstLoginStepsModule } from './features/first-login-steps/first-login-steps.module';
 import { ConfirmEmailComponent } from './features/profil/components/confirm-email/confirm-email.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -93,7 +93,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
             deps: [HttpClient]
         }
     }),
-    FirstLoginModule,
+    FirstLoginStepsModule,
     SharedModule,
     ThemeSwitchComponent,
     NavBottomMobileComponent,

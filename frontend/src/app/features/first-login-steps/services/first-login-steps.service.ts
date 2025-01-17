@@ -7,7 +7,7 @@ import { environment } from '../../../../environments/environments';
 @Injectable({
   providedIn: 'root'
 })
-export class FirstLoginService {
+export class FirstLoginStepsService {
 
   private readonly apiUrl = `${environment.apiUrl}/api/user`;
 

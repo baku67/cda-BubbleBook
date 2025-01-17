@@ -2,17 +2,17 @@ import { Country } from '@angular-material-extensions/select-country';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../profil/services/user.service';
-import { FirstLoginService } from '../../services/first-login.service';
+import { FirstLoginStepsService } from '../../services/first-login-steps.service';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../../shared/services/utils/modal.service';
 import { BannerSelectionComponent } from '../../../profil/components/banner-selection/banner-selection.component';
 
 @Component({
-  selector: 'app-first-login-2',
-  templateUrl: './first-login-2.component.html',
-  styleUrl: './first-login-2.component.scss'
+  selector: 'app-first-login-step2',
+  templateUrl: './first-login-step2.component.html',
+  styleUrl: './first-login-step2.component.scss'
 })
-export class FirstLogin2Component {
+export class FirstLoginStep2Component {
 
   firstLoginForm2!: FormGroup;
   isLoading: boolean = true;
@@ -61,7 +61,7 @@ export class FirstLogin2Component {
   constructor(
     private formBuilder: FormBuilder, 
     private userService: UserService,
-    private firstLoginService: FirstLoginService,
+    private firstLoginService: FirstLoginStepsService,
     private router: Router,
     private modalService: ModalService,
   ) {
