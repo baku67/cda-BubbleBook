@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../auth/services/auth.service';
 import { environment } from '../../../../../environments/environments';
 
 @Component({
@@ -19,7 +18,6 @@ export class ConfirmEmailComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router,
-    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -45,19 +43,6 @@ export class ConfirmEmailComponent implements OnInit {
         this.router.navigate(['/']);
       }
     });
-  }
-
-  resendConfirmationEmail(): void {
-    this.authService.resendConfirmationEmail(this.emailAddress).subscribe(
-      response => {
-        console.log('Email de confirmation renvoyé:', response);
-        alert('Un email de confirmation a été envoyé, vérifiez votre boîte de réception.');
-      },
-      error => {
-        console.error('Erreur lors de la régénération du token:', error);
-        alert('Impossible d\'envoyer l\'email de confirmation. Veuillez réessayer plus tard.');
-      }
-    );
   }
 
 }

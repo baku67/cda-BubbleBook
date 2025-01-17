@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirstLoginService } from '../../services/first-login.service';
 import { Router } from '@angular/router';
-// import { FirstLoginUserUpdate1 } from '../../models/first-login-1.model';
-import { UserService } from '../../../profil/services/user.service';
 
 
 @Component({
@@ -15,13 +12,10 @@ import { UserService } from '../../../profil/services/user.service';
 export class FirstLogin1Component implements OnInit {
 
   firstLoginForm!: FormGroup;
-  private allowedAccountTypes = ['option-diver', 'option-club'];
   isLoading: boolean;
 
   constructor(
     private formBuilder: FormBuilder, 
-    private translateService: TranslateService,
-    private userService: UserService,
     private firstLoginService: FirstLoginService,
     private router: Router,
   ) {

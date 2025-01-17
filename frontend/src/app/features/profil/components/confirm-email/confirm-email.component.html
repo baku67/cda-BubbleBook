@@ -2,7 +2,6 @@
 <div class="pageContent">
 
     <app-page-header *ngIf="isLoading" [title]="('CONFIRMING_EMAIL_ADDRESS' | translate)" matIcon="alternate_email" />
-    <!-- <app-page-header *ngIf="!isLoading" [title]="('EMAIL_ADDRESS_CONFIRMED' | translate)" matIcon="alternate_email" /> -->
 
     <mat-spinner *ngIf="isLoading"></mat-spinner>
 
@@ -18,8 +17,6 @@
         </a>
     </div>
 
-    <!-- TODO Check si deja vérifié ? -->
-    <!-- TODO Check si lien expiré -->
     <div *ngIf="!isLoading && !confirmSuccess">
         <div class="iconLine">
             <mat-icon>unpublished</mat-icon>

@@ -2,6 +2,10 @@
 module.exports = function (config) {
   config.set({
     basePath: '',
+    files: [
+      'src/**/*.spec.ts',
+      // 'src/app/features/auth/components/login-page/login-page.component.spec.ts',
+    ],
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),

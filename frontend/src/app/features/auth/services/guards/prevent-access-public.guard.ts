@@ -5,7 +5,7 @@ import { TokenService } from '../token.service';
 @Injectable({
   providedIn: 'root'
 })
-export class RedirectIfAuthenticatedGuard implements CanActivate {
+export class PreventPublicAccessGuard implements CanActivate {
 
   constructor(
     private tokenService: TokenService, 

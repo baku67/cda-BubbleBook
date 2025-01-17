@@ -1,5 +1,8 @@
 <!-- 3 types de tests phpUnit:
 
+// TestCase = Test unitaires 
+// KernelTestCase = avec noyau symfony, 
+// WebTestCase = noyau symfony + client HTTP
 
 Test unitaires: sur les fonctions des services, pas d'appels réseaux, pas de communications ou de couplages ou d'injections avec d'autres couches (?)
 Test fonctionnels: Là oui on peut passer par des controller, des appels réseau (?) 

@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// rxjs: debounce/throttlong input checkEmail:
-// import { debounceTime, distinctUntilChanged } from 'rxjs/operators'; // Import des opérateurs rxjs
-// Customs:
 import { passwordMatchValidator } from '../../../../shared/validators/passwordMatchValidator';
 import { EmailCheckService } from '../../services/email-disponibility.service';
 import { EmailAsyncValidator } from '../../../../shared/validators/emailExistValidator';
@@ -21,16 +18,12 @@ export class RegisterPageComponent implements OnInit{
 
   registerForm!: FormGroup;
   isLoading: boolean;
-
   emailChecking = false;
   emailAvailable: boolean | null = null;
-
   hidePassword1 = true;
   hidePassword2 = true;
-
   passwordComplexityScore = 0;
 
- 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder, 
@@ -41,7 +34,6 @@ export class RegisterPageComponent implements OnInit{
     this.isLoading = false;
   }
 
-  
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       email: this.formBuilder.control(
@@ -75,7 +67,8 @@ export class RegisterPageComponent implements OnInit{
           console.log('User registered successfully');
           this.authService.login({
             email: this.registerForm.get('email')?.value,
-            password: this.registerForm.get('password')?.value
+            password: this.registerForm.get('password')?.value,
+            rememberMe: true,
           }).subscribe({
             next: () => {
               const step = this.authService.getFirstLoginStep();
@@ -124,7 +117,6 @@ export class RegisterPageComponent implements OnInit{
       }
     }
   }
-
 
 
   // Message de status de la vérification de disponibilité de l'adresse mail (ToolTip de l'icon de champs)

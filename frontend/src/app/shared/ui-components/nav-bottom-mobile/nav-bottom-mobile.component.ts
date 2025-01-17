@@ -7,7 +7,7 @@ import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from '../../services/utils/theme.service';
 import { LanguageService } from '../../services/utils/language.service';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-nav-bottom-mobile',

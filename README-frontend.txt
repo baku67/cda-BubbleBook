@@ -20,4 +20,7 @@ docker ps
 Bash container angular:
 -> docker exec -it angular bash
 
+
+Dans /frontend:
 npm run test -- --watch=false --browsers=ChromeHeadlessNoSandbox
+ng test --include='src/app/features/auth/components/login-page/login-page.component.spec.ts' --watch=false --browsers=ChromeHeadlessNoSandbox (ou config karma "files")

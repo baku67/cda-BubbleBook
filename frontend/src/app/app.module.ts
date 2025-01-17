@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { LandingPageComponent } from './features/landing-page/components/landing-page/landing-page.component';
-
-import { routes } from './app.routes';  // Import the routes
 import { LoginPageComponent } from './features/auth/components/login-page/login-page.component';
 import { RegisterPageComponent } from './features/auth/components/register-page/register-page.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,7 +13,6 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldModule, MatLa
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { UserProfilComponent } from './features/profil/components/user-profil/user-profil.component';
-import { AlertBannerComponent } from './shared/ui-components/alert-banner/alert-banner.component';
 import { AuthInterceptor } from './features/auth/services/interceptors/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { FirstLoginModule } from './features/first-login/first-login.module';
@@ -23,23 +20,19 @@ import { ConfirmEmailComponent } from './features/profil/components/confirm-emai
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
 // Standalone:
 // import { FooterComponent } from './shared/ui-components/footer/footer.component';
-
 // ngxTranslate:
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 import { ThemeSwitchComponent } from "./shared/ui-components/theme-switch/theme-switch.component";
 import { NavBottomMobileComponent } from './shared/ui-components/nav-bottom-mobile/nav-bottom-mobile.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserCardComponent } from './features/profil/components/user-card/user-card.component';
 import { MatSelectCountryModule } from "@angular-material-extensions/select-country";
-import { AccountSettingsComponent } from './features/account-settings/account-settings.component';
+import { AccountSettingsComponent } from './features/profil/components/account-settings/account-settings.component';
 import { CertificateManagerPageComponent } from './features/certificates/components/certificate-manager-page/certificate-manager-page.component';
 import { CdkDrag, CdkDragPlaceholder, CdkDropList } from '@angular/cdk/drag-drop';
 import { CertificateFormComponent } from './features/certificates/components/certificate-form/certificate-form.component';
@@ -48,6 +41,7 @@ import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { BannerSelectionComponent } from './features/profil/components/banner-selection/banner-selection.component';
 
+import { routes } from './app.routes';  // Import the routes
 
 // Fonction qui crée une instance de TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {

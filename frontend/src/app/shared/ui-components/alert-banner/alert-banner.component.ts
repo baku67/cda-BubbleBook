@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -17,8 +17,6 @@ export class AlertBannerComponent {
   constructor() {}
 
   hostClass: string = '';
-
-  // ngOn
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['style']) {

@@ -6,7 +6,6 @@ import { FirstLoginService } from '../../services/first-login.service';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../../shared/services/utils/modal.service';
 import { BannerSelectionComponent } from '../../../profil/components/banner-selection/banner-selection.component';
-// import { FirstLoginUserUpdate2 } from '../../models/first-login-2.model';
 
 @Component({
   selector: 'app-first-login-2',
@@ -117,38 +116,38 @@ export class FirstLogin2Component {
     });
   }
 
-    /**
-     * Sélectionne un élément aléatoire dans un tableau.
-     * @param array Tableau d'éléments.
-     * @returns Un élément aléatoire.
-     */
-    private getRandomItem(array: string[]): string {
-      return array[Math.floor(Math.random() * array.length)];
-    }
+  /**
+   * Sélectionne un élément aléatoire dans un tableau.
+   * @param array Tableau d'éléments.
+   * @returns Un élément aléatoire.
+   */
+  private getRandomItem(array: string[]): string {
+    return array[Math.floor(Math.random() * array.length)];
+  }
 
-    /**
-     * Déplace un élément spécifique au début d'un tableau.
-     * @param array Tableau dans lequel déplacer l'élément.
-     * @param item Élément à déplacer.
-     */
-    private moveItemToTop(array: string[], item: string): string[] {
-      const index = array.indexOf(item);
-      if (index > -1) {
-        array.splice(index, 1); // Retire l'élément de sa position actuelle
-        array.unshift(item); // Ajoute l'élément au début du tableau
+  /**
+   * Déplace un élément spécifique au début d'un tableau.
+   * @param array Tableau dans lequel déplacer l'élément.
+   * @param item Élément à déplacer.
+   */
+  private moveItemToTop(array: string[], item: string): string[] {
+    const index = array.indexOf(item);
+    if (index > -1) {
+      array.splice(index, 1); // Retire l'élément de sa position actuelle
+      array.unshift(item); // Ajoute l'élément au début du tableau
+    }
+    return array;
+  }
+
+
+  openBannerSelectionModal() {
+    this.modalService.open(BannerSelectionComponent, { banners: this.banners, selectedBanner: this.selectedBanner }, (selectedBanner?: string) => {
+      if (selectedBanner) {
+        this.selectedBanner = selectedBanner;
+        this.firstLoginForm2.get('banner')?.setValue(selectedBanner);
       }
-      return array;
-    }
-
-
-    openBannerSelectionModal() {
-      this.modalService.open(BannerSelectionComponent, { banners: this.banners, selectedBanner: this.selectedBanner }, (selectedBanner?: string) => {
-        if (selectedBanner) {
-          this.selectedBanner = selectedBanner;
-          this.firstLoginForm2.get('banner')?.setValue(selectedBanner);
-        }
-      });
-    }
+    });
+  }
 
   
   /**
@@ -190,7 +189,7 @@ export class FirstLogin2Component {
           this.isLoading = false;
 
           // Redirection après la mise à jour
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/user-profil']);
         },
         error: (error) => {
           console.error('Error updating user:', error);

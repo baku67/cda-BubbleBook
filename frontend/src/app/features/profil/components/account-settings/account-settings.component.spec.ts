@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AccountSettingsComponent } from './account-settings.component';
+import { PageHeaderComponent } from '../../../../shared/ui-components/page-header/page-header.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('AccountSettingsComponent', () => {
   let component: AccountSettingsComponent;
@@ -8,7 +10,11 @@ describe('AccountSettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccountSettingsComponent]
+      declarations: [AccountSettingsComponent],
+      imports: [
+        TranslateModule.forRoot(),
+        PageHeaderComponent,
+      ]
     })
     .compileComponents();
 

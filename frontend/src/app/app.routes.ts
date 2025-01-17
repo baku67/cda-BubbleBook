@@ -6,17 +6,17 @@ import { UserProfilComponent } from './features/profil/components/user-profil/us
 import { FirstLogin1Component } from './features/first-login/components/first-login-1/first-login-1.component';
 import { FirstLogin2Component } from './features/first-login/components/first-login-2/first-login-2.component';
 import { AuthGuard } from './features/auth/services/guards/auth.guard';
-import { RedirectIfAuthenticatedGuard } from './features/auth/services/guards/redirect-if-authenticated-guard';
+import { PreventPublicAccessGuard } from './features/auth/services/guards/prevent-access-public.guard';
 import { ConfirmEmailComponent } from './features/profil/components/confirm-email/confirm-email.component';
-import { AccountSettingsComponent } from './features/account-settings/account-settings.component';
+import { AccountSettingsComponent } from './features/profil/components/account-settings/account-settings.component';
 import { CertificateManagerPageComponent } from './features/certificates/components/certificate-manager-page/certificate-manager-page.component';
 import { NotFoundPageComponent } from './shared/ui-components/not-found-page/not-found-page.component';
 
 export const routes: Routes = [
-    { path: '', component: LandingPageComponent, canActivate: [RedirectIfAuthenticatedGuard] },  // Home page
+    { path: '', component: LandingPageComponent, canActivate: [PreventPublicAccessGuard] },  // Home page
 
-    { path: 'register', component: RegisterPageComponent, canActivate: [RedirectIfAuthenticatedGuard] },  // Register
-    { path: 'login', component: LoginPageComponent, canActivate: [RedirectIfAuthenticatedGuard] },  // Login
+    { path: 'register', component: RegisterPageComponent, canActivate: [PreventPublicAccessGuard] },  // Register
+    { path: 'login', component: LoginPageComponent, canActivate: [PreventPublicAccessGuard] },  // Login
 
     // Pour empêcher un utilisateur déconnecté d'accéder à certaines pages protégées: GUARD
     { path: 'user-profil', component: UserProfilComponent, canActivate: [AuthGuard] },

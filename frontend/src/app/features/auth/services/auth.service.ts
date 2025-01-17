@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   // Connexion utilisateur
-  login(credentials: { email: string; password: string }): Observable<AuthResponse> {
+  login(credentials: { email: string; password: string; rememberMe: boolean }): Observable<AuthResponse> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<AuthResponse>(`${environment.apiUrl}/api/login`, credentials, { headers }).pipe(
       tap((response: AuthResponse) => {
