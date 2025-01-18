@@ -1,14 +1,17 @@
 <?php
 namespace App\Security;
 
+use App\Entity\User\RefreshToken;
 use App\Entity\User\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 use Lcobucci\JWT\Signer\Key;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 
 // Le LoginSuccessHandler est un handler personnalisé qui est appelé lors du succès de l'authentification via json_login. Il intervient juste après l’authentification réussie, mais avant que la réponse HTTP ne soit renvoyée au client.
@@ -33,7 +36,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         );
     }
 
-    public function onAuthenticationSuccess(Request $request, $token): JsonResponse
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token): JsonResponse
     {
         // Récupère l'utilisateur authentifié
         $user = $token->getUser();
@@ -42,6 +45,13 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
             throw new \InvalidArgumentException('Authenticated user is not an instance of User.');
         }
 
+        $refreshToken = new RefreshToken();
+        $refreshToken->setUser($user);
+        $refreshToken->setToken(bin2hex(random_bytes(32)));
+        $refreshToken->setExpiresAt((new \DateTime())->modify('+1 month'));
+        $this->entityManager->persist($refreshToken);
+        $this->entityManager->flush();
+
         // Récupère l'étape de la première connexion
         $firstLoginStep = $user->getFirstLoginStep() ?? null;
 
@@ -49,10 +59,19 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         $accessToken = $this->jwtManager->create($user);
 
         // Retourne une réponse JSON
-        return new JsonResponse([
+        $response = new JsonResponse([
             'success' => true,
             'accessToken' => $accessToken,
+            'refreshToken' => $refreshToken->getToken(),
             'firstLoginStep' => $firstLoginStep,
         ], JsonResponse::HTTP_OK);
+
+        $response->headers->setCookie(Cookie::create('refresh_token', $refreshToken->getToken())
+            ->withHttpOnly(true)
+            ->withSameSite(Cookie::SAMESITE_NONE)
+            ->withSecure(true) // En production uniquement ou en Dev avec SAMESITE_NONE
+        );
+
+        return $response;
     }
 }

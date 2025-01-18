@@ -1,11 +1,11 @@
 nelmio_cors:
     defaults:
-        allow_credentials: true
         allow_origin: ['*']  # ou domaine ou service docker Angular "http://localhost:4200"
         allow_headers: ['Content-Type', 'Authorization']
         expose_headers: ['Authorization']
         allow_methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
         max_age: 3600
+        allow_credentials: true
     paths:
         '^/api/':
             allow_origin: ['*'] # ou domaine ou service docker Angular "http://localhost:4200"
@@ -13,3 +13,4 @@ nelmio_cors:
             expose_headers: ['Authorization']
             allow_methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
             max_age: 3600
+            allow_credentials: true

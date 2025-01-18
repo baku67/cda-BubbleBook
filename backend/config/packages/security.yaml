@@ -52,6 +52,7 @@ security:
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [OPTIONS, POST] }
         - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/refresh-token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/check-email-exist, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/confirm-email, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # Toutes les autres routes API doivent être sécurisées par JWT

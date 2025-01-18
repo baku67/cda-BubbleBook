@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS, HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { AuthInterceptor } from './auth.interceptor';
+import { AuthInterceptor } from '../../../../core/interceptors/auth.interceptor';
 import { TokenService } from '../token.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';

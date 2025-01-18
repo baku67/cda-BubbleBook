@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { environment } from '../../../../environments/environments';
 import { TokenService } from './token.service';
 
@@ -31,7 +31,14 @@ export class AuthService {
   // Connexion utilisateur
   login(credentials: { email: string; password: string; rememberMe: boolean }): Observable<AuthResponse> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<AuthResponse>(`${environment.apiUrl}/api/login`, credentials, { headers }).pipe(
+    return this.http.post<AuthResponse>(
+        `${environment.apiUrl}/api/login`, 
+        credentials,
+        { 
+          headers,
+          withCredentials: true
+        }
+      ).pipe(
       tap((response: AuthResponse) => {
         this.tokenService.setAccessToken(response.accessToken);
         this.firstLoginStep = response.firstLoginStep;
@@ -63,5 +70,14 @@ export class AuthService {
   // Vérification du statut de connexion
   getFirstLoginStep(): number | null {
     return this.firstLoginStep;
+  }
+
+  refreshAccessToken(): Observable<string> {
+    return this.http.post<{ token: string }>(`${environment.apiUrl}/api/refresh-token`, {}).pipe(
+      tap((response) => {
+        this.tokenService.setAccessToken(response.token);
+      }),
+      map((response) => response.token)
+    );
   }
 }

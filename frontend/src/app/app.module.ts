@@ -13,7 +13,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldModule, MatLa
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { UserProfilComponent } from './features/profil/components/user-profil/user-profil.component';
-import { AuthInterceptor } from './features/auth/services/interceptors/auth.interceptor';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { FirstLoginStepsModule } from './features/first-login-steps/first-login-steps.module';
 import { ConfirmEmailComponent } from './features/profil/components/confirm-email/confirm-email.component';

@@ -5,8 +5,8 @@ import { LoginPageComponent } from './features/auth/components/login-page/login-
 import { UserProfilComponent } from './features/profil/components/user-profil/user-profil.component';
 import { FirstLoginStep1Component } from './features/first-login-steps/components/first-login-step1/first-login-step1.component';
 import { FirstLoginStep2Component } from './features/first-login-steps/components/first-login-step2/first-login-step2.component';
-import { AuthGuard } from './features/auth/services/guards/auth.guard';
-import { PreventPublicAccessGuard } from './features/auth/services/guards/prevent-access-public.guard';
+import { AuthGuard } from './core/guards/auth.guard';
+import { PreventPublicAccessGuard } from './core/guards/prevent-access-public.guard';
 import { ConfirmEmailComponent } from './features/profil/components/confirm-email/confirm-email.component';
 import { AccountSettingsComponent } from './features/profil/components/account-settings/account-settings.component';
 import { CertificateManagerPageComponent } from './features/certificates/components/certificate-manager-page/certificate-manager-page.component';

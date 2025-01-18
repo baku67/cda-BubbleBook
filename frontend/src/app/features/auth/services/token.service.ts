@@ -12,12 +12,12 @@ export class TokenService {
     return sessionStorage.getItem(this.ACCESS_TOKEN_KEY);
   }
 
-  // Enregistrer le JWT dans le storage
+  // Stocker le JWT dans le storage
   setAccessToken(token: string): void {
     sessionStorage.setItem(this.ACCESS_TOKEN_KEY, token);
   }
 
-  // Supprimer le JWT lors de la déconnexion
+  // Supprimer le JWT 
   clearAccessToken(): void {
     sessionStorage.removeItem(this.ACCESS_TOKEN_KEY);
   }
@@ -31,15 +31,6 @@ export class TokenService {
     return !!expirationDate && expirationDate > new Date();
   }
 
-  // Décoder le token JWT pour en extraire les informations
-  decodeToken(token: string): any {
-    try {
-      return JSON.parse(atob(token.split('.')[1]));
-    } catch {
-      return null;
-    }
-  }
-
   // Obtenir la date d'expiration du token
   private getTokenExpirationDate(token: string): Date | null {
     const decoded = this.decodeToken(token);
@@ -49,5 +40,19 @@ export class TokenService {
       return date;
     }
     return null;
+  }
+  // Décoder le token JWT pour en extraire les informations
+  private decodeToken(token: string): any {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch {
+      return null;
+    }
+  }
+
+  // Gestion du refresh token dans un cookie HTTP-only (sans accès depuis JS)
+  setRefreshTokenCookie(): void {
+    // Les refresh tokens sont directement gérés par le serveur via des cookies.
+    // Assurez-vous que votre backend envoie le refresh token avec HttpOnly.
   }
 }

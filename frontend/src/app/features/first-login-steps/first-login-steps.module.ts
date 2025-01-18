@@ -12,7 +12,7 @@ import { routes } from '../../app.routes';
 import { SharedModule } from '../../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from '../auth/services/interceptors/auth.interceptor';
+import { AuthInterceptor } from '../../core/interceptors/auth.interceptor';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // Extension Material 
 import { MatSelectCountryModule } from "@angular-material-extensions/select-country";

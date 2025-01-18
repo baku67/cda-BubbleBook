@@ -1,0 +1,9 @@
+- Packages composer et npm (faire le tri)
+- CORS allow Origins
+- RefreshToken 
+    - option "Secure" (RefreshTokenController.php et LoginSuccessHandler)
+    - option SameSite=Lax puis SameSite=Strict (si front et back meme domaine (oui))
+- .env et apiURL (se baser sur les services docker du network docker)
+- Pas de fixtures user admin admin 
+
+Backend: /jobs (CRON) par exemple CleanRefreshTokenExpired
