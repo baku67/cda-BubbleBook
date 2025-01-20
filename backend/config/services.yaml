@@ -34,6 +34,19 @@ services:
             $entityManager: '@doctrine.orm.entity_manager'
             $jwtPassphrase: '%env(JWT_PASSPHRASE)%'
 
+    # SERVICES
+    App\Service\Auth\ConfirmationTokenService:
+        public: true
+
+    App\Service\Auth\MailerService:
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $frontendBaseUrl: '%env(FRONT_LOCAL_NETWORK)%'
+
+    App\Service\Auth\ResendConfirmationMailService:
+        autowire: true
+        autoconfigure: true
 
     # Rend les contrôleurs publics et ajoute le tag `controller.service_arguments`
     App\Controller\:
@@ -41,15 +54,6 @@ services:
         public: true  # Rend les contrôleurs publics
         tags: ['controller.service_arguments']  # Tag pour injecter les dépendances automatiquement
 
-
     App\Controller\Auth\RegisterController:
         public: true
         tags: ['controller.service_arguments']
-
-    App\Service\Auth\ConfirmationTokenService:
-        public: true
-
-
-    App\Service\Auth\MailerService:
-        arguments:
-            $frontendBaseUrl: '%env(FRONT_LOCAL_NETWORK)%'

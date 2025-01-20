@@ -5,7 +5,7 @@ use App\Entity\User\User;
 use App\Service\Auth\MailConfirmationTokenService;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ResendConfirmationService
+class ResendConfirmationMailService
 {
     public function __construct(
         private MailConfirmationTokenService $mailConfirmationTokenService,

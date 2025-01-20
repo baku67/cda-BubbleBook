@@ -7,7 +7,7 @@ use App\Repository\User\UserRepository;
 use App\Service\Auth\EmailCheckExistService;
 use App\Service\Auth\EmailConfirmationService;
 use App\Service\Auth\RegistrationService;
-use App\Service\Auth\ResendConfirmationService;
+use App\Service\Auth\ResendConfirmationMailService;
 use App\Service\Auth\MailConfirmationTokenService;
 use App\Service\Auth\UsernameService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -81,7 +81,7 @@ class RegisterController extends AbstractController
 
     // Renvoi d'un lien de confirmation de mail (TODO logged in ?):
     #[Route('/api/resend-confirmation', name: 'resend_confirmation', methods: ['POST'])]
-    public function resendConfirmationEmail(Request $request, ResendConfirmationService $resendConfirmationService): JsonResponse
+    public function resendConfirmationEmail(Request $request, ResendConfirmationMailService $resendConfirmationMailService): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $email = $data['email'] ?? null;
@@ -92,7 +92,7 @@ class RegisterController extends AbstractController
         }
     
         try {
-            $resendConfirmationService->resend($user);
+            $resendConfirmationMailService->resend($user);
             return new JsonResponse(['status' => 'Confirmation email sent'], Response::HTTP_OK);
         } catch (\InvalidArgumentException $e) {
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
