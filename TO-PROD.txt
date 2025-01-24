@@ -1,8 +1,9 @@
 - Packages composer et npm (faire le tri)
 - CORS allow Origins
-- RefreshToken 
+- RefreshToken (re vérifier)
     - option "Secure" (RefreshTokenController.php et LoginSuccessHandler)
     - option SameSite=Lax puis SameSite=Strict (si front et back meme domaine (oui))
+    - HTTPS localhost (pour autoriser le Set-Cookie avec Secure) mis en place avec backend/default-ssl.conf et backend/apache.conf et génération des fichiers localhost.pem dans le backend/Dockerfile
 - .env et apiURL (se baser sur les services docker du network docker)
 - Pas de fixtures user admin admin 
 

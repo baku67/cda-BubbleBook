@@ -10,6 +10,13 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_pgsql \
     && rm -rf /var/lib/apt/lists/*
 
+# Génération des clés localhost-cert.pem et localhost-key.pem pour HTTPS en local (pour "withSecure" Cookie RefreshToken)
+RUN apt-get update && apt-get install -y openssl
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /etc/ssl/private/localhost-key.pem \
+    -out /etc/ssl/certs/localhost-cert.pem \
+    -subj "/CN=localhost"
+
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -28,8 +35,15 @@ RUN composer install --optimize-autoloader
 # Copier le reste des fichiers de l'application
 COPY . .
 
-# Fix "Forbidden 403"
+# FIX "Forbidden 403"
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
+# FIX pour HTTPS en localhost (pour le cookie de RefreshToken)
+COPY default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
+# COPY localhost-cert.pem /etc/ssl/certs/
+# COPY localhost-key.pem /etc/ssl/private/
+
+RUN a2enmod ssl
+RUN a2ensite default-ssl
 RUN a2enmod rewrite
 
 

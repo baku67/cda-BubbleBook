@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environments';
 import { TokenService } from './token.service';
 
@@ -78,6 +78,17 @@ export class AuthService {
         this.tokenService.setAccessToken(response.token);
       }),
       map((response) => response.token)
+    );
+  }
+
+  initializeAuth(): Observable<boolean> {
+    return this.refreshAccessToken().pipe(
+      map(() => true), // Si le token est rafraîchi, l'utilisateur est authentifié
+      catchError(() => {
+        // Si le rafraîchissement échoue, déconnectez l'utilisateur
+        this.tokenService.clearAccessToken(); // Supprimez les données utilisateur si nécessaire
+        return of(false); // Retournez false pour indiquer un échec d'authentification
+      })
     );
   }
 }

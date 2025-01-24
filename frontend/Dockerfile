@@ -27,4 +27,4 @@ COPY . .
 EXPOSE 4200
 
 # Commande pour démarrer l'application
-CMD ["npx", "ng", "serve", "--host", "0.0.0.0", "--poll", "2000"]
+CMD ["npx", "ng", "serve", "--host", "0.0.0.0", "--poll", "2000", "--ssl", "true", "--ssl-key", "/app/certs/private/localhost-key.pem", "--ssl-cert", "/app/certs/certs/localhost-cert.pem"]

@@ -52,6 +52,17 @@ export class AppComponent implements OnInit {
     this.authService.isLoggedIn$.subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
     });
+
+    // Initialisez l'authentification lors du chargement de l'application
+    this.authService.initializeAuth().subscribe((isAuthenticated) => {
+      if (!isAuthenticated) {
+        console.log('Utilisateur non authentifié');
+        // Redirigez vers la page de connexion si nécessaire
+      } else {
+        console.log('Utilisateur authentifié');
+        // Chargez les données de l'utilisateur ou d'autres ressources
+      }
+    });
   }
 
 }

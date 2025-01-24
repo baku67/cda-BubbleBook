@@ -42,9 +42,14 @@ class RefreshTokenController
         // Configurer le cookie du refresh token
         $response = new JsonResponse(['token' => $newJwt]);
         $response->headers->setCookie(Cookie::create('refresh_token', $refreshToken->getToken())
+            ->withValue($refreshToken->getToken())
+            ->withSecure(true) // Nécessite HTTPS
             ->withHttpOnly(true)
-            ->withSameSite(Cookie::SAMESITE_NONE)
-            ->withSecure(true) // En production uniquement ou en Dev avec SAMESITE_NONE
+            ->withSameSite('Strict') // ou 'Lax'
+            ->withPath('/')
+            // ->withHttpOnly(true)
+            // ->withSameSite(Cookie::SAMESITE_NONE)
+            // ->withSecure(true) // En production uniquement ou en Dev avec SAMESITE_NONE
         );
 
         return $response;
