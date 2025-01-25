@@ -48,21 +48,21 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    // S'abonner à l'observable pour suivre l'état de connexion
+    // S'abonner à l'état de connexion
     this.authService.isLoggedIn$.subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
     });
-
-    // Initialisez l'authentification lors du chargement de l'application
+  
+    // Initialiser l'authentification
     this.authService.initializeAuth().subscribe((isAuthenticated) => {
       if (!isAuthenticated) {
-        console.log('Utilisateur non authentifié');
-        // Redirigez vers la page de connexion si nécessaire
+        console.log('Redirection vers la page de connexion...');
+        this.router.navigate(['/login']);
       } else {
-        console.log('Utilisateur authentifié');
-        // Chargez les données de l'utilisateur ou d'autres ressources
+        console.log('Chargement des données utilisateur...');
+        // Chargez les données nécessaires pour l'utilisateur
+        this.router.navigate(['/user-profil']);
       }
     });
   }
-
 }

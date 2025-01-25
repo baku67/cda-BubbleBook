@@ -23,8 +23,8 @@ class RefreshTokenController
     #[Route('/api/refresh-token', name: 'api_refresh_token', methods: ['POST'])]
     public function refreshToken(Request $request): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
-        $refreshTokenValue = $data['refresh_token'] ?? null;
+        // Récupération du refresh token depuis les cookies
+        $refreshTokenValue = $request->cookies->get('refresh_token');
 
         if (!$refreshTokenValue) {
             return new JsonResponse(['error' => 'Refresh token is required'], 400);
@@ -47,6 +47,7 @@ class RefreshTokenController
             ->withHttpOnly(true)
             ->withSameSite('Strict') // ou 'Lax'
             ->withPath('/')
+            ->withExpires(new \DateTime('+7 days')) // Durée de vie (ici 7 jours)
             // ->withHttpOnly(true)
             // ->withSameSite(Cookie::SAMESITE_NONE)
             // ->withSecure(true) // En production uniquement ou en Dev avec SAMESITE_NONE

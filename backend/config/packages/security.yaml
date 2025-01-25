@@ -38,10 +38,15 @@ security:
             jwt: ~  # Utilisation de JWT pour l'authentification
             provider: app_user_provider
 
+        refresh-token:
+            pattern: ^/api/refresh-token
+            stateless: true
+            security: false
+
         # le reste:
         api:
             # pattern: ^/api/
-            pattern: ^/api/(?!check-email-exist|confirm-email|certificates)  # Exclure du firewall JWT
+            pattern: ^/api/(?!check-email-exist|confirm-email|certificates|refresh-token)  # Exclure du firewall JWT
             stateless: true
             jwt: ~  # Utilisation de JWT pour l'authentification
             provider: app_user_provider

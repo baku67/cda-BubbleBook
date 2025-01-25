@@ -72,6 +72,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
             ->withHttpOnly(true)
             ->withSameSite('Strict') // ou 'Lax'
             ->withPath('/')
+            ->withExpires(new \DateTime('+7 days')) // Durée de vie (ici 7 jours)
             // ->withHttpOnly(true)
             // ->withSameSite(Cookie::SAMESITE_NONE)
             // ->withSecure(true) // En production uniquement ou en Dev avec SAMESITE_NONE

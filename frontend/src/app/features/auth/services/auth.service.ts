@@ -73,7 +73,7 @@ export class AuthService {
   }
 
   refreshAccessToken(): Observable<string> {
-    return this.http.post<{ token: string }>(`${environment.apiUrl}/api/refresh-token`, {}).pipe(
+    return this.http.post<{ token: string }>(`${environment.apiUrl}/api/refresh-token`, {}, { withCredentials: true }).pipe(
       tap((response) => {
         this.tokenService.setAccessToken(response.token);
       }),
@@ -83,11 +83,15 @@ export class AuthService {
 
   initializeAuth(): Observable<boolean> {
     return this.refreshAccessToken().pipe(
-      map(() => true), // Si le token est rafraîchi, l'utilisateur est authentifié
+      tap(() => {
+        console.log('Token rafraîchi avec succès');
+      }),
+      map(() => true), // Utilisateur authentifié
       catchError(() => {
-        // Si le rafraîchissement échoue, déconnectez l'utilisateur
-        this.tokenService.clearAccessToken(); // Supprimez les données utilisateur si nécessaire
-        return of(false); // Retournez false pour indiquer un échec d'authentification
+        console.log('Échec du rafraîchissement du token');
+        this.tokenService.clearAccessToken(); // Supprimer les données si nécessaire
+        this.loggedIn$.next(false);
+        return of(false); // Échec de l'authentification
       })
     );
   }
