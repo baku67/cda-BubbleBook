@@ -12,6 +12,7 @@
 
 .section-top {
     position: relative;
+    overflow: hidden;
     width: 100%; 
     height: 90px;
     border-top-right-radius: 10px;
@@ -27,6 +28,10 @@
     object-fit: cover;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+}
+.widthInherit {
+    width: inherit;
+    height: -webkit-fill-available;
 }
 
 .float-editBtn {
@@ -99,6 +104,7 @@
 }
 
 .section-bottom-line-right {
+    position: relative;
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
@@ -114,6 +120,13 @@
 .dive-label {
     opacity: 0.7;
     font-size: 90%;
+}
+
+.nbrDivesLabelSkeletonFix {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 

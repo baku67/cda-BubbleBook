@@ -40,6 +40,7 @@ import { ModalComponent } from './shared/ui-components/modal/modal.component';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { BannerSelectionComponent } from './features/profil/components/banner-selection/banner-selection.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 import { routes } from './app.routes';  // Import the routes
 import { AuthService } from './features/auth/services/auth.service';
@@ -109,6 +110,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CdkDragPlaceholder,
     ModalComponent,
     MatSelectModule,
+    NgxSkeletonLoaderModule,
 ],
   providers: [
     { 
