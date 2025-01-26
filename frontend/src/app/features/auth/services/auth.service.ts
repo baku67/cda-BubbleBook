@@ -49,9 +49,19 @@ export class AuthService {
 
   // Déconnexion
   logout(): void {
-    this.tokenService.clearAccessToken();
-    this.loggedIn$.next(false);
-    this.router.navigate(['/login']); // Redirige vers la page de login
+    this.http.post(`${environment.apiUrl}/api/logout`, {}, { withCredentials: true }).subscribe({
+      next: () => {
+        // Nettoyer les tokens et mettre à jour l'état de l'application
+        this.tokenService.clearAccessToken();
+        this.loggedIn$.next(false);
+        this.router.navigate(['/login']); // Redirige vers la page de login
+      },
+      error: (error) => {
+        console.warn('Erreur lors de la déconnexion, nettoyage local des tokens.');
+        this.tokenService.clearAccessToken();
+        this.loggedIn$.next(false);
+        this.router.navigate(['/login']);      }
+    });
   }
 
   // Inscription
@@ -76,9 +86,14 @@ export class AuthService {
     return this.http.post<{ token: string }>(`${environment.apiUrl}/api/refresh-token`, {}, { withCredentials: true }).pipe(
       tap((response) => {
         this.tokenService.setAccessToken(response.token);
+        this.loggedIn$.next(true);
       }),
       map((response) => response.token)
     );
+  }
+
+  initializeAuthSync(): Promise<boolean> {
+    return this.initializeAuth().toPromise().then(result => result ?? false);
   }
 
   initializeAuth(): Observable<boolean> {

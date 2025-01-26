@@ -48,10 +48,32 @@ class RefreshTokenController
             ->withSameSite('Strict') // ou 'Lax'
             ->withPath('/')
             ->withExpires(new \DateTime('+7 days')) // Durée de vie (ici 7 jours)
-            // ->withHttpOnly(true)
-            // ->withSameSite(Cookie::SAMESITE_NONE)
-            // ->withSecure(true) // En production uniquement ou en Dev avec SAMESITE_NONE
         );
+
+        return $response;
+    }
+
+
+    #[Route('/api/logout', name: 'api_logout', methods: ['POST'])]
+    public function logout(Request $request): JsonResponse
+    {
+        // 1. Récupérer le token depuis le cookie
+        $refreshTokenValue = $request->cookies->get('refresh_token');
+
+        if ($refreshTokenValue) {
+            // 2. Rechercher le token en base
+            $refreshToken = $this->entityManager->getRepository(RefreshToken::class)->findOneBy(['token' => $refreshTokenValue]);
+
+            if ($refreshToken) {
+                // 3. Supprimer le token de la base
+                $this->entityManager->remove($refreshToken);
+                $this->entityManager->flush();
+            }
+        }
+
+        // 4. Supprimer le cookie dans la réponse
+        $response = new JsonResponse(['message' => 'Logged out successfully']);
+        $response->headers->clearCookie('refresh_token', '/', '', true, true);
 
         return $response;
     }

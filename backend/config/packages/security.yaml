@@ -43,10 +43,15 @@ security:
             stateless: true
             security: false
 
+        logout:
+            pattern: ^/api/logout
+            stateless: true
+            security: false
+
         # le reste:
         api:
             # pattern: ^/api/
-            pattern: ^/api/(?!check-email-exist|confirm-email|certificates|refresh-token)  # Exclure du firewall JWT
+            pattern: ^/api/(?!check-email-exist|confirm-email|certificates|refresh-token|logout)  # Exclure du firewall JWT
             stateless: true
             jwt: ~  # Utilisation de JWT pour l'authentification
             provider: app_user_provider
@@ -58,6 +63,7 @@ security:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [OPTIONS, POST] }
         - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/refresh-token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/logout, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [POST] }
         - { path: ^/api/check-email-exist, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/confirm-email, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # Toutes les autres routes API doivent être sécurisées par JWT

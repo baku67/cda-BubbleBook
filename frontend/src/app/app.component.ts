@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
     this.authService.initializeAuth().subscribe((isAuthenticated) => {
       if (!isAuthenticated) {
         console.log('Redirection vers la page de connexion...');
-        this.router.navigate(['/login']);
+        // this.router.navigate(['/login']);
       } else {
         console.log('Chargement des données utilisateur...');
         // Chargez les données nécessaires pour l'utilisateur

@@ -1,0 +1,2 @@
+Il faut etre en https ET ne pas utiliser "localhost" mais l'ip de la machine hôte (ipconfig sur ordi de dev)
+car container "reverse-proxy" 443:443 (et apache.conf et autre.conf)

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
@@ -42,6 +42,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { BannerSelectionComponent } from './features/profil/components/banner-selection/banner-selection.component';
 
 import { routes } from './app.routes';  // Import the routes
+import { AuthService } from './features/auth/services/auth.service';
+
+export function initializeAuthFactory(authService: AuthService) {
+  return () => authService.initializeAuthSync();
+}
 
 // Fonction qui crée une instance de TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -114,6 +119,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true  // Ajout de l'Interceptor
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeAuthFactory,
+      deps: [AuthService],
+      multi: true,
     },
     MatDatepickerModule,
   ],
