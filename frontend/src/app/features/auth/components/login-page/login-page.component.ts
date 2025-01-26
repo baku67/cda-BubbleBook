@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { AnimationService } from '../../../../shared/services/utils/animation.service';
 
 
 @Component({
@@ -16,11 +17,18 @@ export class LoginPageComponent implements OnInit{
   errorMessage: string | null = null;
   hidePassword = true;
 
+  isAnimatingFadeOut = false;
+
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder, 
     private router: Router,
-  ) {}
+    private animationService: AnimationService,
+  ) {
+    this.animationService.isAnimating$.subscribe((animating) => {
+      this.isAnimatingFadeOut = animating;
+    });
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

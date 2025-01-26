@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { passwordComplexityValidator } from '../../../../shared/validators/passwordComplexityValidator';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { AnimationService } from '../../../../shared/services/utils/animation.service';
 
 
 @Component({
@@ -24,14 +25,20 @@ export class RegisterPageComponent implements OnInit{
   hidePassword2 = true;
   passwordComplexityScore = 0;
 
+  isAnimatingFadeOut = false;
+
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder, 
     private emailCheckService: EmailCheckService,
     private translateService: TranslateService,
     private router: Router,
+    private animationService: AnimationService,
   ) {
     this.isLoading = false;
+    this.animationService.isAnimating$.subscribe((animating) => {
+      this.isAnimatingFadeOut = animating;
+    });
   }
 
   ngOnInit() {

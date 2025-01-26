@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirstLoginStepsService } from '../../services/first-login-steps.service';
 import { Router } from '@angular/router';
+import { AnimationService } from '../../../../shared/services/utils/animation.service';
 
 
 @Component({
@@ -14,12 +15,18 @@ export class FirstLoginStep1Component implements OnInit {
   firstLoginForm!: FormGroup;
   isLoading: boolean;
 
+  isAnimatingFadeOut = false;
+
   constructor(
     private formBuilder: FormBuilder, 
     private firstLoginService: FirstLoginStepsService,
     private router: Router,
+    private animationService: AnimationService,
   ) {
     this.isLoading = false;
+    this.animationService.isAnimating$.subscribe((animating) => {
+      this.isAnimatingFadeOut = animating;
+    });
   }
 
   ngOnInit(): void {

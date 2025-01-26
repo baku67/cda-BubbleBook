@@ -1,7 +1,7 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 
-<div class="pageContent">
+<div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
 
     <div *ngIf="!isLoading" class="card">
 

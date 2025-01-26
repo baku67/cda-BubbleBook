@@ -6,6 +6,7 @@ import { FirstLoginStepsService } from '../../services/first-login-steps.service
 import { Router } from '@angular/router';
 import { ModalService } from '../../../../shared/services/utils/modal.service';
 import { BannerSelectionComponent } from '../../../profil/components/banner-selection/banner-selection.component';
+import { AnimationService } from '../../../../shared/services/utils/animation.service';
 
 @Component({
   selector: 'app-first-login-step2',
@@ -17,6 +18,8 @@ export class FirstLoginStep2Component {
   firstLoginForm2!: FormGroup;
   isLoading: boolean = true;
   userObtained:any;
+
+  isAnimatingFadeOut = false;
 
   avatars: string[] = [
     'assets/images/default/avatars/profil-picture-default-1.webp',
@@ -64,7 +67,11 @@ export class FirstLoginStep2Component {
     private firstLoginService: FirstLoginStepsService,
     private router: Router,
     private modalService: ModalService,
+    private animationService: AnimationService,
   ) {
+    this.animationService.isAnimating$.subscribe((animating) => {
+      this.isAnimatingFadeOut = animating;
+    });
   }
 
   ngOnInit(): void {

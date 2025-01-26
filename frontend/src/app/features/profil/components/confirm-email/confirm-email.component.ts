@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environments';
+import { AnimationService } from '../../../../shared/services/utils/animation.service';
 
 @Component({
   selector: 'app-confirm-email',
@@ -14,11 +15,18 @@ export class ConfirmEmailComponent implements OnInit {
   confirmSuccess = false;
   emailAddress = "";
 
+  isAnimatingFadeOut = false;
+
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router,
-  ) {}
+    private animationService: AnimationService,
+  ) {
+    this.animationService.isAnimating$.subscribe((animating) => {
+      this.isAnimatingFadeOut = animating;
+    });
+  }
 
   ngOnInit(): void {
     // Récupérer le token depuis l'URL

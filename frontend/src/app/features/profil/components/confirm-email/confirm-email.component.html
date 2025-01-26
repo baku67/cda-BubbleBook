@@ -1,5 +1,5 @@
 
-<div class="pageContent">
+<div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
 
     <app-page-header *ngIf="isLoading" [title]="('CONFIRMING_EMAIL_ADDRESS' | translate)" matIcon="alternate_email" />
 

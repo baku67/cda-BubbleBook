@@ -11,21 +11,22 @@ import { ConfirmEmailComponent } from './features/profil/components/confirm-emai
 import { AccountSettingsComponent } from './features/profil/components/account-settings/account-settings.component';
 import { CertificateManagerPageComponent } from './features/certificates/components/certificate-manager-page/certificate-manager-page.component';
 import { NotFoundPageComponent } from './shared/ui-components/not-found-page/not-found-page.component';
+import { FadeOutGuard } from './core/guards/fade-out.guard';
 
 export const routes: Routes = [
-    { path: '', component: LandingPageComponent, canActivate: [PreventPublicAccessGuard] },  // Home page
+    { path: '', component: LandingPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Home page
 
-    { path: 'register', component: RegisterPageComponent, canActivate: [PreventPublicAccessGuard] },  // Register
-    { path: 'login', component: LoginPageComponent, canActivate: [PreventPublicAccessGuard] },  // Login
+    { path: 'register', component: RegisterPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Register
+    { path: 'login', component: LoginPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Login
 
     // Pour empêcher un utilisateur déconnecté d'accéder à certaines pages protégées: GUARD
-    { path: 'user-profil', component: UserProfilComponent, canActivate: [AuthGuard] },
-    { path: 'account-settings', component: AccountSettingsComponent, canActivate: [AuthGuard] },
+    { path: 'user-profil', component: UserProfilComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
+    { path: 'account-settings', component: AccountSettingsComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
 
-    { path: 'first-login/step-one', component: FirstLoginStep1Component, canActivate: [AuthGuard] },
-    { path: 'first-login/step-two', component: FirstLoginStep2Component, canActivate: [AuthGuard] },
+    { path: 'first-login/step-one', component: FirstLoginStep1Component, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
+    { path: 'first-login/step-two', component: FirstLoginStep2Component, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
 
-    { path: 'certificates', component: CertificateManagerPageComponent, canActivate: [AuthGuard] },
+    { path: 'certificates', component: CertificateManagerPageComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
 
     // Confirmation mail:
     { path: 'confirm-email', component: ConfirmEmailComponent },

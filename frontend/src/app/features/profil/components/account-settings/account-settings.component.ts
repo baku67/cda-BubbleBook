@@ -3,6 +3,7 @@ import { UserProfil } from '../../models/userProfile.model';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
+import { AnimationService } from '../../../../shared/services/utils/animation.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -18,11 +19,18 @@ export class AccountSettingsComponent {
     emailConfirmResent = false;
     emailConfirmResentLoading = false;
 
+    isAnimatingFadeOut = false;
+
     constructor(
       private userService: UserService, 
       private authService: AuthService,
       private router: Router,
-    ) {}
+      private animationService: AnimationService
+    ) {
+      this.animationService.isAnimating$.subscribe((animating) => {
+        this.isAnimatingFadeOut = animating;
+      });
+    }
 
     ngOnInit(): void { 
       this.userService.getCurrentUser().subscribe({ 

@@ -5,6 +5,7 @@ import { CdkDragDrop,moveItemInArray } from '@angular/cdk/drag-drop';
 import { UserCertificate } from '../../models/userCertificate.model';
 import { ModalService } from '../../../../shared/services/utils/modal.service';
 import { CertificateFormComponent } from '../certificate-form/certificate-form.component';
+import { AnimationService } from '../../../../shared/services/utils/animation.service';
 
 @Component({
   selector: 'app-certificate-manager-page',
@@ -21,12 +22,18 @@ export class CertificateManagerPageComponent implements OnInit{
   isDeleting: { [id: number]: boolean } = {};
   isEditMode: boolean = false;
 
+  isAnimatingFadeOut = false;
+
   constructor(
     private certificateService: CertificateService,
     private modalService: ModalService,
+    private animationService: AnimationService,
   ) {
     this.isAllCertifsLoading = true;
     this.isUserCertifsLoading = true;
+    this.animationService.isAnimating$.subscribe((animating) => {
+      this.isAnimatingFadeOut = animating;
+    });
   }
 
   ngOnInit(): void {
