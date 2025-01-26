@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './features/auth/services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { delay } from 'rxjs';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { Router, NavigationEnd } from '@angular/router';
 export class AppComponent implements OnInit {
 
   title = 'BubbleBook';
+  isInitializing = true;
   isLoggedIn = false;
 
   // Conditions d'affichage : Pour spécifier quels routes sans PageHeaderComponent ou/et FooterComponent etc...
@@ -54,12 +56,15 @@ export class AppComponent implements OnInit {
     });
   
     // Initialiser l'authentification
-    this.authService.initializeAuth().subscribe((isAuthenticated) => {
+    this.authService.initializeAuth().pipe(
+      delay(700) // Délai minimum (friction positive pour l'écrande chargement)
+    ).subscribe((isAuthenticated) => {
+      this.isInitializing = false;
       if (!isAuthenticated) {
-        console.log('Redirection vers la page de connexion...');
+        console.log('InitialzeAuth(): echec');
         // this.router.navigate(['/login']);
       } else {
-        console.log('Chargement des données utilisateur...');
+        console.log('InitialzeAuth(): reussi, chargement des données utilisateur...');
         // Chargez les données nécessaires pour l'utilisateur
         this.router.navigate(['/user-profil']);
       }

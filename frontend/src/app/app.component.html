@@ -1,5 +1,5 @@
 <!-- Container global app -->
-<main class="globalMain">
+<main *ngIf="!isInitializing; else loading" class="globalMain">
 
   <!-- TODO MatMenu en haut à droite pour les pages hors-co (landingPage, Login, Register, ect) -->
   <div *ngIf="showUxButtons" class="app-div-settings" style="display: inline-flex; flex-direction: column;">
@@ -17,6 +17,23 @@
   <app-footer *ngIf="showFooter" />
 
 </main>
+
+
+<!-- APP_INITIALIZER: initializeAuth() (appModule) -->
+<ng-template #loading>
+
+  <div class="loading-screen">
+
+    <div class="loading-screen-content">
+      <h1 class="loading-screen-title">Bubblebook</h1>
+      <div class="spinner-container">
+        <mat-spinner></mat-spinner>
+      </div>
+    </div>
+    
+  </div>
+
+</ng-template>
 
 
 

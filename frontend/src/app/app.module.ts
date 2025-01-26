@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UserProfilComponent } from './features/profil/components/user-profil/user-profil.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
@@ -86,7 +86,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatProgressSpinner,
+    MatProgressSpinnerModule,
     MatIconModule,
     MatSlideToggleModule,
     MatTooltipModule,
