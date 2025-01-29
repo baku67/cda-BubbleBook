@@ -6,6 +6,12 @@
 }
 
 
+ngx-skeleton-loader  {
+  ::ng-deep .skeleton-loader {
+    margin-bottom: 0;
+  }
+}
+
 
 // CDK drag-drop "custom placeholder"::after.example-list {
 .example-list {
