@@ -73,6 +73,20 @@ body.dark-theme .border {
     border-color: map-get(map-get($myapp-dark-theme, bg-color), border);
 }
 
+body.light-theme ngx-skeleton-loader .skeleton-loader.progress {
+    background-color: #98f3ff;
+    &::before { // Pusle 
+        background-image: linear-gradient(90deg, #fff0, #e2e2e2cf, #fff0);
+    }
+}
+body.dark-theme ngx-skeleton-loader .skeleton-loader.progress {
+    background-color: #16c0ce !important;
+    &::before { // Pusle 
+        // background-image: linear-gradient(90deg, #fff0, #fff9, #fff0);
+    }
+}
+
+
 
 * {
     margin: 0;
@@ -164,6 +178,7 @@ h1, h2, h3 {
 
     section {
         width: 100%;
+        max-width: 500px;
     }
 
     opacity: 0;

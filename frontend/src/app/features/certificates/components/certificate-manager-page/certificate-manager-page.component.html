@@ -3,9 +3,10 @@
     <app-page-header [title]='("CERTIFICATES" | translate)' matIcon="account_circle" />
 
 
-    <section>
+    <section *ngIf="!isAllCertifsLoading && !isUserCertifsLoading">
 
         <div>
+            <!-- spinner: pas de skeleton -->
             <!-- Liste Matrerial avec drag and drop order (ou que quand edit toggled) -->
             <div cdkDropList class="example-list surface" (cdkDropListDropped)="drop($event)">
 
@@ -73,101 +74,13 @@
                     </div>
                     </div>
                 </div>
-
-                <!-- skeleton certificats -->
-                <!-- Itération sur les certificats -->
-                <div *ngIf="!isAllCertifsLoading && !isUserCertifsLoading">
-                    <div 
-                        class="example-box" 
-                    >
-                        <div class="content">
-                            <mat-icon class="main-certif-icon">workspace_premium</mat-icon>
-                            <div class="certif-header">
-                                <ngx-skeleton-loader
-                                    [theme]="{
-                                    width: '40px',
-                                    'border-radius': '5px',
-                                    height: '15px',
-                                    }"
-                                ></ngx-skeleton-loader>
-                                <ngx-skeleton-loader
-                                    [theme]="{
-                                    width: '60px',
-                                    'border-radius': '5px',
-                                    height: '12px',
-                                    }"
-                                ></ngx-skeleton-loader>
-                            </div>
-                        </div>
-
-                        <div class="certif-infos">
-                            <ngx-skeleton-loader
-                                [theme]="{
-                                width: '45px',
-                                'border-radius': '5px',
-                                height: '10px',
-                                }"
-                            ></ngx-skeleton-loader>
-                            <ngx-skeleton-loader
-                                [theme]="{
-                                width: '35px',
-                                'border-radius': '5px',
-                                height: '10px',
-                                }"
-                            ></ngx-skeleton-loader>
-                        </div>
-                    
-                    </div>
-                    <div 
-                        class="example-box" 
-                    >
-                        <div class="content">
-                            <div class="certif-header">
-                                <ngx-skeleton-loader
-                                    [theme]="{
-                                    width: '40px',
-                                    'border-radius': '5px',
-                                    height: '15px',
-                                    }"
-                                ></ngx-skeleton-loader>
-                                <ngx-skeleton-loader
-                                    [theme]="{
-                                    width: '60px',
-                                    'border-radius': '5px',
-                                    height: '12px',
-                                    }"
-                                ></ngx-skeleton-loader>
-                            </div>
-                        </div>
-
-                        <div class="certif-infos">
-                            <ngx-skeleton-loader
-                                [theme]="{
-                                width: '45px',
-                                'border-radius': '5px',
-                                height: '10px',
-                                }"
-                            ></ngx-skeleton-loader>
-                            <ngx-skeleton-loader
-                                [theme]="{
-                                width: '35px',
-                                'border-radius': '5px',
-                                height: '10px',
-                                }"
-                            ></ngx-skeleton-loader>
-                        </div>
-                    
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- <app-back-button></app-back-button> -->
-
     <!-- Loader/Spinner page -->
-    <!-- <div class="spinner-container" *ngIf="isAllCertifsLoading && isUserCertifsLoading">
+    <div class="spinner-container" *ngIf="isAllCertifsLoading || isUserCertifsLoading">
         <mat-spinner></mat-spinner>
-    </div> -->
+    </div>
 
 </div>

@@ -1,4 +1,4 @@
-
+<!-- INITIALIZED card -->
 <div class="surface matSubMenu inner-container border" *ngIf="user">
 
     <div class="section-top">
@@ -40,20 +40,17 @@
 
 </div>
 
-
-
-
-
+<!-- SKELETON card -->
 <div class="surface matSubMenu inner-container border" *ngIf="!user">
 
     <div class="section-top">
         <ngx-skeleton-loader
             class="widthInherit"
             [theme]="{
-            width: '100%',
-            'border-radius': '0',
-            height: '-webkit-fill-available',
-            'margin-bottom': '0px',
+                width: '100%',
+                'border-radius': '0',
+                height: '-webkit-fill-available',
+                'margin-bottom': '0px',
             }"
         ></ngx-skeleton-loader>
     </div>
