@@ -5,6 +5,7 @@ export interface UserProfil {
     nationality: string,
     avatarUrl: string,
     bannerUrl: string,
+    initialDivesCount: number,
     isVerified: boolean;
     is2fa: boolean;
 }

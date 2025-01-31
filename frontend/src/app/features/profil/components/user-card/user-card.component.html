@@ -1,5 +1,5 @@
 <!-- INITIALIZED card -->
-<div class="surface matSubMenu inner-container border" *ngIf="user">
+<div class="surface surface-overflow-hidden matSubMenu inner-container border" *ngIf="user">
 
     <div class="section-top">
         <img [src]="user.bannerUrl" alt="user banner" />
@@ -26,7 +26,7 @@
                 >
             </div>
             <div class="section-bottom-line-right">
-                <span class="dive-value">206</span>
+                <span class="dive-value">{{ user.initialDivesCount }}</span>
                 <span class="dive-label">{{ "DIVES" | translate }}</span>
             </div>
         </div>
@@ -41,7 +41,7 @@
 </div>
 
 <!-- SKELETON card -->
-<div class="surface matSubMenu inner-container border" *ngIf="!user">
+<div class="surface surface-overflow-hidden matSubMenu inner-container border" *ngIf="!user">
 
     <div class="section-top">
         <ngx-skeleton-loader

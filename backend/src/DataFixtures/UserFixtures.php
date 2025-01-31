@@ -31,6 +31,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user0->setPassword($this->passwordHasher->hashPassword($user0, "admin"));
         $user0->setVerified(true);
         $user0->setAccountType("option-diver");
+        $user0->setInitialDivesCount(41);
         $user0->set2fa(false);
         $user0->setNationality("FRA");
         $user0->setAvatarUrl($this->getRandomEnumValue(Avatar::class));
@@ -49,6 +50,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user1->setPassword($this->passwordHasher->hashPassword($user1, "user1"));
         $user1->setVerified(false);
         $user1->setAccountType("option-diver");
+        $user1->setInitialDivesCount(null);
         $user1->set2fa(is2fa: false);
         $user1->setNationality("DZA");
         $user1->setAvatarUrl($this->getRandomEnumValue(Avatar::class));
@@ -66,6 +68,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user2->setPassword($this->passwordHasher->hashPassword($user2, "user2"));
         $user2->setVerified(false);
         $user2->setAccountType("option-club");
+        $user2->setInitialDivesCount(43);
         $user2->set2fa(is2fa: false);
         $user2->setNationality(null);
         $user2->setAvatarUrl($this->getRandomEnumValue(Avatar::class));

@@ -69,6 +69,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $first_login_step = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $initial_dives_count = null;
 
 
 
@@ -314,6 +316,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstLoginStep(?int $first_login_step): static
     {
         $this->first_login_step = $first_login_step;
+
+        return $this;
+    }
+
+    public function getInitialDivesCount(): ?int
+    {
+        return $this->initial_dives_count;
+    }
+
+    public function setInitialDivesCount(?int $initial_dives_count): static
+    {
+        $this->initial_dives_count = $initial_dives_count;
 
         return $this;
     }

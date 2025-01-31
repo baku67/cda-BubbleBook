@@ -37,4 +37,7 @@ class FirstLogin2DTO
         message: "The selected banner is not valid."
     )]
     public ?string $banner = "";
+
+    // Nombre de plongés initiales nullable 
+    public ?int $initialDivesCount;
 }

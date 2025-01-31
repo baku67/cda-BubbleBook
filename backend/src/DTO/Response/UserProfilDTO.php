@@ -12,6 +12,7 @@ class UserProfilDTO
         public ?string $avatarUrl,
         public ?string $bannerUrl,
         public bool $isVerified,
-        public bool $is2fa
+        public bool $is2fa,
+        public ?int $initialDivesCount,
     ) {}
 }

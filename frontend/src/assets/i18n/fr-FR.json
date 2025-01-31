@@ -16,6 +16,7 @@
     "EMAIL_ADDRESS_CHECKING": "Vérification de la disponibilité de l'email...",
     "EMAIL_ADDRESS_AVAILABLE": "Adresse email disponible",
     "USERNAME_LABEL": "Nom d'utilisateur:",
+    "INITIAL_DIVES_COUNT_LABEL": "Nombre de plongés initial",
     "USERNAME_REQUIRED": "Nom d'utilisateur obligatoire",
     "USERNAME_MINLENGTH" : "Le nom d'utilisateur doit faire au minimum 3 caractères",
     "USERNAME_MAXLENGTH" : "Le nom d'utilisateur ne doit pas dépasser 30 caractères",

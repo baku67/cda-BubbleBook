@@ -16,7 +16,8 @@ class UserProfileService
             $user->getAvatarUrl(),
             $user->getBannerUrl(),
             $user->isVerified(),
-            $user->is2fa()
+            $user->is2fa(),
+            $user->getInitialDivesCount()
         );
     }
 }

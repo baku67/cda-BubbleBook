@@ -59,6 +59,7 @@ class RegistrationService
         $user->set2fa($data['is2fa'] ?? false);
         $user->setVerified(false);
         $user->setAccountType('option-diver');
+        // $user->setInitialDivesCount(null);
         $user->setFirstLoginStep(1);
 
         try {

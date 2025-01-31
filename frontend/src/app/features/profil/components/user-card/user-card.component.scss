@@ -17,6 +17,7 @@
     height: 90px;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    box-shadow: 0px -8px 35px rgb(234, 238, 239);
 
     display: flex;
     justify-content: center;
@@ -28,6 +29,9 @@
     object-fit: cover;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+}
+.surface-overflow-hidden {
+    overflow: hidden;
 }
 .widthInherit {
     width: inherit;
@@ -60,6 +64,8 @@
     align-items: center;
     overflow: hidden;
     background-color: cornsilk;
+
+    box-shadow: 0px -5px 29px white;
 }
 .avatar-container img {
     width: 100%;
@@ -97,17 +103,27 @@
 
 .section-bottom-line-left {
     width: 50%;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .country-flag-png {
-    border-radius: 6px;
-}
+    height: auto;
+    border: 1px solid #242525e6;
+    border-radius: 2px;
+
+    // Halo Drapeau (opti)
+    box-shadow: 0px 0px 5px rgb(201 207 207 / 20%), 0px 0px 10px rgb(201 207 207 / 15%), 0px 0px 15px rgb(201 207 207 / 10%);
+}    
+
+
 
 .section-bottom-line-right {
     position: relative;
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
+    background-image: radial-gradient(circle, rgba(62, 216, 236, 0.15) 0%, rgba(2, 0, 36, 0) 50%);
 
     width: 50%;
     text-align: center;

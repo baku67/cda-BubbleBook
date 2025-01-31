@@ -120,6 +120,7 @@ export class FirstLoginStep2Component {
       // avatar url (defaut ok car géré dans le backend => C'est ok si avatar "?", sinon il y en a un selected par defaut et ducoup doit pas etre null)
       avatar: [this.selectedAvatar], // pas de required ?
       banner: [this.selectedBanner], // pas de required ?
+      initialDivesCount: [null]
     });
   }
 

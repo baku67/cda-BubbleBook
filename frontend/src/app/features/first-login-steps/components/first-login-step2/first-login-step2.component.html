@@ -52,7 +52,6 @@
                 </div>
             </div>
 
-
             <!-- Avatar Selection -->
             <!-- <span>Votre avatar</span> -->
             <div class="matFieldInput scrollable-container avatar-container surface">
@@ -69,6 +68,19 @@
                     <img [src]="selectedBanner" class="banner-img" [alt]="'Selected Banner'" />
                     <mat-icon class="banner-item-check selected">check</mat-icon>
                 </div>
+            </div>
+
+            <!-- Nombre initial de plongées -->
+            <div class="matFieldInput banner-container">
+                <!-- // Username -->
+                <mat-form-field appearance="outline" class="username-field matFieldInput">
+                    <mat-label>{{ "INITIAL_DIVES_COUNT_LABEL" | translate }}</mat-label>
+                    <input 
+                        matInput 
+                        formControlName="initialDivesCount" 
+                        type="number"
+                    >
+                </mat-form-field>
             </div>
 
             <mat-divider></mat-divider>

@@ -32,6 +32,7 @@ class UserUpdateService
             $user->setNationality($dto->nationality);
             $user->setAvatarUrl($dto->avatar);
             $user->setBannerUrl($dto->banner);
+            $user->setInitialDivesCount($dto->initialDivesCount);
 
             if ($user->getFirstLoginStep() === 2) {
                 $user->setFirstLoginStep(null);

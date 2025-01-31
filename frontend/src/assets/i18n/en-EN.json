@@ -16,6 +16,7 @@
     "EMAIL_ADDRESS_CHECKING": "Check email availability...",
     "EMAIL_ADDRESS_AVAILABLE": "Email address available",
     "USERNAME_LABEL": "Username:",
+    "INITIAL_DIVES_COUNT_LABEL": "Initial dives count",
     "USERNAME_REQUIRED": "The username is mandatory",
     "USERNAME_MINLENGTH" : "Username must be at least 3 characters long",
     "USERNAME_MAXLENGTH" : "Username must not exceed 30 characters",

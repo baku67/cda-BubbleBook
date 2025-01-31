@@ -3,10 +3,10 @@
 
 /* https://cssgradient.io/shades-of-blue/ */
 :root {
-    --primary-color: #0093E9; /* Aquamarine */
+    --primary-color: #3ec0ec; /* Aquamarine */
     --color: #ffffff;
 
-    --green: #4CAF50;
+    --green: #2eee94;
     --red: #FF5252;
 
     --font-size-small: 0.875rem;   /* 14px */
@@ -86,6 +86,13 @@ body.dark-theme ngx-skeleton-loader .skeleton-loader.progress {
     }
 }
 
+
+body.dark-theme app-user-card .section-top {
+    box-shadow: 0px 2px 35px rgb(146 146 146);
+}
+body.light-theme app-user-card .section-top {
+    box-shadow: 0px -8px 35px rgb(108 123 126 / 85%);
+}
 
 
 * {
