@@ -29,7 +29,7 @@ export const routes: Routes = [
     { path: 'certificates', component: CertificateManagerPageComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
 
     // Confirmation mail:
-    { path: 'confirm-email', component: ConfirmEmailComponent },
+    { path: 'confirm-email', component: ConfirmEmailComponent, canDeactivate: [FadeOutGuard] },
 
     // EN DERNIER:
     { path: '**', component: NotFoundPageComponent },  // Wildcard, redirect all unknown paths to home

@@ -45,35 +45,50 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
             throw new \InvalidArgumentException('Authenticated user is not an instance of User.');
         }
 
-        $refreshToken = new RefreshToken();
-        $refreshToken->setUser($user);
-        $refreshToken->setToken(bin2hex(random_bytes(32)));
-        $refreshToken->setExpiresAt((new \DateTime())->modify('+1 month'));
-        $this->entityManager->persist($refreshToken);
-        $this->entityManager->flush();
-
         // Récupère l'étape de la première connexion
         $firstLoginStep = $user->getFirstLoginStep() ?? null;
 
         // Génère le token JWT
         $accessToken = $this->jwtManager->create($user);
+        
+        $data = json_decode($request->getContent(), true);
+        $rememberMe = $data['rememberMe'] ?? false; // Récupérer l'option "Se souvenir de moi"
+        if($rememberMe) {
+            $refreshToken = new RefreshToken();
+            $refreshToken->setUser($user);
+            $refreshToken->setToken(bin2hex(random_bytes(32)));
+            $refreshToken->setExpiresAt((new \DateTime())->modify('+1 month'));
+            $this->entityManager->persist($refreshToken);
+            $this->entityManager->flush();
 
-        // Retourne une réponse JSON
+
+            // Retourne une réponse JSON
+            $response = new JsonResponse([
+                'success' => true,
+                'accessToken' => $accessToken,
+                'refreshToken' => $refreshToken->getToken(),
+                'firstLoginStep' => $firstLoginStep,
+            ], JsonResponse::HTTP_OK);
+
+            $response->headers->setCookie(Cookie::create('refresh_token', $refreshToken->getToken())
+                ->withValue($refreshToken->getToken())
+                ->withSecure(true) // Nécessite HTTPS
+                ->withHttpOnly(true)
+                ->withSameSite('Strict') // ou 'Lax'
+                ->withPath('/')
+                ->withExpires(new \DateTime('+7 days')) // Durée de vie (ici 7 jours)
+            );
+
+            return $response;
+
+        }
+
+        // Retourne une réponse JSON sans le refresh-token (pas coché)
         $response = new JsonResponse([
             'success' => true,
             'accessToken' => $accessToken,
-            'refreshToken' => $refreshToken->getToken(),
             'firstLoginStep' => $firstLoginStep,
         ], JsonResponse::HTTP_OK);
-
-        $response->headers->setCookie(Cookie::create('refresh_token', $refreshToken->getToken())
-            ->withValue($refreshToken->getToken())
-            ->withSecure(true) // Nécessite HTTPS
-            ->withHttpOnly(true)
-            ->withSameSite('Strict') // ou 'Lax'
-            ->withPath('/')
-            ->withExpires(new \DateTime('+7 days')) // Durée de vie (ici 7 jours)
-        );
 
         return $response;
     }

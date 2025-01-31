@@ -62,11 +62,14 @@ export class AppComponent implements OnInit {
       this.isInitializing = false;
       if (!isAuthenticated) {
         console.log('InitialzeAuth(): echec');
-        // this.router.navigate(['/login']);
+        // this.router.navigate(['/login']); // plus besoin grace aux guards ?
       } else {
         console.log('InitialzeAuth(): reussi, chargement des données utilisateur...');
-        // Chargez les données nécessaires pour l'utilisateur
-        this.router.navigate(['/user-profil']);
+        // Chargez les données nécessaires pour l'utilisateur/confirm-mail (TODO juste reload la route actuelle)
+        const currentUrl = this.router.url;
+        if (!currentUrl.startsWith('/confirm-email')) { // Empeche le confirmEmail 4200/confirm-email parce que c'est un nouvel onglet avec potentiellement un refresh-token présent et ducoup : InitializeAuth->navigate(user-profil)
+          this.router.navigate(['/user-profil']); 
+        }
       }
     });
   }
