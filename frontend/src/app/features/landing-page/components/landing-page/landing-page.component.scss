@@ -1,14 +1,12 @@
 :host {
     height: 100%;
-
-    padding: 15px;
+    // padding: 15px;
     margin: 0 auto;
 
-    background-image: url('/assets/images/underwater-sunlights-min50.png');
-    background-position: right -150px top;
-    background-size: cover;
-    // background-position: center; 
-    background-repeat: no-repeat; 
+    // background-image: url('/assets/images/underwater-sunlights-min50.png');
+    // background-position: right -150px top;
+    // background-size: cover;
+    // background-repeat: no-repeat; 
 
     /* Pour footer */
     min-height: 100vh;
@@ -16,6 +14,31 @@
     flex-direction: column;
 }
 
+
+.background-video {
+  position: absolute;
+  width: auto;
+  max-width: 100%;
+  height: 100vh;
+  opacity: 1;
+  top: 0;
+  object-position: top;
+  object-fit: fill;
+
+  filter: blur(5px);
+  opacity: 0.01; // Evite blocage auto-play navigateurs
+  animation: video-fade-in 3s 0s ease forwards;
+}
+@keyframes video-fade-in {
+  0% {
+    filter: blur(5px);
+    opacity: 0.01; // Evite blocage auto-play navigateurs
+  }
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
 
 .hero-header {
     display: inline-flex;
@@ -27,12 +50,18 @@
 .hero-logo {
     width: 50px;
     height: 50px;
+
+    filter: drop-shadow(0px 1px 1px black);
+    animation: fadeIn 0.5s 0.1s ease forwards;
 }
 .hero-title {
     color: var(--primary-color);
     font-family: 'Poppins', sans-serif;
     font-size: var(--font-size-heading);
     margin: 0;
+
+    text-shadow: 0px 2px 2px black;
+    animation: hero-title-anim 0.5s 0.1s ease forwards;
 }
 
 .hero-subtitle {
@@ -40,7 +69,15 @@
 }
 
 .cta-buttons {
-    margin: 30px 0;
+    margin: 30px auto;
+    width: 100%;
+
+    display: inline-flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px 10px;
+    border-radius: 7px;
+    text-shadow: 0px 2px 2px black;
 }
 
 .cta-buttons ul {
@@ -49,6 +86,14 @@
     justify-content: space-between; /* Distribution égale entre les éléments */
     padding: 0;
     list-style: none;
+  }
+
+  .cta-register {
+    text-shadow: 0px 0px 2px black !important;
+    font-size: 110%;
+
+    border: 1px solid #ffffff61;
+    border-radius: 3px;
   }
   
   .cta-buttons li {

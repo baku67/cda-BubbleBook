@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
         // Routes sans header
         const noHeaderRoutes = ['', '/']; // LP = ""
         // Routes sans footer 
-        const noFooterRoutes: string[] = []; 
+        const noFooterRoutes: string[] = ['', '/']; 
         // Routes sans navBottomMobile
         const noNavBottomMobileRoutes = [
           '',
@@ -60,11 +60,9 @@ export class AppComponent implements OnInit {
       this.isLoggedIn = isLoggedIn;
     });
   
-    // Initialiser l'authentification
+    // Initialiser l'authentification (délais gérés plus précisément dans le authService)
     this.authService.initializeAuth().pipe(
-      delay(1000) // Délai minimum (friction positive pour l'écran de chargement)
     ).subscribe((isAuthenticated) => {
-      this.isInitializing = false;
       if (!isAuthenticated) {
         console.log('InitialzeAuth(): echec');
         // this.router.navigate(['/login']); // plus besoin grace aux guards ?

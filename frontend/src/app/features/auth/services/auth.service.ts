@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, delay, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environments';
 import { TokenService } from './token.service';
 import { LoginData, RegisterData } from '../models/auth.types';
@@ -67,14 +67,14 @@ export class AuthService {
         this.tokenService.clearAccessToken();
         this.loggedIn$.next(false);
         this.router.navigate(['/login']); // Redirige vers la page de login
-        setTimeout(() => this.isInitializing$.next(false), 1000); // Désactive après un petit délai (friction positive pour l'écran de chargement)
+        setTimeout(() => this.isInitializing$.next(false), 2000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
       },
       error: (error) => {
         console.warn('Erreur lors de la déconnexion, nettoyage local des tokens.');
         this.tokenService.clearAccessToken();
         this.loggedIn$.next(false);
         this.router.navigate(['/login']);      
-        setTimeout(() => this.isInitializing$.next(false), 1000); // Désactive après un petit délai (friction positive pour l'écran de chargement)
+        setTimeout(() => this.isInitializing$.next(false), 2000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
       }
     });
   }
@@ -106,6 +106,8 @@ export class AuthService {
   }
 
   initializeAuth(): Observable<boolean> {
+    this.isInitializing$.next(true); // Active l'état d'initialisation
+
     const accessToken = this.tokenService.getAccessToken();
     const rememberMe = this.tokenService.getRememberMe();
   
@@ -125,11 +127,14 @@ export class AuthService {
               catchError(() => of(null)),
               map(() => false)
             );
-          })
+          }),
+          tap(() => setTimeout(() => this.isInitializing$.next(false), 2000)) // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
         );
       } else {
         console.log("Aucun token et rememberMe désactivé. Utilisateur non authentifié.");
-        return of(false);
+        this.isInitializing$.next(false); // pas de délai minimal pour éviter un écran de chargement trop court
+        // setTimeout(() => this.isInitializing$.next(false), 10000); // test
+        return of(false); 
       }
     }
   
@@ -149,12 +154,15 @@ export class AuthService {
             catchError(() => of(null)),
             map(() => false)
           );
-        })
+        }),
+        tap(() => setTimeout(() => this.isInitializing$.next(false), 2000)) // // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
       );
     }
   
     console.log("Token valide, utilisateur authentifié");
     this.loggedIn$.next(true);
-    return of(true);
+    this.isInitializing$.next(false); // pas de délai minimal pour éviter un écran de chargement trop court
+    // setTimeout(() => this.isInitializing$.next(false), 10000); // test
+    return of(true); 
   }
 }
