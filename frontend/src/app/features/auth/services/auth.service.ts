@@ -18,6 +18,9 @@ export class AuthService {
   private loggedIn$ = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.loggedIn$.asObservable();
 
+  private isInitializing$ = new BehaviorSubject<boolean>(false);
+  isInitializingObservable = this.isInitializing$.asObservable();
+
   private firstLoginStep: number | null = null;
 
   constructor(
@@ -25,7 +28,7 @@ export class AuthService {
     private router: Router,
     private tokenService: TokenService
   ) {
-    this.loggedIn$.next(this.tokenService.hasValidToken());
+    this.loggedIn$.next(this.tokenService.isAccessTokenValid());
   }
 
   // Connexion utilisateur
@@ -41,6 +44,7 @@ export class AuthService {
       ).pipe(
       tap((response: AuthResponse) => {
         this.tokenService.setAccessToken(response.accessToken);
+        this.tokenService.setRememberMe(credentials.rememberMe);
         this.firstLoginStep = response.firstLoginStep;
         this.loggedIn$.next(true);
       })
@@ -49,18 +53,22 @@ export class AuthService {
 
   // Déconnexion
   logout(): void {
+    this.isInitializing$.next(true); // Active l'affichage du loader
     this.http.post(`${environment.apiUrl}/api/logout`, {}, { withCredentials: true }).subscribe({
       next: () => {
         // Nettoyer les tokens et mettre à jour l'état de l'application
         this.tokenService.clearAccessToken();
         this.loggedIn$.next(false);
         this.router.navigate(['/login']); // Redirige vers la page de login
+        setTimeout(() => this.isInitializing$.next(false), 1000); // Désactive après un petit délai (friction positive pour l'écran de chargement)
       },
       error: (error) => {
         console.warn('Erreur lors de la déconnexion, nettoyage local des tokens.');
         this.tokenService.clearAccessToken();
         this.loggedIn$.next(false);
-        this.router.navigate(['/login']);      }
+        this.router.navigate(['/login']);      
+        setTimeout(() => this.isInitializing$.next(false), 1000); // Désactive après un petit délai (friction positive pour l'écran de chargement)
+      }
     });
   }
 
@@ -97,17 +105,55 @@ export class AuthService {
   }
 
   initializeAuth(): Observable<boolean> {
-    return this.refreshAccessToken().pipe(
-      tap(() => {
-        console.log('Token rafraîchi avec succès');
-      }),
-      map(() => true), // Utilisateur authentifié
-      catchError(() => {
-        console.log('Échec du rafraîchissement du token');
-        this.tokenService.clearAccessToken(); // Supprimer les données si nécessaire
-        this.loggedIn$.next(false);
-        return of(false); // Échec de l'authentification
-      })
-    );
+    const accessToken = this.tokenService.getAccessToken();
+    const rememberMe = this.tokenService.getRememberMe();
+  
+    if (!accessToken) {
+      if (rememberMe) {
+        console.log("Aucun accessToken trouvé, mais rememberMe activé. Tentative de rafraîchissement...");
+        return this.refreshAccessToken().pipe(
+          tap(() => console.log("Token rafraîchi avec succès")),
+          map(() => true),
+          catchError(() => {
+            console.log("Échec du rafraîchissement du token");
+            this.tokenService.clearAccessToken();
+            this.loggedIn$.next(false);
+  
+            // On supprime aussi le refreshToken côté serveur
+            return this.http.post(`${environment.apiUrl}/api/logout`, {}, { withCredentials: true }).pipe(
+              catchError(() => of(null)),
+              map(() => false)
+            );
+          })
+        );
+      } else {
+        console.log("Aucun token et rememberMe désactivé. Utilisateur non authentifié.");
+        return of(false);
+      }
+    }
+  
+    // Vérification de validité du token existant
+    if (!this.tokenService.isAccessTokenValid()) {
+      console.log("Token expiré, tentative de rafraîchissement...");
+  
+      return this.refreshAccessToken().pipe(
+        tap(() => console.log("Token rafraîchi avec succès")),
+        map(() => true),
+        catchError(() => {
+          console.log("Échec du rafraîchissement du token");
+          this.tokenService.clearAccessToken();
+          this.loggedIn$.next(false);
+  
+          return this.http.post(`${environment.apiUrl}/api/logout`, {}, { withCredentials: true }).pipe(
+            catchError(() => of(null)),
+            map(() => false)
+          );
+        })
+      );
+    }
+  
+    console.log("Token valide, utilisateur authentifié");
+    this.loggedIn$.next(true);
+    return of(true);
   }
 }

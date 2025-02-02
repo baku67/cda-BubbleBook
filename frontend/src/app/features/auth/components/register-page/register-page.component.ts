@@ -59,8 +59,9 @@ export class RegisterPageComponent implements OnInit{
         ]
       ], 
       passwordCheck: ['', [Validators.required]],
-      is2fa: [false], // false par defaut TODO
+      // is2fa: [false], // false par defaut (pas demandé lors du register de toute façon) TODO
       acceptTerms: [false, Validators.requiredTrue],
+      rememberMe: [true] // Ajout du champ rememberMe pour le auto-login qui suit
     }, { validator: passwordMatchValidator });
   }
 
@@ -69,13 +70,20 @@ export class RegisterPageComponent implements OnInit{
     if (this.registerForm.valid) {
       this.isLoading = true;
 
-      this.authService.registerUser(this.registerForm.value).subscribe({
+      this.authService.registerUser({
+        email: this.registerForm.get('email')?.value,
+        password: this.registerForm.get('password')?.value,
+        passwordCheck: this.registerForm.get('passwordCheck')?.value,
+        // is2fa: this.registerForm.get('is2fa')?.value,
+        acceptTerms: this.registerForm.get('acceptTerms')?.value
+        // pas rememberMe ici
+      }).subscribe({
         next: () => {
           console.log('User registered successfully');
           this.authService.login({
             email: this.registerForm.get('email')?.value,
             password: this.registerForm.get('password')?.value,
-            rememberMe: true,
+            rememberMe: this.registerForm.get('rememberMe')?.value, // auto-login rememberMe 
           }).subscribe({
             next: () => {
               const step = this.authService.getFirstLoginStep();

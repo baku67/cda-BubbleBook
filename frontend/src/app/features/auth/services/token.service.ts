@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class TokenService {
 
   private readonly ACCESS_TOKEN_KEY = 'accessToken';
+  private readonly REMEMBER_ME_KEY = 'rememberMe';
 
   // Récupération du JWT depuis le sessionStorage
   getAccessToken(): string | null {
@@ -23,7 +24,7 @@ export class TokenService {
   }
 
   // Vérifie si un token valide existe
-  hasValidToken(): boolean {
+  isAccessTokenValid(): boolean {
     const token = this.getAccessToken();
     if (!token) return false;
 
@@ -48,6 +49,20 @@ export class TokenService {
     } catch {
       return null;
     }
+  }
+
+
+  // Gestion de l'option rememberMe
+  setRememberMe(rememberMe: boolean): void {
+    localStorage.setItem(this.REMEMBER_ME_KEY, JSON.stringify(rememberMe));
+  }
+
+  getRememberMe(): boolean {
+    return JSON.parse(localStorage.getItem(this.REMEMBER_ME_KEY) || 'false');
+  }
+
+  clearRememberMe(): void {
+    localStorage.removeItem(this.REMEMBER_ME_KEY);
   }
 
   // Gestion du refresh token dans un cookie HTTP-only (sans accès depuis JS)

@@ -50,6 +50,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Suivre l'état d'initialisation dans le authService (pour logout)
+    this.authService.isInitializingObservable.subscribe(isInitializing => {
+      this.isInitializing = isInitializing;
+    });
+
     // S'abonner à l'état de connexion
     this.authService.isLoggedIn$.subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
@@ -57,7 +62,7 @@ export class AppComponent implements OnInit {
   
     // Initialiser l'authentification
     this.authService.initializeAuth().pipe(
-      delay(700) // Délai minimum (friction positive pour l'écrande chargement)
+      delay(1000) // Délai minimum (friction positive pour l'écran de chargement)
     ).subscribe((isAuthenticated) => {
       this.isInitializing = false;
       if (!isAuthenticated) {
