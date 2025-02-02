@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Auth;
 
+use App\DTO\Request\RegisterDTO;
 use App\Entity\User\User;
 use App\Repository\User\RoleRepository;
 use App\Repository\User\UserRepository;
@@ -18,6 +19,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Service\Auth\MailerService;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RegisterController extends AbstractController
 {
@@ -33,18 +37,41 @@ class RegisterController extends AbstractController
 
 
     #[Route('/api/register', name: 'api_register', methods: ['POST'])]
-    public function register(Request $request, RegistrationService $registrationService): JsonResponse
+    public function register(
+        Request $request, 
+        NormalizerInterface $normalizer,
+        ValidatorInterface $validator,
+        RegistrationService $registrationService
+    ): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-    
-        try {
-            $result = $registrationService->registerUser($data);
-            return new JsonResponse($result, Response::HTTP_CREATED);
-        } catch (\InvalidArgumentException $e) {
-            return new JsonResponse(['message' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
-        } catch (\RuntimeException $e) {
-            return new JsonResponse(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+
+        // Hydrater le DTO
+        $registerDTO = new RegisterDTO(
+            $data['email'] ?? '',
+            $data['password'] ?? '',
+            $data['passwordCheck'] ?? '',
+            $data['acceptTerms'] ?? false
+        );
+
+        // Valider le DTO
+        $errors = $validator->validate($registerDTO);
+        if (count($errors) > 0) {
+            return new Response((string) $errors, Response::HTTP_BAD_REQUEST);
         }
+    
+        // Appeler le service d'enregistrement
+        $user = $registrationService->registerUser($registerDTO);
+
+        // Normaliser l'utilisateur sans les données sensibles
+        $userData = $normalizer->normalize($user, null, [
+            ObjectNormalizer::ATTRIBUTES => ['id', 'email', 'username', 'avatarUrl', 'bannerUrl', 'roles']
+        ]);
+
+        return new JsonResponse([
+            'message' => 'User registered successfully',
+            'user' => $userData
+        ], JsonResponse::HTTP_CREATED);
     }
 
 

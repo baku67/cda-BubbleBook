@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
+import { LoginData } from '../../models/auth.types';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class LoginPageComponent implements OnInit{
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]], 
       password: ['', [Validators.required]], 
-      rememberMe: [false], // defaut false
+      rememberMe: [true], 
     });
   } 
 
@@ -44,7 +45,13 @@ export class LoginPageComponent implements OnInit{
       this.isLoading = true;
       this.errorMessage = null;
 
-      this.authService.login(this.loginForm.value).subscribe({
+      const loginData: LoginData = {
+        email: this.loginForm.get('email')?.value,
+        password: this.loginForm.get('password')?.value,
+        rememberMe: this.loginForm.get('rememberMe')?.value
+      };
+
+      this.authService.login(loginData).subscribe({
         next: () => {
           const step = this.authService.getFirstLoginStep();
           console.log("firstLoginStep BDD:", step);

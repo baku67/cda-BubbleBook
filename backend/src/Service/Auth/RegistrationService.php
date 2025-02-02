@@ -1,6 +1,7 @@
 <?php
 namespace App\Service\Auth;
 
+use App\DTO\Request\RegisterDTO;
 use App\Entity\User\User;
 use App\Repository\User\RoleRepository;
 use App\Repository\User\UserRepository;
@@ -23,17 +24,9 @@ class RegistrationService
     ) {
     }
 
-    public function registerUser(array $data): array
+    public function registerUser(RegisterDTO $registerDTO): User
     {
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException('Invalid email address.');
-        }
-
-        if (strlen($data['password']) < 6) {
-            throw new \InvalidArgumentException('Password must be at least 6 characters long.');
-        }
-
-        if ($this->userRepository->findOneBy(['email' => $data['email']])) {
+        if ($this->userRepository->findOneBy(['email' => $registerDTO->email])) {
             throw new \InvalidArgumentException('Email is already in use.');
         }
 
@@ -43,10 +36,9 @@ class RegistrationService
         }
 
         $user = new User();
-        $user->setEmail($data['email']);
-        $user->setAvatarUrl('assets/images/default/avatars/profil-picture-default-original.webp');
-        $user->setBannerUrl('assets/images/default/banners/default-banner-00.webp');
-        $user->setPassword($this->passwordHasher->hashPassword($user, $data['password']));
+        $user->setEmail($registerDTO->email);
+        $user->setPassword($this->passwordHasher->hashPassword($user, $registerDTO->password));
+        $user->addRole($defaultRole);
 
         try {
             $username = $this->usernameService->generateUniqueUsername();
@@ -55,15 +47,8 @@ class RegistrationService
             throw new \RuntimeException('Failed to generate unique username.');
         }
 
-        $user->addRole($defaultRole);
-        $user->set2fa($data['is2fa'] ?? false);
-        $user->setVerified(false);
-        $user->setAccountType('option-diver');
-        // $user->setInitialDivesCount(null);
-        $user->setFirstLoginStep(1);
-
         try {
-            $this->mailConfirmationTokenService->generateUserMailConfirmToken($data['email'], $user);
+            $this->mailConfirmationTokenService->generateUserMailConfirmToken($registerDTO->email, $user);
         } catch (\Exception $e) {
             throw new \RuntimeException('Failed to send confirmation email.');
         }
@@ -71,8 +56,6 @@ class RegistrationService
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        return [
-            'message' => 'User registered successfully.'
-        ];
+        return $user;
     }
 }

@@ -8,6 +8,7 @@ import { passwordComplexityValidator } from '../../../../shared/validators/passw
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
+import { LoginData, RegisterData } from '../../models/auth.types';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class RegisterPageComponent implements OnInit{
         {
           validators: [Validators.required, Validators.email], 
           asyncValidators: [EmailAsyncValidator.createValidator(this.emailCheckService, this)], 
-          updateOn: 'blur' // mise à jour seulement au blur
+          updateOn: 'blur' 
         }
       ),
       password: [
@@ -59,7 +60,6 @@ export class RegisterPageComponent implements OnInit{
         ]
       ], 
       passwordCheck: ['', [Validators.required]],
-      // is2fa: [false], // false par defaut (pas demandé lors du register de toute façon) TODO
       acceptTerms: [false, Validators.requiredTrue],
       rememberMe: [true] // Ajout du champ rememberMe pour le auto-login qui suit
     }, { validator: passwordMatchValidator });
@@ -70,21 +70,24 @@ export class RegisterPageComponent implements OnInit{
     if (this.registerForm.valid) {
       this.isLoading = true;
 
-      this.authService.registerUser({
+      const registerData: RegisterData = {
         email: this.registerForm.get('email')?.value,
         password: this.registerForm.get('password')?.value,
         passwordCheck: this.registerForm.get('passwordCheck')?.value,
-        // is2fa: this.registerForm.get('is2fa')?.value,
         acceptTerms: this.registerForm.get('acceptTerms')?.value
-        // pas rememberMe ici
-      }).subscribe({
+      };
+
+      this.authService.registerUser(registerData).subscribe({
         next: () => {
           console.log('User registered successfully');
-          this.authService.login({
+
+          const loginData: LoginData = {
             email: this.registerForm.get('email')?.value,
             password: this.registerForm.get('password')?.value,
-            rememberMe: this.registerForm.get('rememberMe')?.value, // auto-login rememberMe 
-          }).subscribe({
+            rememberMe: this.registerForm.get('rememberMe')?.value
+          };
+
+          this.authService.login(loginData).subscribe({
             next: () => {
               const step = this.authService.getFirstLoginStep();
               if (step === 1) {

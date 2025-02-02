@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environments';
 import { TokenService } from './token.service';
+import { LoginData, RegisterData } from '../models/auth.types';
 
 interface AuthResponse {
   accessToken: string;
@@ -31,8 +32,14 @@ export class AuthService {
     this.loggedIn$.next(this.tokenService.isAccessTokenValid());
   }
 
+  // Inscription
+  registerUser(registerData: RegisterData): Observable<unknown> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${environment.apiUrl}/api/register`, registerData, { headers });
+  }
+
   // Connexion utilisateur
-  login(credentials: { email: string; password: string; rememberMe: boolean }): Observable<AuthResponse> {
+  login(credentials: LoginData): Observable<AuthResponse> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<AuthResponse>(
         `${environment.apiUrl}/api/login`, 
@@ -70,12 +77,6 @@ export class AuthService {
         setTimeout(() => this.isInitializing$.next(false), 1000); // Désactive après un petit délai (friction positive pour l'écran de chargement)
       }
     });
-  }
-
-  // Inscription
-  registerUser(registerData: unknown): Observable<unknown> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(`${environment.apiUrl}/api/register`, registerData, { headers });
   }
 
   // Renvoi d'email de confirmation

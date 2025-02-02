@@ -30,11 +30,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column]
-    private ?bool $isVerified = null;
+    #[ORM\Column(options: ['default' => false])]
+    private ?bool $isVerified = false;
 
-    #[ORM\Column]
-    private ?bool $is2fa = null;
+    #[ORM\Column(options: ['default' => false])]
+    private ?bool $is2fa = false;
 
     #[ORM\Column(length: 64, nullable: true)]
     private ?string $confirmationToken = null;
@@ -48,8 +48,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users')]
     private Collection $roles;
 
-    #[ORM\Column(length: 255)]
-    private ?string $accountType = null;
+    #[ORM\Column(length: 255, options: ['default' => 'option-diver'])]
+    private ?string $accountType = 'option-diver';
 
     #[ORM\Column(length: 3, nullable: true)]
     private ?string $nationality = null;
@@ -60,14 +60,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UserCertificate::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $userCertificates;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $avatar_url = null;
+    #[ORM\Column(length: 255, nullable: true, options: ['default' => 'assets/images/default/avatars/profil-picture-default-original.webp'])]
+    private ?string $avatar_url = 'assets/images/default/avatars/profil-picture-default-original.webp';
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $banner_url = null;
+    #[ORM\Column(length: 255, nullable: true, options: ['default' => 'assets/images/default/banners/default-banner-00.webp'])]
+    private ?string $banner_url = 'assets/images/default/banners/default-banner-00.webp';
 
-    #[ORM\Column(nullable: true)]
-    private ?int $first_login_step = null;
+    #[ORM\Column(nullable: true, options: ['default' => 1])]
+    private ?int $first_login_step = 1;
 
     #[ORM\Column(nullable: true)]
     private ?int $initial_dives_count = null;
