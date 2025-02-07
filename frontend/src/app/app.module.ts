@@ -41,6 +41,7 @@ import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { BannerSelectionComponent } from './features/profil/components/banner-selection/banner-selection.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import {MatCardModule} from '@angular/material/card';
 
 import { routes } from './app.routes';  // Import the routes
 import { AuthService } from './features/auth/services/auth.service';
@@ -69,6 +70,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BannerSelectionComponent,
   ],
   imports: [
+    MatCardModule,
     MatSelectCountryModule.forRoot('fr'),
     BrowserModule,
     RouterModule.forRoot(routes, {
