@@ -72,8 +72,17 @@
     animation: hero-title-anim 0.8s 0.4s ease forwards;
 }
 
-.hero-subtitle {
-    text-align: center;
+.hero-description {
+  display: inline-flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 1.2em;
+  color: #F5F5F5 !important;
+}
+.hero-description-strong {
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 105%;
 }
 
 .cta-buttons {
@@ -83,7 +92,7 @@
     display: inline-flex;
     flex-direction: column;
     gap: 20px;
-    padding: 10px 10px;
+    padding: 10px 0px;
     border-radius: 7px;
     text-shadow: 0px 2px 2px black;
 
@@ -98,6 +107,7 @@
     justify-content: space-between; /* Distribution égale entre les éléments */
     padding: 0;
     list-style: none;
+    gap: 8px;
   }
 
   .cta-register {
@@ -116,7 +126,11 @@
 
   
   .cta-btn-secondary {
-    background-color: #ffffff00; /* Couleur différente pour le bouton secondaire */
+    background-color: rgb(0 0 0 / 18%);
+    border-radius: 5px;
+    padding: 20px 20px;
+    border: 1px solid #4a5d6abf;
+    font-size: 106%;
   }
 
 

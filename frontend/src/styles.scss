@@ -190,7 +190,7 @@ h1, h2, h3 {
     }
 
     opacity: 0;
-    animation: fadeIn 0.4s ease forwards;
+    animation: fadeIn 0.6s ease forwards;
 
     &.fadeOut {
         // /!\ Penser à modifier le délai de fade-out.guard.ts

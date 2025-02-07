@@ -1,7 +1,10 @@
 {
     "VALIDATE": "Valider",
 
-    "LP_SPEECH": "Votre carnet de plongée numérique. Organisé, partagé, toujours à portée de main.",
+    "LP_SPEECH1": "Votre carnet de plongée numérique",
+    "LP_SPEECH2": "Organisé, Partagé",
+    "LP_SPEECH3": "Toujours à portée de main.",
+    
     "LP_REGISTER_NOW": "S'inscrire maintenant",
     "LP_LOGIN": "Connexion",
 
