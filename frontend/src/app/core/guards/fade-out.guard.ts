@@ -21,7 +21,7 @@ export class FadeOutGuard implements CanDeactivate<CanDeactivateComponent> {
     // Délai pour anim CSS
     return of(true).pipe(
       // /!\ Penser à modifier le délai de fade-out CSS
-      delay(400), 
+      delay(500), 
       tap(() => this.animationService.resetAnimation())
     );
   }

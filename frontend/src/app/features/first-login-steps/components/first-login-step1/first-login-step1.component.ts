@@ -60,22 +60,17 @@ export class FirstLoginStep1Component implements OnInit {
     if (this.firstLoginForm.valid) {
       this.isLoading = true;
 
-      // Données à envoyer au backend
       const formData = this.firstLoginForm.value;
-
       this.firstLoginService.updateUser(formData).subscribe({
         next: () => {
           console.log('User successfully updated');
-          this.isLoading = false;
+          // this.isLoading = false; // désactivé car enchaine avec un loading fatchdata de la route suivante (dailleurs plutot resolver ça?)
 
-          // Redirection vers la seconde étape
           this.router.navigate(['/first-login/step-two']);
         },
         error: (error) => {
           console.error('Error updating user:', error);
           this.isLoading = false;
-
-          // Ajouter des messages d'erreur si nécessaire
         },
       });
     } else {

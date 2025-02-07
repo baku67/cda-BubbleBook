@@ -97,7 +97,7 @@ export class RegisterPageComponent implements OnInit{
               } else {
                 this.router.navigate(['/user-profil']);
               }
-              this.isLoading = false;
+              // this.isLoading = false; // désactivé car enchaine avec un loading fatchdata (dailleurs plutot resolver ça?)
             },
             error: (error) => {
               console.error('Auto-login failed', error);

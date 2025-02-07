@@ -85,14 +85,12 @@ export class FirstLoginStep2Component {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
         this.userObtained = user;
-        this.isLoading = false;
+        this.isLoading = false; 
         this.initForm(user);
       },
       error: (error) => {
         console.error('Erreur lors de la récupération de l\'utilisateur', error);
         this.isLoading = false;
-
-        // Gérer les erreurs si nécessaire (redirection, message à l'utilisateur, etc.)
       },
     });
   }
@@ -194,7 +192,7 @@ export class FirstLoginStep2Component {
       this.firstLoginService.updateUser(formData).subscribe({
         next: () => {
           console.log('User successfully updated');
-          this.isLoading = false;
+          // this.isLoading = false;
 
           // Redirection après la mise à jour
           this.router.navigate(['/user-profil']);

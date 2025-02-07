@@ -9,16 +9,18 @@ header {
 
 .page-title-line {
     display: flex;
-    flex: 1;
+    // flex: 1;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    color: var(--primary-color);
     gap: 12px;
 }
 .page-title-line h2 {
     margin-bottom: 0;
-    font-size: 22px;
-    flex: 1;
+    color: var(--colorContrast);
+    font-size: 26px;
+    // flex: 1;
 }
 .page-title-icon {
     font-size: 44px;

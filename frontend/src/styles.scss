@@ -80,7 +80,7 @@ body.light-theme ngx-skeleton-loader .skeleton-loader.progress {
     }
 }
 body.dark-theme ngx-skeleton-loader .skeleton-loader.progress {
-    background-color: #16c0ce !important;
+    background-color: #16a0adb7 !important;
     &::before { // Pusle 
         // background-image: linear-gradient(90deg, #fff0, #fff9, #fff0);
     }
@@ -106,6 +106,7 @@ html, body {
     padding: 0;
     width: 100%;
     background-color: var(--primary-color);
+    animation: fadeIn 0.5s ease forwards;
 }
 html {
     height: auto !important;
@@ -169,7 +170,7 @@ li {
 
 
 h1, h2, h3 {
-    color: var(--primary-color);
+    // color: var(--primary-color);
     font-family: 'Poppins', sans-serif;
 }
 
@@ -181,7 +182,7 @@ h1, h2, h3 {
     justify-content: flex-start;
     gap: 15px;
     align-items: center;
-    padding: 5px 20px;
+    padding: 5px 10px;
 
     section {
         width: 100%;
@@ -193,34 +194,7 @@ h1, h2, h3 {
 
     &.fadeOut {
         // /!\ Penser à modifier le délai de fade-out.guard.ts
-        animation: fadeOut 0.4s ease forwards;
-    }
-}
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-@keyframes hero-title-anim {
-    from {
-        opacity: 0;
-        letter-spacing: -7px;
-    }
-    to {
-        opacity: 1;
-        letter-spacing: 0px;
+        animation: fadeOut 0.5s ease forwards;
     }
 }
 
@@ -362,33 +336,7 @@ h1, h2, h3 {
  }
 
 
-// sub Menu Material
-// .matSubMenu {
-//     background-color: red !important;
-// }
-
-
 .mat-internal-form-field>label {
     padding-left: 13px !important;
 }
 
-
-
-// ANIMATIONS
-@keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-}
-
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}

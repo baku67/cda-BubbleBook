@@ -38,7 +38,8 @@
               // "src/assets/m3-theme.scss", // (généré avec "ng generate @angular/material:m3-theme")
               "src/assets/custom-theme.scss", 
               // "@angular/material/prebuilt-themes/azure-blue.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/anims.scss"
             ],
             "scripts": []
           },
@@ -105,7 +106,8 @@
               // "src/assets/m3-theme.scss", // (généré avec "ng generate @angular/material:m3-theme")
               "src/assets/custom-theme.scss", 
               // "@angular/material/prebuilt-themes/azure-blue.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/anims.scss"
             ],
             "scripts": []
           }
