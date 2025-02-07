@@ -12,6 +12,7 @@ import { BackButtonComponent } from './ui-components/back-button/back-button.com
 import { ModalComponent } from './ui-components/modal/modal.component';
 import { AlertBannerComponent } from './ui-components/alert-banner/alert-banner.component';
 import { NotFoundPageComponent } from './ui-components/not-found-page/not-found-page.component';
+import { BackgroundVideoComponent } from './ui-components/background-video/background-video.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { NotFoundPageComponent } from './ui-components/not-found-page/not-found-
     ModalComponent,
     AlertBannerComponent,
     NotFoundPageComponent,
+    BackgroundVideoComponent,
   ],
   exports: [
     PageHeaderComponent,
@@ -43,6 +45,7 @@ import { NotFoundPageComponent } from './ui-components/not-found-page/not-found-
     ModalComponent,
     AlertBannerComponent,
     NotFoundPageComponent,
+    BackgroundVideoComponent,
   ]
 })
 export class SharedModule { }

@@ -2,6 +2,9 @@
     // border-bottom: 1px solid #80808038;
     display: flex;
     padding: 11px 14px 6px 14px;
+
+    z-index: 9999999;
+    position: relative;
 }
 
 .hero-header {

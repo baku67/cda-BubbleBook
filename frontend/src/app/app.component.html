@@ -1,39 +1,38 @@
-<!-- Container global app -->
-<main *ngIf="!isInitializing; else loading" class="globalMain">
-
-  <!-- TODO MatMenu en haut à droite pour les pages hors-co (landingPage, Login, Register, ect) -->
-  <div *ngIf="showUxButtons" class="app-div-settings" style="display: inline-flex; flex-direction: column;">
-    <app-language-switch  />
-    <app-theme-switch />
-  </div>
-  
-
-  <!-- ngIf pour vérifier quelles routes ont/n'ont pas le composant: -->
-  <app-header *ngIf="showHeader" />
-  
-  <router-outlet />
-
-  <app-nav-bottom-mobile *ngIf="showNavBottomMobile && isLoggedIn" [isLoggedIn]="isLoggedIn" />
-  <app-footer *ngIf="showFooter" />
-
-</main>
-
-
-<!-- APP_INITIALIZER: initializeAuth() (appModule) -->
-<ng-template #loading>
-
-  <div class="loading-screen">
-
-    <div class="loading-screen-content">
-      <h1 class="loading-screen-title">Bubblebook</h1>
-      <div class="spinner-container">
-        <mat-spinner></mat-spinner>
+<main>
+  <!-- SPINNER LOADING -->
+  <ng-container *ngIf="isInitializing; else appContent">
+    <!-- ✅ Affichage du loader -->
+    <div class="loading-screen">
+      <div class="loading-screen-content">
+        <h1 class="loading-screen-title">Bubblebook</h1>
+        <div class="spinner-container">
+          <mat-spinner></mat-spinner>
+        </div>
       </div>
     </div>
-    
-  </div>
 
-</ng-template>
+    <!-- ✅ Composant vidéo toujours affiché -->
+    <!-- <app-background-video (videoLoaded)="onVideoLoaded()"></app-background-video> -->
 
+    <!-- ✅ Router-outlet affiché aussi -->
+    <router-outlet></router-outlet>
+  </ng-container>
 
+  <!-- FINI INITIALIZER -->
+  <ng-template #appContent>
+    <app-background-video (videoLoaded)="onVideoLoaded()"></app-background-video>
 
+    <div class="globalMain">
+      <div *ngIf="showUxButtons" class="app-div-settings" style="display: inline-flex; flex-direction: column;">
+        <app-language-switch />
+        <app-theme-switch />
+      </div>
+
+      <app-header *ngIf="showHeader" />
+      <!-- ✅ Router-outlet affiché aussi -->
+      <router-outlet></router-outlet>
+      <app-nav-bottom-mobile *ngIf="showNavBottomMobile && isLoggedIn" [isLoggedIn]="isLoggedIn" />
+      <app-footer *ngIf="showFooter" />
+    </div>
+  </ng-template>
+</main>

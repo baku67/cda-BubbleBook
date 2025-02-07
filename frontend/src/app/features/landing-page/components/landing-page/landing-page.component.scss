@@ -15,30 +15,6 @@
 }
 
 
-.background-video {
-  position: absolute;
-  width: auto;
-  max-width: 100%;
-  height: 100vh;
-  opacity: 1;
-  top: 0;
-  object-position: top;
-  object-fit: fill;
-
-  filter: blur(5px);
-  opacity: 0.01; // Evite blocage auto-play navigateurs
-  animation: video-fade-in 3s 0s ease forwards;
-}
-@keyframes video-fade-in {
-  0% {
-    filter: blur(5px);
-    opacity: 0.01; // Evite blocage auto-play navigateurs
-  }
-  100% {
-    filter: blur(0px);
-    opacity: 1;
-  }
-}
 
 .pageContent-landingPage {
   border: 5px solid rgba(0, 0, 0, 0.265);
