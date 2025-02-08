@@ -20,13 +20,13 @@ final class Version20250208004931 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE "user" ADD is_private BOOLEAN DEFAULT true NOT NULL');
+        $this->addSql('ALTER TABLE "user" ADD is_public BOOLEAN DEFAULT true NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
-        $this->addSql('ALTER TABLE "user" DROP is_private');
+        $this->addSql('ALTER TABLE "user" DROP is_public');
     }
 }

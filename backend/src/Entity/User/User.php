@@ -72,8 +72,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $initial_dives_count = null;
 
-    #[ORM\Column(options: ['default' => true])]
-    private ?bool $isPublic = true;
+    #[ORM\Column(options: ['default' => false])]
+    private ?bool $isPublic = false;
 
 
     public function __construct()
