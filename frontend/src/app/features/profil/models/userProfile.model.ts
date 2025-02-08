@@ -8,4 +8,5 @@ export interface UserProfil {
     initialDivesCount: number,
     isVerified: boolean;
     is2fa: boolean;
+    isPublic: boolean;
 }

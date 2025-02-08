@@ -41,6 +41,10 @@ class UserUpdateService
             if ($user->getFirstLoginStep() === (int)$data['step']) {
                 $user->setFirstLoginStep(null);
             }
+        } elseif (isset($data['isPublic'])) {
+            $user->setPublic($data['isPublic']);
+            // throw new \InvalidArgumentException('TEST UserUpdate privacy*.');
+        
         } else {
             throw new \InvalidArgumentException('Invalid data format.');
         }

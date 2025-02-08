@@ -49,7 +49,7 @@ export class AuthInterceptor implements HttpInterceptor {
               // Si le rafraîchissement échoue, déconnexion
               //Erreur liée à une session expirée ET toutes les autres
               console.warn('JWT expired. Logging out...');
-              alert('Votre session a expiré, vous allez être redirigé vers la page de connexion.');
+              alert('auth.interceptor: authService.refreshAccessToken (alors que faux login) Votre session a expiré, vous allez être redirigé vers la page de connexion.');
               this.authService.logout();
               this.router.navigate(['/']);
               return throwError(() => error);

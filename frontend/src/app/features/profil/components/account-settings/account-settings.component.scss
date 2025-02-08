@@ -4,3 +4,24 @@
     display: flex;
     flex-direction: column;
 }
+
+.visibility-section {
+    padding: 8px 10px;
+    border: 1px solid #8080802b;
+    border-radius: 3px;
+}
+
+.visibility-toggle {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+
+    .toggle-container {
+        display: inline-flex;
+        width: 100%;
+        justify-content: center;
+        margin: 8px auto 5px auto;
+        gap: 15px;
+    }
+}
+
