@@ -14,5 +14,6 @@ class UserProfilDTO
         public bool $isVerified,
         public bool $is2fa,
         public ?int $initialDivesCount,
+        public bool $isPublic,
     ) {}
 }

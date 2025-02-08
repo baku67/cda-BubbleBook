@@ -17,7 +17,8 @@ class UserProfileService
             $user->getBannerUrl(),
             $user->isVerified(),
             $user->is2fa(),
-            $user->getInitialDivesCount()
+            $user->getInitialDivesCount(),
+            $user->isPublic(),
         );
     }
 }

@@ -26,12 +26,26 @@
                 </button>
             </div>
 
+            <section class="visibility-section">
+                <div class="visibility-toggle">
+                  <label>Visibilité du profil :</label>
+                  <div class="toggle-container">
+                    <span>Publique</span>
+                    <mat-slide-toggle [formControl]="visibilityControl">
+                    </mat-slide-toggle>
+                    <span>Privé</span>
+                  </div>
+                </div>
+              </section>
+
+            <br />
+
             <p>Email: {{ user?.email }}</p>
-            <p>Authentification à 2 facteurs:{{ user?.is2fa }}</p>
             
-            <br>
+            <br />
 
             <p>Email vérifié: {{ user?.isVerified }}</p>
+            
             <!-- Renvoi mail de confirmation  -->
             <div *ngIf="!user?.isVerified">
     
@@ -60,6 +74,9 @@
         </div>
 
     </section>
+
+
+      
 
     <section>
         <h5>Changer de mot de passe</h5>

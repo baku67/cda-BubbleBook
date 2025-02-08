@@ -1,18 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserProfil } from '../../models/userProfile.model';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-account-settings',
   templateUrl: './account-settings.component.html',
   styleUrl: './account-settings.component.scss'
 })
-export class AccountSettingsComponent {
+export class AccountSettingsComponent implements OnInit {
 
     user?:UserProfil;
+
+    visibilityControl = new FormControl(false);  // Par défaut à "Privé"
   
     isUserLoading = true;
   

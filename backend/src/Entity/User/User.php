@@ -72,6 +72,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $initial_dives_count = null;
 
+    #[ORM\Column(options: ['default' => true])]
+    private ?bool $isPublic = true;
 
 
     public function __construct()
@@ -328,6 +330,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setInitialDivesCount(?int $initial_dives_count): static
     {
         $this->initial_dives_count = $initial_dives_count;
+
+        return $this;
+    }
+
+    public function isPublic(): ?bool
+    {
+        return $this->isPublic;
+    }
+
+    public function setPublic(bool $isPublic): static
+    {
+        $this->isPublic = $isPublic;
 
         return $this;
     }
