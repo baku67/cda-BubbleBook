@@ -31,18 +31,14 @@
                   <label>Visibilité du profil :</label>
                   <div class="toggle-container">
                     <span>Publique</span>
-                    <mat-slide-toggle [formControl]="visibilityControl">
+                    <mat-slide-toggle [(ngModel)]="user!.isPublic" (change)="updateVisibility(user!.isPublic)">
                     </mat-slide-toggle>
                     <span>Privé</span>
                   </div>
                 </div>
               </section>
 
-            <br />
-
             <p>Email: {{ user?.email }}</p>
-            
-            <br />
 
             <p>Email vérifié: {{ user?.isVerified }}</p>
             

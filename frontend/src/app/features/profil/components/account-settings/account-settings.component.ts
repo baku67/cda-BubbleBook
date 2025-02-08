@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
 import { FormControl } from '@angular/forms';
+import { FirstLoginStepsService } from '../../../first-login-steps/services/first-login-steps.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -26,8 +27,8 @@ export class AccountSettingsComponent implements OnInit {
 
     constructor(
       private userService: UserService, 
+      private firstLoginService: FirstLoginStepsService,
       private authService: AuthService,
-      private router: Router,
       private animationService: AnimationService
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
@@ -47,6 +48,14 @@ export class AccountSettingsComponent implements OnInit {
         }
       });
     }
+
+    updateVisibility(isPublicParam: boolean): void {
+      this.firstLoginService.updateUser({...this.user, isPublic: isPublicParam}).subscribe({
+        next: () => console.log('Visibilité du profil mise à jour, isPublic: ', isPublicParam),
+        error: (error) => console.error('Erreur lors de la mise à jour de la visibilité', error)
+      });
+    }
+    
 
     resendConfirmationEmail(): void {
       if(!this.user?.isVerified) {

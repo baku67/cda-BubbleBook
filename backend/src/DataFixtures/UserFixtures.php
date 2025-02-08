@@ -39,6 +39,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user0->setFirstLoginStep(null); // pas obligatoire parce defaut null en BDD
         $user0->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user0->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
+        $user0->setPublic(false);
         $manager->persist($user0);
         $this->addReference(self::USER_0_REFERENCE, $user0);
 
@@ -58,6 +59,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user1->setFirstLoginStep(null); // pas obligatoire parce defaut null en BDD
         $user1->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user1->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
+        $user1->setPublic(true);
         $manager->persist($user1);
         $this->addReference(self::USER_1_REFERENCE, $user1);
 
@@ -75,6 +77,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user2->setBannerUrl($this->getRandomEnumValue(Banner::class)); 
         $user2->setFirstLoginStep(2); // pas obligatoire parce defaut null en BDD
         $user2->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
+        $user2->setPublic(true);
         $manager->persist($user2);
         $this->addReference(self::USER_2_REFERENCE, $user2);
 
