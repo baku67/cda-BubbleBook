@@ -19,8 +19,8 @@ export class AuthService {
   private loggedIn$ = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.loggedIn$.asObservable();
 
-  private isInitializing$ = new BehaviorSubject<boolean>(false);
-  isInitializingObservable = this.isInitializing$.asObservable();
+  private isInitializingAuth$ = new BehaviorSubject<boolean>(false);
+  isInitializingAuthObservable = this.isInitializingAuth$.asObservable();
 
   private firstLoginStep: number | null = null;
 
@@ -60,21 +60,21 @@ export class AuthService {
 
   // Déconnexion
   logout(): void {
-    this.isInitializing$.next(true); // Active l'affichage du loader
+    this.isInitializingAuth$.next(true); // Active l'affichage du loader
     this.http.post(`${environment.apiUrl}/api/logout`, {}, { withCredentials: true }).subscribe({
       next: () => {
         // Nettoyer les tokens et mettre à jour l'état de l'application
         this.tokenService.clearAccessToken();
         this.loggedIn$.next(false);
         this.router.navigate(['/login']); // Redirige vers la page de login
-        setTimeout(() => this.isInitializing$.next(false), 2000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
+        setTimeout(() => this.isInitializingAuth$.next(false), 2000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
       },
       error: (error) => {
         console.warn('Erreur lors de la déconnexion, nettoyage local des tokens.');
         this.tokenService.clearAccessToken();
         this.loggedIn$.next(false);
         this.router.navigate(['/login']);      
-        setTimeout(() => this.isInitializing$.next(false), 2000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
+        setTimeout(() => this.isInitializingAuth$.next(false), 2000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
       }
     });
   }
@@ -106,7 +106,7 @@ export class AuthService {
   }
 
   initializeAuth(): Observable<boolean> {
-    this.isInitializing$.next(true); // Active l'état d'initialisation
+    this.isInitializingAuth$.next(true); // Active l'état d'initialisation
 
     const accessToken = this.tokenService.getAccessToken();
     const rememberMe = this.tokenService.getRememberMe();
@@ -128,12 +128,12 @@ export class AuthService {
               map(() => false)
             );
           }),
-          tap(() => setTimeout(() => this.isInitializing$.next(false), 2000)) // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
+          tap(() => setTimeout(() => this.isInitializingAuth$.next(false), 2000)) // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
         );
       } else {
         console.log("Aucun token et rememberMe désactivé. Utilisateur non authentifié.");
-        this.isInitializing$.next(false); // pas de délai minimal pour éviter un écran de chargement trop court
-        // setTimeout(() => this.isInitializing$.next(false), 10000); // test
+        this.isInitializingAuth$.next(false); // pas de délai minimal pour éviter un écran de chargement trop court
+        // setTimeout(() => this.isInitializingAuth$.next(false), 10000); // test
         return of(false); 
       }
     }
@@ -155,14 +155,14 @@ export class AuthService {
             map(() => false)
           );
         }),
-        tap(() => setTimeout(() => this.isInitializing$.next(false), 2000)) // // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
+        tap(() => setTimeout(() => this.isInitializingAuth$.next(false), 2000)) // // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
       );
     }
   
     console.log("Token valide, utilisateur authentifié");
     this.loggedIn$.next(true);
-    this.isInitializing$.next(false); // pas de délai minimal pour éviter un écran de chargement trop court
-    // setTimeout(() => this.isInitializing$.next(false), 10000); // test
+    this.isInitializingAuth$.next(false); // pas de délai minimal pour éviter un écran de chargement trop court
+    // setTimeout(() => this.isInitializingAuth$.next(false), 10000); // test
     return of(true); 
   }
 }

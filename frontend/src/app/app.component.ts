@@ -13,8 +13,10 @@ import { LandingPageService } from './features/landing-page/service/landing-page
 export class AppComponent implements OnInit {
 
   title = 'BubbleBook';
-  isInitializing = true;
   isLoggedIn = false;
+
+  isInitializingAuth = true;
+  isInitializingVideoBg = true;
 
   // Conditions d'affichage : Pour spécifier quels routes sans PageHeaderComponent ou/et FooterComponent etc...
   showUxButtons = true;
@@ -52,10 +54,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Suivre l'état d'initialisation dans le authService (pour logout)
-    this.authService.isInitializingObservable.subscribe(isInitializing => {
-      this.isInitializing = isInitializing;
+    // Suivre l'état d'initialisation dans le authService
+    this.authService.isInitializingAuthObservable.subscribe(isInitializingAuth => {
+      this.isInitializingAuth = isInitializingAuth;
     });
+
+    // Est-ce que la vidéo est chargée ??
+    this.isInitializingVideoBg = false; // MOCK TEMP "OUI"
 
     // S'abonner à l'état de connexion
     this.authService.isLoggedIn$.subscribe(isLoggedIn => {

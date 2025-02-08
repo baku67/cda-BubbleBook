@@ -1,6 +1,6 @@
 <main>
   <!-- SPINNER LOADING -->
-  <ng-container *ngIf="isInitializing; else appContent">
+  <ng-container *ngIf="isInitializingAuth || isInitializingVideoBg; else appContent">
     <!-- ✅ Affichage du loader -->
     <div class="loading-screen">
       <div class="loading-screen-content">
@@ -12,7 +12,7 @@
     </div>
 
     <!-- ✅ Composant vidéo toujours affiché -->
-    <!-- <app-background-video (videoLoaded)="onVideoLoaded()"></app-background-video> -->
+    <app-background-video (videoLoaded)="onVideoLoaded()"></app-background-video>
 
     <!-- ✅ Router-outlet affiché aussi -->
     <router-outlet></router-outlet>
