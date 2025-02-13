@@ -5,25 +5,11 @@ export enum PrivacyOption {
 }
 
 export class PrivacyOptionHelper {
-  static getTranslationKey(option: PrivacyOption): string {
-    switch (option) {
-      case PrivacyOption.ALL:
-        return 'PRIVACY.ALL';
-      case PrivacyOption.FRIENDS_ONLY:
-        return 'PRIVACY.FRIENDS_ONLY';
-      case PrivacyOption.NO_ONE:
-        return 'PRIVACY.NO_ONE';
-      default:
-        return '';
-    }
-  }
-
-  static getOptions(): { value: PrivacyOption }[] {
+  static getOptions(): { label: string; value: PrivacyOption }[] {
     return [
-      { value: PrivacyOption.ALL },
-      { value: PrivacyOption.FRIENDS_ONLY },
-      { value: PrivacyOption.NO_ONE },
+      { label: 'PRIVACY.ALL', value: PrivacyOption.ALL },
+      { label: 'PRIVACY.FRIENDS_ONLY', value: PrivacyOption.FRIENDS_ONLY },
+      { label: 'PRIVACY.NO_ONE', value: PrivacyOption.NO_ONE },
     ];
   }
-  
 }

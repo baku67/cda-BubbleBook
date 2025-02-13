@@ -6,7 +6,6 @@ import { AnimationService } from '../../../../shared/services/utils/animation.se
 import { FirstLoginStepsService } from '../../../first-login-steps/services/first-login-steps.service';
 import { PrivacyOption, PrivacyOptionHelper } from '../../../../shared/models/privacy-option';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-account-settings',
@@ -33,7 +32,6 @@ export class AccountSettingsComponent implements OnInit {
       private authService: AuthService,
       private flashMessageService: FlashMessageService,
       private animationService: AnimationService,
-      private translateService: TranslateService,
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
         this.isAnimatingFadeOut = animating;
@@ -52,44 +50,20 @@ export class AccountSettingsComponent implements OnInit {
           this.isUserLoading = false;
         }
       });
-
-      this.translateService.onLangChange.subscribe(() => {
-        this.updatePrivacyOptions();
-      });
-      this.updatePrivacyOptions(); // Initialisation
-    }
-    
-    private updatePrivacyOptions(): void {
-      this.translateService.get([
-        'PRIVACY.ALL',
-        'PRIVACY.FRIENDS_ONLY',
-        'PRIVACY.NO_ONE'
-      ]).subscribe(translations => {
-        this.privacyOptions = PrivacyOptionHelper.getOptions().map(option => ({
-          label: translations[PrivacyOptionHelper.getTranslationKey(option.value)],
-          value: option.value,
-        }));
-      });
     }
 
     private convertToPrivacyOption(value: string): PrivacyOption | undefined {
       return Object.values(PrivacyOption).find(option => option === value);
     }
-
-    // TODO: updateUser dans UserService
+  
     onPrivacyOptionChange(newOption: PrivacyOption): void {
-      console.log('Nouvelle option de confidentialité :', newOption);
       this.selectedPrivacyOption = newOption;
       this.firstLoginService.updateUser({ ...this.user, profilPrivacy: newOption }).subscribe({
         next: () => {
-          console.log('Profil mis à jour');
-          // Affiche un FlashMessage succès
-          this.flashMessageService.showMessage('Votre profil a été mis à jour avec succès !', "success");
+          this.flashMessageService.showMessage('Votre profil a été mis à jour avec succès !', 'success');
         },
-        error: (err) => {
-          console.error('Erreur de mise à jour du profil :', err);
-          // Affiche un FlashMessage erreur
-          this.flashMessageService.showMessage('Erreur lors de la mise à jour de votre profil.', "error");
+        error: () => {
+          this.flashMessageService.showMessage('Erreur lors de la mise à jour de votre profil.', 'error');
         }
       });
     }

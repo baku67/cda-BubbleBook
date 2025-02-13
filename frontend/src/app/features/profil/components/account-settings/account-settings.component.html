@@ -34,11 +34,10 @@
                 <div class="visibility-toggle">
                   <h5>Profil:</h5>
                   <app-choice
-                    [style]="'cubic-inline'"
-                    [choices]="privacyOptions"
-                    [selectedChoice]="selectedPrivacyOption"
-                    (choiceChange)="onPrivacyOptionChange($event)"
-                    ></app-choice>
+                  [style]="'cubic-inline'"
+                  [choices]="privacyOptions"
+                  [selectedChoice]="selectedPrivacyOption"
+                  (choiceChange)="onPrivacyOptionChange($event)"></app-choice>
                 </div>
 
                 <div *ngIf="this.selectedPrivacyOption === 'ALL'"></div>
