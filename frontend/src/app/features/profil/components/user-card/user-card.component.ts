@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { UserProfil } from '../../models/userProfile.model';
 import { Country, COUNTRIES_DB } from '@angular-material-extensions/select-country';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,6 +10,8 @@ import { Country, COUNTRIES_DB } from '@angular-material-extensions/select-count
   styleUrl: './user-card.component.scss'
 })
 export class UserCardComponent implements OnInit {
+
+  constructor(private router: Router) {}
 
   @Input() user?:UserProfil; 
   
@@ -24,6 +27,10 @@ export class UserCardComponent implements OnInit {
     if (changes['user'] && changes['user'].currentValue) {
       this.updateCountryInfo();
     }
+  }
+
+  navigateToUserProfile(): void {
+    this.router.navigate(['/account-settings']);
   }
 
   private updateCountryInfo() {

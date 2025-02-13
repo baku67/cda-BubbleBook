@@ -3,6 +3,7 @@ import { AuthService } from './features/auth/services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { delay } from 'rxjs';
 import { LandingPageService } from './features/landing-page/service/landing-page.service';
+import { FlashMessageService } from './shared/services/utils/flash-message.service';
 
 
 @Component({
@@ -18,6 +19,9 @@ export class AppComponent implements OnInit {
   isInitializingAuth = true;
   isInitializingVideoBg = true;
 
+  flashMessage: string | null = null;
+  flashType: 'success' | 'error' | 'info' = 'info';
+
   // Conditions d'affichage : Pour spécifier quels routes sans PageHeaderComponent ou/et FooterComponent etc...
   showUxButtons = true;
   showHeader = true;
@@ -27,6 +31,7 @@ export class AppComponent implements OnInit {
   constructor(
     private landingPageService: LandingPageService,
     private authService: AuthService,
+    private flashMessageService: FlashMessageService,
     private router: Router
   ) {
     this.router.events.subscribe((event) => {
@@ -65,6 +70,13 @@ export class AppComponent implements OnInit {
     // S'abonner à l'état de connexion
     this.authService.isLoggedIn$.subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
+    });
+
+    this.flashMessageService.getMessage().subscribe((data) => {
+      if (data) {
+        this.flashMessage = data.message;
+        this.flashType = data.type;
+      } else this.flashMessage = null;
     });
   
     // Initialiser l'authentification (délais gérés plus précisément dans le authService)

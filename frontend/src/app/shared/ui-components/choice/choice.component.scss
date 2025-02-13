@@ -1,0 +1,36 @@
+.cubic-inline {
+    display: inline-flex;
+    align-items: stretch;
+    gap: 5px;
+    justify-content: center;
+
+    width: auto;
+    max-width: 100%;
+    padding: 3px 4px;
+    border-radius: 4px;
+    border: 1px solid grey;
+
+
+    .choice-item {
+        // Les éléments s'étirent verticalement:
+        text-align: center;
+        align-self: auto;
+        display: inline-flex;
+        align-items: center;
+        flex: 0 1 auto; 
+
+        padding: 5px 6px;
+        border-radius: 2px;
+    }
+    .choice-item:not(.selected) {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .choice-item:not(.selected):hover {
+        background-color: rgba(255, 255, 255, 0.137);
+    }
+}
+
+.selected {
+    background-color: var(--primary-color);
+}

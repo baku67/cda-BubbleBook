@@ -1,6 +1,12 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+ 
 <!-- INITIALIZED card -->
-<div class="surface surface-overflow-hidden matSubMenu inner-container border" *ngIf="user">
-
+<div 
+    class="surface surface-overflow-hidden matSubMenu inner-container border" 
+    *ngIf="user" 
+    (click)="navigateToUserProfile()"
+>
     <div class="section-top">
         <img [src]="user.bannerUrl" alt="user banner" />
     </div>

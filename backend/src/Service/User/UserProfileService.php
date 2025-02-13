@@ -18,7 +18,7 @@ class UserProfileService
             $user->isVerified(),
             $user->is2fa(),
             $user->getInitialDivesCount(),
-            $user->isPublic(),
+            $user->getProfilPrivacy()->value,
         );
     }
 }

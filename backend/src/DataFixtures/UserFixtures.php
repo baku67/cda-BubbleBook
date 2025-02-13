@@ -5,6 +5,7 @@ use App\Entity\User\Role;
 use App\Entity\User\User;
 use App\Enum\Avatar;
 use App\Enum\Banner;
+use App\Enum\PrivacyOption;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -39,7 +40,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user0->setFirstLoginStep(null); // pas obligatoire parce defaut null en BDD
         $user0->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user0->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
-        $user0->setPublic(false);
+        $user0->setProfilPrivacy(profilPrivacy: PrivacyOption::ALL);
         $manager->persist($user0);
         $this->addReference(self::USER_0_REFERENCE, $user0);
 
@@ -59,7 +60,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user1->setFirstLoginStep(null); // pas obligatoire parce defaut null en BDD
         $user1->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user1->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
-        $user1->setPublic(true);
+        $user1->setProfilPrivacy(profilPrivacy: PrivacyOption::ALL);
         $manager->persist($user1);
         $this->addReference(self::USER_1_REFERENCE, $user1);
 
@@ -77,7 +78,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user2->setBannerUrl($this->getRandomEnumValue(Banner::class)); 
         $user2->setFirstLoginStep(2); // pas obligatoire parce defaut null en BDD
         $user2->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
-        $user2->setPublic(true);
+        $user2->setProfilPrivacy(profilPrivacy: PrivacyOption::ALL);
         $manager->persist($user2);
         $this->addReference(self::USER_2_REFERENCE, $user2);
 

@@ -15,6 +15,10 @@ dev:
     /!\ ~ docker-compose exec php <commande symfony en "php bin/console ..." au lieu de "symfony console ...">
     /!\ Entrer dans le container: ~ docker exec -it php-symfony bash
 
+    LOGS ERREURS 500: 
+    ~ docker exec -it php-symfony cat var/log/dev.log (les derniers)
+    ~ docker exec -it php-symfony tail -f var/log/dev.log (en temps réel)
+
     docker-compose exec php php bin/console cache:clear 
 
     docker-compose exec php php bin/console make:entity Name

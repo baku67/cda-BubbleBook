@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfil } from '../../models/userProfile.model';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
-import { FormControl } from '@angular/forms';
 import { FirstLoginStepsService } from '../../../first-login-steps/services/first-login-steps.service';
+import { PrivacyOption, PrivacyOptionHelper } from '../../../../shared/models/privacy-option';
+import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -16,8 +16,9 @@ export class AccountSettingsComponent implements OnInit {
 
     user?:UserProfil;
 
-    visibilityControl = new FormControl(false);  // Par défaut à "Privé"
-  
+    privacyOptions = PrivacyOptionHelper.getOptions();
+    selectedPrivacyOption: PrivacyOption = PrivacyOption.NO_ONE;
+
     isUserLoading = true;
   
     emailConfirmResent = false;
@@ -29,6 +30,7 @@ export class AccountSettingsComponent implements OnInit {
       private userService: UserService, 
       private firstLoginService: FirstLoginStepsService,
       private authService: AuthService,
+      private flashMessageService: FlashMessageService,
       private animationService: AnimationService
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
@@ -41,6 +43,7 @@ export class AccountSettingsComponent implements OnInit {
         next: (userData: UserProfil) => {
           this.user = userData;
           this.isUserLoading = false;
+          this.selectedPrivacyOption = this.convertToPrivacyOption(userData.profilPrivacy) || PrivacyOption.NO_ONE;
         },
         error: (error: unknown) => {
           console.error('Erreur lors de la récupération du profil utilisateur', error);
@@ -49,10 +52,25 @@ export class AccountSettingsComponent implements OnInit {
       });
     }
 
-    updateVisibility(isPublicParam: boolean): void {
-      this.firstLoginService.updateUser({...this.user, isPublic: isPublicParam}).subscribe({
-        next: () => console.log('Visibilité du profil mise à jour, isPublic: ', isPublicParam),
-        error: (error) => console.error('Erreur lors de la mise à jour de la visibilité', error)
+    private convertToPrivacyOption(value: string): PrivacyOption | undefined {
+      return Object.values(PrivacyOption).find(option => option === value);
+    }
+
+    // TODO: updateUser dans UserService
+    onPrivacyOptionChange(newOption: PrivacyOption): void {
+      console.log('Nouvelle option de confidentialité :', newOption);
+      this.selectedPrivacyOption = newOption;
+      this.firstLoginService.updateUser({ ...this.user, profilPrivacy: newOption }).subscribe({
+        next: () => {
+          console.log('Profil mis à jour');
+          // Affiche un FlashMessage succès
+          this.flashMessageService.showMessage('Votre profil a été mis à jour avec succès !', "success");
+        },
+        error: (err) => {
+          console.error('Erreur de mise à jour du profil :', err);
+          // Affiche un FlashMessage erreur
+          this.flashMessageService.showMessage('Erreur lors de la mise à jour de votre profil.', "error");
+        }
       });
     }
     

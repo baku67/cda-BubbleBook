@@ -26,17 +26,19 @@
                 </button>
             </div>
 
+            <!-- Profil visibility: -->
             <section class="visibility-section">
                 <div class="visibility-toggle">
-                  <label>Visibilité du profil :</label>
-                  <div class="toggle-container">
-                    <span>Publique</span>
-                    <mat-slide-toggle [(ngModel)]="user!.isPublic" (change)="updateVisibility(user!.isPublic)">
-                    </mat-slide-toggle>
-                    <span>Privé</span>
-                  </div>
+                  <span>Confidentialité du profil:</span>
+                  <app-choice
+                    [style]="'cubic-inline'"
+                    [choices]="privacyOptions"
+                    [selectedChoice]="selectedPrivacyOption"
+                    (choiceChange)="onPrivacyOptionChange($event)"
+                    ></app-choice>
                 </div>
-              </section>
+            </section>
+
 
             <p>Email: {{ user?.email }}</p>
 

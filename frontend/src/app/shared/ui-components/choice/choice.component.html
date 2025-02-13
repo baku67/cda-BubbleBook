@@ -1,0 +1,29 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+
+<div *ngIf="this.style === 'cubic-inline'" class="cubic-inline">
+  <div *ngFor="let choice of choices"
+      class="choice-item"
+      (click)="selectChoice(choice.value)"
+      [ngClass]="{ 'selected': selectedChoice === choice.value }"
+  >
+    <div>
+      <span>{{ choice.label }}</span>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="this.style === 'radio'" class="radio">
+  <div *ngFor="let choice of choices" class="choice-item">
+    <label>
+      <input
+        type="radio"
+        [value]="choice.value"
+        [(ngModel)]="selectedChoice"
+        (change)="onChoiceChange(choice.value)"
+      />
+      {{ choice.label }}
+    </label>
+  </div>
+</div>

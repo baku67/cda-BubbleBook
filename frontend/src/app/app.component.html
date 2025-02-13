@@ -1,4 +1,5 @@
 <main>
+
   <!-- SPINNER LOADING -->
   <ng-container *ngIf="isInitializingAuth || isInitializingVideoBg; else appContent">
     <!-- ✅ Affichage du loader -->
@@ -18,6 +19,7 @@
     <router-outlet></router-outlet>
   </ng-container>
 
+
   <!-- FINI INITIALIZER -->
   <ng-template #appContent>
     <app-background-video (videoLoaded)="onVideoLoaded()"></app-background-video>
@@ -29,10 +31,17 @@
       </div>
 
       <app-header *ngIf="showHeader" />
+
+      <!-- Flash-message -->
+      <app-flash-message *ngIf="flashMessage" [message]="flashMessage" [type]="flashType"></app-flash-message>
+      
       <!-- ✅ Router-outlet affiché aussi -->
       <router-outlet></router-outlet>
+
       <app-nav-bottom-mobile *ngIf="showNavBottomMobile && isLoggedIn" [isLoggedIn]="isLoggedIn" />
       <app-footer *ngIf="showFooter" />
     </div>
   </ng-template>
+
+
 </main>

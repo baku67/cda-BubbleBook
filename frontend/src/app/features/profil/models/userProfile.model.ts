@@ -1,3 +1,5 @@
+import { PrivacyOption } from "../../../shared/models/privacy-option";
+
 export interface UserProfil {
     username: string;
     email: string;
@@ -8,5 +10,5 @@ export interface UserProfil {
     initialDivesCount: number,
     isVerified: boolean;
     is2fa: boolean;
-    isPublic: boolean;
+    profilPrivacy: PrivacyOption;
 }

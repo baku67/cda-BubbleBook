@@ -1,0 +1,48 @@
+:host {
+    position: absolute;
+    cursor: pointer;
+    bottom: 51px;
+    z-index: 9999999999;
+    right: 0;
+    margin: 3px 3px;
+    padding: 8px 10px;
+    border: 1px solid;
+    border-radius: 5px;
+
+    opacity: 0;
+    transform: translateX(50px);
+    animation: flash-message-slideIn 0.5s 0s ease forwards;
+
+    &.success {
+        background-color: #28a745;
+        border-color: #1bdd48;
+    }
+
+    &.error {
+        background-color: #dc3545;
+        border-color: #eb081e;
+    }
+
+    &.info {
+        background-color: #007bff;
+        border-color: #00e1ff;
+    }
+}
+@keyframes flash-message-slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+:host:hover {
+    opacity: 0.8;
+}
+
+.container {
+
+}

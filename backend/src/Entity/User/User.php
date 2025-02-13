@@ -2,6 +2,7 @@
 namespace App\Entity\User;
 
 use App\Entity\Certificate\UserCertificate;
+use App\Enum\PrivacyOption;
 use App\Repository\User\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -72,8 +73,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $initial_dives_count = null;
 
-    #[ORM\Column(options: ['default' => false])]
-    private ?bool $isPublic = false;
+    #[ORM\Column(type: 'string', enumType: PrivacyOption::class, options: ['default' => 'aucun'])]
+    private PrivacyOption $profilPrivacy = PrivacyOption::NO_ONE;
 
 
     public function __construct()
@@ -334,14 +335,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isPublic(): ?bool
+
+    public function getProfilPrivacy(): PrivacyOption
     {
-        return $this->isPublic;
+        return $this->profilPrivacy;
     }
 
-    public function setPublic(bool $isPublic): static
+    public function setProfilPrivacy(PrivacyOption $profilPrivacy): static
     {
-        $this->isPublic = $isPublic;
+        $this->profilPrivacy = $profilPrivacy;
 
         return $this;
     }

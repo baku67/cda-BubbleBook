@@ -13,6 +13,8 @@ import { ModalComponent } from './ui-components/modal/modal.component';
 import { AlertBannerComponent } from './ui-components/alert-banner/alert-banner.component';
 import { NotFoundPageComponent } from './ui-components/not-found-page/not-found-page.component';
 import { BackgroundVideoComponent } from './ui-components/background-video/background-video.component';
+import { ChoiceComponent } from './ui-components/choice/choice.component';
+import { FlashMessageComponent } from './ui-components/flash-message/flash-message.component';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import { BackgroundVideoComponent } from './ui-components/background-video/backg
     AlertBannerComponent,
     NotFoundPageComponent,
     BackgroundVideoComponent,
+    ChoiceComponent,
+    FlashMessageComponent,
   ],
   exports: [
     PageHeaderComponent,
@@ -46,6 +50,8 @@ import { BackgroundVideoComponent } from './ui-components/background-video/backg
     AlertBannerComponent,
     NotFoundPageComponent,
     BackgroundVideoComponent,
+    ChoiceComponent,
+    FlashMessageComponent,
   ]
 })
 export class SharedModule { }
