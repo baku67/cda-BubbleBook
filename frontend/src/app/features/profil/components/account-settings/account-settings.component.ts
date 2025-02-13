@@ -6,6 +6,7 @@ import { AnimationService } from '../../../../shared/services/utils/animation.se
 import { FirstLoginStepsService } from '../../../first-login-steps/services/first-login-steps.service';
 import { PrivacyOption, PrivacyOptionHelper } from '../../../../shared/models/privacy-option';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-account-settings',
@@ -31,7 +32,8 @@ export class AccountSettingsComponent implements OnInit {
       private firstLoginService: FirstLoginStepsService,
       private authService: AuthService,
       private flashMessageService: FlashMessageService,
-      private animationService: AnimationService
+      private animationService: AnimationService,
+      private translateService: TranslateService,
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
         this.isAnimatingFadeOut = animating;
@@ -49,6 +51,24 @@ export class AccountSettingsComponent implements OnInit {
           console.error('Erreur lors de la récupération du profil utilisateur', error);
           this.isUserLoading = false;
         }
+      });
+
+      this.translateService.onLangChange.subscribe(() => {
+        this.updatePrivacyOptions();
+      });
+      this.updatePrivacyOptions(); // Initialisation
+    }
+    
+    private updatePrivacyOptions(): void {
+      this.translateService.get([
+        'PRIVACY.ALL',
+        'PRIVACY.FRIENDS_ONLY',
+        'PRIVACY.NO_ONE'
+      ]).subscribe(translations => {
+        this.privacyOptions = PrivacyOptionHelper.getOptions().map(option => ({
+          label: translations[PrivacyOptionHelper.getTranslationKey(option.value)],
+          value: option.value,
+        }));
       });
     }
 

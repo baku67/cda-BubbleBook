@@ -88,5 +88,9 @@
 
     "EDIT_PROFILE": "Modifier",
 
-    "ALERT_CONFIRM_MAIL": "Confirmez le lien reçu par mail pour profiter de toutes les fonctionalités."
+    "ALERT_CONFIRM_MAIL": "Confirmez le lien reçu par mail pour profiter de toutes les fonctionalités.",
+
+    "PRIVACY.ALL": "Publique",
+    "PRIVACY.FRIENDS_ONLY": "Amis uniquement",
+    "PRIVACY.NO_ONE": "Privé"
 }

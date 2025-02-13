@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ChoiceComponent<T = any> {
   @Input() style:string = "cubic-inline"; // 'radio' ou 'cubic-inline'
-  @Input() choices: { label: string; value: T }[] = [];
+  @Input() choices: { value: T }[] = [];
   @Input() selectedChoice?: T;
   @Output() choiceChange = new EventEmitter<T>();
 

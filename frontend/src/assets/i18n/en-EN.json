@@ -84,5 +84,10 @@
 
     "EDIT_PROFILE": "Edit",
 
-    "ALERT_CONFIRM_MAIL": "Confirm the link sent to you by email to enjoy all the features."
+    "ALERT_CONFIRM_MAIL": "Confirm the link sent to you by email to enjoy all the features.",
+
+
+    "PRIVACY.ALL": "Public",
+    "PRIVACY.FRIENDS_ONLY": "Friends only",
+    "PRIVACY.NO_ONE": "Private"
 }

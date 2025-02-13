@@ -28,8 +28,11 @@
 
             <!-- Profil visibility: -->
             <section class="visibility-section">
+
+                <h4>Confidentialité</h4>
+
                 <div class="visibility-toggle">
-                  <span>Confidentialité du profil:</span>
+                  <h5>Profil:</h5>
                   <app-choice
                     [style]="'cubic-inline'"
                     [choices]="privacyOptions"
@@ -37,6 +40,8 @@
                     (choiceChange)="onPrivacyOptionChange($event)"
                     ></app-choice>
                 </div>
+
+                <div *ngIf="this.selectedPrivacyOption === 'ALL'"></div>
             </section>
 
 

@@ -73,7 +73,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $initial_dives_count = null;
 
-    #[ORM\Column(type: 'string', enumType: PrivacyOption::class, options: ['default' => 'aucun'])]
+    #[ORM\Column(type: 'string', enumType: PrivacyOption::class, options: ['default' => PrivacyOption::NO_ONE->value])]
     private PrivacyOption $profilPrivacy = PrivacyOption::NO_ONE;
 
 
@@ -341,10 +341,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->profilPrivacy;
     }
 
-    public function setProfilPrivacy(PrivacyOption $profilPrivacy): static
+    public function setProfilPrivacy(PrivacyOption $profilPrivacy): self
     {
         $this->profilPrivacy = $profilPrivacy;
-
         return $this;
     }
 
