@@ -19,14 +19,14 @@ class UserUpdateService
 
     public function updateUser(User $user, array $data): void
     {
-        if (isset($data['accountType'])) {
+        if (isset($data['accountType']) && !isset($data['isPublic'])) {
             $dto = $this->serializer->deserialize(json_encode($data), FirstLogin1DTO::class, 'json');
             $user->setAccountType($dto->accountType);
 
             if ($user->getFirstLoginStep() === 1) {
                 $user->setFirstLoginStep(2);
             }
-        } elseif (isset($data['username'])) {
+        } elseif (isset($data['username']) && !isset($data['isPublic'])) {
             $dto = $this->serializer->deserialize(json_encode($data), FirstLogin2DTO::class, 'json');
             $user->setUsername($dto->username);
             $user->setNationality($dto->nationality);
