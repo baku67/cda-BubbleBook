@@ -90,7 +90,7 @@ export class AppComponent implements OnInit {
         // Chargez les données nécessaires pour l'utilisateur/confirm-mail (TODO juste reload la route actuelle)
         const currentUrl = this.router.url;
         if (!currentUrl.startsWith('/confirm-email')) { // Empeche le confirmEmail 4200/confirm-email parce que c'est un nouvel onglet avec potentiellement un refresh-token présent et ducoup : InitializeAuth->navigate(user-profil)
-          this.router.navigate(['/user-profil']); 
+          // this.router.navigate(['/user-profil']); // testé ok?
         }
       }
     });

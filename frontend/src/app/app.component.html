@@ -34,12 +34,11 @@
 
       <!-- Flash-message -->
       <app-flash-message *ngIf="flashMessage" [message]="flashMessage" [type]="flashType"></app-flash-message>
-      
+
       <!-- ✅ Router-outlet affiché aussi -->
       <router-outlet></router-outlet>
 
       <app-nav-bottom-mobile *ngIf="showNavBottomMobile && isLoggedIn" [isLoggedIn]="isLoggedIn" />
-      <app-footer *ngIf="showFooter" />
     </div>
   </ng-template>
 
