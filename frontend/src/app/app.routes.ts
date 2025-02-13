@@ -12,6 +12,8 @@ import { AccountSettingsComponent } from './features/profil/components/account-s
 import { CertificateManagerPageComponent } from './features/certificates/components/certificate-manager-page/certificate-manager-page.component';
 import { NotFoundPageComponent } from './shared/ui-components/not-found-page/not-found-page.component';
 import { FadeOutGuard } from './core/guards/fade-out.guard';
+import { Test1Component } from './shared/ui-components/test/test-1/test-1.component';
+import { Test2Component } from './shared/ui-components/test/test-2/test-2.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Home page
@@ -30,6 +32,9 @@ export const routes: Routes = [
 
     // Confirmation mail:
     { path: 'confirm-email', component: ConfirmEmailComponent, canDeactivate: [FadeOutGuard] },
+
+    { path: 'test1', component: Test1Component },
+    { path: 'test2', component: Test2Component},
 
     // EN DERNIER:
     { path: '**', component: NotFoundPageComponent },  // Wildcard, redirect all unknown paths to home
