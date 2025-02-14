@@ -15,32 +15,54 @@
         <div *ngIf="!isUserLoading">
 
             <div class="title-button">
-                <h3>Mon profil</h3>
-
-                <button 
-                    mat-flat-button 
-                    color="primary"
-                >
-                    <mat-icon>settings</mat-icon>
-                    <span>{{ "EDIT_PROFILE" | translate }}</span>
-                </button>
+                <h3>Confidentialité</h3>
             </div>
 
-            <!-- Profil visibility: -->
+            <!-- Visibility: -->
             <section class="visibility-section">
 
-                <h4>Confidentialité</h4>
-
+                <!-- Profil visibility -->
                 <div class="visibility-toggle">
                   <h5>Profil:</h5>
                   <app-choice
                   [style]="'cubic-inline'"
                   [choices]="privacyOptions"
-                  [selectedChoice]="selectedPrivacyOption"
-                  (choiceChange)="onPrivacyOptionChange($event)"></app-choice>
+                  [selectedChoice]="selectedProfilPrivacyOption"
+                  (choiceChange)="onPrivacyOptionChange('profil', $event)"
+                  [isRequestSending]="isRequestSending"></app-choice>
                 </div>
 
-                <div *ngIf="this.selectedPrivacyOption === 'ALL'"></div>
+                <div *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.ALL || selectedProfilPrivacyOption === privacyOptionsEnum.FRIENDS_ONLY">
+                    <!-- A griser également quand isRequestSending -->
+                    <h4>Confidentialité des journaux (LogBooks)</h4>
+                    <app-choice
+                        [style]="'cubic-inline'"
+                        [choices]="privacyOptions"
+                        [selectedChoice]="selectedLogBooksPrivacyOption"
+                        (choiceChange)="onPrivacyOptionChange('logBooks', $event)">
+                    </app-choice>
+
+                    <h4>Confidentialité des certificats</h4>
+                    <app-choice
+                        [style]="'cubic-inline'"
+                        [choices]="privacyOptions"
+                        [selectedChoice]="selectedCertificatesPrivacyOption"
+                        (choiceChange)="onPrivacyOptionChange('certificates', $event)">
+                    </app-choice>
+
+                    <h4>Confidentialité de la galerie</h4>
+                    <app-choice
+                        [style]="'cubic-inline'"
+                        [choices]="privacyOptions"
+                        [selectedChoice]="selectedGalleryPrivacyOption"
+                        (choiceChange)="onPrivacyOptionChange('gallery', $event)">
+                    </app-choice>
+
+                </div>
+            
+                <div *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.NO_ONE" style="margin-top:8px">
+                    <app-alert-banner msgAlert="{{ 'PROFILE_PRIVATE_WARNING' | translate }}" [style]="'info'" maticon="info"></app-alert-banner>
+                </div>
             </section>
 
 

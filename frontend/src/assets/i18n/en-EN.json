@@ -86,8 +86,13 @@
 
     "ALERT_CONFIRM_MAIL": "Confirm the link sent to you by email to enjoy all the features.",
 
+    "PROFILE_UPDATE_SUCCESS": "Your profile has been updated successfully!",
+    "PROFILE_UPDATE_ERROR": "Error updating your profile.",
 
     "PRIVACY.ALL": "Public",
     "PRIVACY.FRIENDS_ONLY": "Friends only",
-    "PRIVACY.NO_ONE": "Private"
+    "PRIVACY.NO_ONE": "Private",
+
+    "PROFILE_PRIVATE_WARNING": "Your profile and content are currently invisible to other users."
+
 }

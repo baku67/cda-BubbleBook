@@ -6,6 +6,7 @@ import { AnimationService } from '../../../../shared/services/utils/animation.se
 import { FirstLoginStepsService } from '../../../first-login-steps/services/first-login-steps.service';
 import { PrivacyOption, PrivacyOptionHelper } from '../../../../shared/models/privacy-option';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-account-settings',
@@ -16,10 +17,16 @@ export class AccountSettingsComponent implements OnInit {
 
     user?:UserProfil;
 
+    privacyOptionsEnum = PrivacyOption;
     privacyOptions = PrivacyOptionHelper.getOptions();
-    selectedPrivacyOption: PrivacyOption = PrivacyOption.NO_ONE;
+
+    selectedProfilPrivacyOption: PrivacyOption = this.privacyOptionsEnum.NO_ONE;
+    selectedLogBooksPrivacyOption: PrivacyOption = this.privacyOptionsEnum.NO_ONE;
+    selectedCertificatesPrivacyOption: PrivacyOption = this.privacyOptionsEnum.NO_ONE;
+    selectedGalleryPrivacyOption: PrivacyOption = this.privacyOptionsEnum.NO_ONE;
 
     isUserLoading = true;
+    isRequestSending = false;
   
     emailConfirmResent = false;
     emailConfirmResentLoading = false;
@@ -32,6 +39,7 @@ export class AccountSettingsComponent implements OnInit {
       private authService: AuthService,
       private flashMessageService: FlashMessageService,
       private animationService: AnimationService,
+      private translateService: TranslateService,
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
         this.isAnimatingFadeOut = animating;
@@ -43,7 +51,10 @@ export class AccountSettingsComponent implements OnInit {
         next: (userData: UserProfil) => {
           this.user = userData;
           this.isUserLoading = false;
-          this.selectedPrivacyOption = this.convertToPrivacyOption(userData.profilPrivacy) || PrivacyOption.NO_ONE;
+          this.selectedProfilPrivacyOption = this.convertToPrivacyOption(userData.profilPrivacy) || PrivacyOption.NO_ONE;
+          this.selectedLogBooksPrivacyOption = this.convertToPrivacyOption(userData.logBooksPrivacy) || PrivacyOption.NO_ONE;
+          this.selectedCertificatesPrivacyOption = this.convertToPrivacyOption(userData.certificatesPrivacy) || PrivacyOption.NO_ONE;
+          this.selectedGalleryPrivacyOption = this.convertToPrivacyOption(userData.galleryPrivacy) || PrivacyOption.NO_ONE;
         },
         error: (error: unknown) => {
           console.error('Erreur lors de la récupération du profil utilisateur', error);
@@ -56,14 +67,37 @@ export class AccountSettingsComponent implements OnInit {
       return Object.values(PrivacyOption).find(option => option === value);
     }
   
-    onPrivacyOptionChange(newOption: PrivacyOption): void {
-      this.selectedPrivacyOption = newOption;
-      this.firstLoginService.updateUser({ ...this.user, profilPrivacy: newOption }).subscribe({
+    // Attention: Quand on revient sur profil = NO_ONE => IL FAUT toggle le reste en no_one aussi (ou alors bien géré le back)
+    onPrivacyOptionChange(section: string, newOption: PrivacyOption): void {
+      this.isRequestSending = true;
+
+      switch (section) {
+        case 'profil':
+          this.selectedProfilPrivacyOption = newOption;
+          break;
+        case 'logBooks':
+          this.selectedLogBooksPrivacyOption = newOption;
+          break;
+        case 'certificates':
+          this.selectedCertificatesPrivacyOption = newOption;
+          break;
+        case 'gallery':
+          this.selectedGalleryPrivacyOption = newOption;
+          break;
+      }
+      
+      this.firstLoginService.updateUser({ ...this.user, [`${section}Privacy`]: newOption }).subscribe({
         next: () => {
-          this.flashMessageService.showMessage('Votre profil a été mis à jour avec succès !', 'success');
+          this.isRequestSending = false;
+          this.translateService.get('PROFILE_UPDATE_SUCCESS').subscribe((message: string) => {
+            this.flashMessageService.showMessage(message, 'success', 'check_circle');
+          });
         },
         error: () => {
-          this.flashMessageService.showMessage('Erreur lors de la mise à jour de votre profil.', 'error');
+          this.isRequestSending = false;
+          this.translateService.get('PROFILE_UPDATE_ERROR').subscribe((message: string) => {
+            this.flashMessageService.showMessage(message, 'error', 'warning');
+          });
         }
       });
     }

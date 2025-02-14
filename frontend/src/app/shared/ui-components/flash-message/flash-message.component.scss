@@ -1,5 +1,6 @@
 :host {
     position: absolute;
+    max-width: 97vw;
     cursor: pointer;
     bottom: 51px;
     z-index: 9999999999;
@@ -44,5 +45,11 @@
 }
 
 .container {
-
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.messgae {
+    flex:1; // Pour grand text eviter de manger l'icone
 }

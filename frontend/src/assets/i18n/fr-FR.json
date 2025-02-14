@@ -90,7 +90,12 @@
 
     "ALERT_CONFIRM_MAIL": "Confirmez le lien reçu par mail pour profiter de toutes les fonctionalités.",
 
+    "PROFILE_UPDATE_SUCCESS": "Votre profil a été mis à jour avec succès !",
+    "PROFILE_UPDATE_ERROR": "Erreur lors de la mise à jour de votre profil.",
+
     "PRIVACY.ALL": "Publique",
     "PRIVACY.FRIENDS_ONLY": "Amis uniquement",
-    "PRIVACY.NO_ONE": "Privé"
+    "PRIVACY.NO_ONE": "Privé",
+
+    "PROFILE_PRIVATE_WARNING": "Votre profil et votre contenu sont actuellement invisibles aux yeux des autres utilisateurs."
 }

@@ -19,6 +19,9 @@ class UserProfileService
             $user->is2fa(),
             $user->getInitialDivesCount(),
             $user->getProfilPrivacy()->value,
+            $user->getLogBooksPrivacy()->value,
+            $user->getCertificatesPrivacy()->value,
+            $user->getGalleryPrivacy()->value,
         );
     }
 }

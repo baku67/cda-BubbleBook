@@ -11,4 +11,7 @@ export interface UserProfil {
     isVerified: boolean;
     is2fa: boolean;
     profilPrivacy: PrivacyOption;
+    logBooksPrivacy: PrivacyOption;
+    certificatesPrivacy: PrivacyOption;
+    galleryPrivacy: PrivacyOption;
 }

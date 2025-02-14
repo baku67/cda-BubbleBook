@@ -11,7 +11,13 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class AlertBannerComponent {
   @Input() msgAlert!:string;
+  /**
+   * @param string 'warning' | 'check_circle' | 'info'
+   */
   @Input() maticon?:string;
+  /**
+   * @param string 'warn' | 'success' | 'info'
+   */
   @Input() style!:string;
 
   constructor() {}

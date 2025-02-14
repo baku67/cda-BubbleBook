@@ -39,3 +39,11 @@
 .selected {
     background-color: var(--primary-color);
 }
+
+
+.isLoading {
+    opacity: 0.4;
+}
+.selected.isLoading {
+    background-color: grey;
+}

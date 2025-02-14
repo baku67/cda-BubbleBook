@@ -42,7 +42,7 @@ class UserUpdateService
             if ($user->getFirstLoginStep() === (int)$data['step']) {
                 $user->setFirstLoginStep(null);
             }
-        } elseif (isset($data['profilPrivacy'])) {
+        } elseif (isset($data['profilPrivacy']) || isset($data['logBooksPrivacy']) || isset($data['certificatesPrivacy']) || isset($data['galleryPrivacy'])) {
             $privacyOption = PrivacyOption::tryFrom($data['profilPrivacy']);
     
             if ($privacyOption !== null) {

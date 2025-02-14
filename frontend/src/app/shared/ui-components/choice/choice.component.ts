@@ -13,9 +13,19 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './choice.component.scss'
 })
 export class ChoiceComponent<T = any> {
-  @Input() style:string = "cubic-inline"; // 'radio' ou 'cubic-inline'
+  /**
+   * @param string 'radio' ou 'cubic-inline'
+   */
+  @Input() style:string = "cubic-inline"; 
+  /**
+   * @param {label: string; value: T}
+   */
   @Input() choices: { label: string; value: T }[] = [];
   @Input() selectedChoice?: T;
+  /**
+   * @param boolean a default false puis true pendant la requete parent, puis next(true)
+   */
+  @Input() isRequestSending: boolean = false;
   @Output() choiceChange = new EventEmitter<T>();
 
   translatedChoices: { label: string; value: T }[] = [];
@@ -29,8 +39,6 @@ export class ChoiceComponent<T = any> {
         value: choice.value
       }));
     });
-
-    // Pour mettre à jour si la langue change
     this.translateService.onLangChange.subscribe(() => this.ngOnInit());
   }
 

@@ -15,5 +15,8 @@ class UserProfilDTO
         public bool $is2fa,
         public ?int $initialDivesCount,
         public string $profilPrivacy,
+        public string $logBooksPrivacy,
+        public string $certificatesPrivacy,
+        public string $galleryPrivacy,
     ) {}
 }

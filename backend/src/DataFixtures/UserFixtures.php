@@ -41,6 +41,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user0->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user0->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
         $user0->setProfilPrivacy(PrivacyOption::ALL);
+        $user0->setLogBooksPrivacy(PrivacyOption::FRIENDS_ONLY);
+        $user0->setCertificatesPrivacy(PrivacyOption::FRIENDS_ONLY);
+        $user0->setGalleryPrivacy(PrivacyOption::NO_ONE);
         $manager->persist($user0);
         $this->addReference(self::USER_0_REFERENCE, $user0);
 
@@ -61,6 +64,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user1->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user1->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
         $user1->setProfilPrivacy(PrivacyOption::ALL);
+        $user1->setLogBooksPrivacy(PrivacyOption::FRIENDS_ONLY);
+        $user1->setCertificatesPrivacy(PrivacyOption::FRIENDS_ONLY);
+        $user1->setGalleryPrivacy(PrivacyOption::NO_ONE);
         $manager->persist($user1);
         $this->addReference(self::USER_1_REFERENCE, $user1);
 
@@ -79,6 +85,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user2->setFirstLoginStep(2); // pas obligatoire parce defaut null en BDD
         $user2->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user2->setProfilPrivacy(PrivacyOption::ALL);
+        $user2->setLogBooksPrivacy(PrivacyOption::FRIENDS_ONLY);
+        $user2->setCertificatesPrivacy(PrivacyOption::FRIENDS_ONLY);
+        $user2->setGalleryPrivacy(PrivacyOption::NO_ONE);
         $manager->persist($user2);
         $this->addReference(self::USER_2_REFERENCE, $user2);
 

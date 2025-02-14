@@ -73,8 +73,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $initial_dives_count = null;
 
+    #[ORM\Column(type: 'string', enumType: PrivacyOption::class, options: ['default' => PrivacyOption::ALL->value])]
+    private PrivacyOption $profilPrivacy = PrivacyOption::ALL;
+
     #[ORM\Column(type: 'string', enumType: PrivacyOption::class, options: ['default' => PrivacyOption::NO_ONE->value])]
-    private PrivacyOption $profilPrivacy = PrivacyOption::NO_ONE;
+    private PrivacyOption $logBooksPrivacy = PrivacyOption::NO_ONE;
+
+    #[ORM\Column(type: 'string', enumType: PrivacyOption::class, options: ['default' => PrivacyOption::NO_ONE->value])]
+    private PrivacyOption $certificatesPrivacy = PrivacyOption::NO_ONE;
+
+    #[ORM\Column(type: 'string', enumType: PrivacyOption::class, options: ['default' => PrivacyOption::NO_ONE->value])]
+    private PrivacyOption $galleryPrivacy = PrivacyOption::NO_ONE;
 
 
     public function __construct()
@@ -344,6 +353,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfilPrivacy(PrivacyOption $profilPrivacy): self
     {
         $this->profilPrivacy = $profilPrivacy;
+        return $this;
+    }
+
+    public function getLogBooksPrivacy(): PrivacyOption
+    {
+        return $this->logBooksPrivacy;
+    }
+
+    public function setLogBooksPrivacy(PrivacyOption $logBooksPrivacy): self
+    {
+        $this->logBooksPrivacy = $logBooksPrivacy;
+        return $this;
+    }
+
+    public function getCertificatesPrivacy(): PrivacyOption
+    {
+        return $this->certificatesPrivacy;
+    }
+
+    public function setCertificatesPrivacy(PrivacyOption $certificatesPrivacy): self
+    {
+        $this->certificatesPrivacy = $certificatesPrivacy;
+        return $this;
+    }
+
+    public function getGalleryPrivacy(): PrivacyOption
+    {
+        return $this->galleryPrivacy;
+    }
+
+    public function setGalleryPrivacy(PrivacyOption $galleryPrivacy): self
+    {
+        $this->galleryPrivacy = $galleryPrivacy;
         return $this;
     }
 

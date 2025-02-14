@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 interface FlashMessage {
     message: string;
     type: 'success' | 'error' | 'info';
+    matIcon: 'check_circle' | 'warning' | 'info';
     isVisible: boolean;
 }
 
@@ -17,8 +18,8 @@ export class FlashMessageService {
     return this.messageSubject.asObservable();
   }
 
-  showMessage(message: string, type: 'success' | 'error' | 'info' = 'info'): void {
-    const flashMessage: FlashMessage = { message, type, isVisible: true };
+  showMessage(message: string, type: 'success' | 'error' | 'info' = 'info', matIcon: 'check_circle' | 'warning' | 'info'): void {
+    const flashMessage: FlashMessage = { message, type, matIcon, isVisible: true };
     this.messageSubject.next(flashMessage);
 
     // Planifie la disparition après 3 secondes

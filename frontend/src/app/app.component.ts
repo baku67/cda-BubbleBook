@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
 
   flashMessage: string | null = null;
   flashType: 'success' | 'error' | 'info' = 'info';
+  flashMatIcon: 'check_circle' | 'warning' | 'info' | null = null;
 
   // Conditions d'affichage : Pour spécifier quels routes sans PageHeaderComponent ou/et FooterComponent etc...
   showUxButtons = true;
@@ -76,6 +77,7 @@ export class AppComponent implements OnInit {
       if (data) {
         this.flashMessage = data.message;
         this.flashType = data.type;
+        this.flashMatIcon = data.matIcon;
       } else this.flashMessage = null;
     });
   

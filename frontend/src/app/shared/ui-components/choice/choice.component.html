@@ -5,7 +5,7 @@
   <div *ngFor="let choice of translatedChoices"
       class="choice-item"
       (click)="selectChoice(choice.value)"
-      [ngClass]="{ 'selected': selectedChoice === choice.value }"
+      [ngClass]="{ 'selected': selectedChoice === choice.value, 'isLoading': isRequestSending }"
   >
     <div>
       <span>{{ choice.label }}</span>
