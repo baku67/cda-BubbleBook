@@ -5,8 +5,8 @@ namespace App\DTO\Response;
 class CertificateDTO
 {
     public function __construct(
-        public ?int $id,
-        public ?string $name,
-        public ?string $type
+        readonly public ?int $id,
+        readonly public ?string $name,
+        readonly public ?string $type
     ) {}
 }

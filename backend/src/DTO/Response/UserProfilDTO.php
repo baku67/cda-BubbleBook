@@ -5,18 +5,15 @@ namespace App\DTO\Response;
 class UserProfilDTO
 {
     public function __construct(
-        public string $username,
-        public string $email,
-        public string $accountType,
-        public ?string $nationality,
-        public ?string $avatarUrl,
-        public ?string $bannerUrl,
-        public bool $isVerified,
-        public bool $is2fa,
-        public ?int $initialDivesCount,
-        public string $profilPrivacy,
-        public string $logBooksPrivacy,
-        public string $certificatesPrivacy,
-        public string $galleryPrivacy,
+        readonly public string $username,
+        readonly public string $email,
+        readonly public string $accountType,
+        readonly public ?string $nationality,
+        readonly public ?string $avatarUrl,
+        readonly public ?string $bannerUrl,
+        readonly public bool $isVerified,
+        readonly public bool $is2fa,
+        readonly public ?int $initialDivesCount,
+        readonly public string $profilPrivacy,
     ) {}
 }

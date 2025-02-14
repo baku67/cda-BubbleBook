@@ -5,9 +5,9 @@ namespace App\DTO\Response;
 class UserCertificateDTO
 {
     public function __construct(
-        public ?int $id,
-        public ?CertificateDTO $certificate,
-        public ?\DateTimeImmutable $obtainedDate,
-        public ?string $location
+        readonly public ?int $id,
+        readonly public ?CertificateDTO $certificate,
+        readonly public ?\DateTimeImmutable $obtainedDate,
+        readonly public ?string $location
     ) {}
 }
