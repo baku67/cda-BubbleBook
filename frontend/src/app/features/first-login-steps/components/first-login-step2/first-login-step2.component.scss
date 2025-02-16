@@ -64,10 +64,10 @@
     overflow-x: auto;
     gap: 10px;
     padding: 15px 20px;
-    margin: 15px auto;
-    border-top: 1px solid #007bff96;
-    border-bottom: 1px solid #007bff96;
-    // border-radius: 10px;
+    margin: 5px auto 15px auto;
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    border-radius: 4px;
     background-color: #20232a; /* Background similaire à votre exemple */
     position: relative; /* Nécessaire pour positionner ::before et ::after */
 }
@@ -83,8 +83,8 @@
     
 }
 .avatar-item.selected {
-    border-color: #007bff;
-    box-shadow: 0px 0px 14px #007bff;
+    border-color: var(--primary-color);
+    box-shadow: 0px 0px 14px var(--primary-color);
     animation: selectBopAvatarImg 0.4s 0s ease forwards;
 }
 .avatar-img {
@@ -136,15 +136,12 @@
 }
 
 
-
-
-
 // BANNER SELECT
 .banner-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin: 15px auto;
+    margin: 5px auto 15px auto;
 }
 .banner-item {
     cursor: pointer;
@@ -155,14 +152,19 @@
     height: fit-content;
     transition: all 0.18s;
 }
+.banner-item.selectedPreview {
+    position: relative;
+    border-color: var(--primary-color);
+    box-shadow: 0px 0px 14px var(--primary-color);
+}
+// Modal:
 .banner-item.selected {
-    border-color: #007bff;
-    box-shadow: 0px 0px 14px #007bff;
+    position: relative;
+    border-color: var(--primary-color);
+    box-shadow: 0px 0px 14px var(--primary-color);
     animation: selectBopBannerImg 0.4s 0s ease forwards;
 }
 .banner-img {
-    // width: 100px;
-    // height: 50px;
     border-radius: 10px;
     padding: 1px;
 
@@ -177,7 +179,7 @@
 .banner-item-check {
     display: none;
 }
-.banner-item.selected .banner-item-check {
+.banner-item.selected .banner-item-check, .banner-item.selectedPreview .banner-item-check {
     display: block;
     position: absolute;
     bottom: 6px;

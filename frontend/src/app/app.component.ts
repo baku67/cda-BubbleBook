@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   isInitializingAuth = true;
   isInitializingVideoBg = true;
 
+  // Inputs du FlashMessageComponent:
   flashMessage: string | null = null;
   flashType: 'success' | 'error' | 'info' = 'info';
   flashMatIcon: 'check_circle' | 'warning' | 'info' | null = null;
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit {
   showUxButtons = true;
   showHeader = true;
   showFooter = true;
-  showNavBottomMobile = true;
+  showNavBottomMobile = false;
 
   constructor(
     private landingPageService: LandingPageService,
@@ -37,16 +38,18 @@ export class AppComponent implements OnInit {
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        // Routes avec UX boutons (theme et lang)
+        // Routes AVEC UX boutons (theme et lang)
         const uxBtnRoutes = ['', '/', "/register", "/login", "/first-login/step-one", "/first-login/step-two"]; // LP = ""
-        // Routes sans header
+        // Routes SANS header
         const noHeaderRoutes = ['', '/']; // LP = ""
-        // Routes sans footer 
+        // Routes SANS footer 
         const noFooterRoutes: string[] = ['', '/']; 
-        // Routes sans navBottomMobile
+        // Routes SANS navBottomMobile
         const noNavBottomMobileRoutes = [
           '',
           '/',
+          '/register',
+          '/login',
           '/first-login/step-one', // à voir (plus de paramétrages)
           '/first-login/step-two' // à voir (plus de paramétrages)
         ];
@@ -66,7 +69,7 @@ export class AppComponent implements OnInit {
     });
 
     // Est-ce que la vidéo est chargée ??
-    this.isInitializingVideoBg = false; // MOCK TEMP "OUI"
+    this.isInitializingVideoBg = false; // MOCK TEMP "OUI" -> TODO: service
 
     // S'abonner à l'état de connexion
     this.authService.isLoggedIn$.subscribe(isLoggedIn => {

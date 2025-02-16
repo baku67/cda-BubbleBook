@@ -18,7 +18,6 @@ import { MatDividerModule } from '@angular/material/divider';
 })
 export class NavBottomMobileComponent {
 
-  @Input() isLoggedIn!: boolean;
   isSettingsRouteActive = false;
   isProfilRouteActive = false;
 

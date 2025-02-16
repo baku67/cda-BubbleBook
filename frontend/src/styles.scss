@@ -158,7 +158,6 @@ a {
 }
 
 button {
-    // padding: 38px !important;
     color: inherit;
 }
 .bigButton {
@@ -175,7 +174,6 @@ li {
 
 
 h1, h2, h3 {
-    // color: var(--primary-color);
     font-family: 'Poppins', sans-serif;
 }
 
@@ -189,26 +187,21 @@ h1, h2, h3 {
     align-items: center;
     padding: 5px 10px;
 
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards;
+
     section {
         width: 100%;
         max-width: 500px;
     }
 
- 
     form {
         display: flex;
         flex-direction: column;
-        // width: 300px;
         max-width: 400px;
         margin: 0 auto;
-        
-        // background-color: #18665f26 !important; // temporaire
-        }
+    }
  
-
-    opacity: 0;
-    animation: fadeIn 0.6s ease forwards;
-
     &.fadeOut {
         // /!\ Penser à modifier le délai de fade-out.guard.ts
         animation: fadeOut 0.5s ease forwards;

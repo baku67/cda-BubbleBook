@@ -34,7 +34,7 @@
 
                 <div *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.ALL || selectedProfilPrivacyOption === privacyOptionsEnum.FRIENDS_ONLY">
                     <!-- A griser également quand isRequestSending -->
-                    <h4>Confidentialité des journaux (LogBooks)</h4>
+                    <h5>Carnets de plongée</h5>
                     <app-choice
                         [style]="'cubic-inline'"
                         [choices]="privacyOptions"
@@ -43,7 +43,7 @@
                         [isRequestSending]="isRequestSending">
                     </app-choice>
 
-                    <h4>Confidentialité des certificats</h4>
+                    <h5>Certificats</h5>
                     <app-choice
                         [style]="'cubic-inline'"
                         [choices]="privacyOptions"
@@ -52,7 +52,7 @@
                         [isRequestSending]="isRequestSending">
                     </app-choice>
 
-                    <h4>Confidentialité de la galerie</h4>
+                    <h5>Gallerie</h5>
                     <app-choice
                         [style]="'cubic-inline'"
                         [choices]="privacyOptions"

@@ -53,26 +53,29 @@
             </div>
 
             <!-- Avatar Selection -->
-            <!-- <span>Votre avatar</span> -->
-            <div class="matFieldInput scrollable-container avatar-container surface">
-                <div *ngFor="let avatar of avatars" class="avatar-item" [class.selected]="avatar === selectedAvatar" (click)="selectAvatar(avatar)">
-                    <img [src]="avatar" class="avatar-img" [alt]="'Avatar ' + avatar" />
-                    <mat-icon class="avatar-item-check" [class.selected]="avatar === selectedAvatar">check</mat-icon>
+            <div>
+                <h5>Avatar</h5>
+                <div class="matFieldInput scrollable-container avatar-container surface">
+                    <div *ngFor="let avatar of avatars" class="avatar-item" [class.selected]="avatar === selectedAvatar" (click)="selectAvatar(avatar)">
+                        <img [src]="avatar" class="avatar-img" [alt]="'Avatar ' + avatar" />
+                        <mat-icon class="avatar-item-check" [class.selected]="avatar === selectedAvatar">check</mat-icon>
+                    </div>
                 </div>
             </div>
 
             <!-- Banner Selection -->
-            <!-- <span>Votre bannière</span> -->
-            <div class="matFieldInput banner-container">
-                <div class="banner-item selected" (click)="openBannerSelectionModal()">
-                    <img [src]="selectedBanner" class="banner-img" [alt]="'Selected Banner'" />
-                    <mat-icon class="banner-item-check selected">check</mat-icon>
+            <div>
+                <h5>Bannière</h5>
+                <div class="matFieldInput banner-container">
+                    <div class="banner-item selectedPreview" (click)="openBannerSelectionModal()">
+                        <img [src]="selectedBanner" class="banner-img" [alt]="'Selected Banner'" />
+                        <mat-icon class="banner-item-check selected">check</mat-icon>
+                    </div>
                 </div>
             </div>
 
             <!-- Nombre initial de plongées -->
             <div class="matFieldInput nrb-initial-dives">
-                <!-- // Username -->
                 <mat-form-field appearance="outline" class="username-field matFieldInput">
                     <mat-label>{{ "INITIAL_DIVES_COUNT_LABEL" | translate }}</mat-label>
                     <input 
@@ -86,10 +89,7 @@
                 }
             </div>
 
-            <mat-divider></mat-divider>
-
             <div class="submit-section">
-                <!-- Submit & Spinner -->
                 <div class="btns-container">
                     <div>
                         <button 
@@ -102,12 +102,7 @@
                             <span *ngIf="!isLoading">{{ "VALIDATE" | translate }}</span>
                         </button>
                     </div>
-                    <!-- SKIP -->
-                    <!-- <div>
-                        <a [routerLink]="['/user-profil']" routerLinkActive="router-link-active" class="cta-btn-secondary">
-                            {{ "SKIP" | translate }}
-                        </a>
-                    </div> -->
+
                     <div>
                         <button 
                             mat-button 

@@ -3,12 +3,12 @@
 
     
     <!-- TODO form type user (Héritage backend), même si club pas la priorité (ouverture pour projet) -->
-    <div *ngIf="!isLoading" class="card">
+    <div *ngIf="!isLoading && firstLoginForm" class="card">
 
         <app-page-header [title]="('FIRST_LOGIN_1_PAGE_TITLE' | translate )" matIcon="account_circle" />
     
         <!-- Username / Clubname -->
-        <form *ngIf="firstLoginForm" [formGroup]="firstLoginForm" (ngSubmit)="onSubmit()" class="firstLoginForm">
+        <form [formGroup]="firstLoginForm" (ngSubmit)="onSubmit()" class="firstLoginForm">
 
             <!-- CHOIX Plongeur ou Club -->
             <div class="toggleType-container">
