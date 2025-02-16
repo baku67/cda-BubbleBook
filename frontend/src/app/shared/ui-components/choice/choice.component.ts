@@ -50,9 +50,10 @@ export class ChoiceComponent<T = any> {
 
   // Cubic-inline
   selectChoice(choice: T): void {
-    if (this.selectedChoice !== choice) {
-      this.selectedChoice = choice;
-      this.choiceChange.emit(choice);
+    if (this.isRequestSending || this.selectedChoice === choice) {
+      return;  // Empêche le clic si la requête est en cours ou si l'option est déjà sélectionnée
     }
+    this.selectedChoice = choice;
+    this.choiceChange.emit(choice);
   }
 }

@@ -15,5 +15,8 @@ class UserProfilDTO
         readonly public bool $is2fa,
         readonly public ?int $initialDivesCount,
         readonly public string $profilPrivacy,
+        readonly public string $logBooksPrivacy,
+        readonly public string $certificatesPrivacy,
+        readonly public string $galleryPrivacy,
     ) {}
 }

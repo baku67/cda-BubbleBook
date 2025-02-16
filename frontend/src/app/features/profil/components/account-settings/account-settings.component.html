@@ -28,7 +28,7 @@
                   [style]="'cubic-inline'"
                   [choices]="privacyOptions"
                   [selectedChoice]="selectedProfilPrivacyOption"
-                  (choiceChange)="onPrivacyOptionChange('profil', $event)"
+                  (choiceChange)="!isRequestSending && onPrivacyOptionChange('profil', $event)"
                   [isRequestSending]="isRequestSending"></app-choice>
                 </div>
 
@@ -39,7 +39,8 @@
                         [style]="'cubic-inline'"
                         [choices]="privacyOptions"
                         [selectedChoice]="selectedLogBooksPrivacyOption"
-                        (choiceChange)="onPrivacyOptionChange('logBooks', $event)">
+                        (choiceChange)="!isRequestSending && onPrivacyOptionChange('logBooks', $event)"
+                        [isRequestSending]="isRequestSending">
                     </app-choice>
 
                     <h4>Confidentialité des certificats</h4>
@@ -47,7 +48,8 @@
                         [style]="'cubic-inline'"
                         [choices]="privacyOptions"
                         [selectedChoice]="selectedCertificatesPrivacyOption"
-                        (choiceChange)="onPrivacyOptionChange('certificates', $event)">
+                        (choiceChange)="!isRequestSending && onPrivacyOptionChange('certificates', $event)"
+                        [isRequestSending]="isRequestSending">
                     </app-choice>
 
                     <h4>Confidentialité de la galerie</h4>
@@ -55,7 +57,8 @@
                         [style]="'cubic-inline'"
                         [choices]="privacyOptions"
                         [selectedChoice]="selectedGalleryPrivacyOption"
-                        (choiceChange)="onPrivacyOptionChange('gallery', $event)">
+                        (choiceChange)="!isRequestSending && onPrivacyOptionChange('gallery', $event)"
+                        [isRequestSending]="isRequestSending">
                     </app-choice>
 
                 </div>

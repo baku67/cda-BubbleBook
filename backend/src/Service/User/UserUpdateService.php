@@ -18,50 +18,74 @@ class UserUpdateService
         private EntityManagerInterface $entityManager
     ) {}
 
+    // PATCH
     public function updateUser(User $user, array $data): void
     {
-        if (isset($data['accountType']) && !isset($data['profilPrivacy'])) {
-            $dto = $this->serializer->deserialize(json_encode($data), FirstLogin1DTO::class, 'json');
-            $user->setAccountType($dto->accountType);
-
-            if ($user->getFirstLoginStep() === 1) {
-                $user->setFirstLoginStep(2);
-            }
-        } elseif (isset($data['username']) && !isset($data['profilPrivacy'])) {
-            $dto = $this->serializer->deserialize(json_encode($data), FirstLogin2DTO::class, 'json');
-            $user->setUsername($dto->username);
-            $user->setNationality($dto->nationality);
-            $user->setAvatarUrl($dto->avatar);
-            $user->setBannerUrl($dto->banner);
-            $user->setInitialDivesCount($dto->initialDivesCount);
-
-            if ($user->getFirstLoginStep() === 2) {
-                $user->setFirstLoginStep(null);
-            }
-        } elseif (isset($data['passStep'], $data['step']) && $data['passStep'] === true) {
-            if ($user->getFirstLoginStep() === (int)$data['step']) {
-                $user->setFirstLoginStep(null);
-            }
-        } elseif (isset($data['profilPrivacy']) || isset($data['logBooksPrivacy']) || isset($data['certificatesPrivacy']) || isset($data['galleryPrivacy'])) {
-            $privacyOption = PrivacyOption::tryFrom($data['profilPrivacy']);
+        if (isset($data['accountType'])) {
+            $this->updateAccountType($user, $data);
+        }
     
-            if ($privacyOption !== null) {
-                $user->setProfilPrivacy($privacyOption);
-            } else {
-                throw new \InvalidArgumentException('Invalid value for profilPrivacy');
-            }
-        } else {
-            throw new \InvalidArgumentException('Invalid data format.');
+        if (isset($data['username'])) {
+            $this->updateProfileInfo($user, $data);
         }
+    
+        $this->entityManager->flush(); 
+    }
+    
+    private function updateAccountType(User $user, array $data): void
+    {
+        $dto = $this->serializer->deserialize(json_encode($data), FirstLogin1DTO::class, 'json');
+        $errors = $this->validator->validate($dto);
+        if (count($errors) > 0) {
+            throw new \InvalidArgumentException((string) $errors);
+        }
+    
+        $user->setAccountType($dto->accountType);
+        if ($user->getFirstLoginStep() === 1) {
+            $user->setFirstLoginStep(2);
+        }
+    }
+    
+    private function updateProfileInfo(User $user, array $data): void
+    {
+        $dto = $this->serializer->deserialize(json_encode($data), FirstLogin2DTO::class, 'json');
+        $errors = $this->validator->validate($dto);
+        if (count($errors) > 0) {
+            throw new \InvalidArgumentException((string) $errors);
+        }
+    
+        $user->setUsername($dto->username);
+        $user->setNationality($dto->nationality);
+        $user->setAvatarUrl($dto->avatar);
+        $user->setBannerUrl($dto->banner);
+        $user->setInitialDivesCount($dto->initialDivesCount);
+        if ($user->getFirstLoginStep() === 2) {
+            $user->setFirstLoginStep(null);
+        }
+    }
+    
 
-        if (isset($dto)) {
-            $errors = $this->validator->validate($dto);
-            if (count($errors) > 0) {
-                throw new \InvalidArgumentException((string) $errors);
+    // PUT
+    public function updateUserPrivacySettings(User $user, array $data): void
+    {
+        $privacyFields = ['profilPrivacy', 'logBooksPrivacy', 'certificatesPrivacy', 'galleryPrivacy'];
+        
+        foreach ($privacyFields as $field) {
+            if (isset($data[$field])) {
+                $option = PrivacyOption::tryFrom($data[$field]);
+                if ($option === null) {
+                    throw new \InvalidArgumentException("Invalid value for $field");
+                }
+                $setter = 'set' . ucfirst($field);
+                if (method_exists($user, $setter)) {
+                    $user->$setter($option);
+                }
             }
         }
-
+    
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
+    
+
 }

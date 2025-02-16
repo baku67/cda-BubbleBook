@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller\User;
 
-use App\DTO\Request\FirstLogin2DTO;
 use App\Entity\User\User;
 use App\Repository\User\UserRepository;
 use App\Service\User\UserProfileService;
@@ -12,9 +11,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
-use App\DTO\Request\FirstLogin1DTO;
 
 class UserController extends AbstractController
 {
@@ -36,9 +32,10 @@ class UserController extends AbstractController
         return $this->json($userProfilDTO);
     }
 
-    
+
+    // Modifs lors des FirstLoginForm
     #[Route('/api/user', name: 'api_edit_user', methods: ['PATCH'])]
-    public function updateUser(Request $request, UserUpdateService $userUpdateService): JsonResponse
+    public function updateUser(Request $request, UserUpdateService $userUpdateService, UserProfileService $userProfileService): JsonResponse
     {
         $user = $this->getUser();
         if (!$user instanceof User) {
@@ -52,11 +49,42 @@ class UserController extends AbstractController
 
         try {
             $userUpdateService->updateUser($user, $data);
-            return new JsonResponse(['message' => 'User updated successfully.'], Response::HTTP_OK);
+
+            // Retourner le UserProfilDTO à jour
+            $userProfilDTO = $userProfileService->getProfile($user);
+            return $this->json($userProfilDTO, Response::HTTP_OK);
         } catch (\InvalidArgumentException $e) {
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => 'Error updating user. Please try again later.'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    // Modifs privacy depuis le account-settings
+    #[Route('/api/user/privacy', name: 'api_edit_user_privacy', methods: ['PUT'])]
+    public function updateUserPrivacy(Request $request, UserUpdateService $userUpdateService, UserProfileService $userProfileService): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $data = json_decode($request->getContent(), true);
+        if (!is_array($data)) {
+            return new JsonResponse(['error' => 'Invalid JSON format.'], Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            $userUpdateService->updateUserPrivacySettings($user, $data);
+
+            // Retourner le UserProfilDTO à jour
+            $userProfilDTO = $userProfileService->getProfile($user);
+            return $this->json($userProfilDTO, Response::HTTP_OK);
+        } catch (\InvalidArgumentException $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Error updating user privacy settings. Please try again later.'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

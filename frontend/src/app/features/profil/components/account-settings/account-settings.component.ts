@@ -35,7 +35,6 @@ export class AccountSettingsComponent implements OnInit {
 
     constructor(
       private userService: UserService, 
-      private firstLoginService: FirstLoginStepsService,
       private authService: AuthService,
       private flashMessageService: FlashMessageService,
       private animationService: AnimationService,
@@ -70,25 +69,18 @@ export class AccountSettingsComponent implements OnInit {
     // Attention: Quand on revient sur profil = NO_ONE => IL FAUT toggle le reste en no_one aussi (ou alors bien géré le back)
     onPrivacyOptionChange(section: string, newOption: PrivacyOption): void {
       this.isRequestSending = true;
-
-      switch (section) {
-        case 'profil':
-          this.selectedProfilPrivacyOption = newOption;
-          break;
-        case 'logBooks':
-          this.selectedLogBooksPrivacyOption = newOption;
-          break;
-        case 'certificates':
-          this.selectedCertificatesPrivacyOption = newOption;
-          break;
-        case 'gallery':
-          this.selectedGalleryPrivacyOption = newOption;
-          break;
-      }
       
-      this.firstLoginService.updateUser({ ...this.user, [`${section}Privacy`]: newOption }).subscribe({
-        next: () => {
+      this.userService.updateUserPrivacy({ ...this.user, [`${section}Privacy`]: newOption }).subscribe({
+        next: (updatedUser: UserProfil) => {
+          this.user = updatedUser;
           this.isRequestSending = false;
+
+          // Recalcule les options de confidentialité à partir de `this.user`
+          this.selectedProfilPrivacyOption = this.convertToPrivacyOption(updatedUser.profilPrivacy) || PrivacyOption.NO_ONE;
+          this.selectedLogBooksPrivacyOption = this.convertToPrivacyOption(updatedUser.logBooksPrivacy) || PrivacyOption.NO_ONE;
+          this.selectedCertificatesPrivacyOption = this.convertToPrivacyOption(updatedUser.certificatesPrivacy) || PrivacyOption.NO_ONE;
+          this.selectedGalleryPrivacyOption = this.convertToPrivacyOption(updatedUser.galleryPrivacy) || PrivacyOption.NO_ONE;
+          
           this.translateService.get('PROFILE_UPDATE_SUCCESS').subscribe((message: string) => {
             this.flashMessageService.showMessage(message, 'success', 'check_circle');
           });

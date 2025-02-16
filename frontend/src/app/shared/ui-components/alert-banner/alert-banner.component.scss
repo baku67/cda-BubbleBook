@@ -1,27 +1,25 @@
 :host {
-    // margin: 10px auto 20px auto;
     height: auto;
     display: block;
 }
 
 .errorMsg {
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 15px;
+
 }
 .error-message-text {
     flex: 1; // important sinon icon machée
 }
 
 .errorMsg {
-    padding: 9px 13px;
-    border-radius: 7px;
+    border-left-width: 6px !important;
+    font-size: 0.9em;
+    padding: 7px 12px;
+    border-radius: 5px;
 }
 
 
 .warn {
-    background-color: #ff000042;
+    background-color: #750000db;
     border: 1px solid red;
 
     mat-icon {
@@ -29,7 +27,7 @@
     }
 }
 .success {
-    background-color: rgb(0 255 170 / 26%);
+    background-color: #00b570d4;
     border: 1px solid #00ff6f;
 
     mat-icon {
@@ -37,10 +35,17 @@
     }
 }
 .info {
-    background-color: rgb(0 140 255 / 26%);
+    background-color: #006dc7d1;
     border: 1px solid #00d3ff;
 
     mat-icon {
         color: #00d3ff;
     }
+}
+
+mat-icon {
+    float: left;
+    font-size: 1.6em;
+    padding: 5px 8px 5px 0px;
+    box-sizing: content-box;
 }

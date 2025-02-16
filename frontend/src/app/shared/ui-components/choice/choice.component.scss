@@ -6,7 +6,7 @@
 
     width: auto;
     max-width: 100%;
-    padding: 3px 4px;
+    padding: 3px 3px;
     border-radius: 4px;
     border: 1px solid grey;
 
@@ -43,6 +43,8 @@
 
 .isLoading {
     opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
 }
 .selected.isLoading {
     background-color: grey;
