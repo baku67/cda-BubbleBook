@@ -81,6 +81,9 @@
                         type="number"
                     >
                 </mat-form-field>
+                @if (firstLoginForm2.get("initialDivesCount")?.hasError("max")) {
+                    <mat-error>Le nombre de plongée initial ne peut excéder 5000.</mat-error>
+                }
             </div>
 
             <mat-divider></mat-divider>

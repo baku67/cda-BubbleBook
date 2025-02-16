@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirstLoginStepsService } from '../../services/first-login-steps.service';
 import { Router } from '@angular/router';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
+import { UserProfil } from '../../../profil/models/userProfile.model';
+import { UserService } from '../../../profil/services/user.service';
 
 
 @Component({
@@ -12,12 +14,15 @@ import { AnimationService } from '../../../../shared/services/utils/animation.se
 })
 export class FirstLoginStep1Component implements OnInit {
 
+  user?:UserProfil;
+
   firstLoginForm!: FormGroup;
   isLoading: boolean;
 
   isAnimatingFadeOut = false;
 
   constructor(
+    private userService: UserService,
     private formBuilder: FormBuilder, 
     private firstLoginService: FirstLoginStepsService,
     private router: Router,
@@ -30,7 +35,17 @@ export class FirstLoginStep1Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initForm();
+    this.userService.getCurrentUser().subscribe({ 
+      next: (userData: UserProfil) => {
+        this.user = userData;
+        // this.isUserLoading = false;
+        this.initForm();
+      },
+      error: (error: unknown) => {
+        console.error('Erreur lors de la récupération du profil utilisateur', error);
+        // this.isUserLoading = false;
+      }
+    })
   }
 
   /**

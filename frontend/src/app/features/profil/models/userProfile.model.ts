@@ -3,6 +3,7 @@ import { PrivacyOption } from "../../../shared/models/privacy-option";
 export interface UserProfil {
     username: string;
     email: string;
+    firstLoginStep: number;
     accountType: string,
     nationality: string,
     avatarUrl: string,

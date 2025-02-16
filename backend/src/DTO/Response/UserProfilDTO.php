@@ -7,6 +7,7 @@ class UserProfilDTO
     public function __construct(
         readonly public string $username,
         readonly public string $email,
+        readonly public ?int $firstLoginStep,
         readonly public string $accountType,
         readonly public ?string $nationality,
         readonly public ?string $avatarUrl,

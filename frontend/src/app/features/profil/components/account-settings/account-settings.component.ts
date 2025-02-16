@@ -3,7 +3,6 @@ import { UserProfil } from '../../models/userProfile.model';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
-import { FirstLoginStepsService } from '../../../first-login-steps/services/first-login-steps.service';
 import { PrivacyOption, PrivacyOptionHelper } from '../../../../shared/models/privacy-option';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
 import { TranslateService } from '@ngx-translate/core';

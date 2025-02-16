@@ -39,5 +39,8 @@ class FirstLogin2DTO
     public ?string $banner = "";
 
     // Nombre de plongés initiales nullable 
-    public ?int $initialDivesCount;
+    #[Assert\Type(type: "integer", message: "The number of initial dives must be a number or null.")]
+    #[Assert\PositiveOrZero()]
+    #[Assert\LessThanOrEqual(5000)]
+    public ?int $initialDivesCount = null;
 }

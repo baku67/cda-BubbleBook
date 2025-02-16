@@ -3,6 +3,7 @@ namespace App\Service\User;
 
 use App\DTO\Request\FirstLogin1DTO;
 use App\DTO\Request\FirstLogin2DTO;
+use App\DTO\Request\UserPrivacyDTO;
 use App\Entity\User\User;
 use App\Enum\PrivacyOption;
 use Doctrine\ORM\EntityManagerInterface;
@@ -68,11 +69,16 @@ class UserUpdateService
     // PUT
     public function updateUserPrivacySettings(User $user, array $data): void
     {
-        $privacyFields = ['profilPrivacy', 'logBooksPrivacy', 'certificatesPrivacy', 'galleryPrivacy'];
-        
-        foreach ($privacyFields as $field) {
-            if (isset($data[$field])) {
-                $option = PrivacyOption::tryFrom($data[$field]);
+        $dto = $this->serializer->deserialize(json_encode($data), UserPrivacyDTO::class, 'json');
+    
+        $errors = $this->validator->validate($dto);
+        if (count($errors) > 0) {
+            throw new \InvalidArgumentException((string) $errors);
+        }
+    
+        foreach (['profilPrivacy', 'logBooksPrivacy', 'certificatesPrivacy', 'galleryPrivacy'] as $field) {
+            if ($dto->$field !== null) {
+                $option = PrivacyOption::tryFrom($dto->$field);
                 if ($option === null) {
                     throw new \InvalidArgumentException("Invalid value for $field");
                 }

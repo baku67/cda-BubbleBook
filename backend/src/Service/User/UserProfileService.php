@@ -11,6 +11,7 @@ class UserProfileService
         return new UserProfilDTO(
             $user->getUsername(),
             $user->getEmail(),
+            $user->getFirstLoginStep(),
             $user->getAccountType(),
             $user->getNationality(),
             $user->getAvatarUrl(),
