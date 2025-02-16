@@ -50,6 +50,18 @@
     align-items: center;
     justify-content: center;
 }
-.messgae {
+.container mat-icon {
+    &.success {
+        color: #00ff6f;
+    }
+    &.error {
+        color: #ff436d;
+    }
+    &.info {
+        color: #00d3ff;
+    }
+}
+.message {
     flex:1; // Pour grand text eviter de manger l'icone
+    color: white !important; // toujours blanc;
 }

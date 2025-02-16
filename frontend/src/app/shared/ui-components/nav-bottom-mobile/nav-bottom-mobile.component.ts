@@ -29,6 +29,11 @@ export class NavBottomMobileComponent {
   ) {}
 
   ngOnInit() {
+    // Initialisation immédiate lors du chargement de la page
+    this.isSettingsRouteActive = this.checkIfRouteIsActive(['/account-settings']);
+    this.isProfilRouteActive = this.checkIfRouteIsActive(['/certificates', '/user-profil']);
+
+    // Abonnement aux événements de navigation
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.isSettingsRouteActive = this.checkIfRouteIsActive(['/account-settings']);
