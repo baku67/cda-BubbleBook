@@ -1,30 +1,24 @@
 
 <div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
 
-    <app-page-header *ngIf="isLoading" [title]="('CONFIRMING_EMAIL_ADDRESS' | translate)" matIcon="alternate_email" />
+    <app-page-header 
+        [title]="('CONFIRMING_EMAIL_ADDRESS' | translate)" 
+        matIcon="alternate_email" 
+        [colorTheme]="true"
+    />
 
     <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-    <div *ngIf="!isLoading && confirmSuccess">
-        <div class="iconLine">
-            <mat-icon>task_alt</mat-icon>
-            <span>{{ "EMAIL_ADDRESS_CONFIRMED" | translate }}</span>
-        </div>
-        
-        <br>
-        <a [routerLink]="['/login']">
-            <button mat-flat-button color="primary" class="cta-btn-primary">{{ "LOGIN" | translate }}</button>
-        </a>
-    </div>
+    <div *ngIf="!isLoading">
 
-    <div *ngIf="!isLoading && !confirmSuccess">
-        <div class="iconLine">
-            <mat-icon>unpublished</mat-icon>
-            <span>{{ "EMAIL_ADDRESS_NOT_CONFIRMED" | translate }}</span>    
-        </div>
+        <app-alert-banner 
+            [msgAlert]="confirmSuccess ? 'EMAIL_ADDRESS_CONFIRMED' : 'EMAIL_ADDRESS_NOT_CONFIRMED' | translate" 
+            [maticon]="confirmSuccess ? 'task_alt' : 'unpublished'" 
+            [style]="confirmSuccess ? 'success' : 'warn'"
+        ></app-alert-banner>
         
         <br>
-        <p>{{ "LOGIN_TO_RESEND_CONFIRMATION" | translate }}</p>
+        <p *ngIf="!confirmSuccess">{{ "LOGIN_TO_RESEND_CONFIRMATION" | translate }}</p>
         <a [routerLink]="['/login']">
             <button mat-flat-button color="primary" class="cta-btn-primary">{{ "LOGIN" | translate }}</button>
         </a>

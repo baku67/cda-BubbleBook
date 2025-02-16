@@ -25,10 +25,18 @@
     <app-background-video (videoLoaded)="onVideoLoaded()"></app-background-video>
 
     <div class="globalMain">
-      <div *ngIf="showUxButtons" class="app-div-settings" style="display: inline-flex; flex-direction: column;">
+
+      <div 
+        *ngIf="showUxButtons" 
+        [matMenuTriggerFor]="menuUxButtons"
+        class="UxMenuBtn"
+      >
+        <mat-icon class="material-icons-outlined">settings</mat-icon>
+      </div>
+      <mat-menu #menuUxButtons="matMenu" class="app-div-settings" style="display: inline-flex; flex-direction: column;">
         <app-language-switch />
         <app-theme-switch />
-      </div>
+      </mat-menu>
 
       <app-header *ngIf="showHeader" />
 

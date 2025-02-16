@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './features/auth/services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
-import { delay } from 'rxjs';
 import { LandingPageService } from './features/landing-page/service/landing-page.service';
 import { FlashMessageService } from './shared/services/utils/flash-message.service';
 

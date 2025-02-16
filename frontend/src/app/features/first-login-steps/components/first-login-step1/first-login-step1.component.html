@@ -5,7 +5,11 @@
     <!-- TODO form type user (Héritage backend), même si club pas la priorité (ouverture pour projet) -->
     <div *ngIf="!isLoading && firstLoginForm" class="card">
 
-        <app-page-header [title]="('FIRST_LOGIN_1_PAGE_TITLE' | translate )" matIcon="account_circle" />
+        <app-page-header 
+            [title]="('FIRST_LOGIN_1_PAGE_TITLE' | translate )" 
+            matIcon="account_circle" 
+            [colorTheme]="false"
+        />
     
         <!-- Username / Clubname -->
         <form [formGroup]="firstLoginForm" (ngSubmit)="onSubmit()" class="firstLoginForm">

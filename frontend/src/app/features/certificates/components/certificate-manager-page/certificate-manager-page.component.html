@@ -1,6 +1,10 @@
 <div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
 
-    <app-page-header [title]='("CERTIFICATES" | translate)' matIcon="account_circle" />
+    <app-page-header 
+        [title]='("CERTIFICATES" | translate)' 
+        matIcon="account_circle" 
+        [colorTheme]="true"
+    />
 
 
     <section *ngIf="!isAllCertifsLoading && !isUserCertifsLoading">

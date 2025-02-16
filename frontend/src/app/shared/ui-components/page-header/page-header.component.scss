@@ -9,34 +9,40 @@ header {
 
 .page-title-line {
     display: flex;
-    // flex: 1;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     color: var(--primary-color);
-    gap: 12px;
+    gap: 5px;
 }
 .page-title-line h2 {
     margin-bottom: 0;
-    color: var(--colorContrast);
     font-size: 26px;
     flex: 1;
 }
+.colorTheme {
+    color: var(--color);
+}
+.colorContrast {
+    color: var(--colorContrast);
+}
+
+
 .page-title-icon {
     font-size: 44px;
     height: 44px;
     width: 44px;
     position: relative;
     bottom: 2px;
-}
 
+    padding: 0 10px;
+    box-sizing: content-box;
+}
 
 
 .page-description {
     display: block;
     width: 90%;
-    // padding: 7px 17px;
-    // margin: 10px auto;
     padding: 7px 0px;
     margin: 10px auto;
 }

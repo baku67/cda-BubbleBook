@@ -5,7 +5,11 @@
 
     <div *ngIf="!isLoading" class="card">
 
-        <app-page-header [title]="('FIRST_LOGIN_2_PAGE_TITLE' | translate)" matIcon="account_circle" />
+        <app-page-header 
+            [title]="('FIRST_LOGIN_2_PAGE_TITLE' | translate)" 
+            matIcon="account_circle" 
+            [colorTheme]="false"
+        />
 
         <app-alert-banner msgAlert="Vous pourrez personaliser votre profil plus tard" maticon="info" [style]="'info'" ></app-alert-banner>
 

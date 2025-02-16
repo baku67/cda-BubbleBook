@@ -32,7 +32,7 @@
     "ACCEPT_TERMS": "J'accepte les termes et conditions d'utilisation du site.",
     "ACCEPT_TERMS_MANDATORY": "Vous devez accepter les conditions d'utilisation du site pour vous inscrire",
 
-    "CONFIRMING_EMAIL_ADDRESS": "Confirmation de l'email...",
+    "CONFIRMING_EMAIL_ADDRESS": "Confirmation de l'email",
     "EMAIL_ADDRESS_CONFIRMED": "Adresse email confirmée avec succès",
     "EMAIL_ADDRESS_NOT_CONFIRMED": "Erreur lors de la confirmation de l'email ou lien expiré",
     "LOGIN_TO_RESEND_CONFIRMATION": "Connectez-vous pour renvoyer un lien",

@@ -31,7 +31,7 @@
     "ACCEPT_TERMS": "I accept the terms and conditions of use of the site.",
     "ACCEPT_TERMS_MANDATORY": "You must accept the site's terms of use to register.",
 
-    "CONFIRMING_EMAIL_ADDRESS": "Confirming email address...",
+    "CONFIRMING_EMAIL_ADDRESS": "Email confirmation",
     "EMAIL_ADDRESS_CONFIRMED": "Email address successfully confirmed",
     "EMAIL_ADDRESS_NOT_CONFIRMED": "Email confirmation error or link expired",
     "LOGIN_TO_RESEND_CONFIRMATION": "Log in to resend a link",

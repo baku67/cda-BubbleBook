@@ -1,7 +1,11 @@
 
 <div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
 
-    <app-page-header [title]="('ACCOUNT_SETTINGS' | translate)" matIcon="manage_accounts" />
+    <app-page-header 
+        [title]="('ACCOUNT_SETTINGS' | translate)" 
+        matIcon="manage_accounts" 
+        [colorTheme]="true"
+    />
 
     <app-alert-banner 
         *ngIf="user && !user.isVerified" 

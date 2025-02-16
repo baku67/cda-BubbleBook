@@ -12,6 +12,7 @@ import { MatIcon } from '@angular/material/icon';
 export class PageHeaderComponent 
 {
   @Input() title!: string;
+  @Input() colorTheme: boolean = true;
   @Input() paragraph?: string | null;
   @Input() matIcon!: string | null;
 

@@ -45,6 +45,7 @@ import {MatCardModule} from '@angular/material/card';
 
 import { routes } from './app.routes';  // Import the routes
 import { AuthService } from './features/auth/services/auth.service';
+import { MatMenuModule } from '@angular/material/menu';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -112,6 +113,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CdkDragPlaceholder,
     ModalComponent,
     MatSelectModule,
+    MatMenuModule,
     NgxSkeletonLoaderModule,
 ],
   providers: [
