@@ -90,6 +90,12 @@
 
     "ALERT_CONFIRM_MAIL": "Confirmez le lien reçu par mail pour profiter de toutes les fonctionalités.",
 
+    "PRIVACY_TITLE": "Confidentialité",
+    "PRIVACY_PROFIL": "Profil",
+    "PRIVACY_LOGBOOKS": "Carnets de plongée",
+    "PRIVACY_CERTIFICATES": "Certificats",
+    "PRIVACY_GALLERY": "Gallerie",
+
     "PROFILE_UPDATE_SUCCESS": "Votre profil a été mis à jour avec succès !",
     "PROFILE_UPDATE_ERROR": "Erreur lors de la mise à jour de votre profil.",
 

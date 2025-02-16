@@ -86,6 +86,12 @@
 
     "ALERT_CONFIRM_MAIL": "Confirm the link sent to you by email to enjoy all the features.",
 
+    "PRIVACY_TITLE": "Privacy",
+    "PRIVACY_PROFIL": "Profile",
+    "PRIVACY_LOGBOOKS": "Log Books",
+    "PRIVACY_CERTIFICATES": "Certificates",
+    "PRIVACY_GALLERY": "Gallery",
+
     "PROFILE_UPDATE_SUCCESS": "Your profile has been updated successfully!",
     "PROFILE_UPDATE_ERROR": "Error updating your profile.",
 

@@ -14,56 +14,65 @@
         msgAlert="{{ 'ALERT_CONFIRM_MAIL' | translate }}" 
     ></app-alert-banner>
 
-    <section class="card">
 
-        <div *ngIf="!isUserLoading">
+    <!-- Confidentialité -->
+        <mat-expansion-panel class="card" *ngIf="!isUserLoading" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
 
-            <div class="title-button">
-                <h3>Confidentialité</h3>
-            </div>
+            <mat-expansion-panel-header class="title-button">
+                <mat-panel-title>
+                    <mat-icon class="material-icons-outlined">shield_person</mat-icon>
+                    <span>{{ 'PRIVACY_TITLE' | translate }}</span>
+                </mat-panel-title>
+                <!-- <mat-icon *ngIf="!panel.expanded">expand_more</mat-icon> -->
+            </mat-expansion-panel-header>
 
-            <!-- Visibility: -->
             <section class="visibility-section">
 
                 <!-- Profil visibility -->
                 <div class="visibility-toggle">
-                  <h5>Profil:</h5>
-                  <app-choice
-                  [style]="'cubic-inline'"
-                  [choices]="privacyOptions"
-                  [selectedChoice]="selectedProfilPrivacyOption"
-                  (choiceChange)="!isRequestSending && onPrivacyOptionChange('profil', $event)"
-                  [isRequestSending]="isRequestSending"></app-choice>
+                    <h5>{{ "PRIVACY_PROFIL" | translate }}</h5>
+                    <app-choice
+                    [style]="'cubic-inline'"
+                    [choices]="privacyOptions"
+                    [selectedChoice]="selectedProfilPrivacyOption"
+                    (choiceChange)="!isRequestSending && onPrivacyOptionChange('profil', $event)"
+                    [isRequestSending]="isRequestSending"></app-choice>
                 </div>
 
-                <div *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.ALL || selectedProfilPrivacyOption === privacyOptionsEnum.FRIENDS_ONLY">
-                    <!-- A griser également quand isRequestSending -->
-                    <h5>Carnets de plongée</h5>
-                    <app-choice
-                        [style]="'cubic-inline'"
-                        [choices]="privacyOptions"
-                        [selectedChoice]="selectedLogBooksPrivacyOption"
-                        (choiceChange)="!isRequestSending && onPrivacyOptionChange('logBooks', $event)"
-                        [isRequestSending]="isRequestSending">
-                    </app-choice>
+                <div class="subPrivacySettings-div" *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.ALL || selectedProfilPrivacyOption === privacyOptionsEnum.FRIENDS_ONLY">
+                    
+                    <div>
+                        <h5>{{ "PRIVACY_LOGBOOKS" | translate }}</h5>
+                        <app-choice
+                            [style]="'cubic-inline'"
+                            [choices]="privacyOptions"
+                            [selectedChoice]="selectedLogBooksPrivacyOption"
+                            (choiceChange)="!isRequestSending && onPrivacyOptionChange('logBooks', $event)"
+                            [isRequestSending]="isRequestSending">
+                        </app-choice>
+                    </div>
 
-                    <h5>Certificats</h5>
-                    <app-choice
-                        [style]="'cubic-inline'"
-                        [choices]="privacyOptions"
-                        [selectedChoice]="selectedCertificatesPrivacyOption"
-                        (choiceChange)="!isRequestSending && onPrivacyOptionChange('certificates', $event)"
-                        [isRequestSending]="isRequestSending">
-                    </app-choice>
+                    <div>
+                        <h5>{{ "PRIVACY_CERTIFICATES" | translate }}</h5>
+                        <app-choice
+                            [style]="'cubic-inline'"
+                            [choices]="privacyOptions"
+                            [selectedChoice]="selectedCertificatesPrivacyOption"
+                            (choiceChange)="!isRequestSending && onPrivacyOptionChange('certificates', $event)"
+                            [isRequestSending]="isRequestSending">
+                        </app-choice>
+                    </div>
 
-                    <h5>Gallerie</h5>
-                    <app-choice
-                        [style]="'cubic-inline'"
-                        [choices]="privacyOptions"
-                        [selectedChoice]="selectedGalleryPrivacyOption"
-                        (choiceChange)="!isRequestSending && onPrivacyOptionChange('gallery', $event)"
-                        [isRequestSending]="isRequestSending">
-                    </app-choice>
+                    <div>
+                        <h5>{{ "PRIVACY_GALLERY" | translate }}</h5>
+                        <app-choice
+                            [style]="'cubic-inline'"
+                            [choices]="privacyOptions"
+                            [selectedChoice]="selectedGalleryPrivacyOption"
+                            (choiceChange)="!isRequestSending && onPrivacyOptionChange('gallery', $event)"
+                            [isRequestSending]="isRequestSending">
+                        </app-choice>
+                    </div>
 
                 </div>
             
@@ -72,49 +81,46 @@
                 </div>
             </section>
 
+        </mat-expansion-panel>
 
-            <p>Email: {{ user?.email }}</p>
+    <div *ngIf="isUserLoading" class="spinner-container">
+        <mat-spinner></mat-spinner>
+    </div>
 
-            <p>Email vérifié: {{ user?.isVerified }}</p>
-            
-            <!-- Renvoi mail de confirmation  -->
-            <div *ngIf="!user?.isVerified">
-    
-                <button 
-                    *ngIf="!emailConfirmResent"
-                    mat-flat-button 
-                    color="primary"
-                    (click)="resendConfirmationEmail()"
-                >
-                    <span *ngIf="!emailConfirmResentLoading">{{ "EMAIL_RESEND_CONFIRMATION" | translate }}</span>
-                    <mat-spinner *ngIf="emailConfirmResentLoading"></mat-spinner>
-                </button>
 
-                <app-alert-banner 
-                    *ngIf="emailConfirmResent"
-                    maticon="task_alt" 
-                    [style]="'success'" 
-                    [msgAlert]="'EMAIL_CONFIRMATION_SENT' | translate: { email: user?.email }" 
-                ></app-alert-banner>
-    
-            </div>
+    <section *ngIf="!isUserLoading" class="card">
+        <p>Email: {{ user?.email }}</p>
+
+        <p>Email vérifié: {{ user?.isVerified }}</p>
+        
+        <!-- Renvoi mail de confirmation  -->
+        <div *ngIf="!user?.isVerified">
+
+            <button 
+                *ngIf="!emailConfirmResent"
+                mat-flat-button 
+                color="primary"
+                (click)="resendConfirmationEmail()"
+            >
+                <span *ngIf="!emailConfirmResentLoading">{{ "EMAIL_RESEND_CONFIRMATION" | translate }}</span>
+                <mat-spinner *ngIf="emailConfirmResentLoading"></mat-spinner>
+            </button>
+
+            <app-alert-banner 
+                *ngIf="emailConfirmResent"
+                maticon="task_alt" 
+                [style]="'success'" 
+                [msgAlert]="'EMAIL_CONFIRMATION_SENT' | translate: { email: user?.email }" 
+            ></app-alert-banner>
+
         </div>
 
-        <div *ngIf="isUserLoading" class="spinner-container">
-            <mat-spinner></mat-spinner>
-        </div>
-
+        <button>Changer d'adresse mail</button>
     </section>
-
-
       
 
     <section>
         <h5>Changer de mot de passe</h5>
-    </section>
-
-    <section>
-        <h5>Changer d'adresse mail</h5>
     </section>
 
     <section>

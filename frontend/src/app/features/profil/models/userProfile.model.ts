@@ -1,4 +1,4 @@
-import { PrivacyOption } from "../../../shared/models/privacy-option";
+import { PrivacyOption } from "./privacy-option";
 
 export interface UserProfil {
     username: string;

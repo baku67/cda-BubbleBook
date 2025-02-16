@@ -137,8 +137,9 @@ input:-webkit-autofill:active{
 // merci
 
 .card {
+    box-sizing: border-box !important;
     padding: 10px 13px;
-    border-radius: 10px;
+    border-radius: 10px !important;
     width: 100%; // temporaire mobile
 }
 .surface {
@@ -298,7 +299,14 @@ h1, h2, h3 {
 
 .matFieldInput {
     width: 100%;
-  }
+}
+
+mat-expansion-panel-header {
+    // padding: 0 18px !important;
+}
+mat-panel-title {
+    gap: 15px;
+}
 
 .relative {
     position: relative;

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { UserProfil } from '../../models/userProfile.model';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
-import { PrivacyOption, PrivacyOptionHelper } from '../../../../shared/models/privacy-option';
+import { PrivacyOption, PrivacyOptionHelper } from '../../models/privacy-option';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -13,6 +13,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './account-settings.component.scss'
 })
 export class AccountSettingsComponent implements OnInit {
+
+    readonly panelOpenState = signal(false);
 
     user?:UserProfil;
 

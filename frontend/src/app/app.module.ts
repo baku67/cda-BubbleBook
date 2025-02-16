@@ -42,10 +42,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { BannerSelectionComponent } from './features/profil/components/banner-selection/banner-selection.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {MatCardModule} from '@angular/material/card';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { routes } from './app.routes';  // Import the routes
 import { AuthService } from './features/auth/services/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
+import { PrivacySettingsComponent } from './features/profil/components/privacy-settings/privacy-settings.component';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -69,6 +71,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CertificateManagerPageComponent,
     CertificateFormComponent,
     BannerSelectionComponent,
+    PrivacySettingsComponent,
   ],
   imports: [
     MatCardModule,
@@ -115,6 +118,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatSelectModule,
     MatMenuModule,
     NgxSkeletonLoaderModule,
+    MatExpansionModule,
 ],
   providers: [
     { 
