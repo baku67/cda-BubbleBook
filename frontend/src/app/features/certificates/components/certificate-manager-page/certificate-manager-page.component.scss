@@ -13,11 +13,25 @@ ngx-skeleton-loader  {
 }
 
 
+.empty-list {
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  padding: 12px 0px;
+  gap: 10px;
+  opacity: 0.8;
+  font-style: italic;
+  font-size: 90%;
+}
+
+
 // CDK drag-drop "custom placeholder"::after.example-list {
 .example-list {
   width: 500px;
   max-width: 100%;
-  border: solid 1px #ccc;
+  border: solid 1px #8989898c;
   min-height: 60px;
   display: block;
 //   background: white;
@@ -101,6 +115,11 @@ button .mat-spinner {
   vertical-align: middle;
 }
 
+.certificates-btns {
+  color: black;
+  border-radius: 5px;
+}
+
 .addCertif-button {
   cursor: pointer;
   width: 100%;
@@ -123,9 +142,15 @@ button .mat-spinner {
   align-items: center;
 
   gap: 10px;
-  font-size: 1.1em;
+  font-size: 1.2em;
+  position: relative;
+  right: 3px;
 }
 
 .drag-disabled {
   cursor: default !important; /* Change le curseur en flèche classique */
+}
+
+.certificates-list-wrapper {
+  
 }
