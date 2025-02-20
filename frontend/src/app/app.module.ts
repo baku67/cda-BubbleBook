@@ -48,6 +48,7 @@ import { routes } from './app.routes';  // Import the routes
 import { AuthService } from './features/auth/services/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { PrivacySettingsComponent } from './features/profil/components/privacy-settings/privacy-settings.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -119,6 +120,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatMenuModule,
     NgxSkeletonLoaderModule,
     MatExpansionModule,
+    MatDividerModule,
 ],
   providers: [
     { 

@@ -29,12 +29,16 @@
     --color: #ffffff;
     --colorContrast: #011829;
     --surface-grised: #00000008;
+
+    --surface-background-color: #f0f3f5; //!!! map-get(map-get($myapp-light-theme, bg-color), surfaces)
 }
 .dark-theme {
     @include mat.all-component-themes($myapp-dark-theme); // Applique les styles du thème sombre
     --color: #000000;
     --colorContrast: #f7f8f8;
     --surface-grised: #00000017;
+
+    --surface-background-color: #252526; //!!! map-get(map-get($myapp-dark-theme, bg-color), surfaces)
 }
 
 

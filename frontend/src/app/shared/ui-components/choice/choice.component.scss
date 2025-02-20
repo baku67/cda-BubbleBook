@@ -6,9 +6,10 @@
 
     width: auto;
     max-width: 100%;
-    padding: 3px 3px;
+
+    padding: 7px 4px 4px 4px;
+
     border-radius: 4px;
-    border: 1px solid #80808061;
 
     width: 100%;
     font-size: 0.8em;
@@ -24,8 +25,8 @@
         flex: 1;
         justify-content: center;
 
-        padding: 5px 6px;
-        border-radius: 2px;
+        padding: 8px 6px;
+        border-radius: 3px;
     }
     .choice-item:not(.selected) {
         cursor: pointer;

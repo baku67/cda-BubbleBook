@@ -14,10 +14,8 @@ $myapp-light-theme: mat.m2-define-light-theme((
     warn: $myapp-theme-warn,
   ),
   bg-color: (
-    // default: linear-gradient(to left bottom, #17ae66, #009d8a, #00889d, #007199, #355982), // Gradient background-color body
-    // default: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%), 
     default: linear-gradient(160deg, #E3F2FD 0%, #E0F7FA 100%),
-    surfaces: #f0f3f5, // Couleur des surfaces
+    surfaces: #f0f3f5, // Couleur des surfaces (attention correspondance dans styles.css !!!)
     border: #dbdcdd
   ),
   matMenu-bgColor: (
@@ -33,9 +31,8 @@ $myapp-dark-theme: mat.m2-define-dark-theme((
     warn: $myapp-theme-warn,
   ),
   bg-color: (
-    // default: linear-gradient(315deg, #2b5562 0%, #12100e 74%),
     default: linear-gradient(315deg, #1e1e1e 0%, #121212 100%),
-    surfaces: #252526, // Couleur des surfaces
+    surfaces: #252526, // Couleur des surfaces (attention correspondance dans styles.css !!!)
     border: #484849
   ),
   matMenu-bgColor: (

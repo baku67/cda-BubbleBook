@@ -96,7 +96,7 @@
     "PROFILE_UPDATE_ERROR": "Error updating your profile.",
 
     "PRIVACY.ALL": "Public",
-    "PRIVACY.FRIENDS_ONLY": "Friends only",
+    "PRIVACY.FRIENDS_ONLY": "Friends",
     "PRIVACY.NO_ONE": "Private",
 
     "PROFILE_PRIVATE_WARNING": "Your profile and content are currently invisible to other users."
