@@ -14,12 +14,15 @@ import { NotFoundPageComponent } from './shared/ui-components/not-found-page/not
 import { FadeOutGuard } from './core/guards/fade-out.guard';
 import { Test1Component } from './shared/ui-components/test/test-1/test-1.component';
 import { Test2Component } from './shared/ui-components/test/test-2/test-2.component';
+import { SocialPageComponent } from './features/social/components/social-page/social-page.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Home page
 
     { path: 'register', component: RegisterPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Register
     { path: 'login', component: LoginPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Login
+
+
 
     // Pour empêcher un utilisateur déconnecté d'accéder à certaines pages protégées: GUARD
     { path: 'user-profil', component: UserProfilComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
@@ -29,6 +32,10 @@ export const routes: Routes = [
     { path: 'first-login/step-two', component: FirstLoginStep2Component, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
 
     { path: 'certificates', component: CertificateManagerPageComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
+
+    { path: 'social', component: SocialPageComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
+
+
 
     // Confirmation mail:
     { path: 'confirm-email', component: ConfirmEmailComponent, canDeactivate: [FadeOutGuard] },

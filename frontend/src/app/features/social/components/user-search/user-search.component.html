@@ -1,0 +1,14 @@
+<div class="search-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Rechercher un utilisateur</mat-label>
+    <input matInput [formControl]="searchControl" placeholder="Entrez un nom d'utilisateur">
+  </mat-form-field>
+
+  <div *ngIf="loading" class="loading">Chargement...</div>
+
+  <ul *ngIf="users.length > 0">
+    <li *ngFor="let user of users">{{ user.username }}</li>
+  </ul>
+
+  <p *ngIf="!loading && users.length === 0">Aucun utilisateur trouvé.</p>
+</div>

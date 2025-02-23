@@ -49,6 +49,8 @@ import { AuthService } from './features/auth/services/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { PrivacySettingsComponent } from './features/profil/components/privacy-settings/privacy-settings.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { SocialPageComponent } from './features/social/components/social-page/social-page.component';
+import { UserSearchComponent } from './features/social/components/user-search/user-search.component';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -65,14 +67,19 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     LandingPageComponent,
     LoginPageComponent,
     RegisterPageComponent, 
+  
     UserProfilComponent,
     UserCardComponent,
     ConfirmEmailComponent,
     AccountSettingsComponent,
     CertificateManagerPageComponent,
     CertificateFormComponent,
+
     BannerSelectionComponent,
     PrivacySettingsComponent,
+
+    SocialPageComponent,
+    UserSearchComponent,
   ],
   imports: [
     MatCardModule,

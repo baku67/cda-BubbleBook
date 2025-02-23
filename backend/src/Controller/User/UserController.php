@@ -1,16 +1,19 @@
 <?php
 namespace App\Controller\User;
 
+use App\DTO\Request\UserSearchCriteriaDTO;
 use App\Entity\User\User;
 use App\Repository\User\UserRepository;
 use App\Service\User\UserProfileService;
 use App\Service\User\UserUpdateService;
+use App\Service\UserSearchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
 {
@@ -86,6 +89,30 @@ class UserController extends AbstractController
         } catch (\Exception $e) {
             return new JsonResponse(['error' => 'Error updating user privacy settings. Please try again later.'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    // Social searchUser 
+    #[Route('/api/user/search', name: 'api_user_search', methods: ['GET'])]
+    public function searchUsers(
+        Request $request,
+        UserSearchService $userSearchService,
+        ValidatorInterface $validator
+    ): JsonResponse {
+
+        $criteria = UserSearchCriteriaDTO::fromRequest($request);
+        $errors = $validator->validate($criteria);
+        if (count($errors) > 0) {
+            $errorMessages = [];
+            foreach ($errors as $error) {
+                $errorMessages[] = $error->getMessage();
+            }
+            return new JsonResponse(['errors' => $errorMessages], Response::HTTP_BAD_REQUEST);
+        }
+
+        // Appel du service de recherche avec les critères
+        $users = $userSearchService->search($criteria);
+
+        return $this->json($users, Response::HTTP_OK);
     }
 
 }
