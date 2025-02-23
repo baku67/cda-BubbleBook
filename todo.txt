@@ -1,0 +1,13 @@
+Centrer mieux et moins scale les 2 divs
+Scale down Totoue également :'(
+
+On rappelle: import des html directement dans click-droit WallPaperEngine>Créer
+
+
+
+Idées pour le wallpaper script:
+
+    Rejouer l'animation d'écriture toutes les 20 secondes
+
+    Ecran de veille ! aleatoire avec le StarWars
+

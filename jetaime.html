@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Je t'aime Fort</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <style>
+        #letterJpath {
+            opacity: 0.8;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #ef2d70; 
+            stroke-width: 5; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 5;
+            transition: stroke 0.4s;
+        }
+        .letterJ {
+            height: 250px;
+            position: relative;
+            margin: 50px;
+            width: 65px;
+            margin: 0 auto;
+            transition: all 0.4s;
+        }
+
+        #letterE1path {
+            opacity: 0.8;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #ef2d70; 
+            stroke-width: 4; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .letterE1 {
+            height: 250px;
+            position: relative;
+            margin: 50px;
+            width: 50px;
+            margin-left: 10px;
+            left: 10px;
+            margin: 0 auto;
+            transform: scale(0.9) rotate(337deg);
+            bottom: 37px;
+            transition: all 0.4s;
+        }
+
+        #letterTpath {
+            opacity: 0.8;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #ef2d70; 
+            stroke-width: 4; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .letterT {
+            height: 250px;
+            position: relative;
+            margin: 50px;
+            width: 50px;
+            margin: 0 auto;
+            transition: all 0.4s;
+        }
+
+        #apostrophePath {
+            opacity: 0.8;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #ef2d70; 
+            stroke-width: 4; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .apostrophe {
+            height: 250px;
+            position: relative;
+            margin: 50px;
+            width: 30px;
+            margin: 0 auto;
+            transition: all 0.4s;
+        }
+
+        #lettersAimPath {
+            opacity: 0.8;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #ef2d70; 
+            stroke-width: 4; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .lettersAim {
+            height: 250px;
+            position: relative;
+            margin: 50px;
+            width: 105px;
+            margin: 0 auto;
+            transition: all 0.4s;
+
+            transform: scale(0.7) rotate(355deg);
+            bottom: 35px;
+            right: 35px;
+        }
+
+        #letterE2path {
+            opacity: 0.8;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #ef2d70; 
+            stroke-width: 4; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .letterE2 {
+            /* height: 250px;
+            position: relative;
+            margin: 50px;
+            width: 50px;
+            margin: 0 auto;
+            transition: all 0.4s; */
+
+            height: 250px;
+            position: relative;
+            margin: 50px;
+            width: 50px;
+            margin-left: 10px;
+            right: 47px;
+            margin: 0 auto;
+            transform: scale(0.9) rotate(337deg);
+            bottom: 37px;
+            transition: all 0.4s;
+        }
+
+        /* Traits absolute */
+        #letterTlinePath {
+            opacity: 0.8;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #ef2d70; 
+            stroke-width: 4; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .letterTline {
+            height: 250px;
+            position: absolute;
+            margin: 50px;
+            width: 69px;
+            margin: 0 auto;
+            transition: all 0.4s;
+
+            transform: translateX(-30px);
+        }
+
+        #letterFlinePath {
+            opacity: 0.9;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #2de3ef; 
+            stroke-width: 5; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .letterFline {
+            height: 250px;
+            position: absolute;
+            transform: scale(0.6) translate(-83px, -38px);
+            margin: 50px;
+            width: 69px;
+            margin: 0 auto;
+            transition: all 0.4s;
+        }
+
+        #letterFline2Path {
+            opacity: 0.9;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #2de3ef; 
+            stroke-width: 5; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .letterFline2 {
+            height: 250px;
+            position: absolute;
+            transform: scale(1.5) translate(-18px, 22px);
+            margin: 50px;
+            width: 69px;
+            margin: 0 auto;
+            transition: all 0.4s;
+        }
+
+        #letterT2linePath {
+            opacity: 0.9;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #2de3ef; 
+            stroke-width: 5; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .letterT2line {
+            height: 250px;
+            position: absolute;
+            transform: scale(1) translate(54px, -1px);
+            margin: 50px;
+            width: 69px;
+            margin: 0 auto;
+            transition: all 0.4s;
+        }
+
+        
+        #heartPath {
+            opacity: 0.9;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #2de3ef; 
+            stroke-width: 2; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .heart {
+            height: 250px;
+            position: absolute;
+            transform: scale(1.2) translate(115px, -8px) rotate(14deg);
+            margin: 50px;
+            width: 138px;
+            margin: 0 auto;
+            transition: all 0.4s;
+        }
+
+        .heartBackground {
+            position: absolute;
+            opacity: 0;
+            width: 325px;
+            height: 325px;
+            transform: scale(1.8) translate(85px, -78px);
+
+            background: rgb(239,45,112);
+            background: -moz-radial-gradient(circle, rgba(239,45,112,0.9458158263305322) 0%, rgba(0,9,29,0) 36%);
+            background: -webkit-radial-gradient(circle, rgba(239,45,112,0.9458158263305322) 0%, rgba(0,9,29,0) 36%);
+            background: radial-gradient(circle, rgba(239,45,112,0.9458158263305322) 0%, rgba(0,9,29,0) 36%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ef2d70",endColorstr="#00091d",GradientType=1);
+
+            transition: all 0.7s;
+        }
+
+        .heartBackground2 {
+            position: absolute;
+            opacity: 0;
+            width: 325px;
+            height: 325px;
+            transform: scale(0.4) translate(127px, -332px);
+
+            background: rgb(45,227,239);
+            background: -moz-radial-gradient(circle, rgba(45,227,239,1) 0%, rgba(0,9,29,0) 36%);
+            background: -webkit-radial-gradient(circle, rgba(45,227,239,1) 0%, rgba(0,9,29,0) 36%);
+            background: radial-gradient(circle, rgba(45,227,239,1) 0%, rgba(0,9,29,0) 36%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2de3ef",endColorstr="#00091d",GradientType=1);
+            transition: all 0.7s;
+        }
+
+        #heartLetterIpath {
+            opacity: 0.9;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #2de3ef; 
+            stroke-width: 3; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .heartLetterI {
+            height: 250px;
+            position: absolute;
+            transform: scale(0.2) translate(244px, -416px) rotate(17deg);
+            margin: 50px;
+            width: 138px;
+            margin: 0 auto;
+            transition: all 0.4s;
+        }
+        /* Fin Traits absolute */
+
+
+        #letterFpath {
+            opacity: 0.9;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #2de3ef; 
+            stroke-width: 5; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .letterF {
+            height: 250px;
+            position: relative;
+            margin: 50px;
+            width: 50px;
+            /* margin-left: 10px; */
+            /* left: 10px; */
+            margin: 0 auto;
+            /* transform: scale(0.9) rotate(337deg); */
+            /* bottom: 37px; */
+            transition: all 0.4s;
+        }
+
+
+        #letterOpath {
+            opacity: 0.9;
+            transform:scale(1); 
+            fill: none; 
+            stroke: #2de3ef; 
+            stroke-width: 5; 
+            stroke-linecap: round; 
+            stroke-linejoin:  miter; 
+            stroke-miterlimit: 4;
+            transition: stroke 0.4s;
+        }
+        .letterO {
+            height: 250px;
+            position: relative;
+            margin: 50px;
+            width: 82px;
+            /* margin-left: 10px; */
+            /* left: 10px; */
+            margin: 0 auto;
+            transform: scale(0.9) rotate(351deg);
+            bottom: 23px;            
+            transition: all 0.4s;
+        }
+
+        body {
+            width:100%; 
+            height:100%; 
+            overflow: hidden;
+            background-color: #00091d;
+
+            transition: all 0.8s
+        }
+        body:hover {
+            cursor: pointer;
+
+            background-color: #041833;
+        }
+
+        body #heartPath {
+            transition: all 0.5s
+        }
+        body:hover #heartPath {
+            stroke: #ef2d70;
+            stroke-width: 10;
+            /* transform: scale(1.4) translate(32px, 118px) rotate(7deg); */
+
+        }
+
+        body:hover .heartBackground {
+            z-index: -99;
+            opacity: 0.8;
+
+        }
+
+        body:hover .heartBackground2 {
+            z-index: -99;
+            opacity: 0.5;
+
+        }
+
+        body:hover #heartLetterIpath {
+
+            opacity: 0.85;
+            stroke-width: 12;
+
+        }
+
+
+        .totoueSvgContainer {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            overflow: visible;
+
+            top: 0;
+            right: -25vw;
+            transform: rotateY(0deg);
+            opacity: 0;
+
+            animation: totoueAnim 15s 8s ease-in-out forwards infinite;
+        }
+        /* V1 */
+        /* @keyframes totoueAnim { 
+            from {
+                right: -25vw;
+            }
+            to {
+                right: 100vw;
+            }
+        } */
+        /* V2 */
+        @keyframes totoueAnim { 
+            0% {
+                opacity: 0;
+
+                right: -25vw;
+                transform: rotateY(0deg);
+            }
+            10% {
+                opacity: 1;
+
+                right: -15vw;
+                transform: rotateY(40deg);
+            }
+            30% {
+                right: 20vw;
+                transform: rotateY(0deg);
+            }
+            40% {
+                right: 30vw;
+                transform: rotateY(40deg);
+            }
+            60% {
+                right: 60vw;
+                transform: rotateY(0deg);
+            }
+            70% {
+                right: 67vw;
+                transform: rotateY(40deg);
+            }
+            90% {
+                opacity: 1;
+
+                right: 95vw;
+                transform: rotateY(0deg);
+            }
+            100% {
+                opacity: 0;
+
+                right: 100vw;
+                transform: rotateY(0deg);
+            }
+        }
+        /* V3 */
+
+        .totoueSvgPath {
+            opacity: 1;
+            stroke-linecap: round;
+            fill: none;
+            stroke: rgb(42, 206, 192);
+            stroke-width: 30;
+            stroke-linejoin: miter;
+            stroke-miterlimit: 4;
+            transition: stroke 0.8s ease;
+        }
+
+        @media only screen and (max-width: 600px) {
+
+            .totoueSvgContainer {
+                top: -20px;
+                right: -100vw;
+            }
+
+            @keyframes totoueAnim { 
+                0% {
+                    opacity: 0;
+
+                    right: -100vw;
+                    transform: rotateY(0deg);
+                }
+                10% {
+                    opacity: 1;
+
+                    right: -90vw;
+                    transform: rotateY(0deg);
+                }
+                30% {
+                    right: -30vw;
+                    transform: rotateY(0deg);
+                }
+                40% {
+                    right: -20vw;
+                    transform: rotateY(40deg);
+                }
+                60% {
+                    right: 40vw;
+                    transform: rotateY(0deg);
+                }
+                70% {
+                    right: 50vw;
+                    transform: rotateY(40deg);
+                }
+                90% {
+                    opacity: 1;
+
+                    right: 95vw;
+                    transform: rotateY(0deg);
+                }
+                100% {
+                    opacity: 0;
+
+                    right: 100vw;
+                    transform: rotateY(0deg);
+                }
+            }
+
+            .totoueSvgPath {
+                stroke-width: 6px;
+            }
+
+
+            .heartBackground {
+                width: 110px !important
+            }
+        }
+
+
+
+
+    </style>
+
+</head>
+
+
+
+
+
+    <body id="body">
+
+
+
+
+            <!-- Patch TOTOUE -->
+            <svg class="totoueSvgContainer" viewBox="0 0 1500 800">
+                <g class="totoueSvg">
+                    <path class="totoueSvgPath"
+                        d="M 296.02 252.7 C 283.024 248.368 270.028 226.708 261.364 218.044 C 233.928 183.388 96.748 144.4 32.49 257.032 C 8.664 306.128 7.22 368.942 41.876 418.038 C 77.254 451.972 82.308 450.528 113.354 461.358 C 139.5866 468.0966 179.778 472.91 192.052 470.022 C 223.82 462.08 244.758 465.69 283.024 417.316 C 293.854 407.93 295.298 394.934 321.29 390.602 C 340.784 389.158 352.336 386.992 369.664 392.046 C 404.32 397.1 411.54 418.76 433.2 433.2 C 476.52 483.74 519.84 519.84 606.48 570.38 C 729.22 613.7 680.846 514.786 672.182 483.74 C 664.962 459.192 702.506 459.914 708.282 462.08 C 750.88 469.3 815.86 462.08 931.38 411.54 C 967.48 397.1 1027.6466 411.54 1068.56 382.66 C 1083 368.22 1046.9 375.44 1039.68 361 C 1037.2734 356.1866 1034.8666 351.3734 1032.46 346.56 M 204.326 177.612 C 212.268 157.396 218.044 146.566 257.032 111.188 C 358.834 -2.166 873.62 -36.1 1032.46 194.94 C 1075.78 267.14 1054.12 317.68 981.92 368.22 C 808.64 490.96 505.4 440.42 462.08 382.66 C 411.54 324.9 375.44 317.68 353.78 288.8 M 1061.34 223.82 C 1090.22 223.82 1111.88 231.04 1119.1 238.26 C 1133.54 252.7 1126.32 259.92 1119.1 267.14 C 1104.66 274.36 1075.78 274.36 1061.34 288.8 M 215.878 138.624 C 218.766 94.582 228.874 85.918 236.094 81.586 C 243.314 77.254 249.5714 76.7726 255.588 77.976 C 259.92 80.864 260.642 85.918 264.974 92.416" />
+                </g>
+            </svg>
+
+
+            <!-- Le "Je t'aime" -->
+            <div id="svgContainerDiv" style="filter:brightness(1) drop-shadow(6px 8px 1px black); position:absolute; top:50%; left:44%; transform:translate(-50%, -50%); display:inline-flex; justify-content:center; transform:scale(1.4);">
+                <!-- TEST -->
+                <svg class="letterJ">
+                        <path 
+                            id="letterJpath"
+                            d="M 34 27 Q 37 29 34 31 C 26 34 20 20 33 16 C 42 13 45 16 59 11 C 57 49 46 90 26 90 C 7 90 11 58 22 58 C 26 58 27 62 24 63"
+                        />
+                </svg>
+
+                <svg class="letterE1">
+                        <path 
+                            id="letterE1path"
+                            d="M 4 81 C 37 85 23 61 10 73 C 5 78 5 85 11 88 C 18 91 24 85 22 85"
+                        />
+                </svg>
+
+                <span style="width:20px;"></span>
+
+                <svg class="letterT">
+                        <path 
+                            id="letterTpath"
+                            d="M 24 7 C 26 20 13 39 11 60 C 10 68 11 83 22 85 C 28 86 35 77 29 65"
+                        />
+                </svg>
+
+                <svg class="apostrophe">
+                        <path 
+                            id="apostrophePath"
+                            d="M 5 17 C 8 15 9 11 6 13 C 5 14 6 14 6 14"
+                        />
+                </svg>
+
+                <svg class="lettersAim">
+                        <path 
+                            id="lettersAimPath"
+                            d="M 33 67 C 21 67 12 75 16 84 C 20 92 27 85 36 68 S 41 77 46 99 C 49 109 55 97 58 66 C 59 61 61 63 61 71 Q 61 91 66 85 C 69 82 73 58 75 67 C 76 71 75 74 75 77 C 75 72 76 64 79 63 C 82 62 81 72 82 77 C 80 61 85 57 88 58 C 90 59 92 63 90 69 C 86 85 81 92 86 99 C 92 106 101 98 93 92"
+                        />
+                </svg>
+
+                <svg class="letterE2">
+                        <path 
+                            id="letterE2path"
+                            d="M 4 81 C 37 85 23 61 10 73 C 5 78 5 85 11 88 C 18 91 24 85 22 85"
+                        />
+                </svg>
+
+                <svg class="letterTline">
+                        <path 
+                            id="letterTlinePath"
+                            d="M 5 32 C 2 30 5 26 9 28 C 16 30 23 30 36 28 C 53 25 66 17 61 7 C 58 2 52 6 54 11 C 56 15 61 12 59 9"
+                        />
+                </svg>
+
+                <svg class="heartLetterI">
+                        <path
+                            id="heartLetterIpath"
+                            d="M 63 107 C 47 87 34 74 22 63 C -1 44 5 16 23 10 C 57 0 63 37 64 39 C 65 37 69 0 100 9 C 121 15 125 44 106 61 C 90 75 75 90 63 107"
+                        />
+                </svg>
+                <div class="heartBackground2"></div>
+
+
+            </div>
+
+            <!-- <br> -->
+
+            <!-- Le "Fort -->
+            <div style="filter:brightness(1) drop-shadow(6px 8px 1px black); position:absolute; top:75%; left:42%; transform:translate(-50%, -55%); display:inline-flex; justify-content:center; transform: scale(0.7);">
+            
+                <!-- Traits absolue: -->
+                <svg class="letterFline">
+                        <path 
+                            id="letterFlinePath"
+                            d="M 5 32 C 2 30 5 26 9 28 C 16 30 23 30 36 28 C 53 25 66 17 61 7 C 58 2 52 6 54 11 C 56 15 61 12 59 9"
+                        />
+                </svg>
+
+                <svg class="letterFline2">
+                        <path 
+                            id="letterFline2Path"
+                            d="M 5 32 C 2 30 5 26 9 28 C 16 30 23 30 36 28 C 53 25 66 17 61 7 C 58 2 52 6 54 11 C 56 15 61 12 59 9"
+                        />
+                </svg>
+
+                <svg class="letterT2line">
+                        <path 
+                            id="letterT2linePath"
+                            d="M 4 23 C 14 26 21 18 40 18 C 43 18 43 14 40 14 C 37 14 37 17 39 17"
+                        />
+                </svg>
+
+                <svg class="heart">
+                        <path
+                            id="heartPath"
+                            d="M 63 107 C 47 87 34 74 22 63 C -1 44 5 16 23 10 C 57 0 63 37 64 39 C 65 37 69 0 100 9 C 121 15 125 44 106 61 C 90 75 75 90 63 107"
+                        />
+                </svg>
+
+                <div class="heartBackground"></div>
+                
+
+                <!-- Lettres relative -->
+                <svg class="letterF">
+                        <path 
+                            id="letterFpath"
+                            d="M 24 7 C 26 20 13 39 11 60 C 10 68 11 83 22 85 C 28 86 35 77 29 65"
+                        />
+                </svg>
+
+                <svg class="letterO">
+                        <path 
+                            id="letterOpath"
+                            d="M 23 84 C 26 77 18 68 10 74 C 4 80 7 86 11 88 C 18 91 25 85 21 84 C 16 85 25.3333 87 27 87 C 31 87 32 86 33 81 Q 33.5 77.5 34 74 Q 39 73 46 70 C 42 81 43 81 43 84 C 44 86 45 87 47 87 C 50 87 51 86 53 84 C 59 78 69 48 72 25 C 63 80 67 91 75 88 C 80 86 78 79 73 82 C 70 84 72 88 75 87"
+                        />
+                </svg>
+
+
+            </div>
+    </body>
+
+
+
+    <script>
+        var path = document.querySelector('.letterJ path');
+        var length = path.getTotalLength();
+        path.style.transition = path.style.WebkitTransition = 'none';
+        path.style.strokeDasharray = length + ' ' + length;
+        path.style.strokeDashoffset = length;
+        path.getBoundingClientRect();
+        path.style.transition = path.style.WebkitTransition =
+        'stroke-dashoffset 2s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path.style.strokeDashoffset = '0';
+
+        var path2 = document.querySelector('.letterE1 path');
+        var length2 = path2.getTotalLength();
+        path2.style.transition = path2.style.WebkitTransition = 'none';
+        path2.style.strokeDasharray = length2 + ' ' + length2;
+        path2.style.strokeDashoffset = length2;
+        path2.getBoundingClientRect();
+        path2.style.transition = path2.style.WebkitTransition =
+        'stroke-dashoffset 1.5s 0.7s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path2.style.strokeDashoffset = '0';
+
+        var path3 = document.querySelector('.letterT path');
+        var length3 = path3.getTotalLength();
+        path3.style.transition = path3.style.WebkitTransition = 'none';
+        path3.style.strokeDasharray = length3 + ' ' + length3;
+        path3.style.strokeDashoffset = length3;
+        path3.getBoundingClientRect();
+        path3.style.transition = path3.style.WebkitTransition =
+        'stroke-dashoffset 1.5s 1.5s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path3.style.strokeDashoffset = '0';
+
+        var path4 = document.querySelector('.apostrophe path');
+        var length4 = path4.getTotalLength();
+        path4.style.transition = path4.style.WebkitTransition = 'none';
+        path4.style.strokeDasharray = length4 + ' ' + length4;
+        path4.style.strokeDashoffset = length4;
+        path4.getBoundingClientRect();
+        path4.style.transition = path4.style.WebkitTransition =
+        'stroke-dashoffset 1.5s 2.2s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path4.style.strokeDashoffset = '0';
+
+        var path5 = document.querySelector('.lettersAim path');
+        var length5 = path5.getTotalLength();
+        path5.style.transition = path5.style.WebkitTransition = 'none';
+        path5.style.strokeDasharray = length5 + ' ' + length5;
+        path5.style.strokeDashoffset = length5;
+        path5.getBoundingClientRect();
+        path5.style.transition = path5.style.WebkitTransition =
+        'stroke-dashoffset 3.5s 2.3s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path5.style.strokeDashoffset = '0';
+
+        var path6 = document.querySelector('.letterE2 path');
+        var length6 = path6.getTotalLength();
+        path6.style.transition = path6.style.WebkitTransition = 'none';
+        path6.style.strokeDasharray = length6 + ' ' + length6;
+        path6.style.strokeDashoffset = length6;
+        path6.getBoundingClientRect();
+        path6.style.transition = path6.style.WebkitTransition =
+        'stroke-dashoffset 1.3s 4.3s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path6.style.strokeDashoffset = '0';
+
+
+        var path7 = document.querySelector('.letterTline path');
+        var length7 = path7.getTotalLength();
+        path7.style.transition = path7.style.WebkitTransition = 'none';
+        path7.style.strokeDasharray = length7 + ' ' + length7;
+        path7.style.strokeDashoffset = length7;
+        path7.getBoundingClientRect();
+        path7.style.transition = path7.style.WebkitTransition =
+        'stroke-dashoffset 1.5s 5.2s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path7.style.strokeDashoffset = '0';
+
+        var path8 = document.querySelector('.letterFline path');
+        var length8 = path8.getTotalLength();
+        path8.style.transition = path8.style.WebkitTransition = 'none';
+        path8.style.strokeDasharray = length8 + ' ' + length8;
+        path8.style.strokeDashoffset = length8;
+        path8.getBoundingClientRect();
+        path8.style.transition = path8.style.WebkitTransition =
+        'stroke-dashoffset 1.5s 5.2s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path8.style.strokeDashoffset = '0';
+
+        var path9 = document.querySelector('.letterFline2 path');
+        var length9 = path9.getTotalLength();
+        path9.style.transition = path9.style.WebkitTransition = 'none';
+        path9.style.strokeDasharray = length9 + ' ' + length9;
+        path9.style.strokeDashoffset = length9;
+        path9.getBoundingClientRect();
+        path9.style.transition = path9.style.WebkitTransition =
+        'stroke-dashoffset 1.5s 5.2s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path9.style.strokeDashoffset = '0';
+
+        var path10 = document.querySelector('.letterF path');
+        var length10 = path10.getTotalLength();
+        path10.style.transition = path10.style.WebkitTransition = 'none';
+        path10.style.strokeDasharray = length10 + ' ' + length10;
+        path10.style.strokeDashoffset = length10;
+        path10.getBoundingClientRect();
+        path10.style.transition = path10.style.WebkitTransition =
+        'stroke-dashoffset 1.5s 6s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path10.style.strokeDashoffset = '0';
+
+        var path11 = document.querySelector('.letterO path');
+        var length11 = path11.getTotalLength();
+        path11.style.transition = path11.style.WebkitTransition = 'none';
+        path11.style.strokeDasharray = length11 + ' ' + length11;
+        path11.style.strokeDashoffset = length11;
+        path11.getBoundingClientRect();
+        path11.style.transition = path11.style.WebkitTransition =
+        'stroke-dashoffset 3s 6.5s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path11.style.strokeDashoffset = '0';
+
+        var path12 = document.querySelector('.letterT2line path');
+        var length12 = path12.getTotalLength();
+        path12.style.transition = path12.style.WebkitTransition = 'none';
+        path12.style.strokeDasharray = length12 + ' ' + length12;
+        path12.style.strokeDashoffset = length12;
+        path12.getBoundingClientRect();
+        path12.style.transition = path12.style.WebkitTransition =
+        'stroke-dashoffset 1.2s 7.8s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path12.style.strokeDashoffset = '0';
+
+        var path13 = document.querySelector('.heart path');
+        var length13 = path13.getTotalLength();
+        path13.style.transition = path13.style.WebkitTransition = 'none';
+        path13.style.strokeDasharray = length13 + ' ' + length13;
+        path13.style.strokeDashoffset = length13;
+        path13.getBoundingClientRect();
+        path13.style.transition = path13.style.WebkitTransition =
+        'stroke-dashoffset 2s 8.5s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path13.style.strokeDashoffset = '0';
+
+        var path14 = document.querySelector('.heartLetterI path');
+        var length14 = path14.getTotalLength();
+        path14.style.transition = path14.style.WebkitTransition = 'none';
+        path14.style.strokeDasharray = length14 + ' ' + length14;
+        path14.style.strokeDashoffset = length14;
+        path14.getBoundingClientRect();
+        path14.style.transition = path14.style.WebkitTransition =
+        'stroke-dashoffset 1s 10.2s ease, stroke 0.4s linear, stroke-width 0.4s linear';
+        path14.style.strokeDashoffset = '0';
+
+
+        document.getElementById("body").addEventListener("click", function() {
+            console.log("click");
+        })
+
+
+
+        // <!-- Script dessin svg TOTOUE -->
+        // var totouePathes = document.querySelectorAll('.totoueSvg path');
+        // totouePathes.forEach(element => {
+        //     var lengthRec = element.getTotalLength();
+        //     element.style.transition = element.style.WebkitTransition = 'none';
+        //     element.style.strokeDasharray = lengthRec + ' ' + lengthRec;
+        //     element.style.strokeDashoffset = lengthRec;
+        //     element.getBoundingClientRect();
+        //     element.style.transition = element.style.WebkitTransition =
+        //         'stroke-dashoffset 8s 10.5s ease';
+        //     element.style.strokeDashoffset = '0';
+        // });
+
+    </script>
+
+</html>
