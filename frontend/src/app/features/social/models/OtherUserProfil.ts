@@ -1,16 +1,19 @@
 import { PrivacyOption } from "../../profil/models/privacy-option";
 
+// Quand on click sur un result search avec link userID
 export interface OtherUserProfil {
     username: string;
-    email?: string;
     accountType: string,
-    nationality: string,
     avatarUrl: string,
     bannerUrl: string,
-    initialDivesCount: number,
+    nationality?: string,
+    initialDivesCount?: number,
     
-    profilPrivacy: PrivacyOption;
-    logBooksPrivacy: PrivacyOption;
-    certificatesPrivacy: PrivacyOption;
-    galleryPrivacy: PrivacyOption;
+
+    // ajouter les ?Carnets (filtré via privacySettings dans query)
+
+    // ajouter les ?Certificates (filtré via privacySettings dans query)
+
+    // ajouter les ?Gallerie(MediasURLs?) (filtrés via privacySettings dans query)
+
 }

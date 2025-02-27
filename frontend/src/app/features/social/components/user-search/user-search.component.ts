@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
 import { OtherUserProfil } from '../../models/OtherUserProfil';
+import { UserSearchResults } from '../../models/UserSearchResults';
 
 @Component({
   selector: 'app-user-search',
@@ -12,7 +13,7 @@ import { OtherUserProfil } from '../../models/OtherUserProfil';
 export class UserSearchComponent implements OnInit {
   searchControl = new FormControl('');
   entityControl = new FormControl('users'); // Validator async update debouncing ?
-  users: OtherUserProfil[] = [];
+  users: UserSearchResults[] = [];
   loading = false;
 
   constructor(private searchService: SearchService) {}
