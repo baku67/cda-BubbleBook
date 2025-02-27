@@ -3,6 +3,7 @@
 namespace App\Service\User;
 
 use App\DTO\Request\UserSearchCriteriaDTO;
+use App\DTO\Response\UserSearchDTO;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -47,12 +48,10 @@ class UserSearchService
             ->setFirstResult(($page - 1) * $pageSize)
             ->setMaxResults($pageSize);
 
-        // Utilisation du paginator pour améliorer la gestion des résultats
+        // Exécuter la requête avec un Paginator
         $paginator = new Paginator($queryBuilder->getQuery());
 
-        return [
-            'total' => count($paginator),
-            'data' => iterator_to_array($paginator),
-        ];
+        // Transformer les entités User en UserSearchResultDTO
+        return UserSearchDTO::fromEntities(iterator_to_array($paginator));
     }
 }
