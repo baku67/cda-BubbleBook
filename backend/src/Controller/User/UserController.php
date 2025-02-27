@@ -5,8 +5,8 @@ use App\DTO\Request\UserSearchCriteriaDTO;
 use App\Entity\User\User;
 use App\Repository\User\UserRepository;
 use App\Service\User\UserProfileService;
+use App\Service\User\UserSearchService;
 use App\Service\User\UserUpdateService;
-use App\Service\UserSearchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,6 +20,7 @@ class UserController extends AbstractController
 
     public function __construct(
         private UserRepository $userRepository,
+        private UserSearchService $userSearchService,
         private EntityManagerInterface $entityManager,
     ){}
 
@@ -92,26 +93,15 @@ class UserController extends AbstractController
     }
 
     // Social searchUser 
-    #[Route('/api/user/search', name: 'api_user_search', methods: ['GET'])]
+    #[Route('/api/users/search', name: 'api_user_search', methods: ['GET'])]
     public function searchUsers(
         Request $request,
         UserSearchService $userSearchService,
-        ValidatorInterface $validator
     ): JsonResponse {
 
-        $criteria = UserSearchCriteriaDTO::fromRequest($request);
-        $errors = $validator->validate($criteria);
-        if (count($errors) > 0) {
-            $errorMessages = [];
-            foreach ($errors as $error) {
-                $errorMessages[] = $error->getMessage();
-            }
-            return new JsonResponse(['errors' => $errorMessages], Response::HTTP_BAD_REQUEST);
-        }
-
-        // Appel du service de recherche avec les critères
-        $users = $userSearchService->search($criteria);
-
+        $searchCriteria = UserSearchCriteriaDTO::fromRequest($request);
+        $users = $userSearchService->search($searchCriteria);
+    
         return $this->json($users, Response::HTTP_OK);
     }
 

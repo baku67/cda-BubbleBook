@@ -38,6 +38,9 @@ services:
     App\Service\Auth\ConfirmationTokenService:
         public: true
 
+    App\Service\User\UserSearchService:
+        # public: true
+
     App\Service\Auth\MailerService:
         autowire: true
         autoconfigure: true

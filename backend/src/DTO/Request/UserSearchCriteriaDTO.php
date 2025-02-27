@@ -13,9 +13,8 @@ class UserSearchCriteriaDTO
     )]
     public ?string $query = null;
 
-    // Le champ sur lequel on recherche en BDD (pour 'instant c'est que des OtherUsers, mais ça pourra être d'autre types d'objets plus tard (lieux, clubs, etc...))
     #[Assert\Choice(choices: ['username'], message: 'Le champ de tri est invalide.')]
-    public ?string $sortBy = 'name';
+    public ?string $sortBy = 'username';
 
     #[Assert\Choice(choices: ['asc', 'desc'], message: 'L\'ordre de tri est invalide.')]
     public ?string $order = 'asc';
@@ -30,11 +29,21 @@ class UserSearchCriteriaDTO
     public static function fromRequest(Request $request): self
     {
         $instance = new self();
-        $instance->query = $request->query->get('query', '');
+        
+        $instance->query = $request->query->get('query', '') ?: null;
         $instance->sortBy = $request->query->get('sortBy', 'username');
         $instance->order = $request->query->get('order', 'asc');
-        $instance->page = (int) $request->query->get('page', 1);
-        $instance->pageSize = (int) $request->query->get('pageSize', 10);
+
+        // Vérification et conversion sécurisée des valeurs numériques
+        $instance->page = filter_var($request->query->get('page', 1), FILTER_VALIDATE_INT) ?: 1;
+        $instance->pageSize = filter_var($request->query->get('pageSize', 10), FILTER_VALIDATE_INT) ?: 10;
+
+        // Sécurisation des valeurs `sortBy` et `order`
+        $allowedSortFields = ['username'];
+        $allowedOrders = ['asc', 'desc'];
+
+        $instance->sortBy = in_array($instance->sortBy, $allowedSortFields) ? $instance->sortBy : 'username';
+        $instance->order = in_array($instance->order, $allowedOrders) ? $instance->order : 'asc';
 
         return $instance;
     }

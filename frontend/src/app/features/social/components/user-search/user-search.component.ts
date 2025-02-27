@@ -11,6 +11,7 @@ import { OtherUserProfil } from '../../models/OtherUserProfil';
 })
 export class UserSearchComponent implements OnInit {
   searchControl = new FormControl('');
+  entityControl = new FormControl('users'); // Validator async update debouncing ?
   users: OtherUserProfil[] = [];
   loading = false;
 
@@ -19,15 +20,16 @@ export class UserSearchComponent implements OnInit {
   ngOnInit(): void {
     this.searchControl.valueChanges
       .pipe(
-        debounceTime(300),  // Attendre 300ms après la dernière frappe
-        distinctUntilChanged(), // Éviter les appels avec la même valeur consécutive
+        debounceTime(300),  
+        distinctUntilChanged(),
         switchMap((query) => {
+          const entity = this.entityControl.value; // Récupération du type d'entité sélectionné
           if (!query || !query.trim()) {
             this.users = [];
             return [];
           }
           this.loading = true;
-          return this.searchService.searchUsers(query as string);
+          return this.searchService.search(entity as 'users' | 'clubs', query as string);
         })
       )
       .subscribe({

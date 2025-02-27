@@ -4,6 +4,7 @@ namespace App\Entity\Certificate;
 use App\Entity\User\User;
 use App\Repository\UserCertificateRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: UserCertificateRepository::class)]
 class UserCertificate
@@ -13,8 +14,10 @@ class UserCertificate
     #[ORM\Column]
     private ?int $id = null;
 
+    // En fait on en bien besoin mais on le serialize jamais, donc ignoré
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'userCertificates')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    #[Ignore] // En fait on en bien besoin mais on le serialize jamais, donc ignoré
     private ?User $user = null;
 
     #[ORM\ManyToOne(targetEntity: Certificate::class, inversedBy: 'userCertificates')]

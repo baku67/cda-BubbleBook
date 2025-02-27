@@ -1,9 +1,10 @@
 <?php 
 
-namespace App\Service;
+namespace App\Service\User;
 
 use App\DTO\Request\UserSearchCriteriaDTO;
 use App\Repository\UserRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class UserSearchService
 {
@@ -22,24 +23,36 @@ class UserSearchService
      */
     public function search(UserSearchCriteriaDTO $search): array
     {
-        // Construire la requête de recherche en fonction des critères
+        // Construire la requête de recherche (TODO: a deplacer dans le repo)
         $queryBuilder = $this->userRepository->createQueryBuilder('u');
 
-        if ($search->query) {
+        // Filtrage par mot-clé (username / email)
+        if (!empty($search->query)) {
             $queryBuilder
-                ->andWhere('u.username LIKE :query OR u.email LIKE :query')
-                ->setParameter('query', '%' . $search->query . '%');
+                ->andWhere('LOWER(u.username) LIKE LOWER(:query) OR LOWER(u.email) LIKE LOWER(:query)')
+                ->setParameter('query', '%' . strtolower($search->query) . '%');
         }
 
-        if ($search->sortBy && in_array($search->sortBy, ['username', 'email'])) {
-            $queryBuilder->orderBy('u.' . $search->sortBy, $search->order ?? 'asc');
+        // Sécurisation du tri
+        $allowedSortFields = ['username' => 'u.username', 'email' => 'u.email'];
+        if (isset($allowedSortFields[$search->sortBy])) {
+            $queryBuilder->orderBy($allowedSortFields[$search->sortBy], $search->order === 'desc' ? 'DESC' : 'ASC');
         }
 
-        // Pagination
+        // Pagination sécurisée
+        $page = max(1, $search->page ?? 1);
+        $pageSize = min(100, max(1, $search->pageSize ?? 10));
+
         $queryBuilder
-            ->setFirstResult(($search->page - 1) * $search->pageSize)
-            ->setMaxResults($search->pageSize);
+            ->setFirstResult(($page - 1) * $pageSize)
+            ->setMaxResults($pageSize);
 
-        return $queryBuilder->getQuery()->getResult();
+        // Utilisation du paginator pour améliorer la gestion des résultats
+        $paginator = new Paginator($queryBuilder->getQuery());
+
+        return [
+            'total' => count($paginator),
+            'data' => iterator_to_array($paginator),
+        ];
     }
 }
