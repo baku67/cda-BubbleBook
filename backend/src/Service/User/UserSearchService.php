@@ -27,14 +27,14 @@ class UserSearchService
         // Construire la requête de recherche (TODO: a deplacer dans le repo)
         $queryBuilder = $this->userRepository->createQueryBuilder('u');
 
-        // Filtrage par mot-clé (username / email)
+        // Filtrage par mot-clé (username) PAS BUGGE ?
         if (!empty($search->query)) {
             $queryBuilder
-                ->andWhere('LOWER(u.username) LIKE LOWER(:query) OR LOWER(u.email) LIKE LOWER(:query)')
+                ->andWhere('LOWER(u.username) LIKE LOWER(:query)')
                 ->setParameter('query', '%' . strtolower($search->query) . '%');
         }
 
-        // Sécurisation du tri
+        // Sécurisation du tri (usernamed BUGED)
         $allowedSortFields = ['username' => 'u.username', 'email' => 'u.email'];
         if (isset($allowedSortFields[$search->sortBy])) {
             $queryBuilder->orderBy($allowedSortFields[$search->sortBy], $search->order === 'desc' ? 'DESC' : 'ASC');

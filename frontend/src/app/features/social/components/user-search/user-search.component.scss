@@ -1,0 +1,39 @@
+:host {
+    text-align: center;
+}
+
+mat-divider {
+    margin: 15px auto;
+}
+
+.search-users-list {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px auto;
+}
+.search-user-card {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+    margin: 0px auto;
+
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
+
+.search-user-card-avatar-container {
+    overflow: hidden;
+    display: flex;
+
+    border: 1px solid rgba(128, 128, 128, 0.288);
+    border-radius: 50%;
+}
+.search-user-card-avatar-img {
+    height: 45px;
+    width: 45px;
+    padding: 2px;
+}

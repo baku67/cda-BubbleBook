@@ -15,6 +15,7 @@ import { FadeOutGuard } from './core/guards/fade-out.guard';
 import { Test1Component } from './shared/ui-components/test/test-1/test-1.component';
 import { Test2Component } from './shared/ui-components/test/test-2/test-2.component';
 import { SocialPageComponent } from './features/social/components/social-page/social-page.component';
+import { OtherUserProfilComponent } from './features/social/components/other-user-profil/other-user-profil.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Home page
@@ -23,9 +24,9 @@ export const routes: Routes = [
     { path: 'login', component: LoginPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Login
 
 
-
     // Pour empêcher un utilisateur déconnecté d'accéder à certaines pages protégées: GUARD
     { path: 'user-profil', component: UserProfilComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
+
     { path: 'account-settings', component: AccountSettingsComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
 
     { path: 'first-login/step-one', component: FirstLoginStep1Component, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
@@ -34,7 +35,7 @@ export const routes: Routes = [
     { path: 'certificates', component: CertificateManagerPageComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
 
     { path: 'social', component: SocialPageComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
-
+    { path: 'social/user-profil/:id', component: OtherUserProfilComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
 
 
     // Confirmation mail:
