@@ -16,24 +16,25 @@ class UserSearchDTO
         readonly public string $accountType,
     ) {}
 
-    public static function fromEntity(User $user): self
+    // paramètre n'est plus User mais un tableau avec ce qu'il faut (double sécu + opti)
+    public static function fromRawData(array $usersData): array
     {
-        return new self(
-            $user->getId(),
-            $user->getUsername(),
-            $user->getNationality(),
-            $user->getAvatarUrl(),
-            $user->getBannerUrl(),
-            $user->getInitialDivesCount(),
-            $user->getAccountType(),
-        );
+        return array_map(fn(array $user) => new self(
+            $user['id'],
+            $user['username'],
+            $user['nationality'] ?? null,
+            $user['avatarUrl'] ?? null,
+            $user['bannerUrl'] ?? null,
+            $user['initialDivesCount'] ?? null,
+            $user['accountType']
+        ), $usersData);
     }
 
     /**
-     * Convertit un tableau d'entités User en tableau de DTO.
+     * Convertit un tableau brut de la BDD en tableau de DTO.
      */
     public static function fromEntities(array $users): array
     {
-        return array_map(fn(User $user) => self::fromEntity($user), $users);
+        return self::fromRawData($users); 
     }
 }

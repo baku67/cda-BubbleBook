@@ -17,17 +17,17 @@ class UserRepository extends ServiceEntityRepository
 
     public function searchUsers(?string $query, ?string $type, string $order, int $page, int $pageSize): array
     {
-        $queryBuilder = $this->createQueryBuilder('u');
-        // $queryBuilder = $this->createQueryBuilder('u')
-        // ->select([
-        //     'u.id',
-        //     'u.username',
-        //     'u.nationality',
-        //     'u.avatar_url',
-        //     'u.banner_url',
-        //     'u.initial_dives_count',
-        //     'u.accountType'
-        // ]);
+        // On ne récupère plus une entité User mais un tableau avec ce qu'il faut (double sécu + opti)
+        $queryBuilder = $this->createQueryBuilder('u')
+        ->select([
+            'u.id',
+            'u.username',
+            'u.nationality',
+            'u.avatarUrl',
+            'u.bannerUrl',
+            'u.initialDivesCount',
+            'u.accountType'
+        ]);
 
         // EN PREMIER pour sécu
         // Exclure les utilisateurs dont "profil_privacy" est "NO_ONE"
@@ -56,7 +56,7 @@ class UserRepository extends ServiceEntityRepository
             ->setMaxResults($pageSize);
 
         // Exécuter la requête et retourner les résultats
-        return $queryBuilder->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getArrayResult();
     }
 
 //    /**

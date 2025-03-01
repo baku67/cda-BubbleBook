@@ -62,16 +62,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $userCertificates;
 
     #[ORM\Column(length: 255, nullable: true, options: ['default' => 'assets/images/default/avatars/profil-picture-default-original.webp'])]
-    private ?string $avatar_url = 'assets/images/default/avatars/profil-picture-default-original.webp';
+    private ?string $avatarUrl = 'assets/images/default/avatars/profil-picture-default-original.webp';
 
     #[ORM\Column(length: 255, nullable: true, options: ['default' => 'assets/images/default/banners/default-banner-00.webp'])]
-    private ?string $banner_url = 'assets/images/default/banners/default-banner-00.webp';
+    private ?string $bannerUrl = 'assets/images/default/banners/default-banner-00.webp';
 
     #[ORM\Column(nullable: true, options: ['default' => 1])]
-    private ?int $first_login_step = 1;
+    private ?int $firstLoginStep = 1;
 
     #[ORM\Column(nullable: true)]
-    private ?int $initial_dives_count = null;
+    private ?int $initialDivesCount = null;
 
     #[ORM\Column(type: 'string', enumType: PrivacyOption::class, options: ['default' => PrivacyOption::ALL->value])]
     private PrivacyOption $profilPrivacy = PrivacyOption::ALL;
@@ -298,48 +298,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getAvatarUrl(): ?string
     {
-        return $this->avatar_url;
+        return $this->avatarUrl;
     }
 
-    public function setAvatarUrl(?string $avatar_url): static
+    public function setAvatarUrl(?string $avatarUrl): static
     {
-        $this->avatar_url = $avatar_url;
+        $this->avatarUrl = $avatarUrl;
 
         return $this;
     }
 
     public function getBannerUrl(): ?string
     {
-        return $this->banner_url;
+        return $this->bannerUrl;
     }
 
-    public function setBannerUrl(?string $banner_url): static
+    public function setBannerUrl(?string $bannerUrl): static
     {
-        $this->banner_url = $banner_url;
+        $this->bannerUrl = $bannerUrl;
 
         return $this;
     }
 
     public function getFirstLoginStep(): ?int
     {
-        return $this->first_login_step;
+        return $this->firstLoginStep;
     }
 
-    public function setFirstLoginStep(?int $first_login_step): static
+    public function setFirstLoginStep(?int $firstLoginStep): static
     {
-        $this->first_login_step = $first_login_step;
+        $this->firstLoginStep = $firstLoginStep;
 
         return $this;
     }
 
     public function getInitialDivesCount(): ?int
     {
-        return $this->initial_dives_count;
+        return $this->initialDivesCount;
     }
 
-    public function setInitialDivesCount(?int $initial_dives_count): static
+    public function setInitialDivesCount(?int $initialDivesCount): static
     {
-        $this->initial_dives_count = $initial_dives_count;
+        $this->initialDivesCount = $initialDivesCount;
 
         return $this;
     }
