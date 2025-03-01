@@ -99,7 +99,12 @@ class UserController extends AbstractController
         UserSearchService $userSearchService,
     ): JsonResponse {
 
-        $searchCriteria = UserSearchCriteriaDTO::fromRequest($request);
+        try {
+            $searchCriteria = UserSearchCriteriaDTO::fromRequest($request);
+        } catch (\InvalidArgumentException $e) {
+            return $this->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
+
         $users = $userSearchService->search($searchCriteria);
     
         return $this->json($users, Response::HTTP_OK);

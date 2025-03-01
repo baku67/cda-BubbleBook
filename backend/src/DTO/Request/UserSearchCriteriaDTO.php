@@ -11,10 +11,10 @@ class UserSearchCriteriaDTO
         min: 3,
         minMessage: 'Le terme de recherche doit comporter au moins {{ limit }} caractères.'
     )]
-    public ?string $query = null;  // ✅ On garde que `query`
+    public ?string $query = null; 
 
-    #[Assert\Choice(choices: ['username'], message: 'Le champ de tri est invalide.')]
-    public ?string $sortBy = 'username';
+    #[Assert\Choice(choices: ['divers', 'clubs', null], message: 'Le champ de tri est invalide.')]
+    public ?string $type = null;
 
     #[Assert\Choice(choices: ['asc', 'desc'], message: 'L\'ordre de tri est invalide.')]
     public ?string $order = 'asc';
@@ -29,12 +29,32 @@ class UserSearchCriteriaDTO
     public static function fromRequest(Request $request): self
     {
         $dto = new self();
-        $dto->query = $request->query->get('search', null); // ✅ Mapping direct de `search` à `query`
-        $dto->sortBy = $request->query->get('sortBy', 'username');
-        $dto->order = $request->query->get('order', 'asc');
-        $dto->page = (int) $request->query->get('page', 1);
-        $dto->pageSize = (int) $request->query->get('pageSize', 10);
+        $dto->query = $request->query->get('search', null);
+        if ($dto->query === null) {
+            throw new \InvalidArgumentException("Le paramètre 'search' est obligatoire.");
+        }
+        
+        // Conversion automatique de "divers" → "option-diver" et "clubs" → "option-club"
+        $typeMapping = [
+            'divers' => 'option-diver',
+            'clubs' => 'option-club',
+            'all' => null
+        ];
+        // Récupérer le type, mais ignorer les valeurs non valides
+        $requestedType = $request->query->get('type', null);
+        $dto->type = isset($typeMapping[$requestedType]) ? $typeMapping[$requestedType] : null;
 
+        // Assurer que "order" est bien récupéré et valide
+        $allowedOrders = ['asc', 'desc'];
+        $dto->order = $request->query->get('order', 'asc');
+        if (!in_array($dto->order, $allowedOrders, true)) {
+            $dto->order = 'asc'; // Sécurité : on force un ordre valide
+        }
+
+        // Pagination sécurisée
+        $dto->page = max(1, (int) $request->query->get('page', 1));
+        $dto->pageSize = min(100, max(1, (int) $request->query->get('pageSize', 10)));
+        
         return $dto;
     }
 }

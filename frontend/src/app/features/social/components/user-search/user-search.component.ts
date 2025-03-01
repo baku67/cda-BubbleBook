@@ -12,7 +12,7 @@ import { UserSearchResults } from '../../models/UserSearchResults';
 })
 export class UserSearchComponent implements OnInit {
   searchControl = new FormControl('');
-  filterTypeControl = new FormControl('users'); // Validator async update debouncing ?
+  typeControl = new FormControl('all'); // Validator async update debouncing ?
   users: UserSearchResults[] = [];
   loading = false;
 
@@ -24,13 +24,13 @@ export class UserSearchComponent implements OnInit {
         debounceTime(300),  
         distinctUntilChanged(),
         switchMap((query) => {
-          const entity = this.filterTypeControl.value; // Récupération du type d'entité sélectionné
+          const type = this.typeControl.value; // Récupération du type d'entité sélectionné
           if (!query || !query.trim()) {
             this.users = [];
             return [];
           }
           this.loading = true;
-          return this.searchService.search(entity as 'users' | 'clubs', query as string);
+          return this.searchService.search(type as 'divers' | 'clubs' | 'all', query as string);
         })
       )
       .subscribe({

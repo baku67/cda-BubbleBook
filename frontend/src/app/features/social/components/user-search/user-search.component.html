@@ -3,13 +3,14 @@
   <!-- *** Form -->
 
     <!-- *** Type de comptes recherchés ('users' ou 'clubs') -->
-    <!-- <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline">
       <mat-label>Type de recherche</mat-label>
-      <mat-select [formControl]="entityControl">
-        <mat-option value="users">Utilisateurs</mat-option>
+      <mat-select [formControl]="typeControl">
+        <mat-option value="all">Tout</mat-option>
+        <mat-option value="divers">Utilisateurs</mat-option>
         <mat-option value="clubs">Clubs</mat-option>
       </mat-select>
-    </mat-form-field> -->
+    </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Rechercher</mat-label>
