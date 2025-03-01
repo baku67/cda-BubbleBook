@@ -24,12 +24,15 @@ class UserSearchService
      */
     public function search(UserSearchCriteriaDTO $searchDTO): array
     {
-        return $this->userRepository->searchUsers(
+        $users = $this->userRepository->searchUsers(
             $searchDTO->query,
             $searchDTO->type,
             $searchDTO->order,
             $searchDTO->page,
             $searchDTO->pageSize
         );
+    
+        // Convertir les entités User en UserSearchDTO
+        return UserSearchDTO::fromEntities($users);
     }
 }

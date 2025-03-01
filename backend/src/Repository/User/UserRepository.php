@@ -17,7 +17,16 @@ class UserRepository extends ServiceEntityRepository
 
     public function searchUsers(?string $query, ?string $type, string $order, int $page, int $pageSize): array
     {
-        $queryBuilder = $this->createQueryBuilder('u');
+        $queryBuilder = $this->createQueryBuilder('u')
+            ->select([
+                'u.id',
+                'u.username',
+                'u.nationality',
+                'u.avatarUrl',
+                'u.bannerUrl',
+                'u.initialDivesCount',
+                'u.accountType'
+            ]);
 
         // EN PREMIER pour sécu
         // Exclure les utilisateurs dont "profil_privacy" est "NO_ONE"
