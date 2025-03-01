@@ -3,19 +3,33 @@
     <app-page-header [title]="'Social'" [matIcon]="'supervised_user_circle'"></app-page-header>
 
     <div class="social-page-content">
-        <!-- Onglet Tabs Material [NEWS, SEARCH] -->
 
-        <!-- Recherche -->
-        <div class="">
-            <app-user-search></app-user-search>
-        </div>
+        <!-- Onglets NEWS, SEARCH -->
+        <mat-tab-group>
 
+            <!-- FIL D'ACTUALITE  -->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="tab-title-icon">forum</mat-icon>
+                    <span>Activités</span>
+                </ng-template>
+                <div class="tab-page-wrapper">
+                    contenu actu GET
+                </div>
+            </mat-tab>
 
-        <!-- FIL D'ACTUALITE  -->
-        <!-- Gens randoms qui ont du contenu (des Fixtures) -->
-        <div>
+            <!-- Recherche -->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="tab-title-icon">person_search</mat-icon>
+                    <span>Recherche</span>
+                </ng-template>
+                <div class="tab-page-wrapper">
+                    <app-user-search></app-user-search>
+                </div>
+            </mat-tab>
 
-        </div>
+        </mat-tab-group>
     </div>
 
 

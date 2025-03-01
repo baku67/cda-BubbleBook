@@ -43,6 +43,7 @@ import { BannerSelectionComponent } from './features/profil/components/banner-se
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { routes } from './app.routes';  // Import the routes
 import { AuthService } from './features/auth/services/auth.service';
@@ -130,6 +131,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NgxSkeletonLoaderModule,
     MatExpansionModule,
     MatDividerModule,
+    MatTabsModule,
 ],
   providers: [
     { 

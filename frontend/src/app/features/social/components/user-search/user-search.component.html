@@ -1,21 +1,25 @@
 <div class="search-container">
 
-  <!-- *** Form -->
 
-    <!-- *** Type de comptes recherchés ('users' ou 'clubs') -->
-    <mat-form-field appearance="outline">
-      <mat-label>Type de recherche</mat-label>
+  <!-- Formulaire recherche (type+text) -->
+  <div class="search-form-container">
+    <!-- *** Type de comptes recherchés ('divers'|'clubs'|'all') -->
+    <mat-form-field class="search-form-type" appearance="outline">
+      <mat-label>Type</mat-label>
       <mat-select [formControl]="typeControl">
         <mat-option value="all">Tout</mat-option>
-        <mat-option value="divers">Utilisateurs</mat-option>
+        <mat-option value="divers">Plongeurs</mat-option>
         <mat-option value="clubs">Clubs</mat-option>
       </mat-select>
     </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Rechercher</mat-label>
-    <input matInput [formControl]="searchControl" placeholder="Entrez un nom">
-  </mat-form-field>
+    <!-- Champ de text -->
+    <mat-form-field class="search-form-text" appearance="outline">
+      <mat-label>Rechercher</mat-label>
+      <input matInput [formControl]="searchControl" placeholder="Entrez un nom">
+    </mat-form-field>
+  </div>
+
 
   <!-- *** Results -->
   <mat-divider *ngIf="users.length > 0"></mat-divider>

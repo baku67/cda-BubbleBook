@@ -2,6 +2,36 @@
     text-align: center;
 }
 
+.search-form-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .search-form-type {
+        width: 30%;
+        max-width: 110px;
+    }
+    .search-form-text {
+        flex: 1;
+    }
+}
+
+::ng-deep mat-form-field.search-form-type .mat-mdc-text-field-wrapper {
+    background-color: var(--primary-color);
+    border-radius: 5px 0px 0px 5px;
+}
+::ng-deep mat-form-field.search-form-type .mdc-notched-outline__trailing {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+::ng-deep mat-form-field.search-form-text .mdc-notched-outline__leading {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+
+
 mat-divider {
     margin: 15px auto;
 }

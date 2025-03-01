@@ -1,3 +1,19 @@
 .social-page-content {
     width: 100%;
 }
+
+// .tab-title {
+
+// }
+// ::ng-deep .mat-mdc-tab-labels div:nth-child(1) {
+//     background-color: red;
+// }
+// ::ng-deep .mat-mdc-tab-labels div:nth-child(2) {
+//     background-color: green;
+// }
+::ng-deep .mdc-tab__text-label {
+    gap: 10px;
+}
+.tab-page-wrapper {
+    margin-top: 25px;
+}
