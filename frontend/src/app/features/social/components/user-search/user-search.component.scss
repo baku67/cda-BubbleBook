@@ -42,20 +42,43 @@ mat-divider {
     flex-direction: column;
     justify-content: center;
     margin: 0px auto;
+    gap: 5px;
 }
 .search-user-card {
     cursor: pointer;
+    position: relative;
     display: flex;
+    height: 70px; // explicite important pour banniere
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0px;
+    padding: 0px 0px;
     margin: 0px auto;
 
-    border: 1px solid #e0e0e0;
     border-radius: 5px;
+
+    border-top: 1px solid #ffffff8c;
+    border-bottom: 1px solid #0000002d;
+    border-top-right-radius: 4px;
+    background-color: #ffffff1f;
 }
 
+// .search-user-card-background {
+//     width: 100%;
+//     height: 100%; 
+//     background-size: cover;
+//     background-position: center;
+// }
+
+.search-user-card-avatar-wrapper {
+    display: flex;
+    height: 100%;
+    clip-path: polygon(100% 0, 71% 100%, 0 100%, 0 0);
+    background-color: var(--primary-color);
+    padding: 7px 32px 7px 10px;
+    border-radius: 7px 0px 0px 7px;
+}
 .search-user-card-avatar-container {
+    align-self: center;
     overflow: hidden;
     display: flex;
 
@@ -66,4 +89,6 @@ mat-divider {
     height: 45px;
     width: 45px;
     padding: 2px;
+    border-radius: 50%;
+    background-color: #ffffff69;
 }

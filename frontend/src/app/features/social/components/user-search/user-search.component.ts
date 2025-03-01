@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
 import { OtherUserProfil } from '../../models/OtherUserProfil';
 import { UserSearchResults } from '../../models/UserSearchResults';
 import { Observable, of } from 'rxjs';
+import { COUNTRIES_DB } from '@angular-material-extensions/select-country';
 
 @Component({
   selector: 'app-user-search',
@@ -14,15 +15,16 @@ import { Observable, of } from 'rxjs';
 export class UserSearchComponent implements OnInit {
   searchControl = new FormControl('');
   typeControl = new FormControl('all'); // Validator async update debouncing ?
-  users: UserSearchResults[] = [];
+
   loading = false;
+  users: UserSearchResults[] = [];
 
   constructor(private searchService: SearchService) {}
 
   ngOnInit(): void {
     this.searchControl.valueChanges
       .pipe(
-        debounceTime(300),
+        debounceTime(200),
         distinctUntilChanged(),
         switchMap((query) => this.triggerSearch(query)) 
       )
@@ -64,7 +66,30 @@ export class UserSearchComponent implements OnInit {
         catchError(() => {
           this.loading = false;
           return of([]); // Retourne un Observable vide en cas d'erreur
-        })
+        }),
+        map(users => this.updateCountryInfoForUsers(users)) // ✅ Ajoute les infos pays (pour flag)
       );
   }
+
+  // lib Drapeaux des users results
+  private updateCountryInfoForUsers(users: UserSearchResults[]): UserSearchResults[] {
+    return users.map(user => {
+      if (user.nationality) {
+        const country = COUNTRIES_DB.find(c => c.alpha3Code === user.nationality);
+        if (country) {
+          return {
+            ...user,
+            countryName: country.name,
+            flagSvgUrl: `assets/svg-country-flags/svg/${country.alpha2Code.toLowerCase()}.svg`
+          };
+        }
+      }
+      return {
+        ...user,
+        countryName: 'Inconnu',
+        flagSvgUrl: `assets/images/default-flag.png`
+      };
+    });
+  }
+  
 }

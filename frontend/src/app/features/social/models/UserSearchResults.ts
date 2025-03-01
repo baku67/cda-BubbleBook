@@ -6,4 +6,7 @@ export interface UserSearchResults {
     bannerUrl?: string;
     initialDivesCount?: number;
     accountType: string;
+
+    countryName?: string;
+    flagSvgUrl?: string;
 }
