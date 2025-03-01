@@ -12,7 +12,7 @@ import { UserSearchResults } from '../../models/UserSearchResults';
 })
 export class UserSearchComponent implements OnInit {
   searchControl = new FormControl('');
-  entityControl = new FormControl('users'); // Validator async update debouncing ?
+  filterTypeControl = new FormControl('users'); // Validator async update debouncing ?
   users: UserSearchResults[] = [];
   loading = false;
 
@@ -24,7 +24,7 @@ export class UserSearchComponent implements OnInit {
         debounceTime(300),  
         distinctUntilChanged(),
         switchMap((query) => {
-          const entity = this.entityControl.value; // Récupération du type d'entité sélectionné
+          const entity = this.filterTypeControl.value; // Récupération du type d'entité sélectionné
           if (!query || !query.trim()) {
             this.users = [];
             return [];

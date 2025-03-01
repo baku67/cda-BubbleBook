@@ -11,7 +11,7 @@ class UserSearchCriteriaDTO
         min: 3,
         minMessage: 'Le terme de recherche doit comporter au moins {{ limit }} caractères.'
     )]
-    public ?string $query = null;
+    public ?string $query = null;  // ✅ On garde que `query`
 
     #[Assert\Choice(choices: ['username'], message: 'Le champ de tri est invalide.')]
     public ?string $sortBy = 'username';
@@ -28,23 +28,13 @@ class UserSearchCriteriaDTO
 
     public static function fromRequest(Request $request): self
     {
-        $instance = new self();
-        
-        $instance->query = $request->query->get('query', '') ?: null;
-        $instance->sortBy = $request->query->get('sortBy', 'username');
-        $instance->order = $request->query->get('order', 'asc');
+        $dto = new self();
+        $dto->query = $request->query->get('search', null); // ✅ Mapping direct de `search` à `query`
+        $dto->sortBy = $request->query->get('sortBy', 'username');
+        $dto->order = $request->query->get('order', 'asc');
+        $dto->page = (int) $request->query->get('page', 1);
+        $dto->pageSize = (int) $request->query->get('pageSize', 10);
 
-        // Vérification et conversion sécurisée des valeurs numériques
-        $instance->page = filter_var($request->query->get('page', 1), FILTER_VALIDATE_INT) ?: 1;
-        $instance->pageSize = filter_var($request->query->get('pageSize', 10), FILTER_VALIDATE_INT) ?: 10;
-
-        // Sécurisation des valeurs `sortBy` et `order`
-        $allowedSortFields = ['username'];
-        $allowedOrders = ['asc', 'desc'];
-
-        $instance->sortBy = in_array($instance->sortBy, $allowedSortFields) ? $instance->sortBy : 'username';
-        $instance->order = in_array($instance->order, $allowedOrders) ? $instance->order : 'asc';
-
-        return $instance;
+        return $dto;
     }
 }
