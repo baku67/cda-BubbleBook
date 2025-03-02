@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UserProfil } from '../../models/userProfile.model';
 import { Country, COUNTRIES_DB } from '@angular-material-extensions/select-country';
 import { Router } from '@angular/router';
-import { OtherUserProfil } from '../../../social/models/OtherUserProfil';
+import { OtherUserProfil } from '../../../social/models/other-user-profil.model';
 import { filter, Observable, startWith, Subscription } from 'rxjs';
 
 

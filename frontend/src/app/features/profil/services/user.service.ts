@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, filter, Observable, switchMap, tap } from 'rxjs';
 import { UserProfil } from '../models/userProfile.model';
 import { environment } from '../../../../environments/environments';
-import { OtherUserProfil } from '../../social/models/OtherUserProfil';
+import { OtherUserProfil } from '../../social/models/other-user-profil.model';
 
 
 @Injectable({

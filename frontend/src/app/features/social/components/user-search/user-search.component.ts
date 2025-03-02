@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
-import { OtherUserProfil } from '../../models/OtherUserProfil';
-import { UserSearchResults } from '../../models/UserSearchResults';
+import { OtherUserProfil } from '../../models/other-user-profil.model';
+import { UserSearchResults } from '../../models/user-search-results.model';
 import { Observable, of } from 'rxjs';
 import { COUNTRIES_DB } from '@angular-material-extensions/select-country';
 

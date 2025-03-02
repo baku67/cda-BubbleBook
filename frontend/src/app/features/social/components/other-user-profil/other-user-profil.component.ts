@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OtherUserProfil } from '../../models/OtherUserProfil';
+import { OtherUserProfil } from '../../models/other-user-profil.model';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, of } from 'rxjs';

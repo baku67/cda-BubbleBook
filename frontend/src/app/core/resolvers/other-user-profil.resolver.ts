@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { UserService } from '../../features/profil/services/user.service';
-import { OtherUserProfil } from '../../features/social/models/OtherUserProfil';
+import { OtherUserProfil } from '../../features/social/models/other-user-profil.model';
 
 @Injectable({
   providedIn: 'root'

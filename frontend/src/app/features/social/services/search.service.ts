@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../../../environments/environments';
-import { UserSearchResults } from '../models/UserSearchResults';
+import { UserSearchResults } from '../models/user-search-results.model';
 
 @Injectable({
   providedIn: 'root'
