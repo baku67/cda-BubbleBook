@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class OtherUserProfilComponent implements OnInit {
 
-  user!: OtherUserProfil | null;
+  user!: OtherUserProfil;
 
   isAnimatingFadeOut = false;
 

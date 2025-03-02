@@ -2,6 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { UserProfil } from '../../models/userProfile.model';
 import { Country, COUNTRIES_DB } from '@angular-material-extensions/select-country';
 import { Router } from '@angular/router';
+import { OtherUserProfil } from '../../../social/models/OtherUserProfil';
 
 
 @Component({
@@ -13,13 +14,12 @@ export class UserCardComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  @Input() user?:UserProfil; 
+  @Input() user?:UserProfil | OtherUserProfil; 
   
   country: Country | undefined;
   flagSvgUrl?: string; 
 
   ngOnInit() { 
-    console.log(this.user),
     this.updateCountryInfo();
   }
 
@@ -29,22 +29,23 @@ export class UserCardComponent implements OnInit {
     }
   }
 
+  isCurrentUserProfil(): boolean {
+    return (this.user as UserProfil).email !== undefined;
+  }
+
+  // // PK ça marche sans ça ?
   navigateToUserProfile(): void {
-    this.router.navigate(['/account-settings']);
+    if (this.isCurrentUserProfil()) {
+      this.router.navigate(['/account-settings']);
+    }
   }
 
   private updateCountryInfo() {
     if (this.user?.nationality) {
       const code = this.user.nationality;
       this.country = COUNTRIES_DB.find(c => c.alpha3Code === code);
-
-      if (this.country) {
-        console.log(this.country.name);
-        const alpha2 = this.country.alpha2Code.toLowerCase();
-        this.flagSvgUrl = `assets/svg-country-flags/svg/${alpha2}.svg`;
-      } else {
-        console.warn('Pays introuvable pour le code', code);
-      }
+      const alpha2 = this.country?.alpha2Code.toLowerCase();
+      this.flagSvgUrl = `assets/svg-country-flags/svg/${alpha2}.svg`;
     } else {
       this.flagSvgUrl = `assets/images/default-flag.png`;
     }

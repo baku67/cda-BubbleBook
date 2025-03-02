@@ -1,6 +1,3 @@
-import { PrivacyOption } from "../../profil/models/privacy-option";
-
-// Quand on click sur un result search avec link userID
 export interface OtherUserProfil {
     username: string;
     accountType: string,
