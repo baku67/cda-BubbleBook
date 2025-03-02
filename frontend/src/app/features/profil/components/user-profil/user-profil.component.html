@@ -8,11 +8,10 @@
         [colorTheme]="true"
     />
 
-
-    <app-user-card [user]="user" />
+    <app-user-card [user$]="user$" /> 
 
     <app-alert-banner 
-        *ngIf="user && !user.isVerified" 
+        *ngIf="(user$ | async)?.isVerified === false" 
         maticon="alternate_email" 
         [style]="'warn'" 
         msgAlert="{{ 'ALERT_CONFIRM_MAIL' | translate }}" 

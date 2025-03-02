@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { UserProfil } from '../../models/userProfile.model';
-import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
+import { catchError, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-user-profil',
@@ -12,7 +12,7 @@ import { AnimationService } from '../../../../shared/services/utils/animation.se
 })
 export class UserProfilComponent implements OnInit{
 
-  user?:UserProfil;
+  user$!: Observable<UserProfil | null>;
 
   isUserLoading = true;
 
@@ -23,7 +23,6 @@ export class UserProfilComponent implements OnInit{
 
   constructor(
     private userService: UserService, 
-    private authService: AuthService,
     private router: Router,
     private animationService: AnimationService,
   ) {
@@ -32,17 +31,14 @@ export class UserProfilComponent implements OnInit{
     });
   }
 
-  ngOnInit(): void { 
-    this.userService.getCurrentUser().subscribe({ 
-      next: (userData: UserProfil) => {
-        this.user = userData;
-        this.isUserLoading = false;
-      },
-      error: (error: unknown) => {
-        console.error('Erreur lors de la récupération du profil utilisateur', error);
-        this.isUserLoading = false;
-      }
-    });
+  ngOnInit(): void {
+    this.user$ = this.userService.getCurrentUser().pipe(
+      catchError(error => {
+        console.error('Erreur lors de la récupération du profil', error);
+        // this.errorMessage = 'Une erreur est survenue. Veuillez réessayer plus tard.';
+        return of(null); // Retourne `null` pour éviter de casser l’affichage
+      })
+    );
   }
 
 

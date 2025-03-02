@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { OtherUserProfil } from '../../models/OtherUserProfil';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
 import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-other-user-profil',
@@ -10,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class OtherUserProfilComponent implements OnInit {
 
-  user!: OtherUserProfil;
+  user$ = new BehaviorSubject<OtherUserProfil | null>(null);
 
   isAnimatingFadeOut = false;
 
@@ -25,9 +26,8 @@ export class OtherUserProfilComponent implements OnInit {
 
   ngOnInit(): void {
     // ✅(resolver incroyable) Récupération de l'utilisateur préchargé 
-    this.route.data.subscribe(data => {
-      this.user = data['user']; 
-      console.log(this.user);
-    });
+    // Transformer la donnée en Observable pour être compatible avec app-user-card
+    const user = this.route.snapshot.data['user'];
+    this.user$.next(user); // ✅ Met à jour immédiatement le BehaviorSubject 
   }
 }

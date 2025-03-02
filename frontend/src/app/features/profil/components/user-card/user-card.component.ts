@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserProfil } from '../../models/userProfile.model';
 import { Country, COUNTRIES_DB } from '@angular-material-extensions/select-country';
 import { Router } from '@angular/router';
 import { OtherUserProfil } from '../../../social/models/OtherUserProfil';
+import { filter, Observable, startWith, Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,21 +13,31 @@ import { OtherUserProfil } from '../../../social/models/OtherUserProfil';
 })
 export class UserCardComponent implements OnInit {
 
-  constructor(private router: Router) {}
-
-  @Input() user?:UserProfil | OtherUserProfil; 
+  @Input() user$!: Observable<UserProfil | OtherUserProfil | null>; 
+  user?: UserProfil | OtherUserProfil | null = null; // Stocke la valeur extraite de l'Observable
   
+  private subscription?: Subscription;
+
   country: Country | undefined;
   flagSvgUrl?: string; 
 
-  ngOnInit() { 
-    this.updateCountryInfo();
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.subscription = this.user$.pipe(
+      startWith(null) // ✅ Permet d'éviter les problèmes de non-initialisation
+    ).subscribe(user => {
+      this.user = user;
+      console.log("this.user de user-card", this.user);
+      if (user) { // ✅ Vérification avant d'appeler `updateCountryInfo()`
+        this.updateCountryInfo();
+      }
+    });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['user'] && changes['user'].currentValue) {
-      this.updateCountryInfo();
-    }
+  ngOnDestroy() {
+    // Évite les fuites mémoire en se désabonnant
+    this.subscription?.unsubscribe();
   }
 
   isCurrentUserProfil(): boolean {

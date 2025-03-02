@@ -4,15 +4,15 @@
 <!-- INITIALIZED card -->
 <div 
     class="surface surface-overflow-hidden matSubMenu inner-container border" 
-    *ngIf="user" 
+    *ngIf="user !== null && user !== undefined" 
     (click)="navigateToUserProfile()"
 >
     <div class="section-top">
-        <img [src]="user.bannerUrl" alt="user banner" />
+        <img [src]="user?.bannerUrl" alt="user banner" />
     </div>
 
     <div class="avatar-container">
-        <img [src]="user.avatarUrl" alt="{{ user.username }}'s avatar" />
+        <img [src]="user?.avatarUrl" alt="{{ user?.username }}'s avatar" />
     </div>
 
     <div class="middle-line"></div>
@@ -32,14 +32,14 @@
                 >
             </div>
             <div class="section-bottom-line-right">
-                <span class="dive-value">{{ user.initialDivesCount ? user.initialDivesCount : '?' }}</span>
+                <span class="dive-value">{{ user?.initialDivesCount ? user?.initialDivesCount : '?' }}</span>
                 <span class="dive-label">{{ "DIVES" | translate }}</span>
             </div>
         </div>
 
         <!-- Pseudo -->
         <div class="section-bottom-pseudo-container">
-            <span class="section-bottom-pseudo">{{ user.username }} </span>
+            <span class="section-bottom-pseudo">{{ user?.username }} </span>
         </div>
         
     </div>
@@ -47,7 +47,7 @@
 </div>
 
 <!-- SKELETON card -->
-<div class="surface surface-overflow-hidden matSubMenu inner-container border" *ngIf="!user">
+<div class="surface surface-overflow-hidden matSubMenu inner-container border" *ngIf="user === null || user === undefined">
 
     <div class="section-top">
         <ngx-skeleton-loader
