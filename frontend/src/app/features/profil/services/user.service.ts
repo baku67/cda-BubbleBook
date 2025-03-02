@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserProfil } from '../models/userProfile.model';
 import { environment } from '../../../../environments/environments';
+import { OtherUserProfil } from '../../social/models/OtherUserProfil';
 
 
 @Injectable({
@@ -26,6 +27,15 @@ export class UserService {
   updateUserPrivacy(updateData: Record<string, unknown>): Observable<UserProfil> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put<UserProfil>(`${this.apiUrl}/privacy`, updateData, { headers });
+  }
+
+  /**
+   * Récupère le profil d'un autre utilisateur
+   * @param otherUserId - id de l'utilisateur
+   * @return OtherUserProfil
+   */
+  getOtherUserProfil(otherUserId: string): Observable<OtherUserProfil> {
+    return this.http.get<OtherUserProfil>(`${this.apiUrl}/${otherUserId}`);
   }
 
 }

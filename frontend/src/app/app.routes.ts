@@ -16,6 +16,7 @@ import { Test1Component } from './shared/ui-components/test/test-1/test-1.compon
 import { Test2Component } from './shared/ui-components/test/test-2/test-2.component';
 import { SocialPageComponent } from './features/social/components/social-page/social-page.component';
 import { OtherUserProfilComponent } from './features/social/components/other-user-profil/other-user-profil.component';
+import { UserProfileResolver } from './core/resolvers/other-user-profil.resolver';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Home page
@@ -35,7 +36,13 @@ export const routes: Routes = [
     { path: 'certificates', component: CertificateManagerPageComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
 
     { path: 'social', component: SocialPageComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
-    { path: 'social/user-profil/:id', component: OtherUserProfilComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
+    { 
+        path: 'social/user-profil/:id', 
+        component: OtherUserProfilComponent, 
+        canActivate: [AuthGuard], 
+        canDeactivate: [FadeOutGuard],
+        resolve: { user: UserProfileResolver }
+    },
 
 
     // Confirmation mail:

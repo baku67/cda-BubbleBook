@@ -34,8 +34,8 @@
     <a 
         [routerLink]="['/social']" 
         routerLinkActive="router-link-active" 
-        [routerLinkActiveOptions]="{ exact: true }" 
         class="navBottomMobile-a flex1"
+        [ngClass]="{'router-link-active': isSocialRouteActive}" 
     >
         <div class="navBottomMobile-div">
             <mat-icon class="navBottomMobile-icon">

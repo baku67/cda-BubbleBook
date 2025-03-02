@@ -99,6 +99,11 @@ class UserController extends AbstractController
         UserSearchService $userSearchService,
     ): JsonResponse {
 
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
+
         try {
             $searchCriteria = UserSearchCriteriaDTO::fromRequest($request);
         } catch (\InvalidArgumentException $e) {
@@ -108,6 +113,25 @@ class UserController extends AbstractController
         $users = $userSearchService->search($searchCriteria);
     
         return $this->json($users, Response::HTTP_OK);
+    }
+
+
+    // <\d+>   =   Symfony convertira automatiquement otherUserId en int AVANT d’appeler la méthode.
+    #[Route('/api/user/{otherUserId}', name: 'api_other_user', methods: ['GET'])]
+    public function getOtherUserProfil(int $otherUserId, UserProfileService $userProfileService): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
+    
+        $otherUserProfilDTO = $userProfileService->getOtherUserProfile($otherUserId);
+        
+        if (!$otherUserProfilDTO) {
+            return new JsonResponse(['error' => 'User not found'], Response::HTTP_NOT_FOUND);
+        }
+    
+        return $this->json($otherUserProfilDTO);
     }
 
 }

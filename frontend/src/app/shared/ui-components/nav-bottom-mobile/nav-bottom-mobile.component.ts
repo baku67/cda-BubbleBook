@@ -18,8 +18,9 @@ import { MatDividerModule } from '@angular/material/divider';
 })
 export class NavBottomMobileComponent {
 
-  isSettingsRouteActive = false;
   isProfilRouteActive = false;
+  isSocialRouteActive = false;
+  isSettingsRouteActive = false;
 
   constructor(
     private authService: AuthService,
@@ -29,25 +30,27 @@ export class NavBottomMobileComponent {
   ) {}
 
   ngOnInit() {
-    // Initialisation immédiate lors du chargement de la page
-    this.isSettingsRouteActive = this.checkIfRouteIsActive(['/account-settings']);
     this.isProfilRouteActive = this.checkIfRouteIsActive(['/certificates', '/user-profil']);
+    this.isSocialRouteActive = this.checkIfRouteIsActive(['/social']);
+    this.isSettingsRouteActive = this.checkIfRouteIsActive(['/account-settings']);
 
-    // Abonnement aux événements de navigation
+    // Mise à jour automatique lors des changements de route
     this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.isSettingsRouteActive = this.checkIfRouteIsActive(['/account-settings']);
-        this.isProfilRouteActive = this.checkIfRouteIsActive(['/certificates', '/user-profil']);
-      }
+        if (event instanceof NavigationEnd) {
+            this.isProfilRouteActive = this.checkIfRouteIsActive(['/certificates', '/user-profil']);
+            this.isSocialRouteActive = this.checkIfRouteIsActive(['/social']); 
+            this.isSettingsRouteActive = this.checkIfRouteIsActive(['/account-settings']);
+        }
     });
-  }
+}
+
 
   private checkIfRouteIsActive(routesToCheck: string[]): boolean {
-    // Utilise l'URL actuelle (après redirections)
     const currentUrl = this.router.url;
     // Vérifie si l'URL actuelle correspond à l'une des routes
     return routesToCheck.some(route => currentUrl.startsWith(route));
   }
+
 
   logout(): void {
     this.authService.logout();
