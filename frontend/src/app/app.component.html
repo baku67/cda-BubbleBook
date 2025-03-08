@@ -40,15 +40,14 @@
 
       <app-header *ngIf="showHeader" />
 
-      <!-- Flash-message -->
-      <app-flash-message *ngIf="flashMessage" [message]="flashMessage" [type]="flashType" [matIcon]="flashMatIcon"></app-flash-message>
-
       <!-- ✅ Router-outlet affiché aussi -->
       <router-outlet></router-outlet>
+      
+      <!-- Flash-message -->
+      <app-flash-message *ngIf="flashMessage" [message]="flashMessage" [type]="flashType" [matIcon]="flashMatIcon"></app-flash-message>
 
       <app-nav-bottom-mobile *ngIf="showNavBottomMobile && isLoggedIn" />
     </div>
   </ng-template>
-
 
 </main>

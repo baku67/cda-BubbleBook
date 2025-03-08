@@ -1,8 +1,9 @@
 :host {
-    position: absolute;
+    position: fixed;
+    display: flex;
     max-width: 97vw;
     cursor: pointer;
-    bottom: 51px;
+    bottom: 54px;
     z-index: 9999999999;
     right: 0;
     margin: 3px 3px;

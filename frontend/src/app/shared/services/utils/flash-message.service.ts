@@ -25,7 +25,7 @@ export class FlashMessageService {
     // Planifie la disparition après 3 secondes
     setTimeout(() => {
       this.hideMessage();
-    }, 3000);
+    }, 300000);
   }
 
   hideMessage(): void {
