@@ -5,6 +5,7 @@ import { BehaviorSubject, catchError, delay, map, Observable, of, tap } from 'rx
 import { environment } from '../../../../environments/environments';
 import { TokenService } from './token.service';
 import { LoginData, RegisterData } from '../models/auth.types';
+import { UserService } from '../../profil/services/user.service';
 
 interface AuthResponse {
   accessToken: string;
@@ -27,7 +28,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private userService: UserService,
   ) {
     this.loggedIn$.next(this.tokenService.isAccessTokenValid());
   }
@@ -54,6 +56,9 @@ export class AuthService {
         this.tokenService.setRememberMe(credentials.rememberMe);
         this.firstLoginStep = response.firstLoginStep;
         this.loggedIn$.next(true);
+
+        // Force le rafraîchissement des données utilisateur
+        this.userService.getCurrentUser(true).subscribe();
       })
     );
   }
@@ -61,6 +66,7 @@ export class AuthService {
   // Déconnexion
   logout(): void {
     this.isInitializingAuth$.next(true); // Active l'affichage du loader
+    this.userService.clearCache();
     this.http.post(`${environment.apiUrl}/api/logout`, {}, { withCredentials: true }).subscribe({
       next: () => {
         // Nettoyer les tokens et mettre à jour l'état de l'application

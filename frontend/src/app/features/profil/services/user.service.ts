@@ -24,14 +24,12 @@ export class UserService {
    * @param otherUserId - id de l'utilisateur
    * @return OtherUserProfil
    */
-  getCurrentUser(): Observable<UserProfil> {
+  getCurrentUser(forceRefresh: boolean = false): Observable<UserProfil> {
     const now = Date.now();
 
     // Si on a déjà les données en cache et qu'elles sont récentes, on les retourne directement
-    if (this.userSubject.value && this.cacheTimestamp && (now - this.cacheTimestamp < this.cacheDuration)) {
-      return this.userSubject.asObservable().pipe(
-        filter(user => user !== null) // On s'assure de ne pas retourner null
-      );
+    if (!forceRefresh && this.userSubject.value && this.cacheTimestamp && (now - this.cacheTimestamp < this.cacheDuration)) {
+      return this.userSubject.asObservable().pipe(filter(user => user !== null));
     }
 
     // Sinon, on refait un appel API et on met à jour le cache
@@ -40,9 +38,7 @@ export class UserService {
         this.userSubject.next(user);
         this.cacheTimestamp = now;
       }),
-      switchMap(() => this.userSubject.asObservable().pipe(
-        filter(user => user !== null) // On filtre pour éviter de renvoyer null
-      ))
+      switchMap(() => this.userSubject.asObservable().pipe(filter(user => user !== null)))
     );
   }
 
@@ -56,6 +52,13 @@ export class UserService {
     });
   }
 
+  /**
+   * Efface le cache de l'utilisateur connecté (utilisé lors de la déconnexion)
+   */
+  clearCache(): void {
+    this.userSubject.next(null);
+    this.cacheTimestamp = null;
+  }
 
   /**
    * Met à jour l'utilisateur avec les paramètres de confidentialité

@@ -32,15 +32,17 @@ export class UserProfilComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.user$ = this.userService.getCurrentUser().pipe(
+    this.reloadUser();
+  }
+
+  reloadUser(): void {
+    this.user$ = this.userService.getCurrentUser(true).pipe(
       catchError(error => {
         console.error('Erreur lors de la récupération du profil', error);
-        // this.errorMessage = 'Une erreur est survenue. Veuillez réessayer plus tard.';
-        return of(null); // Retourne `null` pour éviter de casser l’affichage
+        return of(null);
       })
     );
   }
-
 
   navigateCertificates(): void {
     this.router.navigate(['/certificates']);
