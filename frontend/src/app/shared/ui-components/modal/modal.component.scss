@@ -8,7 +8,7 @@
     backdrop-filter: blur(3px);
     z-index: 1000;
 
-    animation: fadeIn 0.5s ease forwards;
+    animation: fadeInLayout 0.5s ease forwards;
 }
 
 .modal-content {
@@ -26,11 +26,54 @@
   max-height: 80vh;
   overflow-y: scroll;
 
-  animation: fadeIn 0.5s ease forwards;
+  animation: fadeInModal 0.5s ease forwards;
 }
 
-
-:host.modal-closing .modal-overlay,
+:host.modal-closing .modal-overlay {
+  animation: fadeOutLayout 0.5s ease forwards;
+}
 :host.modal-closing .modal-content {
-  animation: fadeOut 0.5s ease forwards;
+  animation: fadeOutModal 0.5s ease forwards;
+}
+
+@keyframes fadeInLayout {
+  from {
+  }
+  to {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+  }
+}
+
+@keyframes fadeOutLayout {
+  from {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+  }
+  to {
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+  }
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes fadeOutModal {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
 }
