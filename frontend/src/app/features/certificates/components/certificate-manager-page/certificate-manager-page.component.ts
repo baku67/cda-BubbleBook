@@ -23,6 +23,8 @@ export class CertificateManagerPageComponent implements OnInit{
 
   isDeleting: { [id: number]: boolean } = {};
   isEditMode: boolean = false;
+  originalOrder: { id: number, displayOrder: number }[] = []; // Pour pouvoir stocke l'ordre initial
+  originalUserCertificates: UserCertificate[] = []; // Pour restaurer si cancel
 
   isAnimatingFadeOut = false;
 
@@ -72,12 +74,25 @@ export class CertificateManagerPageComponent implements OnInit{
   }
 
   toggleEditMode() {
-    this.isEditMode = !this.isEditMode;
-
     if (!this.isEditMode) {
-      // Quand on quitte le mode édition, on sauvegarde l'ordre en base
+      // Avant d'activer l'édition, on stocke l'ordre initial (pour comparer si modifs)
+      this.originalOrder = this.userCertificates.map(cert => ({
+        id: cert.id,
+        displayOrder: cert.displayOrder
+      }));
+      // Stocke une copie complète pour restaurer en cas d'annulation (revert aussi le fav)
+      this.originalUserCertificates = JSON.parse(JSON.stringify(this.userCertificates));
+    } else {
       this.saveCertificateOrder();
     }
+
+    this.isEditMode = !this.isEditMode;
+  }
+
+  revertReorderCertifs(): void {
+    // ✅ Restaure la liste complète des certificats pour éviter l'erreur
+    this.userCertificates = JSON.parse(JSON.stringify(this.originalUserCertificates));
+    this.isEditMode = false;
   }
 
   saveCertificateOrder(): void {
@@ -85,6 +100,12 @@ export class CertificateManagerPageComponent implements OnInit{
       id: cert.id,
       displayOrder: index + 1
     }));
+
+    // Vérifier si l’ordre a changé avant d’envoyer la requête (early return)
+    if (JSON.stringify(this.originalOrder) === JSON.stringify(updatedOrder)) {
+      console.log('No changes detected, skipping request.');
+      return;
+    }
 
     this.certificateService.updateUserCertificatesOrder(updatedOrder).subscribe({
       next: () => {

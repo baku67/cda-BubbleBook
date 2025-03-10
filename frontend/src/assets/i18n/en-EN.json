@@ -71,6 +71,7 @@
     "ACCOUNT_SETTINGS": "Account Settings",
 
     "ADD_CERTIFICATE_BUTTON": "Add",
+    "REVERT_REORDER_CERTIF_BUTTON": "Cancel",
     "ADD_CERTIFICATE_FORM_TITLE": "Add a diving certificate",
     "ADD": "Add",
     "DATE_MUST_BE_IN_THE_PAST": "Date must be in the past",

@@ -75,6 +75,7 @@
     "ACCOUNT_SETTINGS": "Paramètres",
 
     "ADD_CERTIFICATE_BUTTON": "Ajouter",
+    "REVERT_REORDER_CERTIF_BUTTON": "Annuler",
     "ADD_CERTIFICATE_FORM_TITLE": "Ajouter un certificat de plongée",
     "ADD": "Ajouter",
     "DATE_MUST_BE_IN_THE_PAST": "La date sélectionnée doit être dans le passé",

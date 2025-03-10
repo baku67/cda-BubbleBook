@@ -9,16 +9,22 @@
     <section>
         <div>
             <div style="display:flex; gap:10px;">
-                <!-- Bouton d'ajout (non draggable) -->
+                <!-- Bouton d'ajout ou de cancelEdit -->
                 <button *ngIf="!isEditMode" class="example-box certificates-btns addCertif-button" (click)="openAddCertifModal()">
                     <div class="addCertif-button-container">
                         <mat-icon>add</mat-icon>
                         <span>{{ "ADD_CERTIFICATE_BUTTON" | translate }}</span>
                     </div>
                 </button>
+                <button *ngIf="isEditMode" class="example-box certificates-btns cancelEdit-button" (click)="revertReorderCertifs()">
+                    <div class="addCertif-button-container">
+                        <mat-icon>cancel</mat-icon>
+                        <!-- <span>{{ "REVERT_REORDER_CERTIF_BUTTON" | translate }}</span> -->
+                    </div>
+                </button>
         
                 <!-- Bouton pour toggler le mode édition -->
-                <button class="example-box certificates-btns editCertif-button" (click)="toggleEditMode()" >
+                <button [ngClass]="isEditMode ? 'editValidateBtn' : ''" class="example-box certificates-btns editCertif-button" (click)="toggleEditMode()" >
                     <div class="addCertif-button-container">
                         <mat-icon>{{ isEditMode ? 'check' : 'edit' }}</mat-icon>
                         <span>{{ (isEditMode ? "VALIDATE" : "EDIT_CERTIFICATE_BUTTON") | translate }}</span>
@@ -53,7 +59,7 @@
                         <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
 
                         <div class="content">
-                            <mat-icon *ngIf="i===0" class="main-certif-icon">workspace_premium</mat-icon>
+                            <!-- <mat-icon *ngIf="i===0" class="main-certif-icon">workspace_premium</mat-icon> -->
                             <div class="certif-header">
                                 <span class="certif-organization">{{ userCertif.certificate.type }}</span>
                                 <span class="cartif-name">{{ userCertif.certificate.name }}</span>
