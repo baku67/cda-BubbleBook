@@ -74,6 +74,30 @@ class UserCertificateController extends AbstractController
         }
     }
 
+    #[Route('/api/user/certificates/order', name: 'api_user_update_certificate_order', methods: ['PUT'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function updateUserCertificatesOrder(Request $request): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'Unauthorized access.'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $data = json_decode($request->getContent(), true);
+
+        if (!isset($data['certificates']) || !is_array($data['certificates'])) {
+            return new JsonResponse(['error' => 'Invalid data format'], Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            $this->userCertificateService->updateCertificateOrder($user, $data['certificates']);
+            return new JsonResponse(['message' => 'Order updated successfully'], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+
     #[Route('/api/user/certificates/{certificateId}', name: 'api_user_delete_certificate', methods: ['DELETE'])]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function deleteUserCertificate(int $certificateId): JsonResponse

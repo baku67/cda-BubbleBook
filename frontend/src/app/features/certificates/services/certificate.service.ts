@@ -39,4 +39,13 @@ export class CertificateService {
     );
   }
 
+  updateUserCertificatesOrder(updatedOrder: { id: number, displayOrder: number }[]): Observable<void> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<void>(
+      `${environment.apiUrl}/api/user/certificates/order`,
+      { certificates: updatedOrder },
+      { headers }
+    );
+  }
+
 }

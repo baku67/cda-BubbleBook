@@ -80,6 +80,9 @@
 
     "NO_CERTIFICATE_YET": "No certificate yet",
 
+    "CERTIFS_REORDER_SUCCESS": "Certificates order updated",
+    "CERTIFS_REORDER_ERROR": "Error updating certificates order",
+
     "EQUIPMENT": "My equipment",
     "PUBLISHES": "My publications",
     "GALLERY": "My Gallery",

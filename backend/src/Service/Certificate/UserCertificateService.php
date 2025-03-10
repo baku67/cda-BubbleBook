@@ -83,6 +83,7 @@ class UserCertificateService
         $this->reorderDisplayOrders($user); // Pour éviter les trous
     }
 
+    // Suite à suppression d'un certificats pour éviter les trous
     private function reorderDisplayOrders(User $user): void
     {
         $certificates = $this->userCertificateRepository->findBy(
@@ -93,6 +94,23 @@ class UserCertificateService
         $order = 1;
         foreach ($certificates as $certificate) {
             $certificate->setDisplayOrder($order++);
+        }
+
+        $this->entityManager->flush();
+    }
+
+    // Réorganisation de l'ordre des certificats (drag and drop front)
+    public function updateCertificateOrder(User $user, array $updatedOrder): void
+    {
+        foreach ($updatedOrder as $orderData) {
+            $certificate = $this->userCertificateRepository->findOneBy([
+                'id' => $orderData['id'],
+                'user' => $user
+            ]);
+
+            if ($certificate) {
+                $certificate->setDisplayOrder($orderData['displayOrder']);
+            }
         }
 
         $this->entityManager->flush();

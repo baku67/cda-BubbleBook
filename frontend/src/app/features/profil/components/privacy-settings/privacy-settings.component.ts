@@ -26,7 +26,12 @@ export class PrivacySettingsComponent implements OnInit {
   selectedCertificatesPrivacyOption: PrivacyOption = this.privacyOptionsEnum.NO_ONE;
   selectedGalleryPrivacyOption: PrivacyOption = this.privacyOptionsEnum.NO_ONE;
 
-  constructor(private userService: UserService, private translateService: TranslateService, private flashMessageService: FlashMessageService) {}
+  constructor(
+    private userService: UserService, 
+    private translateService: TranslateService, 
+    private flashMessageService: FlashMessageService
+  ) {}
+  
   ngOnInit(): void {
     this.selectedProfilPrivacyOption = this.convertToPrivacyOption(this.user.profilPrivacy) || PrivacyOption.NO_ONE;
     this.selectedLogBooksPrivacyOption = this.convertToPrivacyOption(this.user.logBooksPrivacy) || PrivacyOption.NO_ONE;

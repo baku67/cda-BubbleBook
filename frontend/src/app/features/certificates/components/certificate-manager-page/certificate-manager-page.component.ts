@@ -6,6 +6,8 @@ import { UserCertificate } from '../../models/userCertificate.model';
 import { ModalService } from '../../../../shared/services/utils/modal.service';
 import { CertificateFormComponent } from '../certificate-form/certificate-form.component';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
+import { TranslateService } from '@ngx-translate/core';
+import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
 
 @Component({
   selector: 'app-certificate-manager-page',
@@ -28,6 +30,8 @@ export class CertificateManagerPageComponent implements OnInit{
     private certificateService: CertificateService,
     private modalService: ModalService,
     private animationService: AnimationService,
+    private translateService: TranslateService,
+    private flashMessageService: FlashMessageService,
   ) {
     this.isAllCertifsLoading = true;
     this.isUserCertifsLoading = true;
@@ -40,6 +44,7 @@ export class CertificateManagerPageComponent implements OnInit{
     this.loadCertificates();
     this.loadUserCertificates();
   }
+
   private loadCertificates(): void {
     this.certificateService.getCertificates().subscribe({
       next: (certificates) => {
@@ -56,9 +61,8 @@ export class CertificateManagerPageComponent implements OnInit{
   private loadUserCertificates(): void {
     this.certificateService.getCurrentUserCertificates().subscribe({
       next: (certificates) => {
-        this.userCertificates = certificates;
+        this.userCertificates = certificates.sort((a, b) => a.displayOrder - b.displayOrder); // sortBy displayOrder
         this.isUserCertifsLoading = false;
-        // this.cdr.detectChanges(); // Force l'actualisation
       },
       error: (error) => {
         console.error('Failed to load users certificates', error);
@@ -67,9 +71,34 @@ export class CertificateManagerPageComponent implements OnInit{
     });
   }
 
-
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
+
+    if (!this.isEditMode) {
+      // Quand on quitte le mode édition, on sauvegarde l'ordre en base
+      this.saveCertificateOrder();
+    }
+  }
+
+  saveCertificateOrder(): void {
+    const updatedOrder = this.userCertificates.map((cert, index) => ({
+      id: cert.id,
+      displayOrder: index + 1
+    }));
+
+    this.certificateService.updateUserCertificatesOrder(updatedOrder).subscribe({
+      next: () => {
+        this.translateService.get('CERTIFS_REORDER_SUCCESS').subscribe((message: string) => {
+          this.flashMessageService.showMessage(message, 'success', 'check_circle');
+        });
+      },
+      error: (err: any) => {
+        console.error('Error updating order', err)
+        this.translateService.get('CERTIFS_REORDER_ERROR').subscribe((message: string) => {
+          this.flashMessageService.showMessage(message, 'error', 'warning');
+        });
+      },
+    });
   }
 
   openAddCertifModal(): void {
@@ -108,7 +137,7 @@ export class CertificateManagerPageComponent implements OnInit{
   }
 
   // cdk drag-drop dans list certifs
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<UserCertificate[]>) {
     moveItemInArray(this.userCertificates, event.previousIndex, event.currentIndex);
   }
   
