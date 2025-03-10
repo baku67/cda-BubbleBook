@@ -1,0 +1,17 @@
+Méthodes traditionnelles et Agilité
+
+Savoir expliquer KANBAN et SCRUM (support de cours de Nicolas)
+Méthode hybride = on améliore la méthode en cycles en V et on y ajoute un tableau Kanban et quelques règles Agiles (pas ouf mais c'est une réalité)
+
+Moi: pas de cycles ? En Flux tiré (je prend les tâches comme elles arrivent)
+
+Agile modeling: les diagrammes se construisent et évolent au fur et à mesure des développements 
+Diagrammes de class globaux et/ou ciblés, plusieurs diagrammes d'activités et/ou de sequences 
+
+Comme on est solo: KANBAN et cycles (SCRUM pas possible, on peut parler de cycles a durée varaibles plutot que de Sprints psychorigide), UserStories ok et estimable en temps Ok 
+Pour expliquer le KANBAN projet: Il faut prioriser les tâches par valeur ajoutée pour l'utilisateur (!), prioritaires en haut de colonnes. Et il faut définir un nombre max de tâches dans la colonne en cours (2)
+
+
+Attention alerte Junior: 
+"La méthode Agile"
+"Une librairie Javascript" => Bibliothèque

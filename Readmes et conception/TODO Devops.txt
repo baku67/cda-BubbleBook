@@ -1,0 +1,12 @@
+CI pour s'assurer de la qualité de ce qu'on pousse sur la branche "develop":
+
+auto-formatteur (sur son poste avec Ctrl+S)
+frmework de test (ligne de commande donc automatisable (CI))
+linter (ligne de commande donc automatisable (CI))
+
+
+CD: 
+
+Continuous Delivery (livraison en recettage, preprod etc...) 
+ou 
+Continuous Deploiement (en prod grtand public directement)
