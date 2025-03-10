@@ -7,6 +7,7 @@ class UserCertificateDTO
     public function __construct(
         readonly public ?int $id,
         readonly public ?CertificateDTO $certificate,
+        readonly public ?int $displayOrder,
         readonly public ?\DateTimeImmutable $obtainedDate,
         readonly public ?string $location
     ) {}

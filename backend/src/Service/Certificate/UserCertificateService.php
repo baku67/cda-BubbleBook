@@ -21,6 +21,14 @@ class UserCertificateService
         return $this->userCertificateRepository->findCertificatesByUserId($user->getId());
     }
 
+    public function addUserCertificateWithOrder(User $user, AddUserCertificateDTO $dto): UserCertificate
+    {
+        // Récupérer le dernier displayOrder et l'incrémenter
+        $lastOrder = $this->userCertificateRepository->getMaxDisplayOrderForUser($user);
+        $dto->displayOrder = $lastOrder + 1;
+        return $this->addUserCertificate($user, $dto);
+    }
+
     public function addUserCertificate(User $user, AddUserCertificateDTO $dto): UserCertificate
     {
         $certificate = $this->certificateRepository->findOneBy([
@@ -44,6 +52,7 @@ class UserCertificateService
         $userCertificate = new UserCertificate();
         $userCertificate->setUser($user);
         $userCertificate->setCertificate($certificate);
+        $userCertificate->setDisplayOrder($dto->displayOrder);
 
         if ($dto->obtainedDate) {
             $obtainedDateImmutable = \DateTimeImmutable::createFromMutable($dto->obtainedDate);
@@ -69,6 +78,23 @@ class UserCertificateService
         }
 
         $this->entityManager->remove($userCertificate);
+        $this->entityManager->flush();
+
+        $this->reorderDisplayOrders($user); // Pour éviter les trous
+    }
+
+    private function reorderDisplayOrders(User $user): void
+    {
+        $certificates = $this->userCertificateRepository->findBy(
+            ['user' => $user],
+            ['displayOrder' => 'ASC']
+        );
+
+        $order = 1;
+        foreach ($certificates as $certificate) {
+            $certificate->setDisplayOrder($order++);
+        }
+
         $this->entityManager->flush();
     }
 }

@@ -55,7 +55,7 @@ class UserCertificateController extends AbstractController
         }
 
         try {
-            $userCertificate = $this->userCertificateService->addUserCertificate($user, $dto);
+            $userCertificate = $this->userCertificateService->addUserCertificateWithOrder($user, $dto);
             return new JsonResponse([
                 'id' => $userCertificate->getId(),
                 'certificate' => [
@@ -63,6 +63,7 @@ class UserCertificateController extends AbstractController
                     'name' => $userCertificate->getCertificate()->getName(),
                     'type' => $userCertificate->getCertificate()->getType(),
                 ],
+                'displayOrder' => $userCertificate->getDisplayOrder(),
                 'obtainedDate' => $userCertificate->getObtainedDate()?->format('Y-m-d'),
                 'location' => $userCertificate->getLocation(),
             ], Response::HTTP_CREATED);
