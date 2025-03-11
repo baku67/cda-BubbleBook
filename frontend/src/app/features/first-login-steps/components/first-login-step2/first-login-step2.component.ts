@@ -190,9 +190,11 @@ export class FirstLoginStep2Component {
       const formData = this.firstLoginForm2.value;
 
       this.firstLoginService.updateUser(formData).subscribe({
-        next: () => {
+        next: (updatedUser) => {
           console.log('User successfully updated');
           // this.isLoading = false;
+
+          this.userService.updateCachedUser(updatedUser); // mettre à jour le cache User
 
           // Redirection après la mise à jour
           this.router.navigate(['/user-profil']);

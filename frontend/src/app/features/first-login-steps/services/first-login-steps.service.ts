@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environments';
+import { UserProfil } from '../../profil/models/userProfile.model';
 
 
 @Injectable({
@@ -17,9 +18,9 @@ export class FirstLoginStepsService {
    * Met à jour l'utilisateur avec des données spécifiques
    * @param updateData - Données à envoyer au backend
    */
-  updateUser(updateData: Record<string, unknown>): Observable<void> {
+  updateUser(updateData: Record<string, unknown>): Observable<UserProfil> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.patch<void>(this.apiUrl, updateData, { headers });
+    return this.http.patch<UserProfil>(this.apiUrl, updateData, { headers });
   }
 
   /**

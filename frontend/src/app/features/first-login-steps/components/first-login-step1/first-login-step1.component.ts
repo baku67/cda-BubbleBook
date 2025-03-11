@@ -77,9 +77,11 @@ export class FirstLoginStep1Component implements OnInit {
 
       const formData = this.firstLoginForm.value;
       this.firstLoginService.updateUser(formData).subscribe({
-        next: () => {
+        next: (updatedUser) => {
           console.log('User successfully updated');
           // this.isLoading = false; // désactivé car enchaine avec un loading fatchdata de la route suivante (dailleurs plutot resolver ça?)
+
+          this.userService.updateCachedUser(updatedUser); // mettre à jour le cache User
 
           this.router.navigate(['/first-login/step-two']);
         },

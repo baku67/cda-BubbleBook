@@ -52,6 +52,16 @@ export class UserService {
   }
 
   /**
+   * Récupère le profil de l'utilisateur connecté et le met en cache 
+   * @param updatedUser - user à jour
+   */
+  updateCachedUser(updatedUser: UserProfil): void {
+    console.log("🔄 Mise à jour du cache utilisateur :", updatedUser);
+    this.userSubject.next(updatedUser);
+    this.cacheTimestamp = Date.now();
+  }
+
+  /**
    * Force un rafraîchissement des données (ex: après une mise à jour du profil)
    */
   refreshUser(): void {
