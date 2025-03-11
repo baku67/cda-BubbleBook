@@ -44,6 +44,7 @@ export class UserProfilComponent implements OnInit{
     );
   }
 
+  // Pour le click sur card
   navigateCertificates(): void {
     this.router.navigate(['/certificates']);
   }

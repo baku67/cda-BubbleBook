@@ -1,5 +1,4 @@
-<div class="search-container">
-
+<div *ngIf="this.currentUser!.isVerified; else forbidden" class="search-container">
 
   <!-- Formulaire recherche (type+text) -->
   <div class="search-form-container">
@@ -61,3 +60,11 @@
   <p *ngIf="!loading && users.length === 0">Aucun résultat trouvé.</p>
 
 </div>
+
+<ng-template #forbidden>
+  <app-alert-banner  
+    maticon="alternate_email" 
+    [style]="'warn'" 
+    msgAlert="{{ 'ALERT_CONFIRM_MAIL' | translate }}" 
+  ></app-alert-banner>
+</ng-template>

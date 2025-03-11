@@ -31,17 +31,14 @@ ngx-skeleton-loader  {
 .example-list {
   width: 500px;
   max-width: 100%;
-  border: solid 1px #8989898c;
   min-height: 60px;
   display: block;
-//   background: white;
   border-radius: 4px;
   overflow: hidden;
 }
 
 .example-box {
-  padding: 15px 10px;
-  border-bottom: solid 1px #ccc;
+  padding: 15px 15px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -49,9 +46,12 @@ ngx-skeleton-loader  {
   box-sizing: border-box;
   cursor: move;
   font-size: 14px;
+  border: solid 1px #8989898c;
+  background-color: var(--element-bg-color);
+  border-radius: 5px;
 }
 .shrinked-box {
-  padding: 10px 10px 10px 10px;
+  padding: 10px 10px 10px 15px;
 }
 
 .cdk-drag-preview {
@@ -66,9 +66,6 @@ ngx-skeleton-loader  {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.example-box:last-child {
-  border: none;
-}
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
@@ -113,6 +110,7 @@ ngx-skeleton-loader  {
   text-align: right;
   opacity: 0.75;
   font-size: 85%;
+  gap: 4px;
 }
 
 button .mat-spinner {
@@ -155,6 +153,12 @@ button .mat-spinner {
   background-color: var(--green);
 }
 
+.editMode-buttons-div {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .addCertif-button-container {
   width: 100%;
   display: inline-flex;
@@ -172,5 +176,8 @@ button .mat-spinner {
 }
 
 .certificates-list-wrapper {
-  
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
 }

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environments';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-confirm-email',
@@ -21,6 +22,7 @@ export class ConfirmEmailComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router,
+    private translateService: TranslateService,
     private animationService: AnimationService,
   ) {
     this.animationService.isAnimating$.subscribe((animating) => {

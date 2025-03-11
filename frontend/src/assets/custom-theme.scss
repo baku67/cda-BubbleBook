@@ -16,6 +16,7 @@ $myapp-light-theme: mat.m2-define-light-theme((
   bg-color: (
     default: linear-gradient(160deg, #E3F2FD 0%, #E0F7FA 100%),
     surfaces: #f0f3f5, // Couleur des surfaces (attention correspondance dans styles.css !!!)
+    elements: rgb(1 4 45 / 90%),
     border: #dbdcdd
   ),
   matMenu-bgColor: (
@@ -33,6 +34,7 @@ $myapp-dark-theme: mat.m2-define-dark-theme((
   bg-color: (
     default: linear-gradient(315deg, #1e1e1e 0%, #121212 100%),
     surfaces: #252526, // Couleur des surfaces (attention correspondance dans styles.css !!!)
+    elements: rgb(1 4 45 / 90%),
     border: #484849
   ),
   matMenu-bgColor: (

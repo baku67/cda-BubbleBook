@@ -29,7 +29,9 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
-
+::ng-deep mat-form-field.search-form-text .mat-mdc-text-field-wrapper {
+    background-color: var(--element-bg-color);
+}
 
 
 mat-divider {
@@ -59,7 +61,7 @@ mat-divider {
     border-top: 1px solid #ffffff8c;
     border-bottom: 1px solid #0000002d;
     border-top-right-radius: 4px;
-    background-color: #ffffff1f;
+    background-color: var(--element-bg-color);
 }
 
 // .search-user-card-background {
@@ -75,7 +77,7 @@ mat-divider {
     clip-path: polygon(100% 0, 71% 100%, 0 100%, 0 0);
     background-color: var(--primary-color);
     padding: 7px 32px 7px 10px;
-    border-radius: 7px 0px 0px 7px;
+    border-radius: 4px 0px 0px 4px;
 }
 .search-user-card-avatar-container {
     align-self: center;

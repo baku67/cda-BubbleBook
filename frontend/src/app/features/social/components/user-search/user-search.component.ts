@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
-import { OtherUserProfil } from '../../models/other-user-profil.model';
 import { UserSearchResults } from '../../models/user-search-results.model';
 import { Observable, of } from 'rxjs';
 import { COUNTRIES_DB } from '@angular-material-extensions/select-country';
+import { UserProfil } from '../../../profil/models/userProfile.model';
 
 @Component({
   selector: 'app-user-search',
@@ -13,10 +13,12 @@ import { COUNTRIES_DB } from '@angular-material-extensions/select-country';
   styleUrls: ['./user-search.component.scss']
 })
 export class UserSearchComponent implements OnInit {
+  @Input() currentUser!: UserProfil | null;
+
   searchControl = new FormControl('');
   typeControl = new FormControl('all'); // Validator async update debouncing ?
 
-  loading = false;
+  loading = false; 
   users: UserSearchResults[] = [];
 
   constructor(private searchService: SearchService) {}

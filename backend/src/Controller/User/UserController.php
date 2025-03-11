@@ -92,7 +92,7 @@ class UserController extends AbstractController
         }
     }
 
-    // Social searchUser 
+    // Social searchUsers 
     #[Route('/api/users/search', name: 'api_user_search', methods: ['GET'])]
     public function searchUsers(
         Request $request,
@@ -102,6 +102,9 @@ class UserController extends AbstractController
         $user = $this->getUser();
         if (!$user instanceof User) {
             return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
+        if (!$user->isVerified()) {
+            return new JsonResponse(['error' => 'User not verified'], Response::HTTP_FORBIDDEN);
         }
 
         try {
@@ -116,7 +119,7 @@ class UserController extends AbstractController
     }
 
 
-    // <\d+>   =   Symfony convertira automatiquement otherUserId en int AVANT d’appeler la méthode.
+    // Récupération d'un profil utilisateur
     #[Route('/api/user/{otherUserId}', name: 'api_other_user', methods: ['GET'])]
     public function getOtherUserProfil(int $otherUserId, UserProfileService $userProfileService): JsonResponse
     {

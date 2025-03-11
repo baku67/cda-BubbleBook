@@ -50,6 +50,7 @@ export class PrivacySettingsComponent implements OnInit {
     
     this.userService.updateUserPrivacy({ ...this.user, [`${section}Privacy`]: newOption }).subscribe({
       next: (updatedUser: UserProfil) => {
+        this.userService.updateCachedUser(updatedUser); // mis à jour du cache UserProfil
         this.user = updatedUser;
         this.isRequestSending = false;
 

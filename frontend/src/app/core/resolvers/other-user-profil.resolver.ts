@@ -8,7 +8,7 @@ import { OtherUserProfil } from '../../features/social/models/other-user-profil.
 @Injectable({
   providedIn: 'root'
 })
-export class UserProfileResolver implements Resolve<OtherUserProfil | null> {
+export class OtherUserProfileResolver implements Resolve<OtherUserProfil | null> {
 
   constructor(private userService: UserService) {}
 

@@ -18,7 +18,7 @@
                 </button>
                 <button *ngIf="isEditMode" class="example-box certificates-btns cancelEdit-button" (click)="revertReorderCertifs()">
                     <div class="addCertif-button-container">
-                        <mat-icon>cancel</mat-icon>
+                        <mat-icon>undo</mat-icon>
                         <!-- <span>{{ "REVERT_REORDER_CERTIF_BUTTON" | translate }}</span> -->
                     </div>
                 </button>
@@ -40,7 +40,7 @@
 
         <div class="certificates-list">
             <!-- spinner: pas de skeleton -->
-            <div cdkDropList class="example-list surface" (cdkDropListDropped)="drop($event)">
+            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
 
                 <div *ngIf="!isAllCertifsLoading && !isUserCertifsLoading" class="certificates-list-wrapper">
                     <!-- liste vide -->
@@ -71,7 +71,7 @@
                             <span>{{userCertif.location}}</span>
                         </div>
                         
-                        <div *ngIf="isEditMode" >
+                        <div *ngIf="isEditMode" class="editMode-buttons-div">
                             <!-- dragHandle -->
                             <mat-icon cdkDragHandle class="drag-handle">drag_handle</mat-icon>
 

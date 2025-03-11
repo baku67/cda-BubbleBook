@@ -3,6 +3,7 @@ import { UserProfil } from '../../models/userProfile.model';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-account-settings',
@@ -11,7 +12,7 @@ import { AnimationService } from '../../../../shared/services/utils/animation.se
 })
 export class AccountSettingsComponent implements OnInit {
 
-    user!:UserProfil;
+    user$!: Observable<UserProfil | null>;
 
     isUserLoading = true;
   
@@ -31,35 +32,26 @@ export class AccountSettingsComponent implements OnInit {
     }
 
     ngOnInit(): void { 
-      this.userService.getCurrentUser().subscribe({ 
-        next: (userData: UserProfil) => {
-          this.user = userData;
-          this.isUserLoading = false;
+      this.user$ = this.userService.getCurrentUser();
+    }
+
+    resendConfirmationEmail(userEmail: string): void {
+      if (!userEmail) return; // Empêche d'appeler l'API si `userEmail` est `null`
+    
+      this.emailConfirmResentLoading = true;
+      
+      this.authService.resendConfirmationEmail(userEmail).subscribe({
+        next: (response) => {
+          console.log('Email de confirmation renvoyé:', response);
+          this.emailConfirmResentLoading = false;
+          this.emailConfirmResent = true;
         },
-        error: (error: unknown) => {
-          console.error('Erreur lors de la récupération du profil utilisateur', error);
-          this.isUserLoading = false;
+        error: (error) => {
+          console.error('Erreur lors de la régénération du token:', error);
+          this.emailConfirmResentLoading = false;
+          alert('Impossible d\'envoyer l\'email de confirmation. Veuillez réessayer plus tard.');
         }
       });
     }
-
-    resendConfirmationEmail(): void {
-      if(!this.user?.isVerified) {
-  
-        this.emailConfirmResentLoading = true;
-        
-        this.authService.resendConfirmationEmail(this.user!.email).subscribe(
-          response => {
-            console.log('Email de confirmation renvoyé:', response);
-            this.emailConfirmResentLoading = false;
-            this.emailConfirmResent = true;
-          },
-          error => {
-            console.error('Erreur lors de la régénération du token:', error);
-            this.emailConfirmResentLoading = false;
-            alert('Impossible d\'envoyer l\'email de confirmation. Veuillez réessayer plus tard.');
-          }
-        );
-      }
-    }
+    
 }
