@@ -3,12 +3,14 @@
     min-width: 100%;
     width: 100%;
     max-width: 100%;
-    min-height: 100vh;
-    height: 100vh;
+    // min-height: 100vh;
+    // height: 100vh;
+    height: -webkit-fill-available;
+
     opacity: 1;
     top: 0;
     object-position: top;
-    object-fit: fill;
+    object-fit: cover;
     z-index: -1; // ✅ Permet de placer la vidéo en fond derrière tout
   
     filter: blur(5px);

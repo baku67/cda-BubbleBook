@@ -22,10 +22,8 @@
 
   <!-- FINI INITIALIZER -->
   <ng-template #appContent>
-    <app-background-video (videoLoaded)="onVideoLoaded()"></app-background-video>
-
+    
     <div class="globalMain">
-
       <div 
         *ngIf="showUxButtons" 
         [matMenuTriggerFor]="menuUxButtons"
@@ -42,6 +40,9 @@
 
       <!-- ✅ Router-outlet affiché aussi -->
       <router-outlet></router-outlet>
+
+      <!-- BG Vidéo -->
+      <app-background-video (videoLoaded)="onVideoLoaded()"></app-background-video>
       
       <!-- Flash-message -->
       <app-flash-message *ngIf="flashMessage" [message]="flashMessage" [type]="flashType" [matIcon]="flashMatIcon"></app-flash-message>
