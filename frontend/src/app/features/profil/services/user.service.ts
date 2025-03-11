@@ -29,12 +29,14 @@ export class UserService {
 
     // Si on a déjà les données en cache et qu'elles sont récentes, on les retourne directement
     if (!forceRefresh && this.userSubject.value && this.cacheTimestamp && (now - this.cacheTimestamp < this.cacheDuration)) {
+      console.log("User recupéré depuis le cache");
       return this.userSubject.asObservable().pipe(filter(user => user !== null));
     }
 
     // Sinon, on refait un appel API et on met à jour le cache
     return this.http.get<UserProfil>(`${this.apiUrl}/me`).pipe(
       tap(user => {
+        console.log("User introuvable en cache, récupération via requete API");
         this.userSubject.next(user);
         this.cacheTimestamp = now;
       }),

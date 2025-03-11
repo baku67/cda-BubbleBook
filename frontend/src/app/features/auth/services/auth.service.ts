@@ -76,7 +76,7 @@ export class AuthService {
         setTimeout(() => this.isInitializingAuth$.next(false), 2000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
       },
       error: (error) => {
-        console.warn('Erreur lors de la déconnexion, nettoyage local des tokens.');
+        // console.warn('Erreur lors de la déconnexion, nettoyage local des tokens.');
         this.tokenService.clearAccessToken();
         this.loggedIn$.next(false);
         this.router.navigate(['/login']);      
@@ -119,12 +119,14 @@ export class AuthService {
   
     if (!accessToken) {
       if (rememberMe) {
-        console.log("Aucun accessToken trouvé, mais rememberMe activé. Tentative de rafraîchissement...");
+        // console.log("Aucun accessToken trouvé, mais rememberMe activé. Tentative de rafraîchissement...");
         return this.refreshAccessToken().pipe(
-          tap(() => console.log("Token rafraîchi avec succès")),
+          tap(() => {
+            // console.log("Token rafraîchi avec succès")
+          }),
           map(() => true),
           catchError(() => {
-            console.log("Échec du rafraîchissement du token");
+            // console.log("Échec du rafraîchissement du token");
             this.tokenService.clearAccessToken();
             this.loggedIn$.next(false);
   
@@ -146,13 +148,15 @@ export class AuthService {
   
     // Vérification de validité du token existant
     if (!this.tokenService.isAccessTokenValid()) {
-      console.log("Token expiré, tentative de rafraîchissement...");
+      // console.log("Token expiré, tentative de rafraîchissement...");
   
       return this.refreshAccessToken().pipe(
-        tap(() => console.log("Token rafraîchi avec succès")),
+        tap(() => {
+          // console.log("Token rafraîchi avec succès")
+        }),
         map(() => true),
         catchError(() => {
-          console.log("Échec du rafraîchissement du token");
+          // console.log("Échec du rafraîchissement du token");
           this.tokenService.clearAccessToken();
           this.loggedIn$.next(false);
   
@@ -165,7 +169,7 @@ export class AuthService {
       );
     }
   
-    console.log("Token valide, utilisateur authentifié");
+    // console.log("Token valide, utilisateur authentifié");
     this.loggedIn$.next(true);
     this.isInitializingAuth$.next(false); // pas de délai minimal pour éviter un écran de chargement trop court
     // setTimeout(() => this.isInitializingAuth$.next(false), 10000); // test

@@ -3,7 +3,7 @@
 namespace App\Service\User;
 
 use App\DTO\Request\UserSearchCriteriaDTO;
-use App\DTO\Response\UserSearchDTO;
+use App\DTO\Response\UsersSearchDTO;
 use App\Repository\User\UserRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -33,6 +33,6 @@ class UserSearchService
         );
     
         // Convertir les entités User en UserSearchDTO
-        return UserSearchDTO::fromEntities($users);
+        return UsersSearchDTO::fromEntities($users);
     }
 }

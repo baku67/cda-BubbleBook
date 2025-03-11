@@ -2,9 +2,7 @@
 
 namespace App\DTO\Response;
 
-use App\Entity\User\User;
-
-class UserSearchDTO
+class UsersSearchDTO
 {
     public function __construct(
         readonly public int $id,

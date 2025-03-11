@@ -90,7 +90,7 @@ export class CertificateManagerPageComponent implements OnInit{
   }
 
   revertReorderCertifs(): void {
-    // ✅ Restaure la liste complète des certificats pour éviter l'erreur
+    // Restaure la liste complète des certificats pour éviter l'erreur
     this.userCertificates = JSON.parse(JSON.stringify(this.originalUserCertificates));
     this.isEditMode = false;
   }

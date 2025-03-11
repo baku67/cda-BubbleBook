@@ -12,7 +12,7 @@ export class LandingPageService {
   }
 
   setVideoLoaded(loaded: boolean) {
-    console.log("🚀 [LandingPageService] Vidéo chargée :", loaded);
+    // console.log("🚀 [LandingPageService] Vidéo chargée :", loaded);
     this.isVideoLoaded$.next(loaded);
   }
 }

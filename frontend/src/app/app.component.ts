@@ -87,10 +87,10 @@ export class AppComponent implements OnInit {
     this.authService.initializeAuth().pipe(
     ).subscribe((isAuthenticated) => {
       if (!isAuthenticated) {
-        console.log('InitialzeAuth(): echec');
+        // console.log('InitialzeAuth(): echec');
         // this.router.navigate(['/login']); // plus besoin grace aux guards ?
       } else {
-        console.log('InitialzeAuth(): reussi, chargement des données utilisateur...');
+        // console.log('InitialzeAuth(): reussi, chargement des données utilisateur...');
         // Chargez les données nécessaires pour l'utilisateur/confirm-mail (TODO juste reload la route actuelle)
         const currentUrl = this.router.url;
         if (!currentUrl.startsWith('/confirm-email')) { // Empeche le confirmEmail 4200/confirm-email parce que c'est un nouvel onglet avec potentiellement un refresh-token présent et ducoup : InitializeAuth->navigate(user-profil)
@@ -101,7 +101,7 @@ export class AppComponent implements OnInit {
   }
 
   onVideoLoaded() {
-    console.log("🚀 [AppComponent] Vidéo de fond chargée !");
+    // console.log("🚀 [AppComponent] Vidéo de fond chargée !");
     this.landingPageService.setVideoLoaded(true);
   }
 }
