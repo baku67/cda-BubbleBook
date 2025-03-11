@@ -35,8 +35,8 @@ export class UserProfilComponent implements OnInit{
     this.reloadUser();
   }
 
-  reloadUser(): void {
-    this.user$ = this.userService.getCurrentUser(true).pipe(
+  reloadUser(forceRefresh: boolean = false): void {
+    this.user$ = this.userService.getCurrentUser(forceRefresh).pipe(
       catchError(error => {
         console.error('Erreur lors de la récupération du profil', error);
         return of(null);

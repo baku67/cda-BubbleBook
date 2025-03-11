@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, filter, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, EMPTY, filter, Observable, of, switchMap, tap } from 'rxjs';
 import { UserProfil } from '../models/userProfile.model';
 import { environment } from '../../../../environments/environments';
 import { OtherUserProfil } from '../../social/models/other-user-profil.model';
@@ -15,6 +15,8 @@ export class UserService {
   private cacheTimestamp: number | null = null;
   private cacheDuration = 5 * 60 * 1000; // Cache 5 minutes
 
+  private isLoggedOut = false; // évite de re-récupérer immédiatement l'user lors du logout avant qu'il soit réellement loggedOut (réactivé dans la méthode login())
+
   private readonly apiUrl = `${environment.apiUrl}/api/user`;
 
   constructor(private http: HttpClient) {}
@@ -25,6 +27,11 @@ export class UserService {
    * @return OtherUserProfil
    */
   getCurrentUser(forceRefresh: boolean = false): Observable<UserProfil> {
+    if (this.isLoggedOut) {
+      console.log("🚫 getCurrentUser() bloqué après un logout");
+      return EMPTY;
+    }
+
     const now = Date.now();
 
     // Si on a déjà les données en cache et qu'elles sont récentes, on les retourne directement
@@ -58,8 +65,12 @@ export class UserService {
    * Efface le cache de l'utilisateur connecté (utilisé lors de la déconnexion)
    */
   clearCache(): void {
+    this.isLoggedOut = true;  // ✅ Bloque les requêtes utilisateur temporairement
     this.userSubject.next(null);
     this.cacheTimestamp = null;
+  }
+  allowUserFetching(): void {
+    this.isLoggedOut = false;
   }
 
   /**

@@ -3,7 +3,7 @@ import { UserProfil } from '../../models/userProfile.model';
 import { Country, COUNTRIES_DB } from '@angular-material-extensions/select-country';
 import { Router } from '@angular/router';
 import { OtherUserProfil } from '../../../social/models/other-user-profil.model';
-import { filter, Observable, startWith, Subscription } from 'rxjs';
+import { Observable, startWith, Subscription } from 'rxjs';
 
 
 @Component({
@@ -28,7 +28,6 @@ export class UserCardComponent implements OnInit {
       startWith(null) // ✅ Permet d'éviter les problèmes de non-initialisation
     ).subscribe(user => {
       this.user = user;
-      console.log("this.user de user-card", this.user);
       if (user) { // ✅ Vérification avant d'appeler `updateCountryInfo()`
         this.updateCountryInfo();
       }

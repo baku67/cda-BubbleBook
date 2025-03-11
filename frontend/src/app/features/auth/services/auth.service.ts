@@ -54,9 +54,9 @@ export class AuthService {
       tap((response: AuthResponse) => {
         this.tokenService.setAccessToken(response.accessToken);
         this.tokenService.setRememberMe(credentials.rememberMe);
+        this.userService.allowUserFetching();
         this.firstLoginStep = response.firstLoginStep;
         this.loggedIn$.next(true);
-
         // Force le rafraîchissement des données utilisateur
         this.userService.getCurrentUser(true).subscribe();
       })
