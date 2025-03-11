@@ -127,6 +127,9 @@ class UserController extends AbstractController
         if (!$user instanceof User) {
             return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
         }
+        if (!$user->isVerified()) {
+            return new JsonResponse(['error' => 'User not verified'], Response::HTTP_FORBIDDEN);
+        }
     
         $otherUserProfilDTO = $userProfileService->getOtherUserProfile($otherUserId);
         

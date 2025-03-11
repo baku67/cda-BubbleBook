@@ -68,6 +68,7 @@ export const routes: Routes = [
     { path: 'test1', component: Test1Component },
     { path: 'test2', component: Test2Component},
 
+    { path: 'not-found', component: NotFoundPageComponent },  
     // EN DERNIER:
     { path: '**', component: NotFoundPageComponent },  // Wildcard, redirect all unknown paths to home
 ];

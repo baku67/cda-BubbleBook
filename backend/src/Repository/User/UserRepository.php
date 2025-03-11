@@ -1,6 +1,8 @@
 <?php
 namespace App\Repository\User;
 
+use App\DTO\Response\OtherUserProfilDTO;
+use App\DTO\Response\UserProfilDTO;
 use App\Entity\User\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -13,6 +15,17 @@ class UserRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+
+    public function findOtherUser(int $userId): ?User {
+        return $this->createQueryBuilder('u')
+        ->where('u.id = :userId')
+        ->andWhere('u.profilPrivacy != :privacy')
+        ->setParameter('userId', $userId)
+        ->setParameter('privacy', 'NO_ONE')
+        ->getQuery()
+        ->getOneOrNullResult();
     }
 
     public function searchUsers(?string $query, ?string $type, string $order, int $page, int $pageSize): array
