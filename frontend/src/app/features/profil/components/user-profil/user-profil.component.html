@@ -1,25 +1,32 @@
 
-<div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
-
+<div class="pageContent" >
 
     <app-page-header 
         [title]="('MY_SPACE' | translate)" 
         matIcon="account_circle" 
         [colorTheme]="true"
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
     />
 
-    <app-user-card [user$]="user$" /> 
+    <app-user-card 
+        [user$]="user$" 
+        class="fadeInNav" 
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    /> 
 
     <app-alert-banner 
         *ngIf="(user$ | async)?.isVerified === false" 
         maticon="alternate_email" 
         [style]="'warn'" 
         msgAlert="{{ 'ALERT_CONFIRM_MAIL' | translate }}" 
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
     ></app-alert-banner>
 
 
     <!-- Grid vuttons nav -->
-    <section class="nav-btn-grid">
+    <section class="nav-btn-grid" [class.fadeOutNav]="isAnimatingFadeOut">
 
         <button 
             mat-flat-button 

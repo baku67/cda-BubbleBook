@@ -222,13 +222,8 @@ h1, h2, h3 {
 
         // Anim déplacée sur chaque enfant de .pageContent
         opacity: 0;
-        animation: fadeIn 0.6s ease forwards;
+        animation: fadeInNav 0.6s ease forwards;
         backdrop-filter: blur(13px);
-
-        &.fadeOut {
-            // /!\ Penser à modifier le délai de fade-out.guard.ts
-            animation: fadeOut 0.5s ease forwards;
-        }
     }
 
     form {
@@ -239,16 +234,20 @@ h1, h2, h3 {
 
         // Anim déplacée sur chaque enfant de .pageContent
         opacity: 0;
-        animation: fadeIn 0.6s ease forwards;
+        animation: fadeInNav 0.6s ease forwards;
         backdrop-filter: blur(13px);
-
-        &.fadeOut {
-            // /!\ Penser à modifier le délai de fade-out.guard.ts
-            animation: fadeOut 0.5s ease forwards;
-        }
     }
 }
-
+// Pour les [class.fadeOutNav]="isAnimatingFadeOut" des éléments enfants de pageContent (y compris les sections et forms)
+.fadeOutNav {
+    // /!\ Penser à modifier le délai de fade-out.guard.ts
+    animation: fadeOutNav 0.5s ease forwards !important;
+}
+// Pour les éléments enfants de pageContent qui ne sont ni des section ni des forms (à ajouter aux hosts)
+.fadeInNav {
+    opacity: 0;
+    animation: fadeInNav 0.6s ease forwards; 
+}
 
 
 .modalContent {

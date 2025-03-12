@@ -65,12 +65,12 @@ export const routes: Routes = [
     // Confirmation mail:
     { path: 'confirm-email', component: ConfirmEmailComponent, canDeactivate: [FadeOutGuard] },
 
-    { path: 'test1', component: Test1Component },
-    { path: 'test2', component: Test2Component},
+    { path: 'test1', component: Test1Component, canDeactivate: [FadeOutGuard] },
+    { path: 'test2', component: Test2Component, canDeactivate: [FadeOutGuard] },
 
-    { path: 'not-found', component: NotFoundPageComponent },  
+    { path: 'not-found', component: NotFoundPageComponent, canDeactivate: [FadeOutGuard] },  
     // EN DERNIER:
-    { path: '**', component: NotFoundPageComponent },  // Wildcard, redirect all unknown paths to home
+    { path: '**', component: NotFoundPageComponent, canDeactivate: [FadeOutGuard] },  // Wildcard, redirect all unknown paths to home
 ];
 
 

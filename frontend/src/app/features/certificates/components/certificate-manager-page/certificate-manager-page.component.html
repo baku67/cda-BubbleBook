@@ -1,12 +1,14 @@
-<div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
+<div class="pageContent">
 
     <app-page-header 
         [title]='("CERTIFICATES" | translate)' 
         matIcon="account_circle" 
         [colorTheme]="true"
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
     />
 
-    <section>
+    <section [class.fadeOutNav]="isAnimatingFadeOut">
         <div>
             <div style="display:flex; gap:10px;">
                 <!-- Bouton d'ajout ou de cancelEdit -->
@@ -35,8 +37,11 @@
     </section>
 
 
-
-    <section *ngIf="!isAllCertifsLoading && !isUserCertifsLoading" class="section-list-certifs">
+    <section 
+        *ngIf="!isAllCertifsLoading && !isUserCertifsLoading" 
+        class="section-list-certifs"
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    >
 
         <div class="certificates-list">
             <!-- spinner: pas de skeleton -->

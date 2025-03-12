@@ -1,15 +1,15 @@
 
-<div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
+<div class="pageContent">
 
     <app-page-header 
         [title]="('CONFIRMING_EMAIL_ADDRESS' | translate)" 
         matIcon="alternate_email" 
         [colorTheme]="true"
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
     />
 
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-
-    <div *ngIf="!isLoading">
+    <section *ngIf="!isLoading" [class.fadeOutNav]="isAnimatingFadeOut">
 
         <app-alert-banner 
             [msgAlert]="confirmSuccess ? 'EMAIL_ADDRESS_CONFIRMED' : 'EMAIL_ADDRESS_NOT_CONFIRMED' | translate" 
@@ -22,7 +22,10 @@
         <a [routerLink]="['/login']">
             <button mat-flat-button color="primary" class="cta-btn-primary">{{ "LOGIN" | translate }}</button>
         </a>
-    </div>
+    </section>
+
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+
 
 </div>
 

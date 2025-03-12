@@ -1,8 +1,14 @@
 
-<div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
-    <app-page-header [title]="'Social'" [matIcon]="'supervised_user_circle'"></app-page-header>
+<div class="pageContent" >
 
-    <section class="social-page-content">
+    <app-page-header 
+        [title]="'Social'" 
+        [matIcon]="'supervised_user_circle'"
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    />
+
+    <section class="social-page-content" [class.fadeOutNav]="isAnimatingFadeOut">
 
         <!-- Onglets NEWS, SEARCH -->
         <mat-tab-group>

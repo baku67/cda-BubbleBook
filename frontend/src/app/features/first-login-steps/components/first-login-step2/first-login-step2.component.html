@@ -1,136 +1,143 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 
-<div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
+<div class="pageContent">
 
-    <div *ngIf="!isLoading" class="card">
+    <ng-container *ngIf="!isSubmitting || isUserLoading">
+        <form 
+            *ngIf="firstLoginForm2" 
+            [formGroup]="firstLoginForm2" 
+            (ngSubmit)="onSubmit()" 
+            class="card secondLoginForm"
+            [class.fadeOutNav]="isAnimatingFadeOut"
+        >
 
-        <app-page-header 
-            [title]="('FIRST_LOGIN_2_PAGE_TITLE' | translate)" 
-            matIcon="account_circle" 
-            [colorTheme]="false"
-        />
+            <app-page-header 
+                [title]="('FIRST_LOGIN_2_PAGE_TITLE' | translate)" 
+                matIcon="account_circle" 
+                [colorTheme]="false"
+            />
 
-        <app-alert-banner msgAlert="Vous pourrez personaliser votre profil plus tard" maticon="info" [style]="'info'" ></app-alert-banner>
+            <div class="form-content">
 
-        <form *ngIf="firstLoginForm2" [formGroup]="firstLoginForm2" (ngSubmit)="onSubmit()" class="secondLoginForm">
+                <app-alert-banner msgAlert="Vous pourrez personaliser votre profil plus tard" maticon="info" [style]="'info'" ></app-alert-banner>
 
-            <div class="username-nationality-grid">
-                <!-- // Username -->
-                <mat-form-field appearance="outline" class="username-field matFieldInput">
-                    <mat-label>{{ "USERNAME_LABEL" | translate }}</mat-label>
-                    <input 
-                        matInput 
-                        formControlName="username" 
-                        type="text"
-                        autocomplete="username"
-                    >
-                </mat-form-field>
-
-                <!-- Nationality -->
-                <mat-select-country
-                    [label]="'Pays'"
-                    [appearance]="'outline'"
-                    (onCountrySelected)="onCountrySelected($event)"
-                    class="nationality-field matFieldInput"
-                >
-                </mat-select-country>    
-                
-                <!-- Erreur pour username requis ou longueur insuffisante -->
-                <div class="username-error" *ngIf="firstLoginForm2.get('username')?.touched">
-                    <mat-error 
-                        *ngIf="firstLoginForm2.get('username')?.errors?.['required']" 
-                        class="formFieldError">
-                        {{ "USERNAME_REQUIRED" | translate }}
-                    </mat-error>
-                    <mat-error 
-                        *ngIf="firstLoginForm2.get('username')?.errors?.['minlength']" 
-                        class="formFieldError">
-                        {{ "USERNAME_MINLENGTH" | translate }}
-                    </mat-error>
-                    <mat-error 
-                        *ngIf="firstLoginForm2.get('username')?.errors?.['maxlength']" 
-                        class="formFieldError">
-                        {{ "USERNAME_MAXLENGTH" | translate }}
-                    </mat-error>
-                </div>
-            </div>
-
-            <!-- Avatar Selection -->
-            <div>
-                <h5>Avatar</h5>
-                <div class="matFieldInput scrollable-container avatar-container surface">
-                    <div *ngFor="let avatar of avatars" class="avatar-item" [class.selected]="avatar === selectedAvatar" (click)="selectAvatar(avatar)">
-                        <img [src]="avatar" class="avatar-img" [alt]="'Avatar ' + avatar" />
-                        <mat-icon class="avatar-item-check" [class.selected]="avatar === selectedAvatar">check</mat-icon>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Banner Selection -->
-            <div>
-                <h5>Bannière</h5>
-                <div class="matFieldInput banner-container">
-                    <div class="banner-item selectedPreview" (click)="openBannerSelectionModal()">
-                        <img [src]="selectedBanner" class="banner-img" [alt]="'Selected Banner'" />
-                        <mat-icon class="banner-item-check selected">check</mat-icon>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Nombre initial de plongées -->
-            <div class="matFieldInput nrb-initial-dives">
-                <mat-form-field appearance="outline" class="username-field matFieldInput">
-                    <mat-label>{{ "INITIAL_DIVES_COUNT_LABEL" | translate }}</mat-label>
-                    <input 
-                        matInput 
-                        formControlName="initialDivesCount" 
-                        type="number"
-                    >
-                </mat-form-field>
-                @if (firstLoginForm2.get("initialDivesCount")?.hasError("max")) {
-                    <mat-error>Le nombre de plongée initial ne peut excéder 5000.</mat-error>
-                }
-            </div>
-
-            <div class="submit-section">
-                <div class="btns-container">
-                    <div>
-                        <button 
-                            mat-flat-button 
-                            color="primary"
-                            class="cta-btn-primary" 
-                            type="submit" 
-                            [disabled]="!firstLoginForm2.valid || isLoading"
+                <div class="username-nationality-grid">
+                    <!-- // Username -->
+                    <mat-form-field appearance="outline" class="username-field matFieldInput">
+                        <mat-label>{{ "USERNAME_LABEL" | translate }}</mat-label>
+                        <input 
+                            matInput 
+                            formControlName="username" 
+                            type="text"
+                            autocomplete="username"
                         >
-                            <span *ngIf="!isLoading">{{ "VALIDATE" | translate }}</span>
-                        </button>
-                    </div>
+                    </mat-form-field>
 
-                    <div>
-                        <button 
-                            mat-button 
-                            class="cta-btn-secondary" 
-                            (click)="onSkipStep()"
-                        >
-                            <span>{{ "SKIP" | translate }}</span>
-                        </button>
+                    <!-- Nationality -->
+                    <mat-select-country
+                        [label]="'Pays'"
+                        [appearance]="'outline'"
+                        (onCountrySelected)="onCountrySelected($event)"
+                        class="nationality-field matFieldInput"
+                    >
+                    </mat-select-country>    
+                    
+                    <!-- Erreur pour username requis ou longueur insuffisante -->
+                    <div class="username-error" *ngIf="firstLoginForm2.get('username')?.touched">
+                        <mat-error 
+                            *ngIf="firstLoginForm2.get('username')?.errors?.['required']" 
+                            class="formFieldError">
+                            {{ "USERNAME_REQUIRED" | translate }}
+                        </mat-error>
+                        <mat-error 
+                            *ngIf="firstLoginForm2.get('username')?.errors?.['minlength']" 
+                            class="formFieldError">
+                            {{ "USERNAME_MINLENGTH" | translate }}
+                        </mat-error>
+                        <mat-error 
+                            *ngIf="firstLoginForm2.get('username')?.errors?.['maxlength']" 
+                            class="formFieldError">
+                            {{ "USERNAME_MAXLENGTH" | translate }}
+                        </mat-error>
                     </div>
                 </div>
-            </div>
 
+                <!-- Avatar Selection -->
+                <div>
+                    <h5>Avatar</h5>
+                    <div class="matFieldInput scrollable-container avatar-container surface">
+                        <div *ngFor="let avatar of avatars" class="avatar-item" [class.selected]="avatar === selectedAvatar" (click)="selectAvatar(avatar)">
+                            <img [src]="avatar" class="avatar-img" [alt]="'Avatar ' + avatar" />
+                            <mat-icon class="avatar-item-check" [class.selected]="avatar === selectedAvatar">check</mat-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Banner Selection -->
+                <div>
+                    <h5>Bannière</h5>
+                    <div class="matFieldInput banner-container">
+                        <div class="banner-item selectedPreview" (click)="openBannerSelectionModal()">
+                            <img [src]="selectedBanner" class="banner-img" [alt]="'Selected Banner'" />
+                            <mat-icon class="banner-item-check selected">check</mat-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nombre initial de plongées -->
+                <div class="matFieldInput nrb-initial-dives">
+                    <mat-form-field appearance="outline" class="username-field matFieldInput">
+                        <mat-label>{{ "INITIAL_DIVES_COUNT_LABEL" | translate }}</mat-label>
+                        <input 
+                            matInput 
+                            formControlName="initialDivesCount" 
+                            type="number"
+                        >
+                    </mat-form-field>
+                    @if (firstLoginForm2.get("initialDivesCount")?.hasError("max")) {
+                        <mat-error>Le nombre de plongée initial ne peut excéder 5000.</mat-error>
+                    }
+                </div>
+
+                <div class="submit-section">
+                    <div class="btns-container">
+                        <div>
+                            <button 
+                                mat-flat-button 
+                                color="primary"
+                                class="cta-btn-primary" 
+                                type="submit" 
+                                [disabled]="!firstLoginForm2.valid || isSubmitting"
+                            >
+                                <span>{{ "VALIDATE" | translate }}</span>
+                            </button>
+                        </div>
+
+                        <div>
+                            <button 
+                                mat-button 
+                                class="cta-btn-secondary" 
+                                (click)="onSkipStep()"
+                            >
+                                <span>{{ "SKIP" | translate }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Retour -->
+                <br>
+                <a [routerLink]="['/first-login/step-one']" routerLinkActive="router-link-active" >
+                    <button mat-button color="accent" class="cta-btn-primary">{{ "PREVIOUS" | translate }}</button>
+                </a>
+
+            </div>
         </form>
-
-        <!-- Retour -->
-         <br>
-        <a [routerLink]="['/first-login/step-one']" routerLinkActive="router-link-active" >
-            <button mat-button color="accent" class="cta-btn-primary">{{ "PREVIOUS" | translate }}</button>
-        </a>
-
-    </div>
+    </ng-container>
 
     <!-- Loader/Spinner page -->
-    <div class="spinner-container" *ngIf="isLoading || !firstLoginForm2">
+    <div class="spinner-container" *ngIf="isUserLoading || isSubmitting || !firstLoginForm2">
         <mat-spinner></mat-spinner>
     </div>
 

@@ -1,10 +1,18 @@
-<div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
-    <app-page-header title="Social" matIcon="account_circle"></app-page-header>
+<div class="pageContent">
+    
+    <app-page-header 
+        title="Social" 
+        matIcon="account_circle"
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    />
 
-    <div class="social-page-content">
-
-            <!-- <app-user-card [user]="user" [isCurrentUser]="false"></app-user-card> -->
-            <app-user-card [user$]="otherUser$"></app-user-card>
-
+    <div 
+        class="social-page-content" 
+        class="fadeInNav" 
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    >
+        <!-- <app-user-card [user]="user" [isCurrentUser]="false"></app-user-card> -->
+        <app-user-card [user$]="otherUser$"></app-user-card>
     </div>
 </div>

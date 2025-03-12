@@ -1,3 +1,12 @@
 <div class="pageContent">
-    <app-page-header [colorTheme]="false" matIcon="error" [title]="'PAGE_NOT_FOUND' | translate " [paragraph]="'PAGE_NOT_FOUND_DESCRIPTION' | translate"></app-page-header>
+
+    <app-page-header 
+        [colorTheme]="false" 
+        matIcon="error" 
+        [title]="'PAGE_NOT_FOUND' | translate " 
+        [paragraph]="'PAGE_NOT_FOUND_DESCRIPTION' | translate"
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    />
+
 </div>

@@ -1,10 +1,12 @@
 
-<div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
+<div class="pageContent">
 
     <app-page-header 
         [title]="('ACCOUNT_SETTINGS' | translate)" 
         matIcon="manage_accounts" 
         [colorTheme]="true"
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
     />
 
     <ng-container *ngIf="user$ | async as user; else loading">
@@ -13,13 +15,15 @@
             maticon="alternate_email" 
             [style]="'warn'" 
             msgAlert="{{ 'ALERT_CONFIRM_MAIL' | translate }}" 
+            class="fadeInNav"
+            [class.fadeOutNav]="isAnimatingFadeOut"
         ></app-alert-banner>
 
-        <section>
+        <section [class.fadeOutNav]="isAnimatingFadeOut">
             <app-privacy-settings [user]="user"></app-privacy-settings>
         </section>
 
-        <section class="card">
+        <section class="card" [class.fadeOutNav]="isAnimatingFadeOut">
             <p>Email: {{ user!.email }}</p>
     
             <p>Email vérifié: {{ user!.isVerified }}</p>
@@ -50,11 +54,11 @@
         </section>
           
     
-        <section>
+        <section [class.fadeOutNav]="isAnimatingFadeOut">
             <h5>Changer de mot de passe</h5>
         </section>
     
-        <section>
+        <section [class.fadeOutNav]="isAnimatingFadeOut">
             <h5>Autentification à 2 facteurs</h5>
         </section>
 

@@ -16,7 +16,8 @@ import { AnimationService } from '../../../../shared/services/utils/animation.se
 export class FirstLoginStep2Component {
 
   firstLoginForm2!: FormGroup;
-  isLoading: boolean = true;
+  isUserLoading: boolean = true;
+  isSubmitting: boolean = false;
   userObtained:any;
 
   isAnimatingFadeOut = false;
@@ -85,12 +86,12 @@ export class FirstLoginStep2Component {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
         this.userObtained = user;
-        this.isLoading = false; 
+        this.isUserLoading = false; 
         this.initForm(user);
       },
       error: (error) => {
         console.error('Erreur lors de la récupération de l\'utilisateur', error);
-        this.isLoading = false;
+        this.isUserLoading = false;
       },
     });
   }
@@ -185,14 +186,14 @@ export class FirstLoginStep2Component {
    */
   onSubmit(): void {
     if (this.firstLoginForm2.valid) {
-      this.isLoading = true;
+      this.isSubmitting = true;
 
       const formData = this.firstLoginForm2.value;
 
       this.firstLoginService.updateUser(formData).subscribe({
         next: (updatedUser) => {
           console.log('User successfully updated');
-          // this.isLoading = false;
+          // this.isSubmitting = false;
 
           this.userService.updateCachedUser(updatedUser); // mettre à jour le cache User
 
@@ -201,7 +202,7 @@ export class FirstLoginStep2Component {
         },
         error: (error) => {
           console.error('Error updating user:', error);
-          this.isLoading = false;
+          this.isSubmitting = false;
         },
       });
     } else {
@@ -211,19 +212,19 @@ export class FirstLoginStep2Component {
 
   // Envoi juste l'information au backend que l'étape a été passée (first_login_step User màj)
   onSkipStep(): void {
-    this.isLoading = true;
+    this.isSubmitting = true;
   
     this.firstLoginService.skipStep(2).subscribe({
       next: () => {
         console.log('Step 2 skipped successfully');
-        this.isLoading = false;
+        this.isSubmitting = false;
   
         // Redirection vers la page de profil ou une autre destination
         this.router.navigate(['/user-profil']);
       },
       error: (error) => {
         console.error('Error skipping step 2:', error);
-        this.isLoading = false;
+        this.isSubmitting = false;
       },
     });
   }
