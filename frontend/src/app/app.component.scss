@@ -80,7 +80,8 @@ mat-menu {
         opacity: 1; 
     }
 }
-// Fix var CSS angular material pas chargé à ce moment là
-.mat-mdc-progress-spinner {
-    stroke: #f0f1f7; /* Couleur primaire */
+
+// Le spinner spécifique au gloabl Loader (le spinner in-app est dans styles)
+::ng-deep .loading-screen mat-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: #ffffff !important; 
 }

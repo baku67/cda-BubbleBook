@@ -277,7 +277,10 @@ h1, h2, h3 {
     height: -webkit-fill-available;
     min-height: 300px;
 }
-
+// Correspond à tout les spinner de l'app (autres que celui globalLoading qui est dans app-component.scss)
+::ng-deep mat-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+    // stroke: #ff1100 !important;  // Marche pas
+}
 
 
 
