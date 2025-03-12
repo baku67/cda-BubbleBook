@@ -1,18 +1,19 @@
 
-<div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
+<div class="pageContent">
 
   <!-- app-page-header dans le form -->
 
   <form 
-    *ngIf="!isLoading" 
+    *ngIf="!isSubmitting" 
     [formGroup]="registerForm" 
     (ngSubmit)="onSubmit()" 
     class="card"
     style="gap:15px"
+    [class.fadeOut]="isAnimatingFadeOut"
   >
 
     <app-page-header 
-      [title]="!isLoading ? ('CREATE_ACCOUNT' | translate) : ('CREATING_ACCOUNT' | translate)" 
+      [title]="'CREATE_ACCOUNT' | translate" 
       matIcon="account_circle" 
       [colorTheme]="false"
     />
@@ -135,9 +136,9 @@
           color="primary"
           class="cta-btn-primary bigButton" 
           type="submit" 
-          [disabled]="!registerForm.valid || emailChecking || isLoading"
+          [disabled]="!registerForm.valid || emailChecking || isSubmitting"
         >
-          <span *ngIf="!isLoading">{{ "REGISTER" | translate }}</span>
+          <span>{{ "REGISTER" | translate }}</span>
         </button>
       </div>
 
@@ -150,7 +151,7 @@
   </form>
 
   <!-- Loader/Spinner page -->
-  <div class="spinner-container" *ngIf="isLoading">
+  <div class="spinner-container" *ngIf="isSubmitting">
     <mat-spinner></mat-spinner>
   </div>
 

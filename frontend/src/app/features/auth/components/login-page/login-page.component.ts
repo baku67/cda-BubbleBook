@@ -14,7 +14,7 @@ import { LoginData } from '../../models/auth.types';
 export class LoginPageComponent implements OnInit{
 
   loginForm!: FormGroup;
-  isLoading = false;
+  isSubmitting = false;
   errorMessage: string | null = null;
   hidePassword = true;
 
@@ -42,7 +42,7 @@ export class LoginPageComponent implements OnInit{
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      this.isLoading = true;
+      this.isSubmitting = true;
       this.errorMessage = null;
 
       const loginData: LoginData = {
@@ -62,10 +62,10 @@ export class LoginPageComponent implements OnInit{
           } else {
             this.router.navigate(['/user-profil']);
           }
-          // this.isLoading = false; // désactivé car enchaine avec un loading fatchdata (dailleurs plutot resolver ça?)
+          // this.isSubmitting = false; // désactivé car enchaine avec un loading fatchdata (dailleurs plutot resolver ça?)
         },
         error: (error) => {
-          this.isLoading = false;
+          this.isSubmitting = false;
           console.error('There was an error during the request (login)', error);
           if (error.status === 401) {
             this.errorMessage = 'Identifiants incorrects. Veuillez vérifier votre email et mot de passe.';

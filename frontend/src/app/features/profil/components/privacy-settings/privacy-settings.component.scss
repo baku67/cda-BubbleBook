@@ -1,30 +1,37 @@
 .visibility-section {
-    padding: 25px 10px 8px 8px;
+    padding: 34px 10px 8px 8px;
     border-radius: 3px;
 }
 
 .visibility-titles {
     position: absolute;
     color: var(--primary-color);
-    left: 3px;
-    top: -12px;
+    left: -1px;
+    top: -18px;
+
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 
     font-weight: 100;
     letter-spacing: 1px;
 
     background-color: var(--surface-background-color);
-    padding: 0 7px;
+    padding: 1px 7px;
 }
 .visibility-titles-profil {
-    top: -14px; // Correspond au h3
-    left: 5px;
+    top: -21px;
+    left: -1px;
+
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+
     background-color: var(--surface-background-color);
-    padding: 0 7px;
+    padding: 1px 7px;
 }
 
 .visibility-toggle {
     position: relative;
-    border: 1px solid rgba(128, 128, 128, 0.2);
+    border: 1px solid var(--element-bg-color);
     border-radius: 4px;
 
     display: inline-flex;
@@ -42,11 +49,13 @@
 
 
 .subPrivacySettings-div {
-    margin-top:12px;
     padding: 0 5px;
-}
-.subPrivacySettings-div div {
-    margin: 9px auto;
+
+    display: inline-flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    margin-top: 28px;
 }
 
 
@@ -62,5 +71,13 @@
     padding: 0 10px !important;
 }
 ::ng-deep .mat-expansion-panel-body {
-    padding: 0 5px 16px !important;
+    padding: 0 5px 9px !important;
+}
+
+// Pour enlever l'effet gris du dirty/touched
+::ng-deep .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover {
+    background-color: transparent !important;
+}
+::ng-deep .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
+    background-color: transparent !important;
 }

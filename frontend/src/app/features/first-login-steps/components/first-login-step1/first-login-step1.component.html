@@ -1,69 +1,68 @@
 
-<div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
+<div class="pageContent">
 
-    
-    <!-- TODO form type user (Héritage backend), même si club pas la priorité (ouverture pour projet) -->
-    <div *ngIf="!isLoading && firstLoginForm" class="card">
+    <form 
+        [formGroup]="firstLoginForm" 
+        (ngSubmit)="onSubmit()" 
+        *ngIf="!isSubmitting && firstLoginForm" 
+        class="card firstLoginForm"
+        [class.fadeOut]="isAnimatingFadeOut"
+    >
 
         <app-page-header 
             [title]="('FIRST_LOGIN_1_PAGE_TITLE' | translate )" 
             matIcon="account_circle" 
             [colorTheme]="false"
         />
-    
-        <!-- Username / Clubname -->
-        <form [formGroup]="firstLoginForm" (ngSubmit)="onSubmit()" class="firstLoginForm">
 
-            <!-- CHOIX Plongeur ou Club -->
-            <div class="toggleType-container">
-                <button 
-                    class="toggleButton"
-                    [class.active]="firstLoginForm.get('accountType')?.value === 'option-diver'"
-                    (click)="setAccountTypeValue('option-diver')"
-                    type="button"
-                >
-                    {{ "DIVER" | translate }}
-                </button>
-                <button 
-                    class="toggleButton"
-                    [class.active]="firstLoginForm.get('accountType')?.value === 'option-club'"
-                    (click)="setAccountTypeValue('option-club')"
-                    type="button"
-                >
-                    {{ "DIVING_CLUB" | translate }}
-                </button>
-            </div>
+        <!-- CHOIX Plongeur ou Club -->
+        <div class="toggleType-container">
+            <button 
+                class="toggleButton"
+                [class.active]="firstLoginForm.get('accountType')?.value === 'option-diver'"
+                (click)="setAccountTypeValue('option-diver')"
+                type="button"
+            >
+                {{ "DIVER" | translate }}
+            </button>
+            <button 
+                class="toggleButton"
+                [class.active]="firstLoginForm.get('accountType')?.value === 'option-club'"
+                (click)="setAccountTypeValue('option-club')"
+                type="button"
+            >
+                {{ "DIVING_CLUB" | translate }}
+            </button>
+        </div>
 
-            
-            <div class="submit-section">
-                <!-- Submit & Spinner -->
-                <div class="btns-container">
-                    <div>
-                        <button 
-                            mat-flat-button 
-                            color="primary"
-                            class="cta-btn-primary" 
-                            type="submit" 
-                            [disabled]="!firstLoginForm.valid || isLoading"
-                        >
-                            <span *ngIf="!isLoading">{{ "VALIDATE" | translate }}</span>
-                        </button>
-                    </div>
-                    <!-- pas de SKIP -->
-                    <!-- <div>
-                        <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" class="cta-btn-secondary">
-                            {{ "SKIP" | translate }}
-                        </a>
-                    </div> -->
+        
+        <div class="submit-section">
+            <!-- Submit & Spinner -->
+            <div class="btns-container">
+                <div>
+                    <button 
+                        mat-flat-button 
+                        color="primary"
+                        class="cta-btn-primary" 
+                        type="submit" 
+                        [disabled]="!firstLoginForm.valid || isSubmitting"
+                    >
+                        <span>{{ "VALIDATE" | translate }}</span>
+                    </button>
                 </div>
+                <!-- pas de SKIP -->
+                <!-- <div>
+                    <a [routerLink]="['/first-login/step-two']" routerLinkActive="router-link-active" class="cta-btn-secondary">
+                        {{ "SKIP" | translate }}
+                    </a>
+                </div> -->
             </div>
+        </div>
 
-        </form>
-
-    </div>
+    </form>
 
 
-    <div class="spinner-container" *ngIf="isLoading || !firstLoginForm">
+    <div class="spinner-container" *ngIf="isSubmitting || !firstLoginForm">
         <mat-spinner></mat-spinner>
     </div>
 

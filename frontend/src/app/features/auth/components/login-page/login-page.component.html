@@ -1,14 +1,15 @@
 
-<div class="pageContent" [class.fadeOut]="isAnimatingFadeOut">
+<div class="pageContent">
 
   <!-- app-page-header dans le form -->
 
   <form 
-    *ngIf="!isLoading" 
+    *ngIf="!isSubmitting" 
     [formGroup]="loginForm" 
     (ngSubmit)="onSubmit()" 
     class="card"
     style="gap:15px"
+    [class.fadeOut]="isAnimatingFadeOut"
   >
 
       <app-page-header 
@@ -84,7 +85,7 @@
           type="submit" 
           [disabled]="loginForm.invalid"
         >
-          <span *ngIf="!isLoading">{{ "LOGIN" | translate }}</span>
+          <span>{{ "LOGIN" | translate }}</span>
         </button>
 
         <a [routerLink]="['/register']" mat-button>
@@ -95,7 +96,7 @@
 
   </form>
 
-  <div class="spinner-container" *ngIf="isLoading">
+  <div class="spinner-container" *ngIf="isSubmitting">
     <mat-spinner></mat-spinner>
   </div>
 

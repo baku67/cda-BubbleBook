@@ -19,7 +19,7 @@ import { LoginData, RegisterData } from '../../models/auth.types';
 export class RegisterPageComponent implements OnInit{
 
   registerForm!: FormGroup;
-  isLoading: boolean;
+  isSubmitting: boolean;
   emailChecking = false;
   emailAvailable: boolean | null = null;
   hidePassword1 = true;
@@ -36,7 +36,7 @@ export class RegisterPageComponent implements OnInit{
     private router: Router,
     private animationService: AnimationService,
   ) {
-    this.isLoading = false;
+    this.isSubmitting = false;
     this.animationService.isAnimating$.subscribe((animating) => {
       this.isAnimatingFadeOut = animating;
     });
@@ -68,7 +68,7 @@ export class RegisterPageComponent implements OnInit{
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      this.isLoading = true;
+      this.isSubmitting = true;
 
       const registerData: RegisterData = {
         email: this.registerForm.get('email')?.value,
@@ -97,17 +97,17 @@ export class RegisterPageComponent implements OnInit{
               } else {
                 this.router.navigate(['/user-profil']);
               }
-              // this.isLoading = false; // désactivé car enchaine avec un loading fatchdata (dailleurs plutot resolver ça?)
+              // this.isSubmitting = false; // désactivé car enchaine avec un loading fatchdata (dailleurs plutot resolver ça?)
             },
             error: (error) => {
               console.error('Auto-login failed', error);
-              this.isLoading = false;
+              this.isSubmitting = false;
             }
           });
         },
         error: (error) => {
           console.error('There was an error during the request (register)', error);
-          this.isLoading = false;
+          this.isSubmitting = false;
         }
       });
     } else {

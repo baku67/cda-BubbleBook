@@ -87,7 +87,8 @@
     height: 90px;
     display: flex;
     flex-direction: column;
-    background-color: var(--element-bg-color);
+    background-color: #01172d94; // var(--element-bg-color) mais en moins opaque
+    backdrop-filter: blur(5px);
 }
 
 

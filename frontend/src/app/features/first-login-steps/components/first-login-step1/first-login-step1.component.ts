@@ -17,7 +17,7 @@ export class FirstLoginStep1Component implements OnInit {
   user?:UserProfil;
 
   firstLoginForm!: FormGroup;
-  isLoading: boolean;
+  isSubmitting: boolean;
 
   isAnimatingFadeOut = false;
 
@@ -28,7 +28,7 @@ export class FirstLoginStep1Component implements OnInit {
     private router: Router,
     private animationService: AnimationService,
   ) {
-    this.isLoading = false;
+    this.isSubmitting = false;
     this.animationService.isAnimating$.subscribe((animating) => {
       this.isAnimatingFadeOut = animating;
     });
@@ -73,25 +73,19 @@ export class FirstLoginStep1Component implements OnInit {
    */
   onSubmit(): void {
     if (this.firstLoginForm.valid) {
-      this.isLoading = true;
+      this.isSubmitting = true;
 
       const formData = this.firstLoginForm.value;
       this.firstLoginService.updateUser(formData).subscribe({
         next: (updatedUser) => {
-          console.log('User successfully updated');
-          // this.isLoading = false; // désactivé car enchaine avec un loading fatchdata de la route suivante (dailleurs plutot resolver ça?)
-
           this.userService.updateCachedUser(updatedUser); // mettre à jour le cache User
 
           this.router.navigate(['/first-login/step-two']);
         },
         error: (error) => {
-          console.error('Error updating user:', error);
-          this.isLoading = false;
+          this.isSubmitting = false;
         },
       });
-    } else {
-      console.error('Form is invalid');
     }
   }
 

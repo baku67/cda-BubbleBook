@@ -15,7 +15,9 @@
             msgAlert="{{ 'ALERT_CONFIRM_MAIL' | translate }}" 
         ></app-alert-banner>
 
-        <app-privacy-settings [user]="user"></app-privacy-settings>
+        <section>
+            <app-privacy-settings [user]="user"></app-privacy-settings>
+        </section>
 
         <section class="card">
             <p>Email: {{ user!.email }}</p>

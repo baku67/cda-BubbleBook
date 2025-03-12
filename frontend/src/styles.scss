@@ -31,7 +31,7 @@
     --surface-grised: #00000008;
 
     --surface-background-color: #f0f3f5; //!!! map-get(map-get($myapp-light-theme, bg-color), surfaces)
-    --element-bg-color: rgb(1 4 45 / 90%);
+    --element-bg-color: #01172de6; // attention utilisé aussi pour le border des sections PriacySettings
 }
 .dark-theme {
     @include mat.all-component-themes($myapp-dark-theme); // Applique les styles du thème sombre
@@ -40,7 +40,7 @@
     --surface-grised: #00000017;
 
     --surface-background-color: #252526; //!!! map-get(map-get($myapp-dark-theme, bg-color), surfaces)
-    --element-bg-color: rgb(1 4 45 / 90%);
+    --element-bg-color: #01172de6;
 }
 
 
@@ -55,11 +55,11 @@ body.dark-theme {
 
 body.light-theme .matSubMenu,
 body.light-theme .navBottomMobile {
-    background-color: map-get(map-get($myapp-light-theme, matMenu-bgColor), default); 
+    background-color: var(--element-bg-color);
 }
 body.dark-theme .matSubMenu,
 body.dark-theme .navBottomMobile {
-    background-color: map-get(map-get($myapp-dark-theme, matMenu-bgColor), default);
+    background-color: var(--element-bg-color);
 }
 
 // CARD & SURFACE
@@ -202,12 +202,33 @@ h1, h2, h3 {
     align-items: center;
     padding: 5px 13px;
 
-    opacity: 0;
-    animation: fadeIn 0.6s ease forwards;
+    // Pour que backdrop-filter des enfants fonctionne, les animations d'opacity sur les parents sont interdits (car crééent des contexte de rendus différents)
+    // Soit utiliser un scale-in (transform:scale() ok)
+    // Soit mettre les anims de fade-in sur chaque enfant (mais pas sur les enfants qui sont eux-même encore parents d'éléments qui doivent avoir le backdrop-filter)
+    // ATTENTION:
+    // Pour l'instant j'ai pas déplacé les [class.fadeOut]="isAnimatingFadeOut" de chaque .pageContent sur chaque enfant dans les HTML parce qque ça passe visuellement mais il faudrait pour que ça soit encore plus propre
 
+    // Déplacé sur chaque enfant de .pageContent
+    // opacity: 0;
+    // animation: fadeIn 0.6s ease forwards;
+
+    // Les sections ne sont plus que des div blurred enfants de .pageContent
     section {
         width: 100%;
         max-width: 500px;
+        border-radius: 7px;
+        border: 1px solid rgba(255, 255, 255, 0.041); // à voir
+        box-shadow: 0px 4px 7px #00000033; // à voir
+
+        // Anim déplacée sur chaque enfant de .pageContent
+        opacity: 0;
+        animation: fadeIn 0.6s ease forwards;
+        backdrop-filter: blur(13px);
+
+        &.fadeOut {
+            // /!\ Penser à modifier le délai de fade-out.guard.ts
+            animation: fadeOut 0.5s ease forwards;
+        }
     }
 
     form {
@@ -215,13 +236,20 @@ h1, h2, h3 {
         flex-direction: column;
         max-width: 400px;
         margin: 0 auto;
-    }
- 
-    &.fadeOut {
-        // /!\ Penser à modifier le délai de fade-out.guard.ts
-        animation: fadeOut 0.5s ease forwards;
+
+        // Anim déplacée sur chaque enfant de .pageContent
+        opacity: 0;
+        animation: fadeIn 0.6s ease forwards;
+        backdrop-filter: blur(13px);
+
+        &.fadeOut {
+            // /!\ Penser à modifier le délai de fade-out.guard.ts
+            animation: fadeOut 0.5s ease forwards;
+        }
     }
 }
+
+
 
 .modalContent {
     flex: 1;

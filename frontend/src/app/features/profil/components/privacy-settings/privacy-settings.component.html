@@ -1,70 +1,70 @@
-    <!-- Confidentialité -->
-    <mat-expansion-panel class="card" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+<!-- Confidentialité -->
+<mat-expansion-panel class="card" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
 
-        <mat-expansion-panel-header class="title-button">
-            <mat-panel-title>
-                <mat-icon class="material-icons-outlined">shield_person</mat-icon>
-                <span>{{ 'PRIVACY_TITLE' | translate }}</span>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
+    <mat-expansion-panel-header class="title-button">
+        <mat-panel-title>
+            <mat-icon class="material-icons-outlined">shield_person</mat-icon>
+            <span>{{ 'PRIVACY_TITLE' | translate }}</span>
+        </mat-panel-title>
+    </mat-expansion-panel-header>
 
-        <section class="visibility-section">
+    <div class="visibility-section">
 
-            <!-- Profil visibility -->
+        <!-- Profil visibility -->
+        <div class="visibility-toggle">
+            <h4 class="visibility-titles visibility-titles-profil">{{ "PRIVACY_PROFIL" | translate }}</h4>
+            <app-choice
+                [style]="'cubic-inline'"
+                [choices]="privacyOptions"
+                [selectedChoice]="selectedProfilPrivacyOption"
+                (choiceChange)="!isRequestSending && onPrivacyOptionChange('profil', $event)"
+                [isRequestSending]="isRequestSending">
+            </app-choice>
+        </div>
+
+        <!-- <mat-icon *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.ALL || selectedProfilPrivacyOption === privacyOptionsEnum.FRIENDS_ONLY">keyboard_arrow_down</mat-icon> -->
+        <!-- <mat-divider class="privacy-divider"></mat-divider> -->
+
+        <div class="subPrivacySettings-div" *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.ALL || selectedProfilPrivacyOption === privacyOptionsEnum.FRIENDS_ONLY">
+            
             <div class="visibility-toggle">
-                <h4 class="visibility-titles visibility-titles-profil">{{ "PRIVACY_PROFIL" | translate }}</h4>
+                <h5 class="visibility-titles">{{ "PRIVACY_LOGBOOKS" | translate }}</h5>
                 <app-choice
                     [style]="'cubic-inline'"
                     [choices]="privacyOptions"
-                    [selectedChoice]="selectedProfilPrivacyOption"
-                    (choiceChange)="!isRequestSending && onPrivacyOptionChange('profil', $event)"
+                    [selectedChoice]="selectedLogBooksPrivacyOption"
+                    (choiceChange)="!isRequestSending && onPrivacyOptionChange('logBooks', $event)"
                     [isRequestSending]="isRequestSending">
                 </app-choice>
             </div>
 
-            <!-- <mat-icon *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.ALL || selectedProfilPrivacyOption === privacyOptionsEnum.FRIENDS_ONLY">keyboard_arrow_down</mat-icon> -->
-            <!-- <mat-divider class="privacy-divider"></mat-divider> -->
-
-            <div class="subPrivacySettings-div" *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.ALL || selectedProfilPrivacyOption === privacyOptionsEnum.FRIENDS_ONLY">
-                
-                <div class="visibility-toggle">
-                    <h5 class="visibility-titles">{{ "PRIVACY_LOGBOOKS" | translate }}</h5>
-                    <app-choice
-                        [style]="'cubic-inline'"
-                        [choices]="privacyOptions"
-                        [selectedChoice]="selectedLogBooksPrivacyOption"
-                        (choiceChange)="!isRequestSending && onPrivacyOptionChange('logBooks', $event)"
-                        [isRequestSending]="isRequestSending">
-                    </app-choice>
-                </div>
-
-                <div class="visibility-toggle">
-                    <h5 class="visibility-titles">{{ "PRIVACY_CERTIFICATES" | translate }}</h5>
-                    <app-choice
-                        [style]="'cubic-inline'"
-                        [choices]="privacyOptions"
-                        [selectedChoice]="selectedCertificatesPrivacyOption"
-                        (choiceChange)="!isRequestSending && onPrivacyOptionChange('certificates', $event)"
-                        [isRequestSending]="isRequestSending">
-                    </app-choice>
-                </div>
-
-                <div class="visibility-toggle">
-                    <h5 class="visibility-titles">{{ "PRIVACY_GALLERY" | translate }}</h5>
-                    <app-choice
-                        [style]="'cubic-inline'"
-                        [choices]="privacyOptions"
-                        [selectedChoice]="selectedGalleryPrivacyOption"
-                        (choiceChange)="!isRequestSending && onPrivacyOptionChange('gallery', $event)"
-                        [isRequestSending]="isRequestSending">
-                    </app-choice>
-                </div>
-
+            <div class="visibility-toggle">
+                <h5 class="visibility-titles">{{ "PRIVACY_CERTIFICATES" | translate }}</h5>
+                <app-choice
+                    [style]="'cubic-inline'"
+                    [choices]="privacyOptions"
+                    [selectedChoice]="selectedCertificatesPrivacyOption"
+                    (choiceChange)="!isRequestSending && onPrivacyOptionChange('certificates', $event)"
+                    [isRequestSending]="isRequestSending">
+                </app-choice>
             </div>
-        
-            <div *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.NO_ONE" style="margin-top:8px">
-                <app-alert-banner msgAlert="{{ 'PROFILE_PRIVATE_WARNING' | translate }}" [style]="'info'" maticon="info"></app-alert-banner>
-            </div>
-        </section>
 
-    </mat-expansion-panel>
+            <div class="visibility-toggle">
+                <h5 class="visibility-titles">{{ "PRIVACY_GALLERY" | translate }}</h5>
+                <app-choice
+                    [style]="'cubic-inline'"
+                    [choices]="privacyOptions"
+                    [selectedChoice]="selectedGalleryPrivacyOption"
+                    (choiceChange)="!isRequestSending && onPrivacyOptionChange('gallery', $event)"
+                    [isRequestSending]="isRequestSending">
+                </app-choice>
+            </div>
+
+        </div>
+    
+        <div *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.NO_ONE" style="margin-top:8px">
+            <app-alert-banner msgAlert="{{ 'PROFILE_PRIVATE_WARNING' | translate }}" [style]="'info'" maticon="info"></app-alert-banner>
+        </div>
+    </div>
+
+</mat-expansion-panel>

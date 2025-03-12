@@ -16,6 +16,16 @@
     }
 }
 
+::ng-deep .mat-mdc-tab-labels {
+    border-bottom: 1px solid #ffffff17;
+}
+
+// Body contenu des tabs
+::ng-deep .mat-mdc-tab-body-content {
+    width: 90%;
+    margin: 0 auto;
+}
+
 ::ng-deep mat-form-field.search-form-type .mat-mdc-text-field-wrapper {
     background-color: var(--primary-color);
     border-radius: 5px 0px 0px 5px;
