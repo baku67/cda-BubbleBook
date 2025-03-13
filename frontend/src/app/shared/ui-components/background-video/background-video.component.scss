@@ -90,6 +90,19 @@
 
 
 // AQUARIUM DARK THEME:
+// géré dans le VideoComponent onInit grace aux 2 états (previous et next) dans le CustomizationService
+.fadeOutAquarium {
+  animation: fadeOut 2s ease forwards;
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
 .aquarium {
   position: absolute;
   top: 0;

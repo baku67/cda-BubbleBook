@@ -23,8 +23,12 @@ export class CustomizationService {
     localStorage.setItem('displayFish', newState.toString()); // Pas de bool en localStorage
   }
 
+  // Permet le delai pour .fadeOut dans VideoComponent avant false
   get displayFishState$(): Observable<boolean> {
     return this.displayFishSubject.asObservable();
+  }
+  get currentDisplayFishState(): boolean {
+    return this.displayFishSubject.value;
   }
 
 }

@@ -19,6 +19,7 @@ export class BackgroundVideoComponent {
 
   currentTheme$: Observable<ThemeType>;
   displayFish$!: Observable<boolean>;
+  isFishAnimatingOut = false;
 
   constructor(
     private themeService: ThemeService,
@@ -26,6 +27,17 @@ export class BackgroundVideoComponent {
   ) {
     this.currentTheme$ = this.themeService.currentTheme$;
     this.displayFish$ = this.customizationService.displayFishState$;
+  }
+
+  ngOnInit() {
+    // Écoute les changements du displayFishSubject pour déclencher l'animation de fade-out aquarium
+    this.displayFish$.subscribe((isDisplayed) => {
+      if (!isDisplayed && !this.isFishAnimatingOut) {
+        // déclenche l'animation fade-out seulement si on désactive les poissons
+        this.isFishAnimatingOut = true;
+        setTimeout(() => this.isFishAnimatingOut = false, 2010); // .fadeOutAquarium Duration
+      }
+    });
   }
 
   ngAfterViewInit() {
