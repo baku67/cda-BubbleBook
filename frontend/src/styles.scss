@@ -194,9 +194,6 @@ h1, h2, h3 {
     font-family: 'Poppins', sans-serif;
 }
 
-nav {
-    backdrop-filter: blur(3px);
-}
 
 .pageContent {
     flex: 1;
@@ -228,7 +225,7 @@ nav {
         // Anim déplacée sur chaque enfant de .pageContent
         opacity: 0;
         animation: fadeInNav 0.6s ease forwards;
-        backdrop-filter: blur(13px);
+        backdrop-filter: blur(12px);
     }
 
     form {
@@ -240,7 +237,13 @@ nav {
         // Anim déplacée sur chaque enfant de .pageContent
         opacity: 0;
         animation: fadeInNav 0.6s ease forwards;
-        backdrop-filter: blur(13px);
+        backdrop-filter: blur(12px);
+    }
+
+    app-user-card {
+        opacity: 0;
+        animation: fadeInNav 0.6s ease forwards;
+        backdrop-filter: blur(10px);
     }
 }
 // Pour les [class.fadeOutNav]="isAnimatingFadeOut" des éléments enfants de pageContent (y compris les sections et forms)

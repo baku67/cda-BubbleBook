@@ -13,9 +13,11 @@
     display: inline-flex;
     justify-content: space-between;
 
-    // border-top: 1px solid grey;
-    // border-top-right-radius: 13%;
-    // border-top-left-radius: 13%;
+    backdrop-filter: blur(7px);
+}
+
+::ng-deep .cdk-overlay-pane {
+    backdrop-filter: blur(7px);
 }
 
 mat-divider {
@@ -60,4 +62,12 @@ mat-divider {
 
     display: inline-flex;
     align-items: center;
+}
+
+
+.logout-btn {
+    color: var(--red);
+    mat-icon {
+        color: var(--red);
+    }
 }
