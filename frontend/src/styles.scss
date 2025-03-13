@@ -43,7 +43,6 @@
     --element-bg-color: #01172de6;
 }
 
-
 body.light-theme {
     color: #333333 !important;
     background-image: map-get(map-get($myapp-light-theme, bg-color), default); 
@@ -51,8 +50,10 @@ body.light-theme {
 body.dark-theme {
     color: #F5F5F5 !important;
     background-image: map-get(map-get($myapp-dark-theme, bg-color), default); 
+    // background-image: var(--element-bg-color);
 }
 
+// NAV et NavMenu
 body.light-theme .matSubMenu,
 body.light-theme .navBottomMobile {
     background-color: var(--element-bg-color);
@@ -89,6 +90,17 @@ body.dark-theme .border {
     border-color: map-get(map-get($myapp-dark-theme, bg-color), border);
 }
 
+
+// GLOBAL LOADER
+body.light-theme .loading-screen {
+    background-color: var(--primary-color);
+}
+body.dark-theme .loading-screen {
+    background-color: var(--element-bg-color);
+}
+
+
+// SKELETON
 body.light-theme ngx-skeleton-loader .skeleton-loader.progress {
     background-color: var(--primary-color);
     &::before { // Pusle 
@@ -121,7 +133,7 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    background-color: var(--primary-color);
+    // background-color: var(--primary-color);
     animation: fadeIn 0.5s ease forwards;
 }
 html {

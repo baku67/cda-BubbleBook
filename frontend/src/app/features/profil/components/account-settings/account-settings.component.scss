@@ -4,3 +4,8 @@
     display: flex;
     flex-direction: column;
 }
+
+.toggle-theme-and-preferences {
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+}

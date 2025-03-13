@@ -88,40 +88,58 @@
                 msgAlert="{{ 'INFO_LOCALSTORAGE' | translate }}" 
             ></app-alert-banner>
 
-            <!-- Remplacer par un toggle material (et garder le mat-menu nav comme il est ou uniformiser?) -->
+            
+            <!-- x2 Remplacer par toggles material MAIS plus gros que les sous-paramètres (et garder le mat-menu nav comme il est ou uniformiser?) -->
+            
             <app-language-switch></app-language-switch>
-            <app-theme-switch></app-theme-switch>
 
-            <!-- Laisser les paramètres des 2 modes (sans conditions) ? -->
-            <ng-container *ngIf="currentTheme$ | async as currentTheme">
-                <!-- Si dark-theme: toggle poissons et choix img background -->
-                <ng-container *ngIf="currentTheme === 'dark-theme'">
-                    <p>
-                        <mat-slide-toggle 
-                            labelPosition="before"
-                            [checked]="displayFish$ | async"
-                            (change)="toggleFishDisplay()"
-                        >
-                            &nbsp;Afficher les poissons
-                        </mat-slide-toggle>
-                    </p>
+        
+            <div class="toggle-theme-and-preferences">
+
+                <app-theme-switch></app-theme-switch>
+
+                <!-- Laisser les paramètres des 2 modes (sans conditions) ? -->
+                <ng-container *ngIf="currentTheme$ | async as currentTheme">
+
+                    <!-- Si dark-theme: toggle poissons et choix img background -->
+                    <ng-container *ngIf="currentTheme === 'dark-theme'">
+                        <p>
+                            <mat-slide-toggle 
+                                labelPosition="before"
+                                [checked]="displayFish$ | async"
+                                (change)="toggleFishDisplay()"
+                            >
+                                &nbsp;Afficher les poissons
+                            </mat-slide-toggle>
+                        </p>
+
+                        <!-- Choix Image -->
+
+                        <!-- Choix prédéfinis de couleurs => couleur primaire (néon, titres, icones, navBtn, Btns, poissons? etc) -->
+
+                    </ng-container>
+    
+                    <!-- Si light-theme: toggle img/video et choix vidéo/img(?) -->
+                    <ng-container *ngIf="currentTheme === 'light-theme'">
+                        <p>
+                            <mat-slide-toggle 
+                                labelPosition="before"
+                                [checked]="isBgVideo$ | async"
+                                (change)="toggleBgVideo()"
+                            >
+                                &nbsp;Fond d'écran vidéo
+                            </mat-slide-toggle>
+                        </p>
+
+                        <!-- Choix videos ou Choix Image -->
+
+                        <!-- Choix prédéfinis de couleurs => couleur primaire (néon, titres, icones, navBtn, Btns, poissons? etc) -->
+
+                    </ng-container>
+
                 </ng-container>
 
-                <!-- Si light-theme: toggle img/video et choix vidéo/img(?) -->
-                <ng-container *ngIf="currentTheme === 'light-theme'">
-                    <p>
-                        <mat-slide-toggle 
-                            labelPosition="before"
-                            [checked]="isBgVideo$ | async"
-                            (change)="toggleBgVideo()"
-                        >
-                            &nbsp;Fond d'écran vidéo
-                        </mat-slide-toggle>
-                    </p>
-                </ng-container>
-            </ng-container>
-
-            <!-- Choix prédéfinis de couleurs => couleur primaire (néon, titres, icones, navBtn, Btns, poissons? etc) -->
+            </div>
             
         </section>
     </ng-container>
