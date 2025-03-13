@@ -180,7 +180,7 @@
   top: -5%;
   z-index: 1;
 
-  animation: move2 18000ms 2000ms infinite linear;
+  animation: raie-manta-move 18000ms 2000ms infinite linear;
   width: 120px;
   height: 120px;
 
@@ -189,8 +189,7 @@
   opacity: 0;
   transform: rotateZ(270deg);
 }
-
-@keyframes move2 {
+@keyframes raie-manta-move {
   0% {
       offset-distance: 0%;
       opacity: 0;
@@ -207,3 +206,467 @@
   }
 }
   
+
+
+// Le parent (1) est bien fait il augmente le offset-distance que quand l'image s'étire (effet BlopBlop)
+.jellyfish-1 {
+  offset-path: path("M -76 920 C 189 703 321 105 580 -22");
+  offset-rotate: auto;
+  position: fixed;
+
+  /* C'est à cause du top:5% que le path svg commence en haut */
+  top: -5%;
+  z-index: 1;
+
+  animation: jellyfish-1-move 30000ms 1000ms infinite cubic-bezier(0.52, 0.23, 0.34, 0.72);
+  width: 65px;
+  /* height: 65px; */
+
+  content:url("/assets/images/fishes/jellyfish.png");
+  transform: rotateZ(75deg);
+}
+.jellyfish-2 {
+  opacity: 0.9;
+  offset-path: path("M -76 920 C 189 703 207 72 434 -45");
+  offset-rotate: auto;
+  position: fixed;
+
+  /* C'est à cause du top:5% que le path svg commence en haut */
+  top: 3%;
+  z-index: 1;
+
+  animation: jellyfish-2-move 30000ms 1000ms infinite cubic-bezier(0.52, 0.23, 0.34, 0.72);
+  width: 55px;
+  height: 80px;
+
+  content:url("/assets/images/fishes/jellyfish.png");
+  transform: rotateZ(75deg);
+}
+.jellyfish-3 {
+  opacity: 0.9;
+  offset-path: path("M -66 669 C 164 477 134 100 275 -53");
+  offset-rotate: auto;
+  position: fixed;
+
+  /* C'est à cause du top:5% que le path svg commence en haut */
+  top: 3%;
+  z-index: 1;
+
+  animation: jellyfish-2-move 31000ms 1050ms infinite cubic-bezier(0.52, 0.23, 0.34, 0.72);
+  width: 55px;
+  height: 80px;
+
+  content:url("/assets/images/fishes/jellyfish.png");
+  transform: rotateZ(75deg);
+}
+// Le parent (1) est bien fait il augmente le offset-distance que quand l'image s'étire (effet BlopBlop)
+@keyframes jellyfish-1-move {
+  0% {
+      offset-distance: 0%;
+      opacity: 0;
+      transform: rotateZ(75deg);
+      width: 55px;
+      height: 80px;
+  }
+  5% {
+      offset-distance: 5%;
+
+      transform: rotateZ(75deg);
+      width: 90px;
+      height: 45px;
+  }
+  11% {
+      /* offset-distance: 11%; */
+
+      opacity: 0.5;
+      transform: rotateZ(75deg);
+      width: 55px;
+      height: 80px;
+
+  }
+  16% {
+      offset-distance: 16%;
+
+      transform: rotateZ(75deg);
+      width: 90px;
+      height: 45px;
+
+  }
+  22% {
+      /* offset-distance: 22%; */
+
+      opacity: 0.4;
+      transform: rotateZ(75deg);
+      width: 55px;
+      height: 80px;
+
+  }
+  27% {
+      offset-distance: 27%;
+
+      transform: rotateZ(75deg);
+      width: 90px;
+      height: 45px;
+
+  }
+  33% {
+      /* offset-distance: 33%; */
+
+      opacity: 0.5;
+      transform: rotateZ(75deg);
+      width: 55px;
+      height: 80px;
+
+
+  }
+  38% {
+      offset-distance: 38%;
+
+      transform: rotateZ(75deg);
+      width: 90px;
+      height: 45px;
+
+  }
+  44% {
+      /* offset-distance: 44%; */
+
+      opacity: 0.4;
+      transform: rotateZ(75deg);
+      width: 55px;
+      height: 80px;
+
+
+  }
+  49% {
+      offset-distance: 49%;
+
+      transform: rotateZ(75deg);
+      width: 90px;
+      height: 45px;
+
+  }
+  55% {
+      /* offset-distance: 55%; */
+
+      opacity: 0.5;
+      transform: rotateZ(75deg);
+      width: 55px;
+      height: 80px;
+
+
+  }
+  60% {
+      offset-distance: 60%;
+
+      transform: rotateZ(75deg);
+      width: 90px;
+      height: 45px;
+
+  }
+  66% {
+      /* offset-distance: 66%; */
+
+      opacity: 0.4;
+      transform: rotateZ(75deg);
+      width: 55px;
+      height: 80px;
+
+  }
+  71% {
+      offset-distance: 71%;
+
+      transform: rotateZ(75deg);
+      width: 90px;
+      height: 45px;
+
+  }
+  77% {
+      /* offset-distance: 77%; */
+
+      opacity: 0.5;
+      transform: rotateZ(75deg);
+      width: 55px;
+      height: 80px;
+
+  }
+  82% {
+      offset-distance: 82%;
+
+      transform: rotateZ(75deg);
+      width: 90px;
+      height: 45px;
+
+  }
+  88% {
+      /* offset-distance: 88%; */
+
+      opacity: 0.4;
+      transform: rotateZ(75deg);
+      width: 55px;
+      height: 80px;
+
+  }
+  93% {
+      offset-distance: 93%;
+
+      transform: rotateZ(75deg);
+      width: 90px;
+      height: 45px;
+
+  }
+  100% {
+      opacity: 0.2;
+      transform: rotateZ(75deg);
+      width: 55px;
+      height: 80px;
+
+      offset-distance: 100%;
+  }
+}
+/* 55 80, 90 45 */
+@keyframes jellyfish-2-move {
+  0% {
+      offset-distance: 0%;
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  3% {
+      offset-distance: 3%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  6% {
+      /* offset-distance: 6%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  9% {
+      offset-distance: 9%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  12% {
+      /* offset-distance: 12%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  15% {
+      offset-distance: 15%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  18% {
+      /* offset-distance: 18%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  21% {
+      offset-distance: 21%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  24% {
+      /* offset-distance: 24%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  27% {
+      offset-distance: 27%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  30% {
+      /* offset-distance: 30%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  33% {
+      offset-distance: 33%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  36% {
+      /* offset-distance: 36%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  39% {
+      offset-distance: 39%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  42% {
+      /* offset-distance: 42%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  45% {
+      offset-distance: 45%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  48% {
+      /* offset-distance: 48%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  51% {
+      offset-distance: 51%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  54% {
+      /* offset-distance: 54%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  57% {
+      offset-distance: 57%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  60% {
+      /* offset-distance: 60%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  63% {
+      offset-distance: 63%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  66% {
+      /* offset-distance: 66%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  69% {
+      offset-distance: 69%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  72% {
+      /* offset-distance: 72%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  75% {
+      offset-distance: 75%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  78% {
+      /* offset-distance: 78%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  81% {
+      offset-distance: 81%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  84% {
+      /* offset-distance: 84%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  87% {
+      offset-distance: 87%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  90% {
+      /* offset-distance: 90%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  93% {
+      offset-distance: 93%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  96% {
+      /* offset-distance: 96%; */
+
+      transform: rotateZ(75deg);
+      width: 25px;
+      height: 50px;
+  }
+  99% {
+      offset-distance: 99%;
+
+      transform: rotateZ(75deg);
+      width: 60px;
+      height: 25px;
+  }
+  100% {
+      offset-distance: 100%;
+
+      transform: rotateZ(75deg);
+      width: 20px;
+      height: 25px;
+  }
+}
