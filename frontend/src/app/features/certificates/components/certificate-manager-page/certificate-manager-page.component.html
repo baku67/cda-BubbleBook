@@ -8,31 +8,29 @@
         [class.fadeOutNav]="isAnimatingFadeOut"
     />
 
-    <div [class.fadeOutNav]="isAnimatingFadeOut">
-        <div>
-            <div style="display:flex; gap:10px;">
-                <!-- Bouton d'ajout ou de cancelEdit -->
-                <button *ngIf="!isEditMode" class="example-box certificates-btns addCertif-button" (click)="openAddCertifModal()">
-                    <div class="addCertif-button-container">
-                        <mat-icon>add</mat-icon>
-                        <span>{{ "ADD_CERTIFICATE_BUTTON" | translate }}</span>
-                    </div>
-                </button>
-                <button *ngIf="isEditMode" class="example-box certificates-btns cancelEdit-button" (click)="revertReorderCertifs()">
-                    <div class="addCertif-button-container">
-                        <mat-icon>undo</mat-icon>
-                        <!-- <span>{{ "REVERT_REORDER_CERTIF_BUTTON" | translate }}</span> -->
-                    </div>
-                </button>
-        
-                <!-- Bouton pour toggler le mode édition -->
-                <button [ngClass]="isEditMode ? 'editValidateBtn' : ''" class="example-box certificates-btns editCertif-button" (click)="toggleEditMode()" >
-                    <div class="addCertif-button-container">
-                        <mat-icon>{{ isEditMode ? 'check' : 'edit' }}</mat-icon>
-                        <span>{{ (isEditMode ? "VALIDATE" : "EDIT_CERTIFICATE_BUTTON") | translate }}</span>
-                    </div>
-                </button>
-            </div>
+    <div [class.fadeOutNav]="isAnimatingFadeOut" class="buttons-container">
+        <div style="display:flex; gap:10px;">
+            <!-- Bouton d'ajout ou de cancelEdit -->
+            <button *ngIf="!isEditMode" class="example-box certificates-btns addCertif-button" (click)="openAddCertifModal()">
+                <div class="addCertif-button-container">
+                    <mat-icon>add</mat-icon>
+                    <span>{{ "ADD_CERTIFICATE_BUTTON" | translate }}</span>
+                </div>
+            </button>
+            <button *ngIf="isEditMode" class="example-box certificates-btns cancelEdit-button" (click)="revertReorderCertifs()">
+                <div class="addCertif-button-container">
+                    <mat-icon>undo</mat-icon>
+                    <!-- <span>{{ "REVERT_REORDER_CERTIF_BUTTON" | translate }}</span> -->
+                </div>
+            </button>
+    
+            <!-- Bouton pour toggler le mode édition -->
+            <button [ngClass]="isEditMode ? 'editValidateBtn' : ''" class="example-box certificates-btns editCertif-button" (click)="toggleEditMode()" >
+                <div class="addCertif-button-container">
+                    <mat-icon>{{ isEditMode ? 'check' : 'edit' }}</mat-icon>
+                    <span>{{ (isEditMode ? "VALIDATE" : "EDIT_CERTIFICATE_BUTTON") | translate }}</span>
+                </div>
+            </button>
         </div>
     </div>
 

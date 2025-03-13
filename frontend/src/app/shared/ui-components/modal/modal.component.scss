@@ -41,14 +41,14 @@
   }
   to {
     background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(10px);
   }
 }
 
 @keyframes fadeOutLayout {
   from {
     background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(10px);
   }
   to {
     background: rgba(0, 0, 0, 0);
