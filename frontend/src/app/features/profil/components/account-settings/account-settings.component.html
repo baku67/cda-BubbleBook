@@ -102,16 +102,26 @@
                             [checked]="displayFish$ | async"
                             (change)="toggleFishDisplay()"
                         >
-                            Afficher les poissons
+                            &nbsp;Afficher les poissons
                         </mat-slide-toggle>
                     </p>
                 </ng-container>
 
                 <!-- Si light-theme: toggle img/video et choix vidéo/img(?) -->
                 <ng-container *ngIf="currentTheme === 'light-theme'">
-                    <p><mat-slide-toggle labelPosition="before">Pas de vidéo</mat-slide-toggle></p>
+                    <p>
+                        <mat-slide-toggle 
+                            labelPosition="before"
+                            [checked]="isBgVideo$ | async"
+                            (change)="toggleBgVideo()"
+                        >
+                            &nbsp;Fond d'écran vidéo
+                        </mat-slide-toggle>
+                    </p>
                 </ng-container>
             </ng-container>
+
+            <!-- Choix prédéfinis de couleurs => couleur primaire (néon, titres, icones, navBtn, Btns, poissons? etc) -->
             
         </section>
     </ng-container>

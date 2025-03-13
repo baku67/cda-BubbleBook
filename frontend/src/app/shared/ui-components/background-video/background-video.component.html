@@ -1,41 +1,48 @@
 
-<ng-container *ngIf="currentTheme$ | async as currentTheme">
+<ng-container *ngIf="vm$ | async as vm">
 
-  <!-- Light-theme: -->
-  <video 
-    *ngIf="currentTheme === 'light-theme'" 
-    #backgroundVideo 
-    autoplay 
-    loop 
-    muted 
-    playsinline 
-    class="background-video"
-  >
-    <source src="assets/videos/final_video_2.webm" type="video/webm">
-    <!-- fallback ios (mp4.H264) -->
-    <source src="assets/videos/final_video.mp4" type="video/mp4">
-    Votre navigateur ne supporte pas la vidéo.
-  </video>
-
-  <!-- Dark-theme: -->
-  <div *ngIf="currentTheme === 'dark-theme'" class="background-image">
-    <!-- https://www.google.com/search?q=dark+undersea+wallpaper+phone&udm=2&tbs=rimg:CXPLSSi8bQtjYQrxez-7sTULsgIAwAIA2AIA4AIA&hl=en&sa=X&ved=2ahUKEwie7Z_cuYaMAxUGoScCHb2ILjIQuIIBegQIABA7 -->
-    <img src="assets/images/backgrounds/kelp.jpg" class="background-img" alt="underwater kelp">
-    <!-- <img src="assets/images/backgrounds/kelp2.jpg" class="background-img" alt="underwater kelp"> -->
-  
-    <div 
-      *ngIf="(displayFish$ | async) || isFishAnimatingOut" 
-      [class.fadeOutAquarium]="isFishAnimatingOut" 
-      class="aquarium"
-    >
-      <div class="fish-1"></div>
-      <div class="raie-manta"></div>
-      <div class="jellyfish-1"></div> 
-      <div class="jellyfish-2"></div> 
-      <div class="jellyfish-3"></div> 
-      <div class="whaleshark"></div> 
-    </div>
+	<!-- ************************** Light-theme **************************** -->
+	<ng-container *ngIf="vm.currentTheme === 'light-theme'">
     
-  </div>
+		<!-- Vidéo seulement si activée -->
+		<video 
+			*ngIf="vm.isBgVideo"
+			autoplay loop muted playsinline class="background-video">
+			<source src="assets/videos/final_video_2.webm" type="video/webm">
+			<source src="assets/videos/final_video.mp4" type="video/mp4">
+			Votre navigateur ne supporte pas la vidéo.
+		</video>
+	
+		<!-- Image statique si vidéo désactivée -->
+		<img *ngIf="!vm.isBgVideo" 
+			src="assets/images/backgrounds/staticVideo.png" 
+			class="background-image"
+			alt="background image of a sea"
+		>
+
+	</ng-container>
+
+
+	<!-- ************************** Dark-theme **************************** -->
+	<div *ngIf="vm.currentTheme === 'dark-theme'" class="background-image">
+		<!-- https://www.google.com/search?q=dark+undersea+wallpaper+phone&udm=2&tbs=rimg:CXPLSSi8bQtjYQrxez-7sTULsgIAwAIA2AIA4AIA&hl=en&sa=X&ved=2ahUKEwie7Z_cuYaMAxUGoScCHb2ILjIQuIIBegQIABA7 -->
+		<img src="assets/images/backgrounds/kelp.jpg" class="background-img" alt="background underwater kelp">
+		<!-- <img src="assets/images/backgrounds/kelp2.jpg" class="background-img" alt="underwater kelp"> -->
+
+		<div 
+			*ngIf="(displayFish$ | async) || isFishAnimatingOut" 
+			[class.fadeOutAquarium]="isFishAnimatingOut" 
+			class="aquarium"
+		>
+			<div class="fish-1"></div>
+			<div class="raie-manta"></div>
+			<div class="jellyfish-1"></div> 
+			<div class="jellyfish-2"></div> 
+			<div class="jellyfish-3"></div> 
+			<div class="whaleshark"></div> 
+		</div>
+
+	</div>
+
 
 </ng-container>

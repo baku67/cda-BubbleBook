@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 import { ThemeService,  } from '../../services/utils/theme.service';
 import { ThemeType } from '../../models/ThemeType.model';
 import { CommonModule } from '@angular/common';
@@ -18,8 +18,13 @@ export class BackgroundVideoComponent {
   @ViewChild('backgroundVideo', { static: false }) backgroundVideo!: ElementRef<HTMLVideoElement>;
 
   currentTheme$: Observable<ThemeType>;
+
+  // dark-theme:
   displayFish$!: Observable<boolean>;
   isFishAnimatingOut = false;
+  // light-theme:
+  isBgVideo$!: Observable<boolean>;
+  vm$!: Observable<{ currentTheme: ThemeType, isBgVideo: boolean }>;
 
   constructor(
     private themeService: ThemeService,
@@ -27,17 +32,16 @@ export class BackgroundVideoComponent {
   ) {
     this.currentTheme$ = this.themeService.currentTheme$;
     this.displayFish$ = this.customizationService.displayFishState$;
+    this.isBgVideo$ = this.customizationService.isBgVideoState$;
   }
 
   ngOnInit() {
-    // Écoute les changements du displayFishSubject pour déclencher l'animation de fade-out aquarium
-    this.displayFish$.subscribe((isDisplayed) => {
-      if (!isDisplayed && !this.isFishAnimatingOut) {
-        // déclenche l'animation fade-out seulement si on désactive les poissons
-        this.isFishAnimatingOut = true;
-        setTimeout(() => this.isFishAnimatingOut = false, 2010); // .fadeOutAquarium Duration
-      }
-    });
+    this.vm$ = combineLatest([
+      this.themeService.currentTheme$,
+      this.customizationService.isBgVideoState$
+    ]).pipe(
+      map(([currentTheme, isBgVideo]) => ({ currentTheme, isBgVideo }))
+    );
   }
 
   ngAfterViewInit() {

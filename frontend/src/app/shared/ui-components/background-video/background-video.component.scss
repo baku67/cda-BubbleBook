@@ -40,7 +40,7 @@
   }
 }
 
-
+// Commun à l'img statique light-theme et à l'img dark-theme
 .background-image {
   position: absolute;
   min-width: 100%;
@@ -48,8 +48,11 @@
   max-width: 100%;
   height: -webkit-fill-available;
 
-  background-color: rgb(0 28 37);
   top: 0;
+  object-position: top;
+  object-fit: cover;
+
+  z-index: -1;
 }
 
 .background-img {

@@ -24,6 +24,7 @@ export class AccountSettingsComponent implements OnInit {
 
     currentTheme$: Observable<ThemeType>;
     displayFish$!: Observable<boolean>;
+    isBgVideo$!: Observable<boolean>;
 
     isAnimatingFadeOut = false;
 
@@ -39,6 +40,7 @@ export class AccountSettingsComponent implements OnInit {
       });
       this.currentTheme$ = this.themeService.currentTheme$;
       this.displayFish$ = this.customizationService.displayFishState$;
+      this.isBgVideo$ = this.customizationService.isBgVideoState$;
     }
 
     ngOnInit(): void { 
@@ -68,4 +70,7 @@ export class AccountSettingsComponent implements OnInit {
       this.customizationService.toggleDisplayFish();
     }
     
+    toggleBgVideo(): void {
+      this.customizationService.toggleBgVideo();
+    }
 }
