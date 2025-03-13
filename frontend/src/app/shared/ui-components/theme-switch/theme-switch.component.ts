@@ -3,6 +3,8 @@ import { ThemeService } from '../../services/utils/theme.service';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { Observable } from 'rxjs';
+import { ThemeType } from '../../models/ThemeType.model';
 
 @Component({
   selector: 'app-theme-switch',
@@ -13,14 +15,13 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class ThemeSwitchComponent {
 
-  constructor(private themeService: ThemeService) {};
+  currentTheme$: Observable<ThemeType>;
 
-  toggleTheme() {
-    this.themeService.toggleTheme();
+  constructor(private themeService: ThemeService) {
+    this.currentTheme$ = this.themeService.currentTheme$;
   }
-
-  get currentTheme() {
-    return this.themeService.getTheme();
+  toggleTheme() {
+    this.themeService.toggleTheme(); 
   }
 
 }

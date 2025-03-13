@@ -1,10 +1,29 @@
 
-<video #backgroundVideo autoplay loop muted playsinline class="background-video">
-  <source src="assets/videos/final_video_2.webm" type="video/webm">
-  <!-- fallback ios (mp4.H264) -->
-  <source src="assets/videos/final_video.mp4" type="video/mp4">
-  Votre navigateur ne supporte pas la vidéo.
-</video>
+<ng-container *ngIf="currentTheme$ | async as currentTheme">
 
-<!-- WIP rajout fix au bout: -->
-<!-- <img src="assets/videos/fotor-2.png" class="trompe-loeil" alt="rajout">  -->
+  <!-- Light-theme: -->
+  <video 
+    *ngIf="currentTheme === 'light-theme'" 
+    #backgroundVideo 
+    autoplay 
+    loop 
+    muted 
+    playsinline 
+    class="background-video"
+  >
+    <source src="assets/videos/final_video_2.webm" type="video/webm">
+    <!-- fallback ios (mp4.H264) -->
+    <source src="assets/videos/final_video.mp4" type="video/mp4">
+    Votre navigateur ne supporte pas la vidéo.
+  </video>
+
+  <!-- Dark-theme: -->
+  <div *ngIf="currentTheme === 'dark-theme'" class="background-image">
+    <!-- https://www.google.com/search?q=dark+undersea+wallpaper+phone&udm=2&tbs=rimg:CXPLSSi8bQtjYQrxez-7sTULsgIAwAIA2AIA4AIA&hl=en&sa=X&ved=2ahUKEwie7Z_cuYaMAxUGoScCHb2ILjIQuIIBegQIABA7 -->
+    <img src="assets/images/backgrounds/kelp.jpg" class="background-img" alt="underwater kelp">
+    <!-- <img src="assets/images/backgrounds/kelp2.jpg" class="background-img" alt="underwater kelp"> -->
+  
+    
+  </div>
+
+</ng-container>

@@ -1,36 +1,43 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ThemeType } from '../../models/ThemeType.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
-  private currentTheme: 'light-theme' | 'dark-theme';
+
+  private themeSubject: BehaviorSubject<ThemeType>;
 
   constructor() {
     // Lecture du localStorage lors de l'initialisation du service
-    const savedTheme = localStorage.getItem('theme') as 'light-theme' | 'dark-theme';
-    this.currentTheme = savedTheme || 'dark-theme';
+    const savedTheme = (localStorage.getItem('theme') as ThemeType) || 'light-theme';
+    this.themeSubject = new BehaviorSubject<ThemeType>(savedTheme);
 
-    // Application du thème lu ou du thème par défaut
-    document.body.classList.add(this.currentTheme);
+    // ajout theme sur body
+    document.body.classList.add(savedTheme);
   }
 
   toggleTheme(): void {
-    const newTheme = this.currentTheme === 'light-theme' ? 'dark-theme' : 'light-theme';
-    document.body.classList.remove(this.currentTheme);
-    document.body.classList.add(newTheme);
-    this.currentTheme = newTheme;
-    localStorage.setItem('theme', this.currentTheme);
+    const newTheme: ThemeType = this.themeSubject.value === 'light-theme' ? 'dark-theme' : 'light-theme';
+    document.body.classList.replace(this.themeSubject.value, newTheme);
+    this.themeSubject.next(newTheme);
+    localStorage.setItem('theme', newTheme);
   }
 
-  setTheme(theme: 'light-theme' | 'dark-theme'): void {
-    document.body.classList.remove(this.currentTheme);
-    document.body.classList.add(theme);
-    this.currentTheme = theme;
-    localStorage.setItem('theme', this.currentTheme);
+  setTheme(theme: ThemeType): void {
+    if (this.themeSubject.value !== theme) {
+      document.body.classList.replace(this.themeSubject.value, theme);
+      this.themeSubject.next(theme);
+      localStorage.setItem('theme', theme);
+    }
   }
 
-  getTheme(): string {
-    return this.currentTheme
+  get currentTheme$(): Observable<ThemeType> {
+    return this.themeSubject.asObservable();
+  }
+
+  getTheme(): ThemeType {
+    return this.themeSubject.value;
   }
 }

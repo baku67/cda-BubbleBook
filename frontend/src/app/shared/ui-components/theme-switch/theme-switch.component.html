@@ -1,6 +1,6 @@
 <div class="switch-container">
     <button mat-button (click)="toggleTheme()">
         <!-- {{ currentTheme === "light-theme" ? "dark" : "light" }} -->
-        <mat-icon style="margin-right:0px;">{{ currentTheme === "light-theme" ? "dark_mode" : "light_mode" }}</mat-icon>
+        <mat-icon style="margin-right:0px;">{{ (currentTheme$ | async) === "light-theme" ? "dark_mode" : "light_mode" }}</mat-icon>
     </button>
 </div>

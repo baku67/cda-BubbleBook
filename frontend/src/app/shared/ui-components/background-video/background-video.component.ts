@@ -1,16 +1,25 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ThemeService,  } from '../../services/utils/theme.service';
+import { ThemeType } from '../../models/ThemeType.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-background-video',
   templateUrl: './background-video.component.html',
   styleUrl: './background-video.component.scss',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
 })
 export class BackgroundVideoComponent {
   
   @Output() videoLoaded = new EventEmitter<boolean>(); // ✅ Émet un event quand la vidéo est prête
   @ViewChild('backgroundVideo', { static: false }) backgroundVideo!: ElementRef<HTMLVideoElement>;
+  currentTheme$: Observable<ThemeType>;
+
+  constructor(private themeService: ThemeService) {
+    this.currentTheme$ = this.themeService.currentTheme$;
+  }
 
   ngAfterViewInit() {
     // console.log("🎥 [BackgroundVideoComponent] Vérification de la vidéo en cours...");
