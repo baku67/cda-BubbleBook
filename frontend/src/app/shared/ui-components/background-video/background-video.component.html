@@ -23,7 +23,7 @@
     <img src="assets/images/backgrounds/kelp.jpg" class="background-img" alt="underwater kelp">
     <!-- <img src="assets/images/backgrounds/kelp2.jpg" class="background-img" alt="underwater kelp"> -->
   
-    <div class="aquarium">
+    <div *ngIf="displayFish$ | async" class="aquarium">
       <div class="fish-1"></div>
       <div class="raie-manta"></div>
       <div class="jellyfish-1"></div> 

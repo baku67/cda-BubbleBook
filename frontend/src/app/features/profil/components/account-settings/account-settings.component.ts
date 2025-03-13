@@ -4,6 +4,9 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
 import { Observable } from 'rxjs';
+import { ThemeType } from '../../../../shared/models/ThemeType.model';
+import { ThemeService } from '../../../../shared/services/utils/theme.service';
+import { CustomizationService } from '../../../../shared/services/utils/customization.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -19,16 +22,23 @@ export class AccountSettingsComponent implements OnInit {
     emailConfirmResent = false;
     emailConfirmResentLoading = false;
 
+    currentTheme$: Observable<ThemeType>;
+    displayFish$!: Observable<boolean>;
+
     isAnimatingFadeOut = false;
 
     constructor(
       private userService: UserService, 
       private authService: AuthService,
       private animationService: AnimationService,
+      private themeService: ThemeService,
+      private customizationService: CustomizationService,
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
         this.isAnimatingFadeOut = animating;
       });
+      this.currentTheme$ = this.themeService.currentTheme$;
+      this.displayFish$ = this.customizationService.displayFishState$;
     }
 
     ngOnInit(): void { 
@@ -52,6 +62,10 @@ export class AccountSettingsComponent implements OnInit {
           alert('Impossible d\'envoyer l\'email de confirmation. Veuillez réessayer plus tard.');
         }
       });
+    }
+
+    toggleFishDisplay(): void {
+      this.customizationService.toggleDisplayFish();
     }
     
 }

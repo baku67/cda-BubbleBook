@@ -73,6 +73,10 @@
     "DIVES": "Plongées",
 
     "ACCOUNT_SETTINGS": "Paramètres",
+    "PERSONALIZATION_SETTINGS": "Personnalisation",
+    "INTERFACE_SETTINGS": "Interface",
+
+    "INFO_LOCALSTORAGE": "La personnalisation de l'interface est propre à l'appareil utilisé",
 
     "ADD_CERTIFICATE_BUTTON": "Ajouter",
     "REVERT_REORDER_CERTIF_BUTTON": "Annuler",

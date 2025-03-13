@@ -50,19 +50,71 @@
     
             </div>
     
-            <button>Changer d'adresse mail</button>
-        </section>
-          
-    
-        <section [class.fadeOutNav]="isAnimatingFadeOut">
             <h5>Changer de mot de passe</h5>
-        </section>
-    
-        <section [class.fadeOutNav]="isAnimatingFadeOut">
+            <h5>Changer d'adresse mail</h5>
+            <h5>Supprimer le compte</h5>
             <h5>Autentification à 2 facteurs</h5>
         </section>
 
-    </ng-container>    
+    </ng-container>  
+    
+    
+    <app-page-header 
+        [title]="('PERSONALIZATION_SETTINGS' | translate)" 
+        matIcon="manage_accounts" 
+        [colorTheme]="true"
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    />
+    <ng-container *ngIf="user$ | async as user; else loading">
+        <!-- Changement avatar -->
+        <!-- Changement banniere -->
+        <!-- Changement nbrInitialPlongées -->
+    </ng-container>
+
+
+    <app-page-header 
+        [title]="('INTERFACE_SETTINGS' | translate)" 
+        matIcon="manage_accounts" 
+        [colorTheme]="true"
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    />
+    <ng-container>
+        <section class="card" [class.fadeOutNav]="isAnimatingFadeOut">
+            <app-alert-banner 
+                maticon="info" 
+                [style]="'info'" 
+                msgAlert="{{ 'INFO_LOCALSTORAGE' | translate }}" 
+            ></app-alert-banner>
+
+            <!-- Remplacer par un toggle material (et garder le mat-menu nav comme il est ou uniformiser?) -->
+            <app-language-switch></app-language-switch>
+            <app-theme-switch></app-theme-switch>
+
+            <!-- Laisser les paramètres des 2 modes (sans conditions) ? -->
+            <ng-container *ngIf="currentTheme$ | async as currentTheme">
+                <!-- Si dark-theme: toggle poissons et choix img background -->
+                <ng-container *ngIf="currentTheme === 'dark-theme'">
+                    <p>
+                        <mat-slide-toggle 
+                            labelPosition="before"
+                            [checked]="displayFish$ | async"
+                            (change)="toggleFishDisplay()"
+                        >
+                            Afficher les poissons
+                        </mat-slide-toggle>
+                    </p>
+                </ng-container>
+
+                <!-- Si light-theme: toggle img/video et choix vidéo/img(?) -->
+                <ng-container *ngIf="currentTheme === 'light-theme'">
+                    <p><mat-slide-toggle labelPosition="before">Pas de vidéo</mat-slide-toggle></p>
+                </ng-container>
+            </ng-container>
+            
+        </section>
+    </ng-container>
 
 
     <ng-template #loading>

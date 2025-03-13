@@ -69,6 +69,10 @@
     "DIVES": "Dives",
 
     "ACCOUNT_SETTINGS": "Account Settings",
+    "PERSONALIZATION_SETTINGS": "Customisation",
+    "INTERFACE_SETTINGS": "Interface",
+
+    "INFO_LOCALSTORAGE": "Interface customisation is specific to the device used",
 
     "ADD_CERTIFICATE_BUTTON": "Add",
     "REVERT_REORDER_CERTIF_BUTTON": "Cancel",
