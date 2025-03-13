@@ -257,6 +257,12 @@ h1, h2, h3 {
     animation: fadeInNav 0.6s ease forwards; 
 }
 
+.pageContent-bottom-nav-decal {
+    height: 7vh; // Equivalent à la hauteur de la navBarre
+    width: 100%;
+    visibility: hidden;
+}
+
 
 .modalContent {
     flex: 1;
