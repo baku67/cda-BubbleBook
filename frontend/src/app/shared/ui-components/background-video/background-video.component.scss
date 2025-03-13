@@ -107,6 +107,7 @@
   animation: fish-1-move 8500ms 1500ms infinite ease;
   width: 40px;
   height: 32px;
+  z-index: 2;
 
   content:url("/assets/images/fishes/poisson-1.png");
   opacity: 0;
@@ -178,7 +179,7 @@
   position: fixed;
 
   top: -5%;
-  z-index: 1;
+  z-index: 2;
 
   animation: raie-manta-move 18000ms 2000ms infinite linear;
   width: 120px;
@@ -207,7 +208,7 @@
 }
   
 
-
+// Jellyfishes
 // Le parent (1) est bien fait il augmente le offset-distance que quand l'image s'étire (effet BlopBlop)
 .jellyfish-1 {
   offset-path: path("M -76 920 C 189 703 321 105 580 -22");
@@ -216,7 +217,7 @@
 
   /* C'est à cause du top:5% que le path svg commence en haut */
   top: -5%;
-  z-index: 1;
+  z-index: 2;
 
   animation: jellyfish-1-move 30000ms 1000ms infinite cubic-bezier(0.52, 0.23, 0.34, 0.72);
   width: 65px;
@@ -233,7 +234,7 @@
 
   /* C'est à cause du top:5% que le path svg commence en haut */
   top: 3%;
-  z-index: 1;
+  z-index: 2;
 
   animation: jellyfish-2-move 30000ms 1000ms infinite cubic-bezier(0.52, 0.23, 0.34, 0.72);
   width: 55px;
@@ -250,7 +251,7 @@
 
   /* C'est à cause du top:5% que le path svg commence en haut */
   top: 3%;
-  z-index: 1;
+  z-index: 2;
 
   animation: jellyfish-2-move 31000ms 1050ms infinite cubic-bezier(0.52, 0.23, 0.34, 0.72);
   width: 55px;
@@ -668,5 +669,64 @@
       transform: rotateZ(75deg);
       width: 20px;
       height: 25px;
+  }
+}
+
+
+
+/* WhaleShark */
+.whaleshark {
+  /* offset-path: path("M -65 176 A 1 1 0 0 0 -88 -451"); */
+  /* offset-path: path("M -283 488 C 342 153 217 -360 -205 -555"); */
+  
+  offset-rotate: auto;
+  position: fixed;
+
+  top: 70%;
+  offset-path: path("M -270 -108 C 100 349 557 46 527 -124");
+
+  z-index: 1;
+
+  animation: moveWhaleShark 30000ms 5s infinite linear;
+  width: 600px;
+  height: 600px;
+
+  content:url("/assets/images/fishes/whaleshark.png");
+  opacity: 0;
+  transform: rotateZ(98deg);
+}
+
+@keyframes moveWhaleShark {
+  0% {
+      offset-distance: 0%;
+      opacity: 0;
+  }
+  11% {
+      opacity: 0.75;
+  }
+  22% {
+      opacity: 0.7;
+  }
+  33% {
+      opacity: 0.75;
+  }
+  44% {
+      opacity: 0.7;
+  }
+  55% {
+      opacity: 0.75;
+  }
+  66% {
+      opacity: 0.7;
+  }
+  77% {
+      opacity: 0.75;
+  }
+  88% {
+      opacity: 0.7;
+  }
+  100% {
+      opacity: 0.5;
+      offset-distance: 100%;
   }
 }
