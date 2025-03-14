@@ -57,6 +57,10 @@
   text-align: center;
   font-size: 1.2em;
   color: #F5F5F5 !important;
+
+  opacity: 0;
+  transform: translateY(-25px);
+  animation: fadeSlideInTop 1.8s 0.7s ease forwards;
 }
 .hero-description-strong {
   color: var(--primary-color);
@@ -70,20 +74,20 @@
 
     display: inline-flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
     padding: 10px 0px;
     border-radius: 7px;
-    text-shadow: 0px 2px 2px black;
+    text-shadow: 0px 1px 1px black;
 
-    opacity: 0;
-    transform: translateY(-25px);
-    animation: fadeSlideInTop 1.8s 0.7s ease forwards;
+    // opacity: 0;
+    // transform: translateY(-25px);
+    // animation: fadeSlideInTop 1.8s 0.7s ease forwards; // déplacé dans chaque enfants pour pouvoir backdropfilter blur le btn de login
 }
 
 .cta-buttons ul {
-    display: flex; /* Utilise flexbox pour aligner les éléments en ligne */
+    display: flex; 
     flex-direction: column;
-    justify-content: space-between; /* Distribution égale entre les éléments */
+    justify-content: space-between; 
     padding: 0;
     list-style: none;
     gap: 8px;
@@ -95,6 +99,17 @@
 
     border: 1px solid rgb(7 255 248 / 38%);
     border-radius: 3px;
+
+    opacity: 0;
+    transform: translateY(-25px);
+    animation: fadeSlideInTop 1.8s 1.6s ease forwards;
+  }
+  .btn-login {
+    color: white;
+    transition: all 1s;
+    opacity: 0;
+    transform: translateY(-25px);
+    animation: fadeSlideInTop 1.8s 1.6s ease forwards;
   }
   
   .cta-buttons li {

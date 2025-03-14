@@ -25,11 +25,19 @@
 
 
 	<!-- ************************** Dark-theme **************************** -->
-	<div *ngIf="vm.currentTheme === 'dark-theme'" class="background-image">
+	<div *ngIf="vm.currentTheme === 'dark-theme'" class="dark-theme-aquarium-et-wp-container">
+		
+		<!-- *** BackgroundImg qui slide quand on nav (object-position) -->
 		<!-- https://www.google.com/search?q=dark+undersea+wallpaper+phone&udm=2&tbs=rimg:CXPLSSi8bQtjYQrxez-7sTULsgIAwAIA2AIA4AIA&hl=en&sa=X&ved=2ahUKEwie7Z_cuYaMAxUGoScCHb2ILjIQuIIBegQIABA7 -->
-		<img src="assets/images/backgrounds/kelp.jpg" class="background-img" alt="background underwater kelp">
 		<!-- <img src="assets/images/backgrounds/kelp2.jpg" class="background-img" alt="underwater kelp"> -->
+		<img src="assets/images/backgrounds/kelp.jpg" class="background-img" alt="background underwater kelp">
 
+		<!-- Sun-ray statik: -->
+		<div class="sun-ray-1"></div> 
+		<!-- Sun-ray slide in et glowInfini: -->
+		<div class="sun-ray-2"></div>
+
+		<!-- *** Aquarium -->
 		<div 
 			*ngIf="(displayFish$ | async) || isFishAnimatingOut" 
 			[class.fadeOutAquarium]="isFishAnimatingOut" 
