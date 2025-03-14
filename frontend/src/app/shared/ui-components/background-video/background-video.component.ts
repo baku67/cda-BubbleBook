@@ -17,7 +17,7 @@ export class BackgroundVideoComponent {
   
   @Output() videoLoaded = new EventEmitter<boolean>(); // ✅ Émet un event quand la vidéo est prête
   @ViewChild('backgroundVideo', { static: false }) backgroundVideo!: ElementRef<HTMLVideoElement>;
-  @ViewChild('backgroundImg', { static: false }) backgroundImg!: ElementRef<HTMLImageElement>;
+  @ViewChild('backgroundImgDarkTheme', { static: false }) backgroundImgDarkTheme!: ElementRef<HTMLImageElement>;
 
   activeTabIndex$: Observable<number |null>;
   currentTheme$: Observable<ThemeType>;
@@ -76,9 +76,9 @@ export class BackgroundVideoComponent {
     this.bgObjectPosition = positions[index ?? 0]; // Si null, mettre 0% (gauche)
     this.bgRotate = rotates[index ?? 0]; // Si null, mettre 10deg (gauche)
 
-    if (this.backgroundImg) {
-      this.renderer.setStyle(this.backgroundImg.nativeElement, 'object-position', this.bgObjectPosition);
-      this.renderer.setStyle(this.backgroundImg.nativeElement, 'transform', `rotate(${this.bgRotate})`);
+    if (this.backgroundImgDarkTheme) {
+      this.renderer.setStyle(this.backgroundImgDarkTheme.nativeElement, 'object-position', this.bgObjectPosition);
+      this.renderer.setStyle(this.backgroundImgDarkTheme.nativeElement, 'transform', `rotate(${this.bgRotate})`);
     }
   }
 

@@ -14,10 +14,10 @@
 			Votre navigateur ne supporte pas la vidéo.
 		</video>
 	
-		<!-- Image statique si vidéo désactivée -->
+		<!-- Image statique si vidéo désactivée + slideNav -->
 		<img *ngIf="!vm.isBgVideo" 
 			src="assets/images/backgrounds/staticVideo.png" 
-			class="background-image"
+			class="background-image-light-theme"
 			alt="background image of a sea"
 		>
 
@@ -39,9 +39,9 @@
 		> -->
 		<img 
 			src="assets/images/backgrounds/kelp.jpg" 
-			class="background-img" 
+			class="background-img-dark-theme" 
 			alt="background underwater kelp"
-			#backgroundImg
+			#backgroundImgDarkTheme
 			[style.object-position]="bgObjectPosition"
 			[style.transform]="'rotate(' + bgRotate + ')'"
 		>
