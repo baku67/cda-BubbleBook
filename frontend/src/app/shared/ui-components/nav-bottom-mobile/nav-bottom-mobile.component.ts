@@ -8,6 +8,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from '../../services/utils/theme.service';
 import { LanguageService } from '../../services/utils/language.service';
 import { MatDividerModule } from '@angular/material/divider';
+import { TabTrackerService } from '../../services/utils/tab-tracker.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-nav-bottom-mobile',
@@ -18,39 +20,17 @@ import { MatDividerModule } from '@angular/material/divider';
 })
 export class NavBottomMobileComponent {
 
-  isProfilRouteActive = false;
-  isSocialRouteActive = false;
-  isSettingsRouteActive = false;
+  activeTabIndex$: Observable<number |null>;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private themeService: ThemeService,
     private langService: LanguageService,
-  ) {}
-
-  ngOnInit() {
-    this.isProfilRouteActive = this.checkIfRouteIsActive(['/certificates', '/user-profil']);
-    this.isSocialRouteActive = this.checkIfRouteIsActive(['/social']);
-    this.isSettingsRouteActive = this.checkIfRouteIsActive(['/account-settings']);
-
-    // Mise à jour automatique lors des changements de route
-    this.router.events.subscribe(event => {
-        if (event instanceof NavigationEnd) {
-            this.isProfilRouteActive = this.checkIfRouteIsActive(['/certificates', '/user-profil']);
-            this.isSocialRouteActive = this.checkIfRouteIsActive(['/social']); 
-            this.isSettingsRouteActive = this.checkIfRouteIsActive(['/account-settings']);
-        }
-    });
-}
-
-
-  private checkIfRouteIsActive(routesToCheck: string[]): boolean {
-    const currentUrl = this.router.url;
-    // Vérifie si l'URL actuelle correspond à l'une des routes
-    return routesToCheck.some(route => currentUrl.startsWith(route));
+    private tabTrackerService: TabTrackerService,
+  ) {
+    this.activeTabIndex$ = this.tabTrackerService.activeTabIndex$;
   }
-
 
   logout(): void {
     this.authService.logout();

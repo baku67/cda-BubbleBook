@@ -1,11 +1,10 @@
 <nav class="navBottomMobile">
 
+    <!-- les [ngClass]="{'router-link-active': (activeTabIndex$ | async) === index}" ne servent à rien pour l'instant ici car on a déjà le routerLinkActive d'Angular qui ajoute la class actif -->
     <a 
         [routerLink]="['/user-profil']" 
-        routerLinkActive="router-link-active" 
-        [routerLinkActiveOptions]="{ exact: true }" 
         class="navBottomMobile-a flex1"
-        [ngClass]="{'router-link-active': isProfilRouteActive}" 
+        [ngClass]="{'router-link-active': (activeTabIndex$ | async) === 0}" 
     >
         <div class="navBottomMobile-div">
             <mat-icon class="navBottomMobile-icon">
@@ -16,11 +15,11 @@
 
     <mat-divider [vertical]="true"></mat-divider>
 
+    <!-- les [ngClass]="{'router-link-active': (activeTabIndex$ | async) === index}" ne servent à rien pour l'instant ici car on a déjà le routerLinkActive d'Angular qui ajoute la class actif -->
     <a 
         [routerLink]="['/user-divelog']" 
-        routerLinkActive="router-link-active" 
-        [routerLinkActiveOptions]="{ exact: true }" 
         class="navBottomMobile-a flex1"
+        [ngClass]="{'router-link-active': (activeTabIndex$ | async) === 1}"  
     >
         <div class="navBottomMobile-div">
             <mat-icon class="navBottomMobile-icon">
@@ -31,11 +30,11 @@
 
     <mat-divider [vertical]="true"></mat-divider>
 
+    <!-- les [ngClass]="{'router-link-active': (activeTabIndex$ | async) === index}" ne servent à rien pour l'instant ici car on a déjà le routerLinkActive d'Angular qui ajoute la class actif -->
     <a 
         [routerLink]="['/social']" 
-        routerLinkActive="router-link-active" 
         class="navBottomMobile-a flex1"
-        [ngClass]="{'router-link-active': isSocialRouteActive}" 
+        [ngClass]="{'router-link-active': (activeTabIndex$ | async) === 2}"  
     >
         <div class="navBottomMobile-div">
             <mat-icon class="navBottomMobile-icon">
@@ -46,11 +45,11 @@
 
     <mat-divider [vertical]="true"></mat-divider>
 
-    <!-- Bouton-onglet "actif" lorsque route "/account-settings" active (comme un routerLinkActive)  -->
+    <!-- Ici nécessaire -->
     <button 
         [matMenuTriggerFor]="menu" 
         class="navBottomMobile-a flex1 custom-button"
-        [ngClass]="{'router-link-active': isSettingsRouteActive}" 
+        [ngClass]="{'router-link-active': (activeTabIndex$ | async) === 3}" 
     >
         <div class="flex1" style="height: 100%;">
             <div class="navBottomMobile-div">

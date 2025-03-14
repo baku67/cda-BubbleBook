@@ -15,12 +15,12 @@ $myapp-light-theme: mat.m2-define-light-theme((
   ),
   bg-color: (
     default: linear-gradient(160deg, #E3F2FD 0%, #E0F7FA 100%),
-    surfaces: #dfe6ff3b, // Couleur des surfaces (attention correspondance dans styles.css !!!)
+    surfaces: #eff1f785, // Couleur des surfaces (attention correspondance dans styles.css !!!)
     elements: rgb(1 4 45 / 90%),
     border: #dbdcdd
   ),
   matMenu-bgColor: (
-    default: #dfe6ff3b,
+    default: #eff1f785,
   )
 ));
 

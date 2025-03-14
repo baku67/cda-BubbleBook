@@ -61,6 +61,17 @@
     height: 100%;
     object-fit: cover;
 
+    overflow: visible; // parce que rotate (sinon osef)
+    position: relative; // parce que rotate (sinon osef)
+    bottom: 20px; // parce que rotate (sinon osef)
+    height: 105%; // parce que rotate (sinon osef)
+
+    // *** IMPORTANT *** //
+    // IMPORTANT Durée de la transition du slide Background lors de la navigation
+    // "ease-in-out" ou "ease" (rien d'autre)
+    transition: object-position 2s ease, transform 2s ease; 
+    // *** IMPORTANT  *** //
+
     filter: blur(4px) brightness(0.3) hue-rotate(5deg);
     opacity: 0;
     animation: image-fade-in 2s ease forwards, hueRotate 10s 2s ease infinite;
