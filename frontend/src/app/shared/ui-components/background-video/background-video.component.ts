@@ -26,6 +26,9 @@ export class BackgroundVideoComponent {
   isBgVideo$!: Observable<boolean>;
   vm$!: Observable<{ currentTheme: ThemeType, isBgVideo: boolean }>;
 
+  showSwordfish = false;  
+  private swordfishInterval!: ReturnType<typeof setInterval>;
+
   constructor(
     private themeService: ThemeService,
     private customizationService: CustomizationService,
@@ -36,12 +39,19 @@ export class BackgroundVideoComponent {
   }
 
   ngOnInit() {
+    // Calcul des cas de conditions combinés light/dark et toggleFish/toggleVideo etc...
     this.vm$ = combineLatest([
       this.themeService.currentTheme$,
       this.customizationService.isBgVideoState$
     ]).pipe(
       map(([currentTheme, isBgVideo]) => ({ currentTheme, isBgVideo }))
     );
+
+    // Swordfishes: Initialisation du cycle immédiatement
+    this.showSwordfishCycle(); 
+    this.swordfishInterval = setInterval(() => {
+      this.showSwordfishCycle();
+    }, 9000); 
   }
 
   ngAfterViewInit() {
@@ -79,5 +89,16 @@ export class BackgroundVideoComponent {
       video.muted = true;
       video.play();
     });
+  }
+
+  private showSwordfishCycle(): void {
+    this.showSwordfish = false; // Réinitialise pour redémarrer les animations CSS
+    setTimeout(() => {
+      this.showSwordfish = true; // Affiche les 3 swordfish ensemble
+    }, 50); // léger délai pour réinitialiser l'animation CSS
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.swordfishInterval);
   }
 }

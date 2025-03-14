@@ -99,6 +99,29 @@ body.dark-theme .loading-screen {
     background-color: var(--element-bg-color);
 }
 
+// LandingPage .pageContent 
+.pageContent-landingPage::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transition: box-shadow 0.5s ease, opacity 0.5s ease;
+    box-shadow: inset 0 0 0 5px rgba(0, 0, 0, 0.465); /* état initial (light-theme) */
+    opacity: 1;
+}
+
+body.dark-theme .pageContent-landingPage::before {
+    // animation: box-shadow-lp 1s 0s linear forwards; // test 
+    box-shadow: inset 0 0 0 1px #3ec0ec; /* changement fluide vers dark-theme */
+}
+// @keyframes box-shadow-lp {
+//     from {
+//         box-shadow: inset 0 0 0 185px #3ec0ec;
+//     }
+//     to {
+//         box-shadow: inset 0 0 0 1px #3ec0ec;
+//     }
+// }
 
 // SKELETON
 body.light-theme ngx-skeleton-loader .skeleton-loader.progress {

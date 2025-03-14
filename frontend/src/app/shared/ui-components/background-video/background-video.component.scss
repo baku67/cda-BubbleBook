@@ -703,7 +703,7 @@
 
   z-index: 1;
 
-  animation: moveWhaleShark 30000ms 5s infinite linear;
+  animation: whaleshark-move 30000ms 5s infinite linear;
   width: 600px;
   height: 600px;
 
@@ -711,8 +711,7 @@
   opacity: 0;
   transform: rotateZ(98deg);
 }
-
-@keyframes moveWhaleShark {
+@keyframes whaleshark-move {
   0% {
       offset-distance: 0%;
       opacity: 0;
@@ -745,4 +744,172 @@
       opacity: 0.5;
       offset-distance: 100%;
   }
+}
+
+
+
+/*  Tortue */
+.tortoise {
+    filter: blur(5px);
+    offset-path: path("M 866 595 C 524 494 155 241 -188 29");
+    offset-rotate: auto;
+
+    position: fixed;
+
+    top: -5%;
+    z-index: 1;
+
+    animation: tortoise-move 13500ms 2000ms infinite ease-in;
+    width: 0px;
+    height: 0px;
+
+    content:url("/assets/images/fishes/tortoise.png");
+    opacity: 0;
+    transform: rotateZ(178deg);
+
+}
+@keyframes tortoise-move {
+    0% {
+        offset-distance: 0%;
+        opacity: 0;
+        filter: blur(7px);
+        width: 0px;
+        height: 0px;
+
+    }
+    10% {
+        opacity: 0.4;
+    }
+    90% {
+        filter: blur(0px);
+        opacity: 0.7;
+    }
+    100% {
+        offset-distance: 100%;
+        opacity: 0.8;
+        filter: blur(0px);
+        width: 200px;
+        height: 200px;
+
+    }
+}
+
+
+
+
+/* Espadons avec intervals */
+.swordfish-1 {
+    /* https://yqnn.github.io/svg-path-editor/ */
+    /* From droite to gauche, trait */
+    /* offset-path: path("M 802 -40 C 430 65 98 182 -159 297"); */
+    offset-path: path("M 1323 383 C 960 461 377 333 -302 -201");
+    
+    offset-rotate: auto;
+
+    position: fixed;
+
+    top: 10%;
+    z-index: 1;
+
+    /* animation: swordfish-move 1300ms 3000ms 1 linear; */
+    animation: swordfish-move 3850ms 1 cubic-bezier(1,.66,.51,.98);
+
+    width: 172px;
+    height: 90px;
+
+    content:url("/assets/images/fishes/swordfish.png");
+    opacity: 0;
+    transform: rotateZ(172deg);
+
+    filter: invert(0%) blur(0px);
+}
+.swordfish-2 {
+    /* https://yqnn.github.io/svg-path-editor/ */
+    /* From droite to gauche, trait */
+    /* offset-path: path("M 802 -40 C 430 65 98 182 -159 297"); */
+    offset-path: path("M 1323 383 C 696 580 524 136 -302 -201");
+    
+    offset-rotate: auto;
+
+    position: fixed;
+
+    top: 10%;
+    z-index: 1;
+
+    /* animation: swordfish-move 1300ms 3000ms 1 linear; */
+    animation: swordfish-move 3850ms 420ms 1 cubic-bezier(1,.66,.51,.98);
+
+    width: 150px;
+    height: 90px;
+
+    content:url("/assets/images/fishes/swordfish.png");
+    opacity: 0;
+    transform: rotateZ(172deg);
+
+    filter: invert(0%) blur(0px);
+}
+.swordfish-3 {
+    /* https://yqnn.github.io/svg-path-editor/ */
+    /* From droite to gauche, trait */
+    /* offset-path: path("M 802 -40 C 430 65 98 182 -159 297"); */
+    offset-path: path("M 1323 383 C 840 327 722 12 -492 -110");
+    
+    offset-rotate: auto;
+
+    position: fixed;
+
+    top: 10%;
+    z-index: 1;
+
+    /* animation: swordfish-move 1300ms 3000ms 1 linear; */
+    animation: swordfish-move 3850ms 250ms 1 cubic-bezier(1,.66,.51,.98);
+
+    width: 129px;
+    height: 60px;
+
+    content:url("/assets/images/fishes/swordfish.png");
+    opacity: 0;
+    transform: rotateZ(172deg);
+
+    filter: invert(0%);
+}
+@keyframes swordfish-move {
+    0% {
+        offset-distance: 0%;
+        opacity: 0;
+        filter: invert(0%);
+    }
+    20% {
+        opacity: 0.7;
+        filter: invert(0%);
+    }
+    30% {
+        opacity: 0.5;
+        filter: invert(22%);
+    }
+    40% {
+        opacity: 0.7;
+        filter: invert(0%);
+    }
+    50% {
+        opacity: 0.5;
+        filter: invert(22%);
+    }
+    60% {
+        opacity: 0.7;
+        filter: invert(0%);
+    } 
+    70% {
+        opacity: 0.5;
+        filter: invert(22%);
+    }
+    80% {
+        opacity: 0.7;
+        filter: invert(0%);
+    }
+    100% {
+        opacity: 0;
+        filter: invert(22%);
+        offset-distance: 100%;
+    }
 }

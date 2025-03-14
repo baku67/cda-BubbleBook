@@ -16,7 +16,11 @@
 
 
 .pageContent-landingPage {
-  border: 5px solid rgba(0, 0, 0, 0.265);
+  // light mode border sombre (dans styles.scss):
+  // border: 5px solid rgba(0, 0, 0, 0.265);
+  // dark-theme border fluo fine (dans styles.scss):
+  // border: 1px solid #3ec0ec;
+
   padding: 13px 13px;
 }
 
