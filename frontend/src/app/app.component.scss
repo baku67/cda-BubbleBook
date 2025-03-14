@@ -9,8 +9,9 @@
 
 .UxMenuBtn {
     position: absolute;
+    bottom: 0;
     right: 0;
-    color: var(--color);
+    color: var(--white);
     z-index: 999999999;
     padding: 10px;
 
@@ -28,7 +29,14 @@ mat-menu {
     right: 0;
 }
 
-
+.barredDiv {
+    width: 21px;
+    height: 2px;
+    background-color: white;
+    position: relative;
+    transform: rotate(126deg);
+    bottom: 11px;
+}
 
 .loading-screen {
     width: 100%;

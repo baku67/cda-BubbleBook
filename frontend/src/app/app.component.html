@@ -24,6 +24,7 @@
   <ng-template #appContent>
     
     <div class="globalMain">
+
       <div 
         *ngIf="showUxButtons" 
         [matMenuTriggerFor]="menuUxButtons"
@@ -31,10 +32,30 @@
       >
         <mat-icon class="material-icons-outlined">settings</mat-icon>
       </div>
-      <mat-menu #menuUxButtons="matMenu" class="app-div-settings" style="display: inline-flex; flex-direction: column;">
+
+      <mat-menu #menuUxButtons="matMenu" class="matSubMenu">
+
         <app-language-switch />
         <app-theme-switch />
+
+        <ng-container *ngIf="currentTheme$ | async as currentTheme">
+          <!-- DT: poisson state btn: -->
+          <button mat-button *ngIf="currentTheme === 'dark-theme'" (click)="toggleFishDisplay()" >
+            <fa-icon 
+              [icon]="fishIcon"
+            ></fa-icon>
+            <div [class]="(displayFish$ | async) ? '' : 'barredDiv'"></div>
+          </button>
+          <!-- LT: video state btn: -->
+          <button mat-button *ngIf="currentTheme === 'light-theme'" (click)="toggleBgVideo()">
+            <fa-icon 
+              [icon]="(isBgVideo$ | async) ? videoIcon : videoIconSlash"
+            ></fa-icon>
+          </button>
+        </ng-container>
+
       </mat-menu>
+
 
       <app-header *ngIf="showHeader" />
 

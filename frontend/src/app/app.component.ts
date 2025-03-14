@@ -3,6 +3,11 @@ import { AuthService } from './features/auth/services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { LandingPageService } from './features/landing-page/service/landing-page.service';
 import { FlashMessageService } from './shared/services/utils/flash-message.service';
+import { ThemeType } from './shared/models/ThemeType.model';
+import { Observable } from 'rxjs';
+import { ThemeService } from './shared/services/utils/theme.service';
+import { faFish, faVideo, faVideoSlash } from '@fortawesome/free-solid-svg-icons';
+import { CustomizationService } from './shared/services/utils/customization.service';
 
 
 @Component({
@@ -12,27 +17,38 @@ import { FlashMessageService } from './shared/services/utils/flash-message.servi
 })
 export class AppComponent implements OnInit {
 
-  title = 'BubbleBook';
-  isLoggedIn = false;
+  public title = 'BubbleBook';
+  public isLoggedIn = false;
 
-  isInitializingAuth = true;
-  isInitializingVideoBg = true;
+  public isInitializingAuth = true;
+  public isInitializingVideoBg = true;
 
   // Inputs du FlashMessageComponent:
-  flashMessage: string | null = null;
-  flashType: 'success' | 'error' | 'info' = 'info';
-  flashMatIcon: 'check_circle' | 'warning' | 'info' | null = null;
+  public flashMessage: string | null = null;
+  public flashType: 'success' | 'error' | 'info' = 'info';
+  public flashMatIcon: 'check_circle' | 'warning' | 'info' | null = null;
 
   // Conditions d'affichage : Pour spécifier quels routes sans PageHeaderComponent ou/et FooterComponent etc...
-  showUxButtons = true;
-  showHeader = true;
-  showFooter = true;
-  showNavBottomMobile = false;
+  public showUxButtons = true;
+  public showHeader = true;
+  public showFooter = true;
+  public showNavBottomMobile = false;
+
+  public currentTheme$: Observable<ThemeType>;
+  public displayFish$!: Observable<boolean>;
+  public isBgVideo$!: Observable<boolean>;
+
+  public fishIcon = faFish;
+  // public forbidIcon = faBan;
+  public videoIcon = faVideo;
+  public videoIconSlash = faVideoSlash;
 
   constructor(
     private landingPageService: LandingPageService,
     private authService: AuthService,
     private flashMessageService: FlashMessageService,
+    private themeService: ThemeService,
+    private customizationService: CustomizationService,
     private router: Router
   ) {
     this.router.events.subscribe((event) => {
@@ -59,6 +75,9 @@ export class AppComponent implements OnInit {
         this.showNavBottomMobile = !noNavBottomMobileRoutes.includes(event.urlAfterRedirects);
       }
     });
+    this.currentTheme$ = this.themeService.currentTheme$;
+    this.displayFish$ = this.customizationService.displayFishState$;
+    this.isBgVideo$ = this.customizationService.isBgVideoState$;
   }
 
   ngOnInit() {
@@ -103,5 +122,13 @@ export class AppComponent implements OnInit {
   onVideoLoaded() {
     // console.log("🚀 [AppComponent] Vidéo de fond chargée !");
     this.landingPageService.setVideoLoaded(true);
+  }
+
+  toggleFishDisplay(): void {
+    this.customizationService.toggleDisplayFish();
+  }
+  
+  toggleBgVideo(): void {
+    this.customizationService.toggleBgVideo();
   }
 }

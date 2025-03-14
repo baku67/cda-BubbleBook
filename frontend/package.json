@@ -22,6 +22,8 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@fortawesome/angular-fontawesome": "^0.15.0",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@ngx-translate/core": "^16.0.3",
     "@ngx-translate/http-loader": "^16.0.0",
     "ngx-skeleton-loader": "^10.0.0",

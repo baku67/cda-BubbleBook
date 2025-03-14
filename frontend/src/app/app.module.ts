@@ -53,6 +53,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SocialPageComponent } from './features/social/components/social-page/social-page.component';
 import { UserSearchComponent } from './features/social/components/user-search/user-search.component';
 import { OtherUserProfilComponent } from './features/social/components/other-user-profil/other-user-profil.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -132,6 +133,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatExpansionModule,
     MatDividerModule,
     MatTabsModule,
+    FontAwesomeModule,
 ],
   providers: [
     { 

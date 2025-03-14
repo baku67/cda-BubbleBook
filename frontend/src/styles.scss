@@ -56,11 +56,14 @@ body.dark-theme {
 // NAV et NavMenu
 body.light-theme .matSubMenu,
 body.light-theme .navBottomMobile {
-    background-color: var(--element-bg-color);
+    background-color: rgb(243, 245, 250);
 }
 body.dark-theme .matSubMenu,
 body.dark-theme .navBottomMobile {
     background-color: var(--element-bg-color);
+}
+body.dark-theme .matSubMenu {
+    border: 1px solid var(--primary-color);
 }
 
 // CARD & SURFACE
