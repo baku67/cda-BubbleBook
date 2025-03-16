@@ -1,10 +1,10 @@
 <nav class="navBottomMobile">
 
-    <!-- les [ngClass]="{'router-link-active': (activeTabIndex$ | async) === index}" ne servent à rien pour l'instant ici car on a déjà le routerLinkActive d'Angular qui ajoute la class actif -->
     <a 
         [routerLink]="['/user-profil']" 
         class="navBottomMobile-a flex1"
         [ngClass]="{'router-link-active': (activeTabIndex$ | async) === 0}" 
+        (click)="triggerBackgroundPreSlide(0)"
     >
         <div class="navBottomMobile-div">
             <mat-icon class="navBottomMobile-icon">
@@ -15,11 +15,11 @@
 
     <mat-divider [vertical]="true"></mat-divider>
 
-    <!-- les [ngClass]="{'router-link-active': (activeTabIndex$ | async) === index}" ne servent à rien pour l'instant ici car on a déjà le routerLinkActive d'Angular qui ajoute la class actif -->
     <a 
         [routerLink]="['/user-divelog']" 
         class="navBottomMobile-a flex1"
         [ngClass]="{'router-link-active': (activeTabIndex$ | async) === 1}"  
+        (click)="triggerBackgroundPreSlide(1)"
     >
         <div class="navBottomMobile-div">
             <mat-icon class="navBottomMobile-icon">
@@ -30,11 +30,11 @@
 
     <mat-divider [vertical]="true"></mat-divider>
 
-    <!-- les [ngClass]="{'router-link-active': (activeTabIndex$ | async) === index}" ne servent à rien pour l'instant ici car on a déjà le routerLinkActive d'Angular qui ajoute la class actif -->
     <a 
         [routerLink]="['/social']" 
         class="navBottomMobile-a flex1"
         [ngClass]="{'router-link-active': (activeTabIndex$ | async) === 2}"  
+        (click)="triggerBackgroundPreSlide(2)"
     >
         <div class="navBottomMobile-div">
             <mat-icon class="navBottomMobile-icon">
@@ -45,7 +45,6 @@
 
     <mat-divider [vertical]="true"></mat-divider>
 
-    <!-- Ici nécessaire -->
     <button 
         [matMenuTriggerFor]="menu" 
         class="navBottomMobile-a flex1 custom-button"
@@ -74,7 +73,7 @@
             <mat-icon>translate</mat-icon>
             <span>{{ "LANG" | translate }}</span>
         </button>
-        <!-- Redirection route/page account-settings (vie privée, mentions légales, suppression compte, changement mdp, etc...) -->
+        <!-- Ajouter le triggerBackgroundPreSlide(3) dans la méthode navigateAccountSettings() -->
         <button mat-menu-item (click)="navigateAccountSettings()">
             <mat-icon>manage_accounts</mat-icon>
             <span>{{ "ACCOUNT" | translate }}</span>

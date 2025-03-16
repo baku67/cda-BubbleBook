@@ -21,6 +21,12 @@ export class TabTrackerService {
     });
   }
 
+  // Pour onClickNav index immédiat BGslide avant NavigationEnd qui est délayé
+  public setActiveTabIndex(index: number | null): void {
+    this.activeTabIndex.next(index);
+    this.storeTabIndex(index);
+  }
+
   private updateActiveTab(url: string) {
     const tabMapping: { [index: number]: string[] } = {
       0: ['/certificates', '/user-profil'],

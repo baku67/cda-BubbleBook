@@ -44,7 +44,12 @@ export class NavBottomMobileComponent {
     this.langService.switchLanguage();
   }
 
+  triggerBackgroundPreSlide(tabIndex: number): void {
+    this.tabTrackerService.setActiveTabIndex(tabIndex);
+  }
+
   navigateAccountSettings(): void {
+    this.triggerBackgroundPreSlide(3);
     this.router.navigate(['/account-settings']); 
   }
 }

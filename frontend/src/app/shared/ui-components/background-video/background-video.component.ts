@@ -26,7 +26,6 @@ export class BackgroundVideoComponent {
   displayFish$!: Observable<boolean>;
   isFishAnimatingOut = false;
   bgObjectPosition = '0%'; // .background-img object-position pour effet slide quand nav
-  bgRotate = '10deg';
   // light-theme:
   isBgVideo$!: Observable<boolean>;
   vm$!: Observable<{ currentTheme: ThemeType, isBgVideo: boolean }>;
@@ -63,7 +62,7 @@ export class BackgroundVideoComponent {
 
     // Slide Background:
     this.activeTabIndex$.subscribe(index => {
-      console.log('🟢 [BackgroundVideoComponent] Onglet actif mis à jour:', index);
+      console.log('🟢 [BackgroundVideoComponent] Onglet actif mis à jour immédiatement:', index);
       this.updateObjectPosition(index);
     });
   }
@@ -72,13 +71,10 @@ export class BackgroundVideoComponent {
   private updateObjectPosition(index: number | null) {
     // C'est chiant parce ces valeurs correspondent au bg dark-theme de base que j'avais mis avant qu'on pouvait choisir l'image (dépend des dimensions): "assets/images/backgrounds/kelp.jpg"
     const positions = ['30%', '40%', '50%', '60%', '70%']; 
-    const rotates = ['2deg', '1deg', '0deg', '-1deg', '-2deg']; 
     this.bgObjectPosition = positions[index ?? 0]; // Si null, mettre 0% (gauche)
-    this.bgRotate = rotates[index ?? 0]; // Si null, mettre 10deg (gauche)
 
     if (this.backgroundImgDarkTheme) {
       this.renderer.setStyle(this.backgroundImgDarkTheme.nativeElement, 'object-position', this.bgObjectPosition);
-      this.renderer.setStyle(this.backgroundImgDarkTheme.nativeElement, 'transform', `rotate(${this.bgRotate})`);
     }
   }
 
