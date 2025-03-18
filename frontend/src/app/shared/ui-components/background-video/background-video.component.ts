@@ -54,6 +54,15 @@ export class BackgroundVideoComponent {
       map(([currentTheme, isBgVideo]) => ({ currentTheme, isBgVideo }))
     );
 
+    // Écoute les changements du displayFishSubject pour déclencher l'animation de fade-out aquarium
+    this.displayFish$.subscribe((isDisplayed) => {
+      if (!isDisplayed && !this.isFishAnimatingOut) {
+        // déclenche l'animation fade-out seulement si on désactive les poissons
+        this.isFishAnimatingOut = true;
+        setTimeout(() => this.isFishAnimatingOut = false, 1510); // .fadeOutAquarium Duration
+      }
+    });
+
     // Swordfishes: Initialisation du cycle immédiatement
     this.showSwordfishCycle(); 
     this.swordfishInterval = setInterval(() => {
