@@ -8,6 +8,8 @@
         </mat-panel-title>
     </mat-expansion-panel-header>
 
+    <mat-divider class="privacy-divider"></mat-divider>
+
     <div class="visibility-section">
 
         <!-- Profil visibility -->
@@ -21,9 +23,6 @@
                 [isRequestSending]="isRequestSending">
             </app-choice>
         </div>
-
-        <!-- <mat-icon *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.ALL || selectedProfilPrivacyOption === privacyOptionsEnum.FRIENDS_ONLY">keyboard_arrow_down</mat-icon> -->
-        <!-- <mat-divider class="privacy-divider"></mat-divider> -->
 
         <div class="subPrivacySettings-div" *ngIf="selectedProfilPrivacyOption === privacyOptionsEnum.ALL || selectedProfilPrivacyOption === privacyOptionsEnum.FRIENDS_ONLY">
             

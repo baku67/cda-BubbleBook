@@ -60,11 +60,12 @@
 
 
 .privacy-divider {
-    margin-top: 10px;
-    width: 65%;
+    width: 75%;
     position: relative;
+    margin: 5px 0px;
     left: 50%;
     transform: translateX(-50%);
+    opacity: 0.3;
 }
 
 ::ng-deep .mat-expansion-panel-header {

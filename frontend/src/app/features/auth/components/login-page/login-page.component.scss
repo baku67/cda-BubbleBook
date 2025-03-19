@@ -1,13 +1,13 @@
 :host {
-  /* Pour footer */
-  // min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-  
-div {
-  margin-bottom: 15px;
+
+.form-container {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 label {
@@ -21,5 +21,28 @@ input {
 }
 
 
-  
-  
+//***  ISO register
+.toggles-container {
+  margin: 7px 10px 20px 10px;    
+}
+
+.form-btns-container {
+  display: inline-flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 3px;
+  margin-top: 3px;
+  margin-bottom: 2px;
+}
+.secondary-btn {
+  width: 100%;
+  padding: 24px 0px 18px 0px;
+  height: auto;
+}
+
+.btn-underlined {
+  text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-color: #6f91a51f;
+}
+// FIN ISO

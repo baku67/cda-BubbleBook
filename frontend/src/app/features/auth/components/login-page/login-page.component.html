@@ -26,7 +26,7 @@
       ></app-alert-banner>
       
 
-      <div>
+      <div class="form-container">
 
         <div>
           <mat-form-field appearance="outline" class="matFieldInput">
@@ -72,25 +72,30 @@
 
         </div>
 
-
-        <div>
-          <mat-slide-toggle formControlName="rememberMe">{{ "REMEMBER_ME" | translate }}</mat-slide-toggle>
+        <div class="toggles-container"> 
+          <div>
+            <mat-slide-toggle formControlName="rememberMe">{{ "REMEMBER_ME" | translate }}</mat-slide-toggle>
+          </div>
         </div>
 
-        <!-- Submit & Spinner -->
-        <button 
-          mat-flat-button 
-          color="primary"
-          class="cta-btn-primary bigButton" 
-          type="submit" 
-          [disabled]="loginForm.invalid"
-        >
-          <span>{{ "LOGIN" | translate }}</span>
-        </button>
-
-        <a [routerLink]="['/register']" mat-button>
-          <span class="btn-underlined">{{ "NOT_REGISTERED_YET" | translate }}</span>
-        </a>
+        <div class="form-btns-container">
+          <!-- Submit & Spinner -->
+          <div>
+            <button 
+              mat-flat-button 
+              color="primary"
+              class="cta-btn-primary bigButton" 
+              type="submit" 
+              [disabled]="loginForm.invalid"
+            >
+              <span>{{ "LOGIN" | translate }}</span>
+            </button>
+          </div>
+  
+          <a [routerLink]="['/register']" mat-button class="secondary-btn">
+            <span class="btn-underlined">{{ "NOT_REGISTERED_YET" | translate }}</span>
+          </a>
+        </div>
 
       </div>
 
