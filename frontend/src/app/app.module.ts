@@ -54,9 +54,14 @@ import { SocialPageComponent } from './features/social/components/social-page/so
 import { UserSearchComponent } from './features/social/components/user-search/user-search.component';
 import { OtherUserProfilComponent } from './features/social/components/other-user-profil/other-user-profil.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ThemePrimaryColorService } from './shared/services/utils/theme-primary-color.service';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
+}
+
+export function initializeThemeFactory(themeService: ThemePrimaryColorService) {
+  return () => themeService.applyStoredColor();
 }
 
 // Fonction qui crée une instance de TranslateHttpLoader
@@ -149,6 +154,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       provide: APP_INITIALIZER,
       useFactory: initializeAuthFactory,
       deps: [AuthService],
+      multi: true,
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeThemeFactory,
+      deps: [ThemePrimaryColorService],
       multi: true,
     },
     MatDatepickerModule,

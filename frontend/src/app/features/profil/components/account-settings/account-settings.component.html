@@ -114,8 +114,24 @@
                         </p>
 
                         <!-- Choix Image -->
-
-                        <!-- Choix prédéfinis de couleurs => couleur primaire (néon, titres, icones, navBtn, Btns, poissons? etc) -->
+                        
+                    
+                        <!-- Choix couleurs interface (DT) ou selection color -->
+                        <div class="interface-DT-primary-color-selection">
+                            <div class="predefined-colors-div">
+                                <span>Couleurs prédéfinies :</span>
+                                <div class="colors-container">
+                                    <button 
+                                        *ngFor="let color of DTprimaryColors"
+                                        class="color-choice-btn"
+                                        [style.background]="color"
+                                        [ngClass]="{ 'selected-color': color === selectedDTprimaryColor }"
+                                        (click)="changePrimaryColor(color)"
+                                    > </button>
+                                    <input class="color-input" type="color" (ngModelChange)="changePrimaryColor($event)" [ngModel]="selectedDTprimaryColor">
+                                </div>
+                            </div>
+                        </div>
 
                     </ng-container>
     

@@ -50,7 +50,6 @@ body.light-theme {
 body.dark-theme {
     color: #F5F5F5 !important;
     background-image: map-get(map-get($myapp-dark-theme, bg-color), default); 
-    // background-image: var(--element-bg-color);
 }
 
 // NAV et NavMenu

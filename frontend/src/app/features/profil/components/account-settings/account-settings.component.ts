@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { ThemeType } from '../../../../shared/models/ThemeType.model';
 import { ThemeService } from '../../../../shared/services/utils/theme.service';
 import { CustomizationService } from '../../../../shared/services/utils/customization.service';
+import { ThemePrimaryColorService } from '../../../../shared/services/utils/theme-primary-color.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -26,6 +27,9 @@ export class AccountSettingsComponent implements OnInit {
     displayFish$!: Observable<boolean>;
     isBgVideo$!: Observable<boolean>;
 
+    DTprimaryColors : string[] = ['#3ec0ec', '#ff6b6b', '#f9c74f', '#2cedd6', '#f4a261'];
+    selectedDTprimaryColor: string = '#3ec0ec'; // Valeur par défaut pour themePrimaryColor
+
     isAnimatingFadeOut = false;
 
     constructor(
@@ -34,6 +38,7 @@ export class AccountSettingsComponent implements OnInit {
       private animationService: AnimationService,
       private themeService: ThemeService,
       private customizationService: CustomizationService,
+      private themePrimaryColorService: ThemePrimaryColorService,
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
         this.isAnimatingFadeOut = animating;
@@ -45,6 +50,7 @@ export class AccountSettingsComponent implements OnInit {
 
     ngOnInit(): void { 
       this.user$ = this.userService.getCurrentUser();
+      this.selectedDTprimaryColor = this.themePrimaryColorService.getStoredColor();
     }
 
     resendConfirmationEmail(userEmail: string): void {
@@ -72,5 +78,11 @@ export class AccountSettingsComponent implements OnInit {
     
     toggleBgVideo(): void {
       this.customizationService.toggleBgVideo();
+    }
+
+    changePrimaryColor(color: string): void {
+      if (!color) return;
+      this.selectedDTprimaryColor = color;
+      this.themePrimaryColorService.setPrimaryColor(color);
     }
 }
