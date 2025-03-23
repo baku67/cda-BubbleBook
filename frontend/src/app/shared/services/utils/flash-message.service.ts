@@ -13,7 +13,7 @@ export class FlashMessageService {
 
   // NOTYF npm package
   private notyf = new Notyf({
-    duration: 40000,
+    duration: 4000,
     ripple: true,
     dismissible: true,
     position: { x: 'right', y: 'bottom' },
