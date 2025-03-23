@@ -60,15 +60,11 @@ export class PrivacySettingsComponent implements OnInit {
         this.selectedCertificatesPrivacyOption = this.convertToPrivacyOption(updatedUser.certificatesPrivacy) || PrivacyOption.NO_ONE;
         this.selectedGalleryPrivacyOption = this.convertToPrivacyOption(updatedUser.galleryPrivacy) || PrivacyOption.NO_ONE;
         
-        this.translateService.get('PROFILE_UPDATE_SUCCESS').subscribe((message: string) => {
-          this.flashMessageService.showMessage(message, 'success', 'check_circle');
-        });
+        this.flashMessageService.success('PROFILE_UPDATE_SUCCESS');
       },
       error: () => {
         this.isRequestSending = false;
-        this.translateService.get('PROFILE_UPDATE_ERROR').subscribe((message: string) => {
-          this.flashMessageService.showMessage(message, 'error', 'warning');
-        });
+        this.flashMessageService.error('PROFILE_UPDATE_ERROR');
       }
     });
   }

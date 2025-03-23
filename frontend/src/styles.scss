@@ -157,6 +157,23 @@ body.dark-theme .pageContent-landingPage::before {
 // }
 
 
+/* Décalage des notifs "Notyf" pour navBar */
+.notyf {
+    top: auto !important;
+    bottom: 57px !important; 
+}
+.notyf__icon i.material-icons {
+    font-size: 24px;
+    color: white !important;
+    position: relative;
+    bottom: -2px;
+}
+.notyf__toast--lower {
+    // width: 98% !important; // je sais pas trop
+    width: 100% !important;
+    margin: 7px auto 0 auto !important; // gap entre les notifs + centré
+}
+
 
 // SKELETON
 body.light-theme ngx-skeleton-loader .skeleton-loader.progress {

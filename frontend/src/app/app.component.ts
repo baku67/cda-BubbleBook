@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './features/auth/services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { LandingPageService } from './features/landing-page/service/landing-page.service';
-import { FlashMessageService } from './shared/services/utils/flash-message.service';
 import { ThemeType } from './shared/models/ThemeType.model';
 import { Observable } from 'rxjs';
 import { ThemeService } from './shared/services/utils/theme.service';
@@ -46,7 +45,6 @@ export class AppComponent implements OnInit {
   constructor(
     private landingPageService: LandingPageService,
     private authService: AuthService,
-    private flashMessageService: FlashMessageService,
     private themeService: ThemeService,
     private customizationService: CustomizationService,
     private router: Router
@@ -94,14 +92,6 @@ export class AppComponent implements OnInit {
       this.isLoggedIn = isLoggedIn;
     });
 
-    this.flashMessageService.getMessage().subscribe((data) => {
-      if (data) {
-        this.flashMessage = data.message;
-        this.flashType = data.type;
-        this.flashMatIcon = data.matIcon;
-      } else this.flashMessage = null;
-    });
-  
     // Initialiser l'authentification (délais gérés plus précisément dans le authService)
     this.authService.initializeAuth().pipe(
     ).subscribe((isAuthenticated) => {

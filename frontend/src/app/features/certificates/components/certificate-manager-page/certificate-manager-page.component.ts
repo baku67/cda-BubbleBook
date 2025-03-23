@@ -109,15 +109,10 @@ export class CertificateManagerPageComponent implements OnInit{
 
     this.certificateService.updateUserCertificatesOrder(updatedOrder).subscribe({
       next: () => {
-        this.translateService.get('CERTIFS_REORDER_SUCCESS').subscribe((message: string) => {
-          this.flashMessageService.showMessage(message, 'success', 'check_circle');
-        });
+        this.flashMessageService.success('CERTIFS_REORDER_SUCCESS');
       },
-      error: (err: any) => {
-        console.error('Error updating order', err)
-        this.translateService.get('CERTIFS_REORDER_ERROR').subscribe((message: string) => {
-          this.flashMessageService.showMessage(message, 'error', 'warning');
-        });
+      error: () => {
+        this.flashMessageService.error('CERTIFS_REORDER_ERROR');
       },
     });
   }

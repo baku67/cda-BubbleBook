@@ -1,42 +1,65 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css'; // important pour les styles !
+import { TranslateService } from '@ngx-translate/core';
 
-interface FlashMessage {
-    message: string;
-    type: 'success' | 'error' | 'info';
-    matIcon: 'check_circle' | 'warning' | 'info';
-    isVisible: boolean;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class FlashMessageService {
-  private messageSubject = new BehaviorSubject<FlashMessage  | null>(null);
 
-  getMessage() {
-    return this.messageSubject.asObservable();
+  constructor(private translate: TranslateService) { }
+
+  // NOTYF npm package
+  private notyf = new Notyf({
+    duration: 40000,
+    ripple: true,
+    dismissible: true,
+    position: { x: 'right', y: 'bottom' },
+    types: [
+      {
+        type: 'success',
+        background: '#4caf50',
+        icon: {
+          className: 'material-icons',
+          tagName: 'i',
+          text: 'check_circle'
+        }
+      },
+      {
+        type: 'error',
+        background: '#f44336',
+        icon: {
+          className: 'material-icons',
+          tagName: 'i',
+          text: 'error_outline'
+        }
+      },
+      {
+        type: 'info',
+        background: '#2196f3',
+        icon: {
+          className: 'material-icons',
+          tagName: 'i',
+          text: 'info'
+        }
+      }
+    ]
+  });
+
+  success(key: string, params?: any) {
+    const translated = this.translate.instant(key, params);
+    this.notyf.success(translated);
   }
-
-  showMessage(message: string, type: 'success' | 'error' | 'info' = 'info', matIcon: 'check_circle' | 'warning' | 'info'): void {
-    const flashMessage: FlashMessage = { message, type, matIcon, isVisible: true };
-    this.messageSubject.next(flashMessage);
-
-    // Planifie la disparition après 3 secondes
-    setTimeout(() => {
-      this.hideMessage();
-    }, 300000);
+  
+  error(key: string, params?: any) {
+    const translated = this.translate.instant(key, params);
+    this.notyf.error(translated);
   }
-
-  hideMessage(): void {
-    const currentMessage = this.messageSubject.value;
-    if (currentMessage) {
-      this.messageSubject.next({ ...currentMessage, isVisible: false });
-    }
-
-    // Supprime complètement le message après une animation de 500ms
-    setTimeout(() => {
-      this.messageSubject.next(null);
-    }, 500);
+  
+  info(key: string, params?: any) {
+    const translated = this.translate.instant(key, params);
+    this.notyf.open({ type: 'info', message: translated });
   }
 }

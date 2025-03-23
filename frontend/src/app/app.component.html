@@ -65,9 +65,6 @@
       <!-- BG Vidéo -->
       <app-background-video (videoLoaded)="onVideoLoaded()"></app-background-video>
       
-      <!-- Flash-message -->
-      <app-flash-message *ngIf="flashMessage" [message]="flashMessage" [type]="flashType" [matIcon]="flashMatIcon"></app-flash-message>
-
       <app-nav-bottom-mobile *ngIf="showNavBottomMobile && isLoggedIn" />
     </div>
   </ng-template>
