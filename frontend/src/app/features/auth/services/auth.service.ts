@@ -73,14 +73,14 @@ export class AuthService {
         this.tokenService.clearAccessToken();
         this.loggedIn$.next(false);
         this.router.navigate(['/login']); // Redirige vers la page de login
-        setTimeout(() => this.isInitializingAuth$.next(false), 2000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
+        setTimeout(() => this.isInitializingAuth$.next(false), 3000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
       },
       error: (error) => {
         // console.warn('Erreur lors de la déconnexion, nettoyage local des tokens.');
         this.tokenService.clearAccessToken();
         this.loggedIn$.next(false);
         this.router.navigate(['/login']);      
-        setTimeout(() => this.isInitializingAuth$.next(false), 2000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
+        setTimeout(() => this.isInitializingAuth$.next(false), 3000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
       }
     });
   }
@@ -136,7 +136,7 @@ export class AuthService {
               map(() => false)
             );
           }),
-          tap(() => setTimeout(() => this.isInitializingAuth$.next(false), 2000)) // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
+          tap(() => setTimeout(() => this.isInitializingAuth$.next(false), 3000)) // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
         );
       } else {
         console.log("Aucun token et rememberMe désactivé. Utilisateur non authentifié.");
@@ -165,7 +165,7 @@ export class AuthService {
             map(() => false)
           );
         }),
-        tap(() => setTimeout(() => this.isInitializingAuth$.next(false), 2000)) // // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
+        tap(() => setTimeout(() => this.isInitializingAuth$.next(false), 3000)) // // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
       );
     }
   

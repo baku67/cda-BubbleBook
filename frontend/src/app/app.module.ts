@@ -55,6 +55,7 @@ import { UserSearchComponent } from './features/social/components/user-search/us
 import { OtherUserProfilComponent } from './features/social/components/other-user-profil/other-user-profil.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ThemePrimaryColorService } from './shared/services/utils/theme-primary-color.service';
+import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -139,6 +140,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatDividerModule,
     MatTabsModule,
     FontAwesomeModule,
+    LottieComponent,
 ],
   providers: [
     { 
@@ -162,6 +164,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       deps: [ThemePrimaryColorService],
       multi: true,
     },
+    provideLottieOptions({
+      player: () => import('lottie-web'),
+    }),
     MatDatepickerModule,
   ],
   bootstrap: [AppComponent],

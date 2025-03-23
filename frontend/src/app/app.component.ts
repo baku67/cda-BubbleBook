@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 import { ThemeService } from './shared/services/utils/theme.service';
 import { faFish, faVideo, faVideoSlash } from '@fortawesome/free-solid-svg-icons';
 import { CustomizationService } from './shared/services/utils/customization.service';
-
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-root',
@@ -107,6 +108,16 @@ export class AppComponent implements OnInit {
         }
       }
     });
+  }
+
+  // Animation Loader global Lottie:
+  options: AnimationOptions = {
+    path: '/assets/Lottie-animations/loader-water.json',
+    loop: true,
+    autoplay: true,
+  };
+  animationCreated(animationItem: AnimationItem): void {
+    console.log(animationItem);
   }
 
   onVideoLoaded() {
