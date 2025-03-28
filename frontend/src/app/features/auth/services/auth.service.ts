@@ -72,7 +72,7 @@ export class AuthService {
         // Nettoyer les tokens et mettre à jour l'état de l'application
         this.tokenService.clearAccessToken();
         this.loggedIn$.next(false);
-        this.router.navigate(['/login']); // Redirige vers la page de login
+        this.router.navigate(['/']); 
         setTimeout(() => this.isInitializingAuth$.next(false), 3000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
       },
       error: (error) => {
