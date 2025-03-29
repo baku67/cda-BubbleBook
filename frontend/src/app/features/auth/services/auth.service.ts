@@ -73,14 +73,14 @@ export class AuthService {
         this.tokenService.clearAccessToken();
         this.loggedIn$.next(false);
         this.router.navigate(['/']); 
-        setTimeout(() => this.isInitializingAuth$.next(false), 3000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
+        setTimeout(() => this.isInitializingAuth$.next(false), 4000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
       },
       error: (error) => {
         // console.warn('Erreur lors de la déconnexion, nettoyage local des tokens.');
         this.tokenService.clearAccessToken();
         this.loggedIn$.next(false);
         this.router.navigate(['/login']);      
-        setTimeout(() => this.isInitializingAuth$.next(false), 3000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
+        setTimeout(() => this.isInitializingAuth$.next(false), 4000); // Désactive après un petit Délai minimum (friction positive pour l'écran de chargement)
       }
     });
   }
@@ -119,14 +119,14 @@ export class AuthService {
   
     if (!accessToken) {
       if (rememberMe) {
-        // console.log("Aucun accessToken trouvé, mais rememberMe activé. Tentative de rafraîchissement...");
+        console.log("Aucun accessToken trouvé, mais rememberMe activé. Tentative de rafraîchissement... \n..BipBoup");
         return this.refreshAccessToken().pipe(
           tap(() => {
             // console.log("Token rafraîchi avec succès")
           }),
           map(() => true),
           catchError(() => {
-            // console.log("Échec du rafraîchissement du token");
+            console.log("Échec du rafraîchissement du token");
             this.tokenService.clearAccessToken();
             this.loggedIn$.next(false);
   
@@ -136,12 +136,11 @@ export class AuthService {
               map(() => false)
             );
           }),
-          tap(() => setTimeout(() => this.isInitializingAuth$.next(false), 3000)) // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
+          tap(() => setTimeout(() => this.isInitializingAuth$.next(false), 4000)) // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
         );
       } else {
         console.log("Aucun token et rememberMe désactivé. Utilisateur non authentifié.");
         this.isInitializingAuth$.next(false); // pas de délai minimal pour éviter un écran de chargement trop court
-        // setTimeout(() => this.isInitializingAuth$.next(false), 10000); // test
         return of(false); 
       }
     }
@@ -152,11 +151,10 @@ export class AuthService {
   
       return this.refreshAccessToken().pipe(
         tap(() => {
-          // console.log("Token rafraîchi avec succès")
+          console.log("Token rafraîchi avec succès") 
         }),
         map(() => true),
         catchError(() => {
-          // console.log("Échec du rafraîchissement du token");
           this.tokenService.clearAccessToken();
           this.loggedIn$.next(false);
   
@@ -165,14 +163,12 @@ export class AuthService {
             map(() => false)
           );
         }),
-        tap(() => setTimeout(() => this.isInitializingAuth$.next(false), 3000)) // // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
+        tap(() => setTimeout(() => this.isInitializingAuth$.next(false), 4000)) // // Délai minimum (friction positive pour l'écran de chargement) après un refresh réussi ou échec
       );
     }
   
-    // console.log("Token valide, utilisateur authentifié");
     this.loggedIn$.next(true);
-    this.isInitializingAuth$.next(false); // pas de délai minimal pour éviter un écran de chargement trop court
-    // setTimeout(() => this.isInitializingAuth$.next(false), 10000); // test
+    this.isInitializingAuth$.next(false); 
     return of(true); 
   }
 }
