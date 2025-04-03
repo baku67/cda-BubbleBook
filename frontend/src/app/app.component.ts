@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
         // Routes AVEC UX boutons (theme et lang)
         const uxBtnRoutes = ['', '/', "/register", "/login", "/first-login/step-one", "/first-login/step-two"]; // LP = ""
         // Routes SANS header
-        const noHeaderRoutes = ['', '/']; // LP = ""
+        const noHeaderRoutes = ['', '/', '/login', '/register'];
         // Routes SANS footer 
         const noFooterRoutes: string[] = ['', '/']; 
         // Routes SANS navBottomMobile

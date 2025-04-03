@@ -56,6 +56,7 @@ import { OtherUserProfilComponent } from './features/social/components/other-use
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ThemePrimaryColorService } from './shared/services/utils/theme-primary-color.service';
 import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
+import { LandingPageHomeComponent } from './features/landing-page/components/landing-page-home/landing-page-home.component';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -74,6 +75,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   declarations: [
     AppComponent,
     LandingPageComponent,
+    LandingPageHomeComponent,
     LoginPageComponent,
     RegisterPageComponent, 
   

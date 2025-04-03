@@ -1,0 +1,52 @@
+<div class="cta-buttons">
+    <div class="hero-description">
+        <span>{{ 'LP_SPEECH1' | translate }}</span>
+        <span class="hero-description-strong">{{ 'LP_SPEECH2' | translate }}</span>
+        <span>{{ 'LP_SPEECH3' | translate }}</span>
+        <!-- <p class="hero-subtitle">{{ 'LP_SPEECH' | translate }}</p> -->
+    </div>
+    <ul>
+        <li>
+            <a 
+                mat-flat-button 
+                color="primary"
+                [routerLink]="['/register']" 
+                class="cta-btn-primary bigButton cta-register"
+            >
+                {{ 'LP_REGISTER_NOW' | translate }}
+            </a>
+        </li>
+        <li>
+            <a 
+                [routerLink]="['/login']" 
+                class="cta-btn-secondary btn-login"
+            >
+                {{ 'LP_LOGIN' | translate }}
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+    <!-- Section des fonctionnalités -->
+    <!-- <section class="features-section">
+        <h2>Fonctionalités phares :</h2>
+        <div class="feature">
+            <h3>Carnet de plongée numérique</h3>
+            <p>Organisez vos plongées avec des informations détaillées et facilement accessibles.</p>
+        </div>
+        <div class="feature">
+            <h3>Communauté et partage</h3>
+            <p>Partagez vos aventures sous-marines avec d'autres plongeurs et découvrez leurs récits.</p>
+        </div>
+        <div class="feature">
+            <h3>Suivi des progrès</h3>
+            <p>Suivez l'évolution de vos compétences de plongée au fil du temps.</p>
+        </div>
+    </section> -->
+
+    <!-- Témoignages -->
+    <!-- <section class="testimonials-section">
+        <blockquote>"Grâce à BubbleBook, j'ai pu organiser mes plongées et partager mes aventures avec d'autres passionnés."</blockquote>
+        <p>— John Doe, plongeur passionné</p>
+    </section> -->

@@ -18,12 +18,40 @@ import { SocialPageComponent } from './features/social/components/social-page/so
 import { OtherUserProfilComponent } from './features/social/components/other-user-profil/other-user-profil.component';
 import { OtherUserProfileResolver } from './core/resolvers/other-user-profil.resolver';
 import { UserProfileResolver } from './core/resolvers/user-profil.resolver';
+import { LandingPageHomeComponent } from './features/landing-page/components/landing-page-home/landing-page-home.component';
 
 export const routes: Routes = [
-    { path: '', component: LandingPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Home page
+    // LandingPage + Login/Register Pages
+    { 
+        path: '',
+        component: LandingPageComponent, 
+        children: [
+            {
+                path: '', 
+                component: LandingPageHomeComponent, 
+                canActivate: [PreventPublicAccessGuard], 
+                canDeactivate: [FadeOutGuard] 
+            },
+            { 
+                path: 'register', 
+                component: RegisterPageComponent, 
+                canActivate: [PreventPublicAccessGuard], 
+                canDeactivate: [FadeOutGuard] 
+            },  
+            { 
+                path: 'login', 
+                component: LoginPageComponent, 
+                canActivate: [PreventPublicAccessGuard], 
+                canDeactivate: [FadeOutGuard] 
+            },  
+            // { path: '**', component: LandingPageHomeComponent, canDeactivate: [FadeOutGuard] },  // Wildcard, redirect all unknown paths to home
+        ],
+        canActivate: [PreventPublicAccessGuard], 
+        canDeactivate: [FadeOutGuard] 
+    }, 
 
-    { path: 'register', component: RegisterPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Register
-    { path: 'login', component: LoginPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Login
+    // { path: 'register', component: RegisterPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Register
+    // { path: 'login', component: LoginPageComponent, canActivate: [PreventPublicAccessGuard], canDeactivate: [FadeOutGuard] },  // Login
 
     { 
         path: 'user-profil', 

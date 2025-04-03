@@ -15,6 +15,8 @@
   height: 100dvh;
   height: --webkit-fill-available; // fallback safari
   padding: 13px 13px;
+
+  gap: 0px;
 }
 
 .hero-header {
@@ -49,88 +51,4 @@
     animation: hero-title-anim 0.8s 0.5s ease forwards;
 }
 
-.hero-description {
-  display: inline-flex;
-  flex-direction: column;
-  text-align: center;
-  font-size: 1.2em;
-  color: #F5F5F5 !important;
-
-  opacity: 0;
-  transform: translateY(-25px);
-  animation: fadeSlideInTop 1.8s 0.7s ease forwards;
-}
-.hero-description-strong {
-  color: var(--primary-color);
-  font-weight: 500;
-  font-size: 105%;
-}
-
-.cta-buttons {
-    margin: 10px auto;
-    width: 100%;
-
-    display: inline-flex;
-    flex-direction: column;
-    gap: 35px;
-    padding: 10px 0px;
-    border-radius: 7px;
-    text-shadow: 0px 1px 1px black;
-  }
-
-.cta-buttons ul {
-    display: flex; 
-    flex-direction: column;
-    justify-content: space-between; 
-    padding: 0px 10px;
-    list-style: none;
-    gap: 14px;
-  }
-
-  .cta-register {
-    text-shadow: 0px 0px 2px black !important;
-    font-size: 110%;
-
-    border: 1px solid rgb(7 255 248 / 38%);
-    border-radius: 3px;
-
-    opacity: 0;
-    transform: translateY(-25px);
-    animation: fadeSlideInTop 1.8s 1.6s ease forwards;
-  }
-  .btn-login {
-    color: white;
-    transition: all 1s;
-    opacity: 0;
-    transform: translateY(-25px);
-    animation: fadeSlideInTop 1.8s 1.6s ease forwards;
-  }
   
-  .cta-buttons li {
-    flex: 1; /* Chaque élément prend une part égale de la largeur */
-    margin: 0 10px; /* Espacement entre les éléments */
-  }
-  
-
-  
-  .cta-btn-secondary {
-    background-color: rgb(0 0 0 / 18%);
-    border-radius: 5px;
-    padding: 20px 20px;
-    border: 1px solid #4a5d6abf;
-    font-size: 106%;
-  }
-
-
-  .features-section h2 {
-    font-size: var(--font-size-large);
-  }
-  .features-section .feature {
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 1px 10px;
-    margin: 5px auto;
-    border-radius: 10px;
-  }
-  .features-section .feature h3 {
-    font-size: var(--font-size-large);
-  }
