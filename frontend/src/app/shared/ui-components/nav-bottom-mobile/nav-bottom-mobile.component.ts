@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../features/auth/services/auth.service';
-import { Router, NavigationEnd, RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
@@ -18,9 +18,10 @@ import { Observable } from 'rxjs';
   templateUrl: './nav-bottom-mobile.component.html',
   styleUrl: './nav-bottom-mobile.component.scss'
 })
-export class NavBottomMobileComponent {
+export class NavBottomMobileComponent implements OnInit {
 
   activeTabIndex$: Observable<number |null>;
+  translateValue = '0%'; 
 
   constructor(
     private authService: AuthService,
@@ -30,6 +31,18 @@ export class NavBottomMobileComponent {
     private tabTrackerService: TabTrackerService,
   ) {
     this.activeTabIndex$ = this.tabTrackerService.activeTabIndex$;
+  }
+
+  ngOnInit() {
+    // Surveille les changements d'onglet
+    this.activeTabIndex$.subscribe(index => {
+      if (index !== null) {
+        // Calcule la translation selon l’index
+        this.translateValue = (index * 100) + '%';
+      } else {
+        this.translateValue = '0%';
+      }
+    });
   }
 
   logout(): void {
