@@ -70,8 +70,13 @@
                         </div>
 
                         <div *ngIf="!isEditMode" class="certif-infos">
-                            <span>{{userCertif.obtainedDate | date:'dd/MM/yyyy'}}</span>
-                            <span>{{userCertif.location}}</span>
+                            <div *ngIf="userCertif.obtainedDate" class="inline-flex" style="gap:5px;">
+                                <mat-icon class="certif-icon">event_available</mat-icon><span>{{userCertif.obtainedDate | date:'yyyy'}}</span>
+                            </div>
+                            <div *ngIf="userCertif.location" class="inline-flex" style="gap:5px;">
+                                <mat-icon class="certif-icon">location_on</mat-icon><span>{{userCertif.location}}</span>
+                            </div>
+                                
                         </div>
                         
                         <div *ngIf="isEditMode" class="editMode-buttons-div">

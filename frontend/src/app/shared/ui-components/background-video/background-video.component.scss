@@ -848,7 +848,7 @@
 
 /*  Tortue */
 .tortoise {
-    filter: blur(5px);
+    filter: blur(0px);
     offset-path: path("M 866 595 C 524 494 155 241 -188 29");
     offset-rotate: auto;
 
@@ -857,9 +857,9 @@
     top: -5%;
     z-index: 1;
 
-    animation: tortoise-move 13500ms 2000ms infinite ease-in;
-    width: 0px;
-    height: 0px;
+    animation: tortoise-move 14500ms 2500ms infinite ease-in;
+    width: 40px;
+    height: 40px;
 
     content:url("/assets/images/fishes/tortoise.png");
     opacity: 0;
@@ -870,7 +870,7 @@
     0% {
         offset-distance: 0%;
         opacity: 0;
-        filter: blur(7px);
+        filter: blur(0px);
         width: 0px;
         height: 0px;
 
@@ -886,8 +886,8 @@
         offset-distance: 100%;
         opacity: 0.8;
         filter: blur(0px);
-        width: 200px;
-        height: 200px;
+        width: 180px;
+        height: 180px;
 
     }
 }

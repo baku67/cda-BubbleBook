@@ -89,8 +89,8 @@
 
     "NO_CERTIFICATE_YET": "Aucun certificat pour l'instant",
 
-    "CERTIFS_REORDER_SUCCESS": "Ordre des certificats mis à jour",
-    "CERTIFS_REORDER_ERROR": "Erreur lors de la mise à jour de l'ordre des certificats",
+    "CERTIFS_REORDER_SUCCESS": "Certificats mis à jour",
+    "CERTIFS_REORDER_ERROR": "Erreur lors de la mise à jour des certificats",
 
     "EQUIPMENT": "Mon équipement",
     "PUBLISHES": "Mes publications",

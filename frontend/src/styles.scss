@@ -370,6 +370,11 @@ h1, h2, h3 {
 }
 
 
+.inline-flex {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
 // error
 
 .title-button {

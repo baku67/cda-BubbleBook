@@ -35,6 +35,14 @@ ngx-skeleton-loader  {
   font-size: 90%;
 }
 
+.certif-icon {
+  font-size: 1.4em;
+  height: auto;
+  width: auto;
+
+  opacity: 0.6;
+}
+
 
 // CDK drag-drop "custom placeholder"::after.example-list {
 .example-list {
@@ -60,7 +68,7 @@ ngx-skeleton-loader  {
   border-radius: 5px;
 }
 .shrinked-box {
-  padding: 10px 10px 10px 15px;
+  padding: 10px 10px 11px 15px;
 }
 
 .cdk-drag-preview {
@@ -91,8 +99,9 @@ ngx-skeleton-loader  {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 5px;
+  width: 65%; 
 }
 
 .main-certif-icon {
@@ -101,6 +110,7 @@ ngx-skeleton-loader  {
 .certif-header {
   display: inline-flex;
   flex-direction: column;
+  gap: 2px;
 }
 .certif-organization {
   font-size: 0.85em;
@@ -120,6 +130,7 @@ ngx-skeleton-loader  {
   opacity: 0.75;
   font-size: 85%;
   gap: 4px;
+  width: 30%;
 }
 
 button .mat-spinner {
