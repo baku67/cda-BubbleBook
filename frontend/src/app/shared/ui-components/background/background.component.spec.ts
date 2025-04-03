@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BackgroundVideoComponent } from './background-video.component';
+import { BackgroundComponent } from './background.component';
 
-describe('BackgroundVideoComponent', () => {
-  let component: BackgroundVideoComponent;
-  let fixture: ComponentFixture<BackgroundVideoComponent>;
+describe('BackgroundComponent', () => {
+  let component: BackgroundComponent;
+  let fixture: ComponentFixture<BackgroundComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BackgroundVideoComponent]
+      imports: [BackgroundComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BackgroundVideoComponent);
+    fixture = TestBed.createComponent(BackgroundComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

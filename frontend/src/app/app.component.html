@@ -14,7 +14,7 @@
     </div>
 
     <!-- ✅ Composant vidéo toujours affiché -->
-    <app-background-video (videoLoaded)="onVideoLoaded()"></app-background-video>
+    <app-background (videoLoaded)="onVideoLoaded()"></app-background>
 
     <!-- ✅ Router-outlet affiché aussi -->
     <router-outlet></router-outlet>
@@ -64,7 +64,7 @@
       <router-outlet></router-outlet>
 
       <!-- BG Vidéo -->
-      <app-background-video (videoLoaded)="onVideoLoaded()"></app-background-video>
+      <app-background (videoLoaded)="onVideoLoaded()"></app-background>
       
       <app-nav-bottom-mobile *ngIf="showNavBottomMobile && isLoggedIn" />
     </div>

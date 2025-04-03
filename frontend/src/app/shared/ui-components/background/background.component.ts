@@ -7,13 +7,13 @@ import { CustomizationService } from '../../services/utils/customization.service
 import { TabTrackerService } from '../../services/utils/tab-tracker.service';
 
 @Component({
-  selector: 'app-background-video',
-  templateUrl: './background-video.component.html',
-  styleUrl: './background-video.component.scss',
+  selector: 'app-background',
+  templateUrl: './background.component.html',
+  styleUrl: './background.component.scss',
   standalone: true,
   imports: [CommonModule],
 })
-export class BackgroundVideoComponent {
+export class BackgroundComponent {
   
   @Output() videoLoaded = new EventEmitter<boolean>(); // ✅ Émet un event quand la vidéo est prête
   @ViewChild('backgroundVideo', { static: false }) backgroundVideo!: ElementRef<HTMLVideoElement>;

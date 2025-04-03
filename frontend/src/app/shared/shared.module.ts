@@ -12,7 +12,7 @@ import { BackButtonComponent } from './ui-components/back-button/back-button.com
 import { ModalComponent } from './ui-components/modal/modal.component';
 import { AlertBannerComponent } from './ui-components/alert-banner/alert-banner.component';
 import { NotFoundPageComponent } from './ui-components/not-found-page/not-found-page.component';
-import { BackgroundVideoComponent } from './ui-components/background-video/background-video.component';
+import { BackgroundComponent } from './ui-components/background/background.component';
 import { ChoiceComponent } from './ui-components/choice/choice.component';
 
 
@@ -34,7 +34,7 @@ import { ChoiceComponent } from './ui-components/choice/choice.component';
     ModalComponent,
     AlertBannerComponent,
     NotFoundPageComponent,
-    BackgroundVideoComponent,
+    BackgroundComponent,
     ChoiceComponent,
   ],
   exports: [
@@ -47,7 +47,7 @@ import { ChoiceComponent } from './ui-components/choice/choice.component';
     ModalComponent,
     AlertBannerComponent,
     NotFoundPageComponent,
-    BackgroundVideoComponent,
+    BackgroundComponent,
     ChoiceComponent,
   ]
 })
