@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from './features/auth/services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { LandingPageService } from './features/landing-page/service/landing-page.service';
@@ -39,9 +39,27 @@ export class AppComponent implements OnInit {
   public isBgVideo$!: Observable<boolean>;
 
   public fishIcon = faFish;
-  // public forbidIcon = faBan;
   public videoIcon = faVideo;
   public videoIconSlash = faVideoSlash;
+
+  // *** UxMenuBtn:
+  @ViewChild('UxMenuWrapper', { static: false }) UxMenuWrapper!: ElementRef;
+  public isMenuOpen = false;
+
+  // Interception (mais prevent pas le click! trop bien?) du clic global sur le document (pour désafficher le menu si on clique en dehors):
+  @HostListener('document:click', ['$event.target'])
+  public onClickOutside(targetElement: HTMLElement) {
+    // 1) Vérifier si le menu est ouvert
+    if (this.isMenuOpen) {
+      // 2) Vérifier si le clic est hors du wrapper btn+menu
+      const clickedInsideMenu = this.UxMenuWrapper.nativeElement.contains(targetElement);
+
+      if (!clickedInsideMenu) {
+        // => On ferme le menu
+        this.isMenuOpen = false;
+      }
+    }
+  }
 
   constructor(
     private landingPageService: LandingPageService,
@@ -108,6 +126,10 @@ export class AppComponent implements OnInit {
         }
       }
     });
+  }
+
+  public toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
   // Animation Loader global Lottie:

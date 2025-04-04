@@ -39,5 +39,19 @@ module.exports = tseslint.config(
       ...angular.configs.templateAccessibility,
     ],
     rules: {},
+    
+  },
+  {
+    files: ["**/*.html"],
+    extends: [
+      ...angular.configs.templateRecommended,
+      ...angular.configs.templateAccessibility,
+    ],
+    rules: {
+      // Désactivation totale
+      "@angular-eslint/template/click-events-have-key-events": "off",
+      // Ou juste un warning
+      "@angular-eslint/template/interactive-supports-focus": "off"
+    }
   }
 );
