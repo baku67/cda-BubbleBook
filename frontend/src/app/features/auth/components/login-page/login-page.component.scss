@@ -1,12 +1,12 @@
 :host {
   display: flex;
   flex-direction: column;
-  width: 92%;
+  width: 93%; // synchro register-page-component
 
   .pageContent {
     gap: 0px;
     padding: 0px;
-    margin-top: 22px;
+    margin-top: 17px; // synchro register-page-component
   }
 }
 
