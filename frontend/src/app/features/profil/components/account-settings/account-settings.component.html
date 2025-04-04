@@ -20,146 +20,18 @@
         ></app-alert-banner>
 
         <section [class.fadeOutNav]="isAnimatingFadeOut">
-            <app-privacy-settings [user]="user"></app-privacy-settings>
+            <app-account-settings-privacy [user]="user"></app-account-settings-privacy>
         </section>
 
-        <section class="card" [class.fadeOutNav]="isAnimatingFadeOut">
-            <p>Email: {{ user!.email }}</p>
-    
-            <p>Email vérifié: {{ user!.isVerified }}</p>
-            
-            <!-- Renvoi mail de confirmation  -->
-            <div *ngIf="!user?.isVerified">
-    
-                <button 
-                    *ngIf="!emailConfirmResent"
-                    mat-flat-button 
-                    color="primary"
-                    (click)="resendConfirmationEmail(user.email)"
-                >
-                    <span *ngIf="!emailConfirmResentLoading">{{ "EMAIL_RESEND_CONFIRMATION" | translate }}</span>
-                    <mat-spinner *ngIf="emailConfirmResentLoading"></mat-spinner>
-                </button>
-    
-                <app-alert-banner 
-                    *ngIf="emailConfirmResent"
-                    maticon="task_alt" 
-                    [style]="'success'" 
-                    [msgAlert]="'EMAIL_CONFIRMATION_SENT' | translate: { email: user!.email }" 
-                ></app-alert-banner>
-    
-            </div>
-    
-            <h5>Changer de mot de passe</h5>
-            <h5>Changer d'adresse mail</h5>
-            <h5>Supprimer le compte</h5>
-            <h5>Autentification à 2 facteurs</h5>
+        <section [class.fadeOutNav]="isAnimatingFadeOut">
+            <app-account-settings-profil [user]="user"></app-account-settings-profil>
+        </section>
+
+        <section [class.fadeOutNav]="isAnimatingFadeOut">
+            <app-account-settings-interface [user]="user"></app-account-settings-interface>
         </section>
 
     </ng-container>  
-    
-    
-    <app-page-header 
-        [title]="('PERSONALIZATION_SETTINGS' | translate)" 
-        matIcon="manage_accounts" 
-        [colorTheme]="true"
-        class="fadeInNav"
-        [class.fadeOutNav]="isAnimatingFadeOut"
-    />
-    <ng-container *ngIf="user$ | async as user; else loading">
-        <!-- Changement avatar -->
-        <!-- Changement banniere -->
-        <!-- Changement nbrInitialPlongées -->
-    </ng-container>
-
-
-    <app-page-header 
-        [title]="('INTERFACE_SETTINGS' | translate)" 
-        matIcon="manage_accounts" 
-        [colorTheme]="true"
-        class="fadeInNav"
-        [class.fadeOutNav]="isAnimatingFadeOut"
-    />
-    <ng-container>
-        <section class="card" [class.fadeOutNav]="isAnimatingFadeOut">
-            <app-alert-banner 
-                maticon="info" 
-                [style]="'info'" 
-                msgAlert="{{ 'INFO_LOCALSTORAGE' | translate }}" 
-            ></app-alert-banner>
-
-            
-            <!-- x2 Remplacer par toggles material MAIS plus gros que les sous-paramètres (et garder le mat-menu nav comme il est ou uniformiser?) -->
-            
-            <app-language-switch></app-language-switch>
-
-        
-            <div class="toggle-theme-and-preferences">
-
-                <app-theme-switch></app-theme-switch>
-
-                <!-- Laisser les paramètres des 2 modes (sans conditions) ? -->
-                <ng-container *ngIf="currentTheme$ | async as currentTheme">
-
-                    <!-- Si dark-theme: toggle poissons et choix img background -->
-                    <ng-container *ngIf="currentTheme === 'dark-theme'">
-                        <p>
-                            <mat-slide-toggle 
-                                labelPosition="before"
-                                [checked]="displayFish$ | async"
-                                (change)="toggleFishDisplay()"
-                            >
-                                &nbsp;Afficher les poissons
-                            </mat-slide-toggle>
-                        </p>
-
-                        <!-- Choix Image -->
-                        
-                    
-                        <!-- Choix couleurs interface (DT) ou selection color -->
-                        <div class="interface-DT-primary-color-selection">
-                            <div class="predefined-colors-div">
-                                <span>Couleurs prédéfinies :</span>
-                                <div class="colors-container">
-                                    <button 
-                                        *ngFor="let color of DTprimaryColors"
-                                        class="color-choice-btn"
-                                        [style.background]="color"
-                                        [ngClass]="{ 'selected-color': color === selectedDTprimaryColor }"
-                                        (click)="changePrimaryColor(color)"
-                                    > </button>
-                                    <input class="color-input" type="color" (ngModelChange)="changePrimaryColor($event)" [ngModel]="selectedDTprimaryColor">
-                                </div>
-                            </div>
-                        </div>
-
-                    </ng-container>
-    
-                    <!-- Si light-theme: toggle img/video et choix vidéo/img(?) -->
-                    <ng-container *ngIf="currentTheme === 'light-theme'">
-                        <p>
-                            <mat-slide-toggle 
-                                labelPosition="before"
-                                [checked]="isBgVideo$ | async"
-                                (change)="toggleBgVideo()"
-                            >
-                                &nbsp;Fond d'écran vidéo
-                            </mat-slide-toggle>
-                        </p>
-
-                        <!-- Choix videos ou Choix Image -->
-
-                        <!-- Choix prédéfinis de couleurs => couleur primaire (néon, titres, icones, navBtn, Btns, poissons? etc) -->
-
-                    </ng-container>
-
-                </ng-container>
-
-            </div>
-            
-        </section>
-    </ng-container>
-
 
     <ng-template #loading>
         <div class="spinner-container">

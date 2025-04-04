@@ -32,7 +32,6 @@ import { NavBottomMobileComponent } from './shared/ui-components/nav-bottom-mobi
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserCardComponent } from './features/profil/components/user-card/user-card.component';
 import { MatSelectCountryModule } from "@angular-material-extensions/select-country";
-import { AccountSettingsComponent } from './features/profil/components/account-settings/account-settings.component';
 import { CertificateManagerPageComponent } from './features/certificates/components/certificate-manager-page/certificate-manager-page.component';
 import { CdkDrag, CdkDragPlaceholder, CdkDropList } from '@angular/cdk/drag-drop';
 import { CertificateFormComponent } from './features/certificates/components/certificate-form/certificate-form.component';
@@ -48,7 +47,6 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { routes } from './app.routes';  // Import the routes
 import { AuthService } from './features/auth/services/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
-import { PrivacySettingsComponent } from './features/profil/components/privacy-settings/privacy-settings.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { SocialPageComponent } from './features/social/components/social-page/social-page.component';
 import { UserSearchComponent } from './features/social/components/user-search/user-search.component';
@@ -57,6 +55,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ThemePrimaryColorService } from './shared/services/utils/theme-primary-color.service';
 import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
 import { LandingPageHomeComponent } from './features/landing-page/components/landing-page-home/landing-page-home.component';
+import { AccountSettingsComponent } from './features/profil/components/account-settings/account-settings.component';
+import { AccountSettingsInterfaceComponent } from "./features/profil/components/account-settings-interface/account-settings-interface.component";
+import { AccountSettingsPrivacyComponent } from './features/profil/components/account-settings-privacy/account-settings-privacy.component';
+import { AccountSettingsProfilComponent } from './features/profil/components/account-settings-profil/account-settings-profil.component';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -83,11 +85,13 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     UserCardComponent,
     ConfirmEmailComponent,
     AccountSettingsComponent,
+    AccountSettingsProfilComponent,
+    AccountSettingsInterfaceComponent,
+    AccountSettingsPrivacyComponent,
     CertificateManagerPageComponent,
     CertificateFormComponent,
 
     BannerSelectionComponent,
-    PrivacySettingsComponent,
 
     SocialPageComponent,
     UserSearchComponent,
@@ -98,8 +102,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatSelectCountryModule.forRoot('fr'),
     BrowserModule,
     RouterModule.forRoot(routes, {
-      scrollPositionRestoration: 'enabled', // Active la restauration de la position de scroll
-      anchorScrolling: 'enabled', // Active le scrolling vers les ancres si nécessaires
+        scrollPositionRestoration: 'enabled', // Active la restauration de la position de scroll
+        anchorScrolling: 'enabled', // Active le scrolling vers les ancres si nécessaires
     }),
     ReactiveFormsModule,
     FormsModule,
@@ -129,10 +133,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     SharedModule,
     ThemeSwitchComponent,
     NavBottomMobileComponent,
-
     // Pour le drag-drop/move list (ccertifs)
-    CdkDropList, 
-    CdkDrag, 
+    CdkDropList,
+    CdkDrag,
     CdkDragPlaceholder,
     ModalComponent,
     MatSelectModule,

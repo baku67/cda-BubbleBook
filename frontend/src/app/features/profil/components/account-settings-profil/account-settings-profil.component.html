@@ -1,0 +1,59 @@
+<!-- Profil (infos, Change: avatar, banniere, change mdp, change email, ...) -->
+<mat-expansion-panel class="card" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+
+    <mat-expansion-panel-header class="title-button">
+        <mat-panel-title>
+            <mat-icon class="material-icons-outlined">manage_accounts</mat-icon>
+            <span>{{ 'PROFIL_SETTINGS_TITLE' | translate }}</span>
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-divider class="privacy-divider"></mat-divider>
+
+    <div class="visibility-section">
+
+        
+        <p>Email: {{ user!.email }}</p>
+            
+        <p>Email vérifié: {{ user!.isVerified }}</p>
+
+        <!-- Renvoi mail de confirmation  -->
+        <div *ngIf="!user?.isVerified">
+
+            <button 
+                *ngIf="!emailConfirmResent"
+                mat-flat-button 
+                color="primary"
+                (click)="resendConfirmationEmail(user.email)"
+            >
+                <span *ngIf="!emailConfirmResentLoading">{{ "EMAIL_RESEND_CONFIRMATION" | translate }}</span>
+                <mat-spinner *ngIf="emailConfirmResentLoading"></mat-spinner>
+            </button>
+
+            <app-alert-banner 
+                *ngIf="emailConfirmResent"
+                maticon="task_alt" 
+                [style]="'success'" 
+                [msgAlert]="'EMAIL_CONFIRMATION_SENT' | translate: { email: user!.email }" 
+            ></app-alert-banner>
+
+        </div>
+
+        <h5>Changer de mot de passe</h5>
+        <h5>Changer d'adresse mail</h5>
+        <h5>Supprimer le compte</h5>
+        <h5>Autentification à 2 facteurs</h5>
+
+        <!-- avatar
+        banniere
+        nbrInitialPlongées
+
+
+        // change mdp
+        // change mail
+        // suppr compte -->
+
+
+    </div>
+
+</mat-expansion-panel>

@@ -6,11 +6,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
 
 @Component({
-  selector: 'app-privacy-settings',
-  templateUrl: './privacy-settings.component.html',
-  styleUrl: './privacy-settings.component.scss'
+  selector: 'app-account-settings-privacy',
+  templateUrl: './account-settings-privacy.component.html',
+  styleUrl: './account-settings-privacy.component.scss'
 })
-export class PrivacySettingsComponent implements OnInit { 
+export class AccountSettingsPrivacyComponent implements OnInit { 
 
   @Input() user!: UserProfil;
 
@@ -28,7 +28,6 @@ export class PrivacySettingsComponent implements OnInit {
 
   constructor(
     private userService: UserService, 
-    private translateService: TranslateService, 
     private flashMessageService: FlashMessageService
   ) {}
   

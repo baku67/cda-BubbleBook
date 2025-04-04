@@ -1,0 +1,95 @@
+<!-- Interface / Personalisation Style -->
+<mat-expansion-panel class="card" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+
+    <mat-expansion-panel-header class="title-button">
+        <mat-panel-title>
+            <mat-icon class="material-icons-outlined">imagesearch_roller</mat-icon>
+            <span>{{ 'INTERFACE_SETTINGS' | translate }}</span>
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-divider class="privacy-divider"></mat-divider>
+
+    <div class="visibility-section">
+        
+        <ng-container>
+            <section class="card">
+                <app-alert-banner 
+                    maticon="info" 
+                    [style]="'info'" 
+                    msgAlert="{{ 'INFO_LOCALSTORAGE' | translate }}" 
+                ></app-alert-banner>
+
+                
+                <!-- x2 Remplacer par toggles material MAIS plus gros que les sous-paramètres (et garder le mat-menu nav comme il est ou uniformiser?) -->
+                
+                <app-language-switch></app-language-switch>
+
+
+                <div class="toggle-theme-and-preferences">
+
+                    <app-theme-switch></app-theme-switch>
+
+                    <!-- Laisser les paramètres des 2 modes (sans conditions) ? -->
+                    <ng-container *ngIf="currentTheme$ | async as currentTheme">
+
+                        <!-- Si dark-theme: toggle poissons et choix img background -->
+                        <ng-container *ngIf="currentTheme === 'dark-theme'">
+                            <p>
+                                <mat-slide-toggle 
+                                    labelPosition="before"
+                                    [checked]="displayFish$ | async"
+                                    (change)="toggleFishDisplay()"
+                                >
+                                    &nbsp;Afficher les poissons
+                                </mat-slide-toggle>
+                            </p>
+
+                            <!-- Choix Image -->
+                            
+                        
+                            <!-- Choix couleurs interface (DT) ou selection color -->
+                            <div class="interface-DT-primary-color-selection">
+                                <div class="predefined-colors-div">
+                                    <span>Couleurs prédéfinies :</span>
+                                    <div class="colors-container">
+                                        <button 
+                                            *ngFor="let color of DTprimaryColors"
+                                            class="color-choice-btn"
+                                            [style.background]="color"
+                                            [ngClass]="{ 'selected-color': color === selectedDTprimaryColor }"
+                                            (click)="changePrimaryColor(color)"
+                                        > </button>
+                                        <input class="color-input" type="color" (ngModelChange)="changePrimaryColor($event)" [ngModel]="selectedDTprimaryColor">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ng-container>
+
+                        <!-- Si light-theme: toggle img/video et choix vidéo/img(?) -->
+                        <ng-container *ngIf="currentTheme === 'light-theme'">
+                            <p>
+                                <mat-slide-toggle 
+                                    labelPosition="before"
+                                    [checked]="isBgVideo$ | async"
+                                    (change)="toggleBgVideo()"
+                                >
+                                    &nbsp;Fond d'écran vidéo
+                                </mat-slide-toggle>
+                            </p>
+
+                            <!-- Choix videos ou Choix Image -->
+
+                            <!-- Choix prédéfinis de couleurs => couleur primaire (néon, titres, icones, navBtn, Btns, poissons? etc) -->
+
+                        </ng-container>
+
+                    </ng-container>
+
+                </div>
+                
+            </section>
+        </ng-container>
+    </div>
+</mat-expansion-panel>
