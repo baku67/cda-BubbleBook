@@ -8,6 +8,7 @@
     <a 
         [routerLink]="['/user-profil']" 
         class="navBottomMobile-a flex1"
+        [ngClass]="{'router-link-active': (activeTabIndex$ | async) === 0}" 
         (click)="triggerBackgroundPreSlide(0)"
     >
         <div class="navBottomMobile-div">
@@ -22,6 +23,7 @@
     <a 
         [routerLink]="['/user-divelog']" 
         class="navBottomMobile-a flex1"
+        [ngClass]="{'router-link-active': (activeTabIndex$ | async) === 1}"
         (click)="triggerBackgroundPreSlide(1)"
     >
         <div class="navBottomMobile-div">
@@ -36,6 +38,7 @@
     <a 
         [routerLink]="['/social']" 
         class="navBottomMobile-a flex1"
+        [ngClass]="{'router-link-active': (activeTabIndex$ | async) === 2}"
         (click)="triggerBackgroundPreSlide(2)"
     >
         <div class="navBottomMobile-div">
@@ -50,6 +53,7 @@
     <button 
         [matMenuTriggerFor]="menu" 
         class="navBottomMobile-a flex1 custom-button"
+        [ngClass]="{'router-link-active': (activeTabIndex$ | async) === 3}"
     >
         <div class="flex1" style="height: 100%;">
             <div class="navBottomMobile-div">
