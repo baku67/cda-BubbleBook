@@ -16,6 +16,7 @@
     bottom: 4px;
     right: 4px;
 }
+
 .UxMenuBtn {
     width: 4.125em; // meme largeur que matSubMenu
     height: 3.875em;
@@ -39,14 +40,29 @@
         font-size: 28px;
     }
 }
-.matSubMenu {
-    width: 4.125em; // meme largeur que UxMenuBtn
-    display: none;
 
-    // animation: ;
+.matSubMenu {
+    position: relative; /* ou relative selon ton contexte */
+    z-index: 100;
+    pointer-events: none;
+
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.25s ease; // rapide
 }
-.menu-opened {
-    display: block;
+
+.matSubMenu.menu-opened {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+
+    padding-top: 10px;
+    padding-bottom: 30px;
+    top: 30px;
+
+    background-color: var(--primary-color);
+    border-top-left-radius: 28% 15%; // Le coin arrondi en haut à gauche (mix radius je connaissait pas)
+    border-top-right-radius: 4%;
 }
 
 @keyframes fadeIn-UxMenuBtn {

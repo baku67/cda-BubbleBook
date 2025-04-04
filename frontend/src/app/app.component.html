@@ -27,8 +27,7 @@
     <div class="globalMain">
 
       <div #UxMenuWrapper class="UxMenuWrapper">
-
-        <!-- Bouton -->
+        <!-- Bouton UX -->
         <div 
           *ngIf="showUxButtons" 
           class="UxMenuBtn"
@@ -37,14 +36,14 @@
           <mat-icon class="material-icons-outlined setting-icon">settings</mat-icon>
         </div>
 
-        <!-- Contenu du menu -->
+        <!-- Contenu du menu UX -->
         <div 
           class="matSubMenu" 
           [ngClass]="{ 'menu-opened': isMenuOpen }"
         >
           <app-language-switch />
           <app-theme-switch />
-  
+          <!-- poissons-switch -->
           <ng-container *ngIf="currentTheme$ | async as currentTheme">
             <!-- DT: poisson state btn: -->
             <button mat-button *ngIf="currentTheme === 'dark-theme'" (click)="toggleFishDisplay()" >
@@ -61,9 +60,7 @@
             </button>
           </ng-container>
         </div>
-
       </div>
-
 
       <app-header *ngIf="showHeader" />
 
