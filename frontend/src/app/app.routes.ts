@@ -44,7 +44,6 @@ export const routes: Routes = [
                 canActivate: [PreventPublicAccessGuard], 
                 canDeactivate: [FadeOutGuard] 
             },  
-            { path: '**', component: NotFoundPageComponent, canDeactivate: [FadeOutGuard] },  // Wildcard, redirect all unknown paths to home
         ],
         canActivate: [PreventPublicAccessGuard], 
         canDeactivate: [FadeOutGuard] 

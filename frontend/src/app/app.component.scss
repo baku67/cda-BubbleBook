@@ -33,14 +33,14 @@
 
     // bouton fade-in initial 
     opacity: 0;
-    animation: fadeIn-UxMenuBtn 0.7s 2.7s ease forwards; // synchro .UxMenuDivider
+    animation: fadeIn-UxMenuBtn 0.7s 2.2s ease forwards; // synchro .UxMenuDivider
 
     .setting-icon {
         height: 28px;
         width: 28px;
         font-size: 28px;
 
-        transition: transform 0.3s ease; // rapide
+        transition: transform 0.4s ease; // rapide
     }
 
     .rotate-icon {
