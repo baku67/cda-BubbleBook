@@ -44,7 +44,7 @@
     }
 
     .rotate-icon {
-        transform: rotate(-52deg); // rotate icon pendant le toggle
+        transform: scale(0.9) rotate(52deg); // rotate icon pendant le toggle
     }
 }
 
@@ -69,6 +69,8 @@
 
 .matSubMenu {
     position: relative; /* ou relative selon ton contexte */
+    top: 32px; // ajustement
+
     z-index: 100;
     pointer-events: none;
 
@@ -84,11 +86,10 @@
 
     padding-top: 10px;
     padding-bottom: 42px;
-    top: 32px; // ajustement
 
     background-color: var(--primary-color);
     border-top-left-radius: 28% 15%; // Le coin arrondi en haut à gauche (mix radius je connaissait pas)
-    border-top-right-radius: 4%;
+    border-top-right-radius: 13% 6%; // Le coin arrondi en haut à droite (mix radius je connaissait pas)
 }
 
 @keyframes fadeIn-UxMenuBtn {
