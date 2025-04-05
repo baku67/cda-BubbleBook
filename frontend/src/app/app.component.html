@@ -33,8 +33,10 @@
           class="UxMenuBtn"
           (click)="toggleMenu()"
         >
-          <mat-icon class="material-icons-outlined setting-icon">settings</mat-icon>
+          <mat-icon [ngClass]="{ 'rotate-icon': isMenuOpen }" class="material-icons-outlined setting-icon">settings</mat-icon>
         </div>
+
+        <mat-divider *ngIf="isMenuOpen" class="UxMenuDivider"></mat-divider>
 
         <!-- Contenu du menu UX -->
         <div 

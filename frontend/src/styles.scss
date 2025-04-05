@@ -66,6 +66,12 @@ body.dark-theme .matSubMenu {
     border: 1px solid var(--primary-color);
 }
 
+// Couleurs icon UX menu et btn
+body.dark-theme .UxMenuBtn {
+    color: #0a303b;
+    text-shadow: 0 0 black;
+}
+
 // CARD & SURFACE
 body.light-theme .card, body.light-theme .surface {
     background-color: map-get(map-get($myapp-light-theme, bg-color), surfaces);
