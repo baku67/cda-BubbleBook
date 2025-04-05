@@ -45,19 +45,19 @@
     }
 
     .rotate-icon {
-        transform: rotate(-42deg); // rotate icon pendant le toggle
+        transform: rotate(-52deg); // rotate icon pendant le toggle
     }
 }
 
 .UxMenuDivider {
-    background-color: #010d1447;
+    background-color: #010d143b;
     width: 45%;
     height: 2px;
     margin: 0 auto;
     z-index: 999;
 
     // bouton fade-in initial 
-    animation: fadeIn-menu-divider 0.3s 0.2s ease forwards; // synchro .UxMenuBtn  
+    animation: fadeIn-menu-divider 0.3s 0.15s ease forwards; // synchro .UxMenuBtn  
 }
 @keyframes fadeIn-menu-divider {
     0% {
