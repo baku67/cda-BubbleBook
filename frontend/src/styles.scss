@@ -133,6 +133,14 @@ body.light-theme .pageContent-landingPage {
     }
 }
 
+// Social:
+body.dark-theme app-social-page .mdc-tab-indicator--active {
+    background-color: var(--primary-color);
+    color: var(--color) !important;
+    .mdc-tab__content .mdc-tab__text-label {
+        color: var(--color) !important;
+    }
+}
 
 // UxMenuBtn 
 body.dark-theme app-language-switch button {
