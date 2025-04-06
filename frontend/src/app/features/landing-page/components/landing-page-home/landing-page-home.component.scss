@@ -1,3 +1,9 @@
+:host {
+  flex: 1;
+  display: inline-flex;
+  flex-direction: column;
+}
+
 // PITCH
 .hero-description {
     display: inline-flex;
@@ -19,6 +25,7 @@
 
 // LOGIN / REGISTER boutons
 .cta-buttons {
+    flex: 1;
     margin: 10px auto;
     width: 100%;
 
@@ -87,6 +94,59 @@
   }
 
 
+.discover-btn-container {
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+
+  animation: fade-in-discover 0.7s 2.7s ease forwards;
+  opacity: 0;
+
+  .discover-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 17px 10px 10px;
+
+      border-radius: 10px;
+      background-color: #8080801f;
+
+      .emoji {
+          position: relative;
+          bottom: 2px;
+          font-size: 1.6em;
+          margin-right: 8px;
+
+          animation: rotate-3d-emoji 2.5s infinite ease-in-out;
+      }
+      @keyframes rotate-3d-emoji {
+          0% {
+            transform: rotate3d(1, 1, 1, 340deg);
+          }
+          // 25% {
+          //   transform: rotate3d(1, 1, 1, 360deg);
+          // }
+          50% {
+            transform: rotate3d(1, 1, 1, 360deg);
+          }
+          100% {
+            transform: rotate3d(1, 1, 1, 340deg);
+          }
+      }
+  }
+}
+@keyframes fade-in-discover {
+  0% {
+      opacity: 0;
+      transform: translateY(25px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0px);
+  }
+}
 
 
-    
+
