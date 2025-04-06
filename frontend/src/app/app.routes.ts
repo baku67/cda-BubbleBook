@@ -31,25 +31,21 @@ export const routes: Routes = [
                 path: '', 
                 component: LandingPageHomeComponent, 
                 canActivate: [PreventPublicAccessGuard], 
-                canDeactivate: [FadeOutGuard] 
             },
             {
                 path: 'discover', 
                 component: LandingPageDiscoverComponent, 
                 canActivate: [PreventPublicAccessGuard], 
-                canDeactivate: [FadeOutGuard] 
             },
             { 
                 path: 'register', 
                 component: RegisterPageComponent, 
                 canActivate: [PreventPublicAccessGuard], 
-                canDeactivate: [FadeOutGuard] 
             },  
             { 
                 path: 'login', 
                 component: LoginPageComponent, 
                 canActivate: [PreventPublicAccessGuard], 
-                canDeactivate: [FadeOutGuard] 
             },  
         ],
         canActivate: [PreventPublicAccessGuard], 
