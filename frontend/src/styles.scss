@@ -128,6 +128,13 @@ body.light-theme .pageContent-landingPage {
 }
 
 
+// /first-login/step-two
+body.dark-theme app-first-login-step2  {
+    .banner-item-check, .avatar-item-check {
+        color: var(--color);
+    }
+}
+
 // /user-profil
 body.dark-theme app-user-card .section-top {
     border-top: 1px solid var(--primary-color);
@@ -200,7 +207,8 @@ body.dark-theme .pageContent-landingPage::before {
     }
     to {
         // //!\\ Relié au transform:translateY(-0px) border-cadre dark-theme (clairement un hack DT), sur Firefox ça marche avec "0 0 0 1px" parce que y'a pas le 1px border-top gris du Chrome de merde
-        box-shadow: inset 0 0 0 2px #3ec0ec; 
+        // box-shadow: inset 0 0 4px 1px var(--primary-color); // primary-color à valider (pas sur de ça, c'est too much "primary"), wip x x truc x box-shadow
+        box-shadow: inset 0 0 0px 2px #3ec0ec; // REVERT
     }
 }
 

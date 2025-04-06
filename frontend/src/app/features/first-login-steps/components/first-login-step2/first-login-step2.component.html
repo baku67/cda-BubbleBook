@@ -63,6 +63,21 @@
                     </div>
                 </div>
 
+                <!-- Nombre initial de plongées -->
+                <div class="matFieldInput nrb-initial-dives">
+                    <mat-form-field appearance="outline" class="username-field matFieldInput">
+                        <mat-label>{{ "INITIAL_DIVES_COUNT_LABEL" | translate }}</mat-label>
+                        <input 
+                            matInput 
+                            formControlName="initialDivesCount" 
+                            type="number"
+                        >
+                    </mat-form-field>
+                    @if (firstLoginForm2.get("initialDivesCount")?.hasError("max")) {
+                        <mat-error>Le nombre de plongée initial ne peut excéder 5000.</mat-error>
+                    }
+                </div>
+
                 <!-- Avatar Selection -->
                 <div>
                     <h5>Avatar</h5>
@@ -85,20 +100,6 @@
                     </div>
                 </div>
 
-                <!-- Nombre initial de plongées -->
-                <div class="matFieldInput nrb-initial-dives">
-                    <mat-form-field appearance="outline" class="username-field matFieldInput">
-                        <mat-label>{{ "INITIAL_DIVES_COUNT_LABEL" | translate }}</mat-label>
-                        <input 
-                            matInput 
-                            formControlName="initialDivesCount" 
-                            type="number"
-                        >
-                    </mat-form-field>
-                    @if (firstLoginForm2.get("initialDivesCount")?.hasError("max")) {
-                        <mat-error>Le nombre de plongée initial ne peut excéder 5000.</mat-error>
-                    }
-                </div>
 
                 <div class="submit-section">
                     <div class="btns-container">

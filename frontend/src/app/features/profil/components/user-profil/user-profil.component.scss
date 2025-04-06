@@ -78,8 +78,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
-    width: 16px;
-    height: 16px;
+    width: 21px;
+    height: 21px;
     border-radius: 1px;
     background-color: var(--primary-color);
+
+    clip-path: path("M 0 0 Q 10 6 20 0 Q 14 10 20 20 H 20 Q 10 14 0 20 Q 6 10 0 0");
 }
