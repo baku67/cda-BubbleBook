@@ -28,10 +28,14 @@
     <!-- Grid vuttons nav -->
     <section class="nav-btn-grid" [class.fadeOutNav]="isAnimatingFadeOut">
 
+        <div class="middle-btn-toggle">
+
+        </div>
+
         <button 
             mat-flat-button 
             color="primary"
-            class="home-nav-button"
+            class="home-nav-button btn-up-left"
             (click)="navigateCertificates()"
         >
             <mat-icon>workspace_premium</mat-icon>
@@ -41,7 +45,7 @@
         <button 
             mat-flat-button 
             color="primary"
-            class="home-nav-button"
+            class="home-nav-button btn-up-right"
             (click)="navigateCertificates()"
         >
             <mat-icon>apparel</mat-icon>
@@ -51,7 +55,7 @@
         <button 
             mat-flat-button 
             color="primary"
-            class="home-nav-button"
+            class="home-nav-button btn-bottom-left"
             (click)="navigateCertificates()"
         >
             <mat-icon>record_voice_over</mat-icon>
@@ -61,7 +65,7 @@
         <button 
             mat-flat-button 
             color="primary"
-            class="home-nav-button"
+            class="home-nav-button btn-bottom-right"
             (click)="navigateCertificates()"
         >
             <!-- <mat-icon>gallery_thumbnail</mat-icon> -->
