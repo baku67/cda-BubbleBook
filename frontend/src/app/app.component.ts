@@ -71,9 +71,9 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Routes AVEC UX boutons (theme et lang)
-        const uxBtnRoutes = ['', '/', "/register", "/login", "/first-login/step-one", "/first-login/step-two"]; // LP = ""
+        const uxBtnRoutes = ['', '/', '/discover', '/login', '/register', 'discover', '/first-login/step-one', '/first-login/step-two']; // LP = ""
         // Routes SANS header
-        const noHeaderRoutes = ['', '/', '/login', '/register'];
+        const noHeaderRoutes = ['', '/', '/discover', '/login', '/register'];
         // Routes SANS footer 
         const noFooterRoutes: string[] = ['', '/']; 
         // Routes SANS navBottomMobile

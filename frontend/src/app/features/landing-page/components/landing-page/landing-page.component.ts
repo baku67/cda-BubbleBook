@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
 
-
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
