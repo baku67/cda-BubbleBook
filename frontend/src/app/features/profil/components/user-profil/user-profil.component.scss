@@ -19,6 +19,8 @@
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 7px;
     grid-row-gap: 7px;
+
+    margin-top: 4px;
 }
 
 
@@ -31,21 +33,25 @@
     flex-direction: column;
 }
 .home-nav-button mat-icon {
-    font-size: 1.525rem;
-    height: 1.525rem;
-    width: 1.525rem;
+    font-size: 2rem;
+    height: 2rem;
+    width: 2rem;
     margin: 0;
+    color: var(--primary-color);
 }
 .home-nav-button svg {
-    font-size: 1.525rem;
-    height: 1.525rem;
-    width: 1.525rem;
+    font-size: 2rem;
+    height: 2rem;
+    width: 2rem;
     margin: 0;
+    fill: var(--primary-color);
+    position: relative;
+    top: 3px;
 }
 .home-nav-button span {
-    border-top: 1px solid #fbfbfb5c;
+    width: 100%;
+    display: block;
     padding-top: 5px;
-    margin-top: 4px;
 }
 
 .nav-btn-grid {

@@ -2,10 +2,7 @@
 
 .globalMain {
     position: relative;
-    height: 100dvh; 
-    height: --webkit-fill-available; // fallback safari
-    min-height: 100dvh;
-    min-height: --webkit-fill-available; // fallback safari
+    height: auto; 
     width: 100%;
 }
 

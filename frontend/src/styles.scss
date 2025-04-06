@@ -129,21 +129,30 @@ body.light-theme .pageContent-landingPage {
 
 
 // /user-profil
-body.dark-theme .home-nav-button {
-    background-color: var(--element-bg-color) !important;
-    border: 1px solid var(--primary-color);
-    border-radius: 6px;
+body.dark-theme app-user-card .section-top {
+    border-top: 1px solid var(--primary-color);
+    border-right: 1px solid var(--primary-color);
+    border-left: 1px solid var(--primary-color);
+}
+body.dark-theme app-user-card .avatar-container {
+    box-shadow: 0px -5px 29px var(--primary-color);
 }
 body.dark-theme app-user-card .section-bottom {
-    border-bottom: 1px solid var(--primary-color);
+    border-bottom: 4px solid var(--primary-color);
     border-right: 1px solid var(--primary-color);
     border-left: 1px solid var(--primary-color);
     border-bottom-left-radius: 11px;
     border-bottom-right-radius: 11px;
 }
-body.dark-theme app-user-card .avatar-container {
-    box-shadow: 0px -5px 29px var(--primary-color);
+// les 4 boutons:
+body.dark-theme .home-nav-button {
+    background-color: var(--element-bg-color) !important;
+    border: 1px solid var(--primary-color);
+    border-bottom-width: 2px;
+    border-radius: 6px;
 }
+
+
 
 
 // LandingPage .pageContent 
