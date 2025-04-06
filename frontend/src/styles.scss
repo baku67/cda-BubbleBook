@@ -128,6 +128,21 @@ body.light-theme .pageContent-landingPage {
 }
 
 
+// UxMenuBtn 
+body.dark-theme app-language-switch button {
+    color: var(--color) !important;
+} 
+body.dark-theme app-theme-switch button {
+    color: var(--color) !important;
+}
+body.dark-theme button.UxMenu-btn {
+    color: var(--color) !important;
+    .barredDiv {
+        background-color: var(--color) !important;
+    }
+}
+
+
 // /first-login/step-two
 body.dark-theme app-first-login-step2  {
     .banner-item-check, .avatar-item-check {

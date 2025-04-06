@@ -48,14 +48,14 @@
           <!-- poissons-switch -->
           <ng-container *ngIf="currentTheme$ | async as currentTheme">
             <!-- DT: poisson state btn: -->
-            <button mat-button *ngIf="currentTheme === 'dark-theme'" (click)="toggleFishDisplay()" >
+            <button mat-button *ngIf="currentTheme === 'dark-theme'" (click)="toggleFishDisplay()" class="UxMenu-btn">
               <fa-icon 
                 [icon]="fishIcon"
               ></fa-icon>
               <div [class]="(displayFish$ | async) ? '' : 'barredDiv'"></div>
             </button>
             <!-- LT: video state btn: -->
-            <button mat-button *ngIf="currentTheme === 'light-theme'" (click)="toggleBgVideo()">
+            <button mat-button *ngIf="currentTheme === 'light-theme'" (click)="toggleBgVideo()" class="UxMenu-btn">
               <fa-icon 
                 [icon]="(isBgVideo$ | async) ? videoIcon : videoIconSlash"
               ></fa-icon>
