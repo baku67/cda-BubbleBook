@@ -19,6 +19,7 @@ import { OtherUserProfilComponent } from './features/social/components/other-use
 import { OtherUserProfileResolver } from './core/resolvers/other-user-profil.resolver';
 import { UserProfileResolver } from './core/resolvers/user-profil.resolver';
 import { LandingPageHomeComponent } from './features/landing-page/components/landing-page-home/landing-page-home.component';
+import { LandingPageDiscoverComponent } from './features/landing-page/components/landing-page-discover/landing-page-discover.component';
 
 export const routes: Routes = [
     // LandingPage + Login/Register Pages
@@ -29,6 +30,12 @@ export const routes: Routes = [
             {
                 path: '', 
                 component: LandingPageHomeComponent, 
+                canActivate: [PreventPublicAccessGuard], 
+                canDeactivate: [FadeOutGuard] 
+            },
+            {
+                path: 'discover', 
+                component: LandingPageDiscoverComponent, 
                 canActivate: [PreventPublicAccessGuard], 
                 canDeactivate: [FadeOutGuard] 
             },

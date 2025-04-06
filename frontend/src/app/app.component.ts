@@ -101,10 +101,12 @@ export class AppComponent implements OnInit {
     // Suivre l'état d'initialisation dans le authService
     this.authService.isInitializingAuthObservable.subscribe(isInitializingAuth => {
       this.isInitializingAuth = isInitializingAuth;
+      this.toggleBodyScroll(); // corrige le scroll loader-global (pendant friction positive ?) 
     });
 
-    // Est-ce que la vidéo est chargée ??
+    // Simule la fin de l'initialisation de la vidéo (à remplacer par ton service plus tard)
     this.isInitializingVideoBg = false; // MOCK TEMP "OUI" -> TODO: service
+    this.toggleBodyScroll(); // corrige le scroll loader-global (pendant friction positive ?) 
 
     // S'abonner à l'état de connexion
     this.authService.isLoggedIn$.subscribe(isLoggedIn => {
@@ -142,6 +144,10 @@ export class AppComponent implements OnInit {
     console.log(animationItem);
   }
 
+  private toggleBodyScroll(): void {
+    const shouldDisableScroll = this.isInitializingAuth || this.isInitializingVideoBg;
+    document.body.style.overflow = shouldDisableScroll ? 'hidden' : '';
+  }
   onVideoLoaded() {
     // console.log("🚀 [AppComponent] Vidéo de fond chargée !");
     this.landingPageService.setVideoLoaded(true);

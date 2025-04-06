@@ -21,7 +21,7 @@ export class AccountSettingsInterfaceComponent implements OnInit {
     displayFish$!: Observable<boolean>;
     isBgVideo$!: Observable<boolean>;
 
-    DTprimaryColors : string[] = ['#3ec0ec', '#ff6b6b', '#f9c74f', '#2cedd6', '#f4a261'];
+    DTprimaryColors : string[] = ['#3ec0ec', '#ff6b6b', '#f9c74f', '#2cedd6', '#4ff98c', '#f4a261'];
     selectedDTprimaryColor: string = '#3ec0ec'; // Valeur par défaut pour themePrimaryColor
     
     readonly panelOpenState = signal(false);

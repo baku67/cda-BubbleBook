@@ -117,5 +117,7 @@
     "PROFILE_PRIVATE_WARNING": "Votre profil et votre contenu sont actuellement invisibles aux yeux des autres utilisateurs.",
 
     "PAGE_NOT_FOUND": "Page introuvable",
-    "PAGE_NOT_FOUND_DESCRIPTION": "La page ou la ressource que vous cherchez n'existe pas ou a été modifiée."
+    "PAGE_NOT_FOUND_DESCRIPTION": "La page ou la ressource que vous cherchez n'existe pas ou a été modifiée.",
+
+    "LP_DISCOVER_BTN": "Découvrir"
 }

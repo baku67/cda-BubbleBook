@@ -113,5 +113,7 @@
     "PROFILE_PRIVATE_WARNING": "Your profile and content are currently invisible to other users.",
 
     "PAGE_NOT_FOUND": "Page not found",
-    "PAGE_NOT_FOUND_DESCRIPTION": "The page or the ressource you are requesting was not found or has been modified."
+    "PAGE_NOT_FOUND_DESCRIPTION": "The page or the ressource you are requesting was not found or has been modified.",
+
+    "LP_DISCOVER_BTN": "Discover"
 }
