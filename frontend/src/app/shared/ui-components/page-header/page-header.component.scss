@@ -17,6 +17,8 @@ header {
 
     position: relative;
     right: 12px;
+
+    transition: color 0.5s ease; // // synchro avec titre et autres éléments /account-settings qui ont --primary-color (pour fluide pendant animm de changement de color)
 }
 .page-title-line h2 {
     margin-bottom: 0;

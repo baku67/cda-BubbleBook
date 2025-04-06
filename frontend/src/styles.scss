@@ -292,6 +292,8 @@ input:-webkit-autofill:active{
     padding: 10px 13px;
     border-radius: 10px !important;
     width: 100%; // temporaire mobile
+
+    transition: all 0.5s ease !important;
 }
 .surface {
     border-radius: 10px;

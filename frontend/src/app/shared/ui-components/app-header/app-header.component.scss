@@ -28,5 +28,7 @@
 
     opacity: 0;
     letter-spacing: -7px;
+    
+    transition: color 0.5s ease; // // synchro avec titre et autres éléments /account-settings qui ont --primary-color (pour fluide pendant animm de changement de color)
     animation: hero-title-anim 0.5s 0.1s ease forwards;
 }
