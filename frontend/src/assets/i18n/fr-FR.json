@@ -40,7 +40,7 @@
     "EMAIL_CONFIRMATION_SENT": "Un email de confirmation vous a été renvoyé à l'adresse {{ email }}",
 
     "REGISTER": "S'inscrire",
-    "ALREADY_SIGNED_IN": "Vous possédez déjà un compte ?",
+    "ALREADY_SIGNED_IN": "Déjà inscrit ?",
 
     "LOGIN": "Connexion",
     "REMEMBER_ME": "Se souvenir de moi",

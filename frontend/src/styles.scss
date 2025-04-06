@@ -118,6 +118,12 @@ body.dark-theme .loading-screen {
 }
 
 
+// Discover / Découvrir btn:
+body.dark-theme .pageContent-landingPage {
+    .discover-btn {
+        background-color: rgb(128 128 128 / 9%) !important;
+    }
+}
 body.light-theme .pageContent-landingPage {
     .discover-btn {
         background-color: rgb(255 255 255 / 23%) !important;
