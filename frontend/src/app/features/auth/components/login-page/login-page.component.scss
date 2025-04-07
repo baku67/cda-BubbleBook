@@ -8,11 +8,13 @@
     padding: 0px;
     margin-top: 17px; // synchro register-page-component
   }
+
+  .subPageContent {
+    backdrop-filter: blur(12px);
+    animation: fadeIn 1s ease forwards;
+  }
 }
 
-.login-page-login {
-
-}
 
 
 .form-container {

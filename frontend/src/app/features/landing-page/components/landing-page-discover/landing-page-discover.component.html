@@ -1,3 +1,37 @@
-<div class="pageContent login-page-login">
-    <h2>Page 1</h2>
+
+
+<div class="pageContent subPageContent">
+    <!-- <h2>Page 1</h2> -->
+
+    <div class="carousel-container" (pointerdown)="onPointerDown($event)" (pointermove)="onPointerMove($event)" (pointerup)="onPointerUp($event)">
+        <div class="carousel-slides">
+          <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="currentSlide === i">
+            <div class="slide-content">
+              <div class="slide-icon">
+                <span class="material-icons">{{slide.icon}}</span>
+              </div>
+              <h3>{{slide.title}}</h3>
+              <p>{{slide.description}}</p>
+            </div>
+          </div>
+        </div>
+      
+        <div class="carousel-controls">
+          <button class="prev-btn" (click)="previousSlide()" [disabled]="currentSlide === 0">
+            <span class="material-icons">chevron_left</span>
+          </button>
+          
+          <div class="carousel-indicators">
+            <span *ngFor="let slide of slides; let i = index" 
+                  class="indicator" 
+                  [class.active]="currentSlide === i"
+                  (click)="goToSlide(i)">
+            </span>
+          </div>
+      
+          <button class="next-btn" (click)="nextSlide()" [disabled]="currentSlide === slides.length - 1">
+            <span class="material-icons">chevron_right</span>
+          </button>
+        </div>
+      </div>
 </div>

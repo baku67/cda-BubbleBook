@@ -59,6 +59,7 @@ import { AccountSettingsComponent } from './features/profil/components/account-s
 import { AccountSettingsInterfaceComponent } from "./features/profil/components/account-settings-interface/account-settings-interface.component";
 import { AccountSettingsPrivacyComponent } from './features/profil/components/account-settings-privacy/account-settings-privacy.component';
 import { AccountSettingsProfilComponent } from './features/profil/components/account-settings-profil/account-settings-profil.component';
+import { LandingPageDiscoverComponent } from './features/landing-page/components/landing-page-discover/landing-page-discover.component';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -78,6 +79,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppComponent,
     LandingPageComponent,
     LandingPageHomeComponent,
+    LandingPageDiscoverComponent,
     LoginPageComponent,
     RegisterPageComponent, 
   
