@@ -60,13 +60,34 @@ ssh:
   nginx"
 )
 
-### Papatrier/cloner/deplacer projet
+### (AVANT) Papatrier/cloner/deplacer projet
 - Copier avec SCP depuis machine locale (hors connection ssh "exit"):
   -> PAS BON IDEE CAR COPIE VENDOR ET NODE MODULES
 "scp -i "Bubblebook aws ec2.pem" -r /chemin/vers/votre/projet ec2-user@ec2-15-236-131-79.eu-west-3.compute.amazonaws.com:~/"
 - Cloner avec Git (BON IDEE):
 "sudo dnf install -y git"
 "git clone https://github.com/baku67/cda-BubbleBook.git"
+
+/!\ (APRES) Optimisation build Angular (pour éviter de build sur place trop lourd)
+ssh-ec2: "sudo dnf install -y git"
+ssh-ec2: "git clone https://github.com/baku67/cda-BubbleBook.git"
+
+"ng build --configuration production" sur machine locale puissante
+-> créé build dans /dist/angular/
+Désactiver toute la section "angular" du docker-compose.prod (car on ne veut plus cette étape en prod sur EC2), enfait si mais on pointe sur l'image DockerHub de mon build opti (prod.yaml à jour)
+
+CHOIX: pousser une image Angular buildée en local sur DockerHub ou Amazon ECR
+ou deploy.sh
+
+Image opti du build sur DockerHub:
+# docker build -f frontend/Dockerfile.prod -t frontopti:latest .
+# docker tag frontopti nujabb/front-opti:latest
+# docker push nujabb/front-opti:latest
+
+git clone ...
+docker-compose -f docker-compose.prod.yaml up -d
+
+
 
 
 ### Lancement:
@@ -76,12 +97,16 @@ ssh:
 - docker-compose ps
 - docker-compose logs -f
 
-
 ### Commandes Docker 
 docker stop xxx-serveur
 docker rm xxx-serveur
 docker volume ls
 docker volume rm xxx-volume
+Pour tout clean -> 
+  "docker system prune -a --volumes" (suppr tout ce qui est stoppé)
+  "docker rm -f $(docker ps -aq) \
+    && docker rmi -f $(docker images -q) \
+    && docker volume rm $(docker volume ls -q)" (suppr tout)
 
 ### MISE A JOUR DU PROJET
 - Je crois qu'on peut faire ça grâce à DockerHub, et après avec Docker login puis Docker push on met juste à jour la différence, mais on peut tout refaire à la main

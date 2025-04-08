@@ -1,0 +1,147 @@
+# Pour mise en prod sur serveur éclaté EC2 AWS gratuit, on build pas angular sur place.
+# On fait le build sur la machine local (puissante) et on point apache dessus directement (au lieu du dossier frontend entier)
+# Nécessite de faire un build pour chaque MEP (ou go faire ça en CI/CD)
+
+# Pour lancer ce fichier de config:
+# "docker-compose -f docker-compose.prod.yaml up --build"
+
+services:
+
+  # Proxy pour servir l'API et l'app Angular sur le meme domaine pour pouvoir mettre en place le https (certificats SSL) pour le SetCookie RefreshToken oyé
+  reverse-proxy:
+    image: traefik:v2.10
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik/certs:/certs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - mynetwork
+    labels:
+      - "traefik.enable=true"
+
+
+  apache:
+    image: httpd:latest 
+    ports:
+      - "8080:80" 
+    volumes:
+      - ./frontend/dist/angular:/var/www/html # bind mount opti (plus sur le ./frontend)
+    networks:
+      - mynetwork
+
+
+  php:
+    build:
+      context: ./backend 
+      dockerfile: Dockerfile 
+    container_name: php-symfony
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html/public
+    ports:
+      - "8000:443"
+    volumes:
+      - ./backend:/var/www/html:delegated 
+      - vendor:/var/www/html/vendor 
+      - var:/var/www/html/var 
+      - php-certs:/etc/ssl:rw 
+    networks:
+      - mynetwork
+    depends_on:
+      - postgres
+      - mailer
+    labels:
+      - "traefik.http.routers.api.rule=Host(`api.example.com`)"
+      - "traefik.http.routers.api.entrypoints=websecure"
+      - "traefik.http.routers.api.tls.certresolver=letsencrypt"
+
+
+
+
+  postgres:
+    image: postgres:15  # pas d'image custom (mieux que "latest")
+    environment:
+      POSTGRES_DB: bubblebook
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432" # "machineHôte:DockerEngine"
+    volumes:
+      # synchronisation entre volume:conteneur
+      - pg_data:/var/lib/postgresql/data # volume nommé
+    networks:
+      - mynetwork
+
+
+  pgadmin:
+    image: dpage/pgadmin4 # pas d'image custom
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    ports:
+      - "5050:80" # "machineHôte:DockerEngine"
+    depends_on:
+      - postgres
+    networks:
+      - mynetwork
+    volumes:
+      # synchronisation entre volume:conteneur
+      - pgadmin_data:/var/lib/pgadmin  # volume nommé (données de session et configuration)
+
+
+  mailer:
+    image: axllent/mailpit # pas d'image custom
+    ports:
+      - "1025:1025" 
+      - "8025:8025"  # Interface web de Mailpit
+    networks:
+      - mynetwork
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+
+
+  #angular:
+  #  build:
+  #    context: ./frontend
+  #    dockerfile: Dockerfile # image custom
+  #  container_name: angular
+  #  working_dir: /app
+  #  volumes:
+  #    # synchronisation entre volume:conteneur
+  #    - ./frontend:/app:delegated # "./" => bind mounts (liaison de dossier), utile pour éviter de rebuild et remonter les container a chaque changement dans le code source du projet
+  #    - node_modules:/app/node_modules # volume nommé
+  #    # Monte les certificats SSL (pour Https pour SetCookie REfreshToken Secure) générés par le Dockerfile backend
+  #    - php-certs:/app/certs:ro # Volume partagé pour les certificats
+  #  ports:
+  #    - "4200:4200" # "machineHôte:DockerEngine"
+  #  networks:
+  #    - mynetwork
+  #  labels:
+  #    - "traefik.http.routers.frontend.rule=Host(`frontend.example.com`)"
+  #    - "traefik.http.routers.frontend.entrypoints=websecure"
+  #    - "traefik.http.routers.frontend.tls.certresolver=letsencrypt"
+  angular:
+    image: nujabb/front-opti:latest
+    ports:
+      - "80:80"
+
+
+# Déclaration des volumes utilisés dans les services
+volumes:
+  pg_data:
+  pgadmin_data:
+  node_modules: 
+  vendor:  
+  var:  
+  php-certs:
+
+# Déclaration des services utilisés dans les services
+networks:
+  mynetwork:
+
+
+# -d: detached, --build: pour reconstruire les images si les Dockerfiles ont changé
+# docker-compose up --build -d

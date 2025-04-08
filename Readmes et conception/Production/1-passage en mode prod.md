@@ -4,7 +4,7 @@ AWS Secrets Manager, AWS Parameter Store, Vault pour les env
 
 
 
-Pour l'instant:
+Pour l'instant (après clone):
 
 Copiage le .env dans le ./backend du AWS:
 "scp -i "/c/Users/basil/Downloads/ssh/Bubblebook aws ec2.pem" -r "/c/laragon/www/cda-BubbleBook/backend/.env" ec2-user@ec2-51-44-222-232.eu-west-3.compute.amazonaws.com:/home/ec2-user/cda-BubbleBook/backend/"
