@@ -134,3 +134,12 @@ Pour tout clean ->
   "docker ps -a"
   "docker stop xxx"
   "docker rm xxx"
+
+
+
+### CRON sur l'instance pour lancer le docker-compose.prod.yaml quand on relance l'instance
+(sudo yum install cronie -y)
+(sudo systemctl start crond)
+(sudo systemctl enable crond)
+crontab -e
+@reboot cd /home/ec2-user/cda-BubbleBook && docker-compose -f docker-compose.prod.yaml up -d
