@@ -2,7 +2,7 @@ paire de clés SSH danbs googleDrive
 
 Se placer là ou se trouve la clé SSH ("Bubblebook aws ec2.pem") et lancer la commande:
 (askip il faut sudo mais ça marche sans ?)
-ssh -i "Bubblebook aws ec2.pem" ec2-user@ec2-51-44-222-232.eu-west-3.compute.amazonaws.com
+ssh -i "Bubblebook aws ec2.pem" ec2-user@ec2-13-39-60-71.eu-west-3.compute.amazonaws.com
 
 
    ,     #_
@@ -72,12 +72,10 @@ ssh:
 ssh-ec2: "sudo dnf install -y git"
 ssh-ec2: "git clone https://github.com/baku67/cda-BubbleBook.git"
 
+racine ./frontend:
 "ng build --configuration production" sur machine locale puissante
 -> créé build dans /dist/angular/browser
 Désactiver toute la section "*apache*" du docker-compose.prod (car on ne veut plus cette étape en prod sur EC2), enfait si mais on pointe sur l'image DockerHub de mon build opti (prod.yaml à jour)
-
-CHOIX: pousser une image Angular buildée en local sur DockerHub ou Amazon ECR
-ou deploy.sh
 
 Image opti du build sur DockerHub:
 (Avant de build: modifier l'URL du envrionments.prod.ts !!) Sinon solutions: Nom de domaine ou Elastic IP sur EC2.
@@ -87,15 +85,16 @@ racine projet:
 # docker tag frontopti nujabb/front-opti:latest
 # docker push nujabb/front-opti:latest
 
+
 Sur EC2:
 "git clone https://github.com/baku67/cda-BubbleBook.git" ...
 
-  Copiage le .env dans le ./backend du AWS:
-  "scp -i "/c/Users/basil/Downloads/ssh/Bubblebook aws ec2.pem" -r "/c/laragon/www/cda-BubbleBook/backend/.env" ec2-user@ec2-15-237-249-201.eu-west-3.compute.amazonaws.com:/home/ec2-user/cda-BubbleBook/backend/"
+  Copiage le .env dans le ./backend du AWS: (se placer dans /c avec la clée ou tu sais)
+  "scp -i "/c/Users/basil/Downloads/ssh/Bubblebook aws ec2.pem" -r "/c/laragon/www/cda-BubbleBook/backend/.env" ec2-user@ec2-13-39-60-71.eu-west-3.compute.amazonaws.com:/home/ec2-user/cda-BubbleBook/backend/"
 
   Copiage les private.pem et public.pem dans le backend/config/jwt:
-  "scp -i "/c/Users/basil/Downloads/ssh/Bubblebook aws ec2.pem" -r "/c/laragon/www/cda-BubbleBook/backend/config/jwt/public.pem" ec2-user@ec2-15-237-249-201.eu-west-3.compute.amazonaws.com:/home/ec2-user/cda-BubbleBook/backend/config/jwt/" 
-  "scp -i "/c/Users/basil/Downloads/ssh/Bubblebook aws ec2.pem" -r "/c/laragon/www/cda-BubbleBook/backend/config/jwt/private.pem" ec2-user@ec2-15-237-249-201.eu-west-3.compute.amazonaws.com:/home/ec2-user/cda-BubbleBook/backend/config/jwt/" 
+  "scp -i "/c/Users/basil/Downloads/ssh/Bubblebook aws ec2.pem" -r "/c/laragon/www/cda-BubbleBook/backend/config/jwt/public.pem" ec2-user@ec2-13-39-60-71.eu-west-3.compute.amazonaws.com:/home/ec2-user/cda-BubbleBook/backend/config/jwt/" 
+  "scp -i "/c/Users/basil/Downloads/ssh/Bubblebook aws ec2.pem" -r "/c/laragon/www/cda-BubbleBook/backend/config/jwt/private.pem" ec2-user@ec2-13-39-60-71.eu-west-3.compute.amazonaws.com:/home/ec2-user/cda-BubbleBook/backend/config/jwt/" 
 
   Modifier l'URL envrionnement.prod.ts (avant le build dockerHub, parce que le fichier comme ça sert à rien en SSH)
   angular.json fileReplacement à jour
@@ -104,6 +103,10 @@ ET enfin:
 "docker-compose -f docker-compose.prod.yaml up --build" (on garde --build quand meme pour l'image php)
 
 
+### Concerné par IP/DOMAIN (ElasticIP + domaine Hostinger):
+nelmio_cors (faire une version prod)
+envrionments.prod.ts
+docker-compose.prod.yaml x2 
 
 
 ### Lancement:

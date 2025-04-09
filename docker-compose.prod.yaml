@@ -56,8 +56,8 @@ services:
       - mailer
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.api.rule=Host(`15.237.249.201`) && PathPrefix(`/api`)" # CHANGER L'ip EC2-AWS ou nom de domaine
-      #- "traefik.http.routers.api.rule=Host(`15.237.249.201`)" # CHANGER L'ip EC2-AWS ou nom de domaine
+      - "traefik.http.routers.api.rule=Host(`bubblebook.fun`) && PathPrefix(`/api`)" # CHANGER L'ip EC2-AWS ou nom de domaine
+      #- "traefik.http.routers.api.rule=Host(`bubblebook.fun`)" # CHANGER L'ip EC2-AWS ou nom de domaine
       - "traefik.http.routers.api.entrypoints=web"
       - "traefik.http.routers.api.entrypoints=websecure"
       - "traefik.http.routers.api.tls.certresolver=letsencrypt"
@@ -135,7 +135,7 @@ services:
       - mynetwork
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.frontend.rule=Host(`15.237.249.201`)" # CHANGER L'ip EC2-AWS ou nom de domaine
+    - "traefik.http.routers.frontend.rule=Host(`bubblebook.fun`)" # CHANGER L'ip EC2-AWS ou nom de domaine
     - "traefik.http.routers.frontend.entrypoints=web"
     - "traefik.http.routers.frontend.entrypoints=websecure"
     - "traefik.http.routers.frontend.tls.certresolver=letsencrypt"
