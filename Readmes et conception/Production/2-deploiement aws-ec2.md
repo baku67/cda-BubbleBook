@@ -80,12 +80,27 @@ CHOIX: pousser une image Angular buildée en local sur DockerHub ou Amazon ECR
 ou deploy.sh
 
 Image opti du build sur DockerHub:
+(Avant de build: modifier l'URL du envrionments.prod.ts !!) Sinon solutions: Nom de domaine ou Elastic IP sur EC2.
+(IL FAUDRA AUSSI CHANGER L'ip dans docker-compose.prod.yaml pour pointer vers l'instance, et ça c'est cloné) solution -> nom de domaine encore ou Elastic IP ?
 # docker build -f frontend/Dockerfile.prod -t frontopti:latest .
 # docker tag frontopti nujabb/front-opti:latest
 # docker push nujabb/front-opti:latest
 
-git clone ...
-docker-compose -f docker-compose.prod.yaml up -d
+Sur EC2:
+"git clone https://github.com/baku67/cda-BubbleBook.git" ...
+
+  Copiage le .env dans le ./backend du AWS:
+  "scp -i "/c/Users/basil/Downloads/ssh/Bubblebook aws ec2.pem" -r "/c/laragon/www/cda-BubbleBook/backend/.env" ec2-user@ec2-15-237-249-201.eu-west-3.compute.amazonaws.com:/home/ec2-user/cda-BubbleBook/backend/"
+
+  Copiage les private.pem et public.pem dans le backend/config/jwt:
+  "scp -i "/c/Users/basil/Downloads/ssh/Bubblebook aws ec2.pem" -r "/c/laragon/www/cda-BubbleBook/backend/config/jwt/public.pem" ec2-user@ec2-15-237-249-201.eu-west-3.compute.amazonaws.com:/home/ec2-user/cda-BubbleBook/backend/config/jwt/" 
+  "scp -i "/c/Users/basil/Downloads/ssh/Bubblebook aws ec2.pem" -r "/c/laragon/www/cda-BubbleBook/backend/config/jwt/private.pem" ec2-user@ec2-15-237-249-201.eu-west-3.compute.amazonaws.com:/home/ec2-user/cda-BubbleBook/backend/config/jwt/" 
+
+  Modifier l'URL envrionnement.prod.ts (avant le build dockerHub, parce que le fichier comme ça sert à rien en SSH)
+  angular.json fileReplacement à jour
+
+ET enfin:
+"docker-compose -f docker-compose.prod.yaml up --build" (on garde --build quand meme pour l'image php)
 
 
 

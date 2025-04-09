@@ -15,22 +15,22 @@ services:
       - "443:443"
     volumes:
       - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./traefik/certs:/certs:ro
+      - ./traefik/certs:/certs # sans :ro (car il doit etre accessible en lecture ET écriture pour les certifs)
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - mynetwork
     labels:
       - "traefik.enable=true"
 
-
-  apache:
-    image: httpd:latest 
-    ports:
-      - "8080:80" 
-    volumes:
-      - ./frontend/dist/angular:/var/www/html # bind mount opti (plus sur le ./frontend)
-    networks:
-      - mynetwork
+  
+  # apache:
+  #  image: httpd:latest 
+  #  ports:
+  #    - "8080:80" 
+  #  volumes:
+  #    - ./frontend/dist/angular:/var/www/html # bind mount opti (plus sur le ./frontend)
+  #  networks:
+  #    - mynetwork
 
 
   php:
@@ -53,49 +53,49 @@ services:
       - postgres
       - mailer
     labels:
-      - "traefik.http.routers.api.rule=Host(`api.example.com`)"
+      - "traefik.http.routers.api.rule=Host(`15.237.249.201`)" # CHANGER L'ip EC2-AWS ou nom de domaine
+      - "traefik.http.routers.api.entrypoints=web"
       - "traefik.http.routers.api.entrypoints=websecure"
       - "traefik.http.routers.api.tls.certresolver=letsencrypt"
+      - "traefik.http.services.api.loadbalancer.server.port=80"
 
 
 
 
   postgres:
-    image: postgres:15  # pas d'image custom (mieux que "latest")
+    image: postgres:15 
     environment:
       POSTGRES_DB: bubblebook
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432" # "machineHôte:DockerEngine"
+      - "5432:5432" 
     volumes:
-      # synchronisation entre volume:conteneur
-      - pg_data:/var/lib/postgresql/data # volume nommé
+      - pg_data:/var/lib/postgresql/data 
     networks:
       - mynetwork
 
 
   pgadmin:
-    image: dpage/pgadmin4 # pas d'image custom
+    image: dpage/pgadmin4 
     environment:
       PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
       PGADMIN_DEFAULT_PASSWORD: postgres
     ports:
-      - "5050:80" # "machineHôte:DockerEngine"
+      - "5050:80"
     depends_on:
       - postgres
     networks:
       - mynetwork
     volumes:
-      # synchronisation entre volume:conteneur
-      - pgadmin_data:/var/lib/pgadmin  # volume nommé (données de session et configuration)
+      - pgadmin_data:/var/lib/pgadmin 
 
 
   mailer:
-    image: axllent/mailpit # pas d'image custom
+    image: axllent/mailpit 
     ports:
       - "1025:1025" 
-      - "8025:8025"  # Interface web de Mailpit
+      - "8025:8025"  
     networks:
       - mynetwork
     environment:
@@ -125,11 +125,19 @@ services:
   #    - "traefik.http.routers.frontend.tls.certresolver=letsencrypt"
   angular:
     image: nujabb/front-opti:latest
-    ports:
-      - "80:80"
+    expose:
+      - "80" # et non plus "ports" 80:80
+    networks:
+      - mynetwork
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.frontend.rule=Host(`15.237.249.201`)" # CHANGER L'ip EC2-AWS ou nom de domaine
+    - "traefik.http.routers.frontend.entrypoints=web"
+    - "traefik.http.routers.frontend.entrypoints=websecure"
+    - "traefik.http.routers.frontend.tls.certresolver=letsencrypt"
+    - "traefik.http.services.frontend.loadbalancer.server.port=80"
 
 
-# Déclaration des volumes utilisés dans les services
 volumes:
   pg_data:
   pgadmin_data:
@@ -138,10 +146,6 @@ volumes:
   var:  
   php-certs:
 
-# Déclaration des services utilisés dans les services
 networks:
   mynetwork:
 
-
-# -d: detached, --build: pour reconstruire les images si les Dockerfiles ont changé
-# docker-compose up --build -d

@@ -13,6 +13,5 @@ Copiage les private.pem et public.pem dans le backend/config/jwt:
 "scp -i "/c/Users/basil/Downloads/ssh/Bubblebook aws ec2.pem" -r "/c/laragon/www/cda-BubbleBook/backend/config/jwt/public.pem" ec2-user@ec2-51-44-222-232.eu-west-3.compute.amazonaws.com:/home/ec2-user/cda-BubbleBook/backend/config/jwt/" 
 "scp -i "/c/Users/basil/Downloads/ssh/Bubblebook aws ec2.pem" -r "/c/laragon/www/cda-BubbleBook/backend/config/jwt/private.pem" ec2-user@ec2-51-44-222-232.eu-west-3.compute.amazonaws.com:/home/ec2-user/cda-BubbleBook/backend/config/jwt/" 
 
-
 envrionnement.prod.ts à jour (vérifier Adresse IPv4 de l'instance AWS EC2)
 angular.json fileReplacement à jour
