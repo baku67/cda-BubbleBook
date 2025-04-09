@@ -22,6 +22,7 @@ services:
       - mynetwork
     labels:
       - "traefik.enable=true"
+    entrypoint: ["sh", "-c", "chmod 600 /certs/acme.json && traefik"]
 
   # apache:
   #  image: httpd:latest 

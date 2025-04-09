@@ -101,6 +101,7 @@ Sur EC2:
 
 ET enfin:
 "docker-compose -f docker-compose.prod.yaml up --build" (on garde --build quand meme pour l'image php)
+-> "-d" si on veut laisser tourner l'instance et couper l'ordi ou le terminal
 
 
 ### Concerné par IP/DOMAIN (ElasticIP + domaine Hostinger):

@@ -16,6 +16,9 @@ entryPoints:
 certificatesResolvers:
   letsencrypt:
     acme:
+      caServer: https://acme-v02.api.letsencrypt.org/directory
+      keyType: EC384
+      tlsChallenge: {}
       email: basile08@hotmail.com
       storage: /certs/acme.json
       httpChallenge:
