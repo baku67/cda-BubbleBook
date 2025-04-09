@@ -22,7 +22,6 @@ services:
     labels:
       - "traefik.enable=true"
 
-  
   # apache:
   #  image: httpd:latest 
   #  ports:
@@ -40,6 +39,7 @@ services:
     container_name: php-symfony
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html/public
+    # Soit faire un expose: - "80"
     ports:
       - "8000:443"
     volumes:
@@ -53,7 +53,8 @@ services:
       - postgres
       - mailer
     labels:
-      - "traefik.http.routers.api.rule=Host(`15.237.249.201`)" # CHANGER L'ip EC2-AWS ou nom de domaine
+      # Soit pathPrefix pour différentier du même Host frontend angular
+      - "traefik.http.routers.api.rule=Host(`15.237.249.201`) && PathPrefix(`/api`)" # CHANGER L'ip EC2-AWS ou nom de domaine
       - "traefik.http.routers.api.entrypoints=web"
       - "traefik.http.routers.api.entrypoints=websecure"
       - "traefik.http.routers.api.tls.certresolver=letsencrypt"

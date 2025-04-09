@@ -1,6 +1,6 @@
 # ./frontend/Dockerfile.prod
 FROM nginx:alpine
-COPY frontend/dist/angular/ /usr/share/nginx/html
+COPY frontend/dist/angular/browser /usr/share/nginx/html
 
 # docker build -f frontend/Dockerfile.prod -t frontopti:latest .
 # docker tag frontopti nujabb/front-opti:latest

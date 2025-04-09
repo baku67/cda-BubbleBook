@@ -73,8 +73,8 @@ ssh-ec2: "sudo dnf install -y git"
 ssh-ec2: "git clone https://github.com/baku67/cda-BubbleBook.git"
 
 "ng build --configuration production" sur machine locale puissante
--> créé build dans /dist/angular/
-Désactiver toute la section "angular" du docker-compose.prod (car on ne veut plus cette étape en prod sur EC2), enfait si mais on pointe sur l'image DockerHub de mon build opti (prod.yaml à jour)
+-> créé build dans /dist/angular/browser
+Désactiver toute la section "*apache*" du docker-compose.prod (car on ne veut plus cette étape en prod sur EC2), enfait si mais on pointe sur l'image DockerHub de mon build opti (prod.yaml à jour)
 
 CHOIX: pousser une image Angular buildée en local sur DockerHub ou Amazon ECR
 ou deploy.sh
@@ -82,6 +82,7 @@ ou deploy.sh
 Image opti du build sur DockerHub:
 (Avant de build: modifier l'URL du envrionments.prod.ts !!) Sinon solutions: Nom de domaine ou Elastic IP sur EC2.
 (IL FAUDRA AUSSI CHANGER L'ip dans docker-compose.prod.yaml pour pointer vers l'instance, et ça c'est cloné) solution -> nom de domaine encore ou Elastic IP ?
+racine projet:
 # docker build -f frontend/Dockerfile.prod -t frontopti:latest .
 # docker tag frontopti nujabb/front-opti:latest
 # docker push nujabb/front-opti:latest
@@ -122,6 +123,7 @@ Pour tout clean ->
   "docker rm -f $(docker ps -aq) \
     && docker rmi -f $(docker images -q) \
     && docker volume rm $(docker volume ls -q)" (suppr tout)
+  "sudo rm -rf cda-BubbleBook"
 
 ### MISE A JOUR DU PROJET
 - Je crois qu'on peut faire ça grâce à DockerHub, et après avec Docker login puis Docker push on met juste à jour la différence, mais on peut tout refaire à la main
