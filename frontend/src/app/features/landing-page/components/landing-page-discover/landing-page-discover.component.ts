@@ -17,6 +17,7 @@ export class LandingPageDiscoverComponent {
     { icon: 'contact_page', title: 'Contact', description: 'Contactez-nous pour plus d\'informations.' }
   ];
   currentSlide: number = 0;
+  dragOffset: number = 0; // décalage pendant le geste
   
   private initialX: number | null = null;
   private currentX: number | null = null;
@@ -28,25 +29,27 @@ export class LandingPageDiscoverComponent {
 
   onPointerMove(event: PointerEvent) {
     if (this.initialX !== null) {
-      this.currentX = event.clientX;
+      this.dragOffset = event.clientX - this.initialX;
     }
   }
 
   onPointerUp(event: PointerEvent) {
-    if (this.initialX !== null && this.currentX !== null) {
-      const diffX = this.initialX - this.currentX;
-      if (diffX > this.swipeThreshold) {
-        console.log('Swipe gauche détecté');
-        this.nextSlide();
-      } else if (diffX < -this.swipeThreshold) {
-        console.log('Swipe droit détecté');
-        this.previousSlide();
+    if (this.initialX !== null) {
+      if (this.dragOffset < -this.swipeThreshold && this.currentSlide < this.slides.length - 1) {
+        this.currentSlide++;
+      } else if (this.dragOffset > this.swipeThreshold && this.currentSlide > 0) {
+        this.currentSlide--;
       }
     }
-    // Réinitialiser les positions
+    // Réinitialiser le geste
+    this.dragOffset = 0;
     this.initialX = null;
-    this.currentX = null;
   }
+
+    // Calcule la translation à appliquer, en fonction de la slide actuelle et de l'offset du geste
+    getSlideTransform(): string {
+      return `translateX(calc(-${this.currentSlide * 100}% + ${this.dragOffset}px))`;
+    }
 
   nextSlide() {
     console.log('nextSlide');

@@ -8,7 +8,7 @@ describe('LandingPageDiscoverComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LandingPageDiscoverComponent]
+      declarations: [LandingPageDiscoverComponent]
     })
     .compileComponents();
 
