@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '../../../../environments/environments';
 import { UserProfil } from '../models/userProfile.model';
+import { PrivacyOption } from '../models/privacy-option';
 
 describe('UserService', () => {
   let service: UserService;
@@ -30,12 +31,18 @@ describe('UserService', () => {
     const mockUser: UserProfil = {
       username: 'test',
       email: 'test@test.fr',
+      firstLoginStep: 0,
       accountType: 'option-diver',
       nationality: 'FRA', // Code invalide
       avatarUrl: '',
       bannerUrl: '',
+      initialDivesCount: 100,
       isVerified: false,
       is2fa: false,  
+      profilPrivacy: PrivacyOption.ALL,
+      logBooksPrivacy: PrivacyOption.NO_ONE,
+      certificatesPrivacy: PrivacyOption.NO_ONE,
+      galleryPrivacy: PrivacyOption.NO_ONE
     };
 
     service.getCurrentUser().subscribe((user) => {
