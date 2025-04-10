@@ -88,7 +88,7 @@ jobs:
         working-directory: ./backend
 
       - name: Install dependencies
-        run: composer install --no-progress --no-suggest --prefer-dist
+        run: composer install --no-progress --no-suggest --prefer-dist --no-interaction
         working-directory: ./backend
 
       - name: Ensure Doctrine ORM is installed
