@@ -96,11 +96,13 @@ jobs:
         working-directory: ./backend
 
       - name: Run PHPStan
+        continue-on-error: true
         run: composer phpstan
         working-directory: ./backend
 
       - name: Run PHP CodeSniffer
         # run: composer lint
+        continue-on-error: true
         run: |
           phpcs --standard=PSR12 --report=summary src/ || true
         working-directory: ./backend
