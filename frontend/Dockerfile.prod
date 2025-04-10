@@ -1,7 +1,7 @@
 # ./frontend/Dockerfile.prod
 FROM nginx:alpine
 # anciennement frontend/dist/angular/browser (pour localement)
-COPY dist/angular/browser /usr/share/nginx/html 
+COPY frontend/dist/angular/browser /usr/share/nginx/html 
 
 # ng build --configuration production
 
