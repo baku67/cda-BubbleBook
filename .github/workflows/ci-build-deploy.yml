@@ -108,7 +108,7 @@ jobs:
         working-directory: ./backend
 
       - name: Prepare database
-         env:
+        env:
           KERNEL_CLASS: App\Kernel
           #DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/bubblebook" # Déjà précisé dans le .env.test copié en .env plus haut
         run: |
