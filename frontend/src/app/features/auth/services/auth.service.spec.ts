@@ -15,7 +15,7 @@ describe('AuthService', () => {
   const mockEnvironment = { apiUrl: environment.apiUrl};
 
   beforeEach(() => {
-    const tokenSpy = jasmine.createSpyObj('TokenService', ['setAccessToken', 'clearAccessToken', 'hasValidToken']);
+    const tokenSpy = jasmine.createSpyObj('TokenService', ['setAccessToken', 'clearAccessToken', 'isAccessTokenValid']);
     const routerSpyObj = jasmine.createSpyObj('Router', ['navigate']);
 
     TestBed.configureTestingModule({
@@ -67,7 +67,7 @@ describe('AuthService', () => {
   });
 
   it('should register a user', () => {
-    const mockRegisterData = { email: 'test@example.com', password: 'password123' };
+    const mockRegisterData = { email: 'test@example.com', password: 'password123', passwordCheck: 'password123', acceptTerms: true };
     const mockResponse = { message: 'User registered successfully' };
 
     authService.registerUser(mockRegisterData).subscribe((response) => {
@@ -99,7 +99,7 @@ describe('AuthService', () => {
   it('should check login step', () => {
     const mockStep = 2;
 
-    tokenServiceSpy.hasValidToken.and.returnValue(true);
+    tokenServiceSpy.isAccessTokenValid.and.returnValue(true);
     authService['firstLoginStep'] = mockStep;
 
     const result = authService.getFirstLoginStep();

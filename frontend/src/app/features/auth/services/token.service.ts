@@ -43,7 +43,7 @@ export class TokenService {
     return null;
   }
   // Décoder le token JWT pour en extraire les informations
-  private decodeToken(token: string): any {
+  public decodeToken(token: string): any {
     try {
       return JSON.parse(atob(token.split('.')[1]));
     } catch {

@@ -138,7 +138,7 @@ describe('LoginPageComponent', () => {
     component.onSubmit();
 
     expect(component.errorMessage).toEqual('Identifiants incorrects. Veuillez vérifier votre email et mot de passe.');
-    expect(component.isLoading).toBeFalse();
+    expect(component.isSubmitting).toBeFalse();
   });
 
   it('should toggle password visibility', () => {

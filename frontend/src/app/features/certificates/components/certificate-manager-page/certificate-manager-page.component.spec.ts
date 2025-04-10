@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PageHeaderComponent } from '../../../../shared/ui-components/page-header/page-header.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
+import { UserCertificate } from '../../models/userCertificate.model';
 
 describe('CertificateManagerPageComponent', () => {
   let component: CertificateManagerPageComponent;
@@ -96,7 +97,7 @@ describe('CertificateManagerPageComponent', () => {
   });
 
   it('should handle certificate addition from modal', () => {
-    const newCert = { certificate: { id: 3, name: 'New Cert', type: 'PADI' }, obtainedDate: "03/12/1996", location: "Strasbourg" };
+    const newCert = { id: 1, certificate: { id: 3, name: 'New Cert', type: 'PADI' }, displayOrder: 1, obtainedDate: "03/12/1996", location: "Strasbourg" };
     modalServiceSpy.subscribeToClose.and.callFake((callback) => callback(newCert));
 
     component.openAddCertifModal();
@@ -105,7 +106,7 @@ describe('CertificateManagerPageComponent', () => {
   });
 
   it('should delete certificate and update list', () => {
-    const userCert = { certificate: { id: 2, name: 'Cert B', type:'PADI' }, obtainedDate: "03/12/1996", location: "Strasbourg" };
+    const userCert = { id: 2, certificate: { id: 2, name: 'Cert B', type:'PADI' }, displayOrder: 2, obtainedDate: "03/12/1996", location: "Strasbourg" };
     component.userCertificates = [userCert];
     certificateServiceSpy.deleteUserCertificate.and.returnValue(of(null));
 
@@ -117,7 +118,7 @@ describe('CertificateManagerPageComponent', () => {
   });
 
   it('should handle error when deleting certificate', () => {
-    const userCert = { certificate: { id: 2, name: 'Cert B', type:'PADI' }, obtainedDate: "03/12/1996", location: "Strasbourg" };
+    const userCert = { id: 3, certificate: { id: 2, name: 'Cert B', type:'PADI' }, displayOrder: 3, obtainedDate: "03/12/1996", location: "Strasbourg" };
     component.userCertificates = [userCert];
     certificateServiceSpy.deleteUserCertificate.and.returnValue(throwError(() => new Error('Error')));
 
@@ -129,7 +130,7 @@ describe('CertificateManagerPageComponent', () => {
   });
 
   it('should reorder certificates on drag and drop', () => {
-    const event: CdkDragDrop<string[]> = {
+    const event: CdkDragDrop<UserCertificate[]> = {
       previousIndex: 0,
       currentIndex: 1,
       item: {} as any,
@@ -141,8 +142,8 @@ describe('CertificateManagerPageComponent', () => {
       event: new MouseEvent("click"),
     };
     component.userCertificates = [
-      { certificate: { id: 1, name: 'Cert A', type: 'PADI' }, obtainedDate: "03/12/1996", location: "Strasbourg" },
-      { certificate: { id: 2, name: 'Cert B', type: 'PADI' }, obtainedDate: "03/12/1996", location: "Strasbourg" },
+      { id: 1, certificate: { id: 1, name: 'Cert A', type: 'PADI' }, displayOrder: 1, obtainedDate: "03/12/1996", location: "Strasbourg" },
+      { id: 2, certificate: { id: 2, name: 'Cert B', type: 'PADI' }, displayOrder: 2, obtainedDate: "03/12/1996", location: "Strasbourg" },
     ];
 
     component.drop(event);

@@ -66,14 +66,18 @@ describe('FirstLoginStep1Component', () => {
   });
 
   it('should submit the form and navigate to the next step on success', () => {
+    const mockUser = { username: 'John Doe' } as any;
     component.firstLoginForm.setValue({ accountType: 'option-diver' });
-    firstLoginServiceSpy.updateUser.and.returnValue(of(undefined));
+    
+    firstLoginServiceSpy.updateUser.and.returnValue(of(mockUser));
+    const userServiceSpy = spyOn(component['userService'], 'updateCachedUser');
 
     component.onSubmit();
 
     expect(firstLoginServiceSpy.updateUser).toHaveBeenCalledWith({ accountType: 'option-diver' });
+    expect(userServiceSpy).toHaveBeenCalledWith(mockUser);
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/first-login/step-two']);
-    expect(component.isLoading).toBeFalse();
+    expect(component.isSubmitting).toBeFalse();
   });
 
   it('should handle errors when submitting the form', () => {
@@ -83,7 +87,7 @@ describe('FirstLoginStep1Component', () => {
     component.onSubmit();
 
     expect(firstLoginServiceSpy.updateUser).toHaveBeenCalled();
-    expect(component.isLoading).toBeFalse();
+    expect(component.isSubmitting).toBeFalse();
   });
 
   it('should not submit the form if invalid', () => {
@@ -93,6 +97,6 @@ describe('FirstLoginStep1Component', () => {
 
     expect(firstLoginServiceSpy.updateUser).not.toHaveBeenCalled();
     expect(routerSpy.navigate).not.toHaveBeenCalled();
-    expect(component.isLoading).toBeFalse();
+    expect(component.isSubmitting).toBeFalse();
   });
 });

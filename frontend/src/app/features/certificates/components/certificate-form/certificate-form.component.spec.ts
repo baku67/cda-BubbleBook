@@ -49,7 +49,7 @@ describe('CertificateFormComponent', () => {
       { id: 1, name: 'Cert A', type: 'Org 1' },
       { id: 2, name: 'Cert B', type: 'Org 2' },
     ];
-    component.userCertificates = [{ certificate: { id: 1, name: 'Cert A', type: 'Org 1' }, obtainedDate: "03/12/1996", location: "Strasbourg" }];
+    component.userCertificates = [{ id: 1, certificate: { id: 1, name: 'Cert A', type: 'Org 1' }, displayOrder: 1, obtainedDate: "03/12/1996", location: "Strasbourg" }];
 
     fixture.detectChanges();
   });

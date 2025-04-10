@@ -45,8 +45,8 @@ describe('CertificateService', () => {
 
   it('should fetch current user certificates', () => {
     const mockUserCertificates: UserCertificate[] = [
-      { certificate: { id: 1, name: 'Cert A', type: 'Org 1' }, obtainedDate: '03/12/1996', location: 'Strasbourg' },
-      { certificate: { id: 2, name: 'Cert B', type: 'Org 2' }, obtainedDate: '03/12/1996', location: 'Strasbourg' },
+      { id: 1, certificate: { id: 1, name: 'Cert A', type: 'Org 1' }, displayOrder: 1, obtainedDate: '03/12/1996', location: 'Strasbourg' },
+      { id: 2, certificate: { id: 2, name: 'Cert B', type: 'Org 2' }, displayOrder: 2, obtainedDate: '03/12/1996', location: 'Strasbourg' },
     ];
 
     service.getCurrentUserCertificates().subscribe((certificates) => {

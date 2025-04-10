@@ -21,7 +21,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { PrivacyOption } from '../../../profil/models/privacy-option';
 
 describe('FirstLoginStep2Component', () => {
   let component: FirstLoginStep2Component;
@@ -72,7 +73,7 @@ describe('FirstLoginStep2Component', () => {
     firstLoginServiceSpy = TestBed.inject(FirstLoginStepsService) as jasmine.SpyObj<FirstLoginStepsService>;
     modalServiceSpy = TestBed.inject(ModalService) as jasmine.SpyObj<ModalService>;
 
-    userServiceSpy.getCurrentUser.and.returnValue(of({ username: 'testUser', email: 'test@test.fr', accountType: 'option-diver', nationality: 'FR', avatarUrl: '', bannerUrl: '', isVerified: false, is2fa: false }));
+    userServiceSpy.getCurrentUser.and.returnValue(of({ username: 'testUser', email: 'test@test.fr', firstLoginStep: 2,accountType: 'option-diver', nationality: 'FR', avatarUrl: '', bannerUrl: '', initialDivesCount: 100, isVerified: false, is2fa: false, profilPrivacy: PrivacyOption.ALL, logBooksPrivacy: PrivacyOption.NO_ONE, certificatesPrivacy: PrivacyOption.NO_ONE, galleryPrivacy: PrivacyOption.NO_ONE }));
     fixture.detectChanges();
   });
 
@@ -103,13 +104,16 @@ describe('FirstLoginStep2Component', () => {
   });
 
   it('should submit the form and navigate to user profile on success', () => {
+    const mockUser = { username: 'John Doe' } as any;
     component.firstLoginForm2.setValue({
       username: 'testUser',
       nationality: 'FR',
       avatar: 'mock-avatar',
       banner: 'mock-banner',
     });
-    firstLoginServiceSpy.updateUser.and.returnValue(of(undefined));
+    
+    firstLoginServiceSpy.updateUser.and.returnValue(of(mockUser));
+    const userServiceSpy = spyOn(component['userService'], 'updateCachedUser');
 
     const router = TestBed.inject(Router);
     const navigateSpy = spyOn(router, 'navigate');
@@ -118,7 +122,7 @@ describe('FirstLoginStep2Component', () => {
 
     expect(firstLoginServiceSpy.updateUser).toHaveBeenCalledWith(component.firstLoginForm2.value);
     expect(navigateSpy).toHaveBeenCalledWith(['/user-profil']);
-    expect(component.isLoading).toBeFalse();
+    expect(component.isSubmitting).toBeFalse();
   });
 
   it('should handle errors when submitting the form', () => {
@@ -133,7 +137,7 @@ describe('FirstLoginStep2Component', () => {
     component.onSubmit();
 
     expect(firstLoginServiceSpy.updateUser).toHaveBeenCalled();
-    expect(component.isLoading).toBeFalse();
+    expect(component.isSubmitting).toBeFalse();
   });
 
   it('should skip the step and navigate to user profile on success', () => {
@@ -146,7 +150,7 @@ describe('FirstLoginStep2Component', () => {
 
     expect(firstLoginServiceSpy.skipStep).toHaveBeenCalledWith(2);
     expect(navigateSpy).toHaveBeenCalledWith(['/user-profil']);
-    expect(component.isLoading).toBeFalse();
+    expect(component.isSubmitting).toBeFalse();
   });
 
   it('should handle errors when skipping the step', () => {
@@ -155,6 +159,6 @@ describe('FirstLoginStep2Component', () => {
     component.onSkipStep();
 
     expect(firstLoginServiceSpy.skipStep).toHaveBeenCalledWith(2);
-    expect(component.isLoading).toBeFalse();
+    expect(component.isSubmitting).toBeFalse();
   });
 });

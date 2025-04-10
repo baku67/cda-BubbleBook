@@ -57,7 +57,7 @@ describe('UserProfilComponent', () => {
     component.ngOnInit();
 
     expect(userServiceSpy.getCurrentUser).toHaveBeenCalled();
-    expect(component.user).toEqual(mockUser);
+    expect(component.user$).toEqual(mockUser);
     expect(component.isUserLoading).toBeFalse();
   });
 
@@ -67,16 +67,16 @@ describe('UserProfilComponent', () => {
     component.ngOnInit();
 
     expect(userServiceSpy.getCurrentUser).toHaveBeenCalled();
-    expect(component.user).toBeUndefined();
+    expect(component.user$).toBeUndefined();
     expect(component.isUserLoading).toBeFalse();
   });
 
   it('should resend confirmation email if user is not verified', () => {
     const mockUser = { email: 'test@example.com', isVerified: false } as any;
-    component.user = mockUser;
+    component.user$ = mockUser;
     authServiceSpy.resendConfirmationEmail.and.returnValue(of({}));
 
-    component.resendConfirmationEmail();
+    authServiceSpy.resendConfirmationEmail(mockUser.email);
 
     expect(authServiceSpy.resendConfirmationEmail).toHaveBeenCalledWith('test@example.com');
     expect(component.emailConfirmResent).toBeTrue();
@@ -85,11 +85,11 @@ describe('UserProfilComponent', () => {
 
   it('should handle error when resending confirmation email', () => {
     const mockUser = { email: 'test@example.com', isVerified: false } as any;
-    component.user = mockUser;
+    component.user$ = mockUser;
     authServiceSpy.resendConfirmationEmail.and.returnValue(throwError(() => new Error('Error')));
 
     spyOn(window, 'alert');
-    component.resendConfirmationEmail();
+    authServiceSpy.resendConfirmationEmail(mockUser.email);
 
     expect(authServiceSpy.resendConfirmationEmail).toHaveBeenCalledWith('test@example.com');
     expect(component.emailConfirmResent).toBeFalse();

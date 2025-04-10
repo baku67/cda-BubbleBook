@@ -36,7 +36,7 @@ describe('TokenService', () => {
     const mockToken = createMockJWT({ exp: Math.floor(Date.now() / 1000) + 3600 }); // Expire dans 1 heure
     service.setAccessToken(mockToken);
 
-    const isValid = service.hasValidToken();
+    const isValid = service.isAccessTokenValid();
     expect(isValid).toBeTrue();
   });
 
@@ -44,7 +44,7 @@ describe('TokenService', () => {
     const mockToken = createMockJWT({ exp: Math.floor(Date.now() / 1000) - 3600 }); // Expiré depuis 1 heure
     service.setAccessToken(mockToken);
 
-    const isValid = service.hasValidToken();
+    const isValid = service.isAccessTokenValid();
     expect(isValid).toBeFalse();
   });
 
@@ -78,7 +78,7 @@ describe('TokenService', () => {
   });
 
   it('should return false for no token in hasValidToken', () => {
-    const isValid = service.hasValidToken();
+    const isValid = service.isAccessTokenValid();
     expect(isValid).toBeFalse();
   });
 });

@@ -4,6 +4,7 @@ import { UserProfil } from '../../models/userProfile.model';
 import { Country, COUNTRIES_DB } from '@angular-material-extensions/select-country';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PrivacyOption } from '../../models/privacy-option';
 
 describe('UserCardComponent', () => {
   let component: UserCardComponent;
@@ -30,12 +31,18 @@ describe('UserCardComponent', () => {
     const mockUser: UserProfil = {
       username: 'test',
       email: 'test@test.fr',
+      firstLoginStep: 2,
       accountType: 'option-diver',
       nationality: 'FRA', // France
       avatarUrl: '',
       bannerUrl: '',
+      initialDivesCount: 100,
       isVerified: false,
       is2fa: false,
+      profilPrivacy: PrivacyOption.ALL,
+      logBooksPrivacy: PrivacyOption.NO_ONE,
+      certificatesPrivacy: PrivacyOption.NO_ONE,
+      galleryPrivacy: PrivacyOption.NO_ONE
     };
     component.user = mockUser;
 
@@ -53,12 +60,18 @@ describe('UserCardComponent', () => {
     const mockUser: UserProfil = {
       username: 'test',
       email: 'test@test.fr',
+      firstLoginStep: 2,
       accountType: 'option-diver',
       nationality: 'XYZ', // Code invalide
       avatarUrl: '',
       bannerUrl: '',
+      initialDivesCount: 100,
       isVerified: false,
       is2fa: false,    
+      profilPrivacy: PrivacyOption.ALL,
+      logBooksPrivacy: PrivacyOption.NO_ONE,
+      certificatesPrivacy: PrivacyOption.NO_ONE,
+      galleryPrivacy: PrivacyOption.NO_ONE
     };
     component.user = mockUser;
 

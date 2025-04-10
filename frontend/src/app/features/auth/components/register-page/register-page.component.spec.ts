@@ -89,7 +89,7 @@ describe('RegisterPageComponent', () => {
       email: 'test@example.com',
       password: 'password123',
       passwordCheck: 'password123',
-      is2fa: false,
+      // is2fa: false,
       acceptTerms: true,
     });
     expect(authService.login).toHaveBeenCalledWith({
