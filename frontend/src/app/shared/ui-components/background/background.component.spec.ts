@@ -7,6 +7,8 @@ describe('BackgroundComponent', () => {
   let fixture: ComponentFixture<BackgroundComponent>;
 
   beforeEach(async () => {
+    spyOn(HTMLMediaElement.prototype, 'play').and.returnValue(Promise.resolve());
+    
     await TestBed.configureTestingModule({
       imports: [BackgroundComponent]
     })

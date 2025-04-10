@@ -8,7 +8,7 @@ describe('AccountSettingsProfilComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccountSettingsProfilComponent]
+      declarations: [AccountSettingsProfilComponent]
     })
     .compileComponents();
 

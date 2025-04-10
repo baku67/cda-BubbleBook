@@ -8,7 +8,7 @@ describe('SocialPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SocialPageComponent]
+      declarations: [SocialPageComponent]
     })
     .compileComponents();
 

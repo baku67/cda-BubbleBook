@@ -67,8 +67,8 @@ describe('RegisterPageComponent', () => {
     expect(form.email).toBe('');
     expect(form.password).toBe('');
     expect(form.passwordCheck).toBe('');
-    expect(form.is2fa).toBe(false);
     expect(form.acceptTerms).toBe(false);
+    expect(form.rememberMe).toBe(true);
   });
 
   it('should submit valid form and navigate to first login step', () => {
@@ -79,8 +79,9 @@ describe('RegisterPageComponent', () => {
       email: 'test@example.com',
       password: 'password123',
       passwordCheck: 'password123',
-      is2fa: false,
+      // is2fa: false,
       acceptTerms: true,
+      rememberMe: true
     });
 
     component.onSubmit();
@@ -108,8 +109,9 @@ describe('RegisterPageComponent', () => {
       email: '',
       password: 'short',
       passwordCheck: 'short',
-      is2fa: false,
+      // is2fa: false,
       acceptTerms: false,
+      rememberMe: true
     });
 
     component.onSubmit();
@@ -128,8 +130,9 @@ describe('RegisterPageComponent', () => {
       email: 'test@example.com',
       password: 'password123',
       passwordCheck: 'password123',
-      is2fa: false,
+      // is2fa: false,
       acceptTerms: true,
+      rememberMe: true
     });
 
     component.onSubmit();
@@ -147,8 +150,9 @@ describe('RegisterPageComponent', () => {
       email: 'test@example.com',
       password: 'password123',
       passwordCheck: 'password123',
-      is2fa: false,
+      // is2fa: false,
       acceptTerms: true,
+      rememberMe: true
     });
 
     (authService.registerUser as jasmine.Spy).and.returnValue(of({}));

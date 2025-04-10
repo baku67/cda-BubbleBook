@@ -4,7 +4,7 @@
     <!-- <h2>Page 1</h2> -->
 
     <div class="carousel-container" (pointerdown)="onPointerDown($event)" (pointermove)="onPointerMove($event)" (pointerup)="onPointerUp($event)">
-        <div class="carousel-slides">
+        <div class="carousel-slides" [style.transform]="getSlideTransform()">
           <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="currentSlide === i">
             <div class="slide-content">
               <div class="slide-icon">

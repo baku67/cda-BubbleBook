@@ -11,7 +11,7 @@ export class ThemeService {
 
   constructor() {
     // Lecture du localStorage lors de l'initialisation du service
-    const savedTheme = (localStorage.getItem('theme') as ThemeType) || 'light-theme';
+    const savedTheme = (localStorage.getItem('theme') as ThemeType) || 'dark-theme'; // Défault ici uniquement
     this.themeSubject = new BehaviorSubject<ThemeType>(savedTheme);
 
     // ajout theme sur body

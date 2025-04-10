@@ -32,7 +32,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(clonedRequest).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401 && !req.url.includes('/refresh-token')) {
+        if (
+          error.status === 401 && 
+          !req.url.includes('/refresh-token') &&
+          !req.url.includes('/login')
+        ) {
           // Si l'erreur 401 survient, tenter un rafraîchissement du token
           return this.authService.refreshAccessToken().pipe(
             switchMap((newToken: string) => {

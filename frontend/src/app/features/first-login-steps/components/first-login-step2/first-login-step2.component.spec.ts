@@ -73,7 +73,7 @@ describe('FirstLoginStep2Component', () => {
     firstLoginServiceSpy = TestBed.inject(FirstLoginStepsService) as jasmine.SpyObj<FirstLoginStepsService>;
     modalServiceSpy = TestBed.inject(ModalService) as jasmine.SpyObj<ModalService>;
 
-    userServiceSpy.getCurrentUser.and.returnValue(of({ username: 'testUser', email: 'test@test.fr', firstLoginStep: 2,accountType: 'option-diver', nationality: 'FR', avatarUrl: '', bannerUrl: '', initialDivesCount: 100, isVerified: false, is2fa: false, profilPrivacy: PrivacyOption.ALL, logBooksPrivacy: PrivacyOption.NO_ONE, certificatesPrivacy: PrivacyOption.NO_ONE, galleryPrivacy: PrivacyOption.NO_ONE }));
+    userServiceSpy.getCurrentUser.and.returnValue(of({ username: 'testUser', email: 'test@test.fr', firstLoginStep: 2, accountType: 'option-diver', nationality: 'FR', avatarUrl: '', bannerUrl: '', initialDivesCount: 100, isVerified: false, is2fa: false, profilPrivacy: PrivacyOption.ALL, logBooksPrivacy: PrivacyOption.NO_ONE, certificatesPrivacy: PrivacyOption.NO_ONE, galleryPrivacy: PrivacyOption.NO_ONE }));
     fixture.detectChanges();
   });
 
@@ -110,6 +110,7 @@ describe('FirstLoginStep2Component', () => {
       nationality: 'FR',
       avatar: 'mock-avatar',
       banner: 'mock-banner',
+      initialDivesCount: 100
     });
     
     firstLoginServiceSpy.updateUser.and.returnValue(of(mockUser));
@@ -131,6 +132,7 @@ describe('FirstLoginStep2Component', () => {
       nationality: 'FR',
       avatar: 'mock-avatar',
       banner: 'mock-banner',
+      initialDivesCount: 100
     });
     firstLoginServiceSpy.updateUser.and.returnValue(throwError(() => new Error('Error updating user')));
 

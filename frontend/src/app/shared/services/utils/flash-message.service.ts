@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Notyf } from 'notyf';
-import 'notyf/notyf.min.css'; // important pour les styles !
+// import 'notyf/notyf.min.css'; // important pour les styles ! (déplacé dans angular.json)
 import { TranslateService } from '@ngx-translate/core';
 
 

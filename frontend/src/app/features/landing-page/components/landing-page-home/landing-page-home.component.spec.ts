@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LandingPageHomeComponent } from './landing-page-home.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LandingPageHomeComponent', () => {
   let component: LandingPageHomeComponent;
@@ -8,7 +10,8 @@ describe('LandingPageHomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LandingPageHomeComponent]
+      declarations: [LandingPageHomeComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule]
     })
     .compileComponents();
 

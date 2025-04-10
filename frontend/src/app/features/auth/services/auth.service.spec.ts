@@ -15,7 +15,7 @@ describe('AuthService', () => {
   const mockEnvironment = { apiUrl: environment.apiUrl};
 
   beforeEach(() => {
-    const tokenSpy = jasmine.createSpyObj('TokenService', ['setAccessToken', 'clearAccessToken', 'isAccessTokenValid']);
+    const tokenSpy = jasmine.createSpyObj('TokenService', ['setAccessToken', 'clearAccessToken', 'isAccessTokenValid', 'setRememberMe']);
     const routerSpyObj = jasmine.createSpyObj('Router', ['navigate']);
 
     TestBed.configureTestingModule({

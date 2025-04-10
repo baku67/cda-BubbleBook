@@ -39,7 +39,8 @@
               "src/assets/custom-theme.scss", 
               // "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss",
-              "src/anims.scss"
+              "src/anims.scss",
+              "node_modules/notyf/notyf.min.css"
             ],
             "scripts": []
           },
@@ -113,7 +114,8 @@
               "src/assets/custom-theme.scss", 
               // "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss",
-              "src/anims.scss"
+              "src/anims.scss",
+              "node_modules/notyf/notyf.min.css"
             ],
             "scripts": []
           }

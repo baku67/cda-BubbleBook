@@ -20,12 +20,14 @@ describe('ThemeService', () => {
 
   it('should initialize with the saved theme from localStorage', () => {
     localStorage.setItem('theme', 'light-theme');
-    const newService = new ThemeService();
+    const newService = TestBed.inject(ThemeService);
+    expect(newService.getTheme()).toBe('light-theme');
     expect(document.body.classList.contains('light-theme')).toBeTrue();
   });
 
   it('should default to "dark-theme" if no theme is saved in localStorage', () => {
-    const newService = new ThemeService();
+    const newService = TestBed.inject(ThemeService);
+    expect(newService.getTheme()).toBe('dark-theme');
     expect(document.body.classList.contains('dark-theme')).toBeTrue();
   });
 

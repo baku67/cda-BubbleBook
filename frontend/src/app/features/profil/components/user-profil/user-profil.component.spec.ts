@@ -9,6 +9,8 @@ import { PageHeaderComponent } from '../../../../shared/ui-components/page-heade
 import { TranslateModule } from '@ngx-translate/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
+import { UserCardComponent } from '../user-card/user-card.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('UserProfilComponent', () => {
   let component: UserProfilComponent;
@@ -23,7 +25,7 @@ describe('UserProfilComponent', () => {
     const mockRouter = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
-      declarations: [UserProfilComponent],
+      declarations: [UserProfilComponent, UserCardComponent],
       imports: [
         HttpClientTestingModule,
         PageHeaderComponent,
@@ -35,6 +37,7 @@ describe('UserProfilComponent', () => {
         { provide: UserService, useValue: mockUserService },
         { provide: AuthService, useValue: mockAuthService },
         { provide: Router, useValue: mockRouter },
+        CUSTOM_ELEMENTS_SCHEMA
       ],
     }).compileComponents();
 
