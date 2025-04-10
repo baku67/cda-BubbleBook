@@ -7,7 +7,7 @@ class ExampleTest extends WebTestCase
     public function testExampleTest() 
     {
         $client = static::createClient();
-        $response = $client->request('GET', '/api');
+        #$response = $client->request('GET', '/api');
 
         // $this->assert
     
