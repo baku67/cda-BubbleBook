@@ -58,6 +58,12 @@
                   "maximumError": "12kB"
                 }
               ],
+              "outputPath": "dist/angular/browser",
+              "optimization": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environments.ts",

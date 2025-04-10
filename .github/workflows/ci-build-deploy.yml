@@ -41,7 +41,7 @@ jobs:
         working-directory: ./frontend
 
       - name: Build the application
-        run: npm run build -- --configuration production --outputPath=dist/angular/browser  # Compile l'application Angular en mode production
+        run: npm run build -- --configuration production # Compile l'application Angular en mode production
         working-directory: ./frontend
 
       - name: Archive production artifacts
