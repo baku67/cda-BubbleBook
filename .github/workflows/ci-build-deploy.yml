@@ -191,6 +191,7 @@ jobs:
           git pull origin main
 
           echo "Relaunching Docker Compose..."
-          docker-compose -f docker-compose.prod.yaml up -d 
-          
+          docker-compose -f docker-compose.prod.yaml up -d --pull always
+
+          docker system prune -af --volumes 
           echo "Deployment finished."
