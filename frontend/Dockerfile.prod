@@ -6,7 +6,7 @@ FROM nginx:alpine
 COPY ${BUILD_DIR} /usr/share/nginx/html 
 
 # ng build --configuration production
-
+ 
 # (local PC)
 # docker build -f frontend/Dockerfile.prod --build-arg BUILD_DIR=frontend/dist/angular/browser -t frontopti:latest .
 # docker tag frontopti nujabb/front-opti:latest
