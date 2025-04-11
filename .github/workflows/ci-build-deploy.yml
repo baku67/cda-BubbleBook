@@ -145,6 +145,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }} # secret ajouté
           password: ${{ secrets.DOCKERHUB_PASSWORD }} # secret (mdp pas token !)
 
+      # On récupère le build du runner de test où on build déjà l'app
+      - name: Download production build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: production-build
+          path: ./frontend/dist/  # Télécharge les artefacts de build de production de l'application Angular
+
       - name: Build and push Angular image
         uses: docker/build-push-action@v4
         with:
@@ -152,6 +159,8 @@ jobs:
           file: ./frontend/Dockerfile.prod
           push: true
           tags: nujabb/front-opti:latest
+          build-args: |
+            BUILD_DIR=dist/angular/browser
 
 
   # ### CD
