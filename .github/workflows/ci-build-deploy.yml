@@ -192,6 +192,5 @@ jobs:
 
           echo "Relaunching Docker Compose..."
           docker-compose -f docker-compose.prod.yaml up -d 
-
-          docker system prune -af --volumes 
+          
           echo "Deployment finished."
