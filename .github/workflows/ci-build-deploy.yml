@@ -166,7 +166,7 @@ jobs:
           build-args: |
             BUILD_DIR=dist/angular/browser 
 
-
+ 
   # ### CD
   deploy:
     name: 🚀 Deploy to EC2
