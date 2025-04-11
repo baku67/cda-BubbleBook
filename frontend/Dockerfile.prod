@@ -3,7 +3,7 @@
 # defaut: local (PC), corrigé dans github Action pipeline "ci-build-deply.yml" pour déploiement continu
 ARG BUILD_DIR=dist/angular/browser 
 FROM nginx:alpine
-COPY frontend/dist/angular/browser /usr/share/nginx/html 
+COPY ${BUILD_DIR} /usr/share/nginx/html 
 
 # ng build --configuration production
 

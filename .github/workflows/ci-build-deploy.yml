@@ -152,6 +152,10 @@ jobs:
           name: production-build
           path: ./frontend/dist/  # Télécharge les artefacts de build de production de l'application Angular
 
+      # Vérif logs in-game
+      - name: 🔍 Debug: check build contents
+        run: ls -R ./frontend/dist
+
       - name: Build and push Angular image
         uses: docker/build-push-action@v4
         with:
