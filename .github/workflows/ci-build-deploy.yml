@@ -142,8 +142,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }} # secret ajouté
+          password: ${{ secrets.DOCKERHUB_PASSWORD }} # secret (mdp pas token !)
 
       - name: Build and push Angular image
         uses: docker/build-push-action@v4
@@ -171,13 +171,14 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ec2-user
         key: ${{ secrets.EC2_DEPLOY_SSH_KEY }}
+        # pas de --build dans le docker-compose ? :
         script: |
           echo "Pulling latest code..."
           cd /home/ec2-user/cda-BubbleBook
           git pull origin main
 
           echo "Relaunching Docker Compose..."
-          docker-compose -f docker-compose.prod.yaml up -d
+          docker-compose -f docker-compose.prod.yaml up -d 
 
           docker system prune -af --volumes 
           echo "Deployment finished."
