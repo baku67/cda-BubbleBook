@@ -164,7 +164,7 @@ jobs:
           push: true
           tags: nujabb/front-opti:latest
           build-args: |
-            BUILD_DIR=dist/angular/browser
+            BUILD_DIR=dist/angular/browser/browser
 
  
   # ### CD
