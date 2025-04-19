@@ -140,6 +140,8 @@ services:
       - "80" # et non plus "ports" 80:80
     networks:
       - mynetwork
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.frontend.rule=Host(`bubblebook.fun`)" # CHANGER L'ip EC2-AWS ou nom de domaine
