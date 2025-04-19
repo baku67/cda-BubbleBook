@@ -1,6 +1,6 @@
 paire de clés SSH danbs googleDrive
 
-Se placer là ou se trouve la clé SSH ("Bubblebook aws ec2.pem") et lancer la commande:
+Se placer là ou se trouve la clé SSH ("Bubblebook aws ec2.pem" (dispo sur googleDrive)) et lancer la commande:
 (askip il faut sudo mais ça marche sans ?)
 ssh -i "Bubblebook aws ec2.pem" ec2-user@ec2-13-39-60-71.eu-west-3.compute.amazonaws.com
 
@@ -81,7 +81,7 @@ Image opti du build sur DockerHub:
 (Avant de build: modifier l'URL du envrionments.prod.ts !!) Sinon solutions: Nom de domaine ou Elastic IP sur EC2.
 (IL FAUDRA AUSSI CHANGER L'ip dans docker-compose.prod.yaml pour pointer vers l'instance, et ça c'est cloné) solution -> nom de domaine encore ou Elastic IP ?
 racine projet:
-# docker build -f frontend/Dockerfile.prod -t frontopti:latest .
+# docker build -f frontend/Dockerfile.prod --build-arg BUILD_DIR=frontend/dist/angular/browser -t frontopti:latest .
 # docker tag frontopti nujabb/front-opti:latest
 # docker push nujabb/front-opti:latest
 

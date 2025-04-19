@@ -1,13 +1,13 @@
 # ./frontend/Dockerfile.prod
 
 # defaut: local (PC), corrigé dans github Action pipeline "ci-build-deply.yml" pour déploiement continu
-ARG BUILD_DIR=dist/angular/browser 
 FROM nginx:alpine
+ARG BUILD_DIR=frontend/dist/angular/browser 
 COPY ${BUILD_DIR} /usr/share/nginx/html 
 
 # ng build --configuration production
  
 # (local PC)
-# docker build -f frontend/Dockerfile.prod --build-arg BUILD_DIR=frontend/dist/angular/browser -t frontopti:latest .
+# docker build -f frontend/Dockerfile.prod --build-arg BUILD_DIR=frontend/dist/angular -t frontopti:latest .
 # docker tag frontopti nujabb/front-opti:latest
 # docker push nujabb/front-opti:latest
