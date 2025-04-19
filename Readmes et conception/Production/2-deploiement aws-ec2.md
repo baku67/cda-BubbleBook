@@ -1,8 +1,7 @@
 paire de clés SSH danbs googleDrive
 
 Se placer là ou se trouve la clé SSH ("Bubblebook aws ec2.pem" (dispo sur googleDrive)) et lancer la commande:
-(askip il faut sudo mais ça marche sans ?)
-ssh -i "Bubblebook aws ec2.pem" ec2-user@ec2-13-39-60-71.eu-west-3.compute.amazonaws.com
+"ssh -i "Bubblebook aws ec2.pem" ec2-user@ec2-13-39-60-71.eu-west-3.compute.amazonaws.com"
 
 
    ,     #_
@@ -45,32 +44,15 @@ sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-
 sudo chmod +x docker-compose
 # Vérifier la version
 docker-compose version
+# Installer git
+sudo dnf install -y git
 
 
 Groupe de sécurité dans AWS console: ajouter "HTTP" (80) dans connexions entrantes et mettre tous les ipv4
 Normalement on y voit aussi la connection SSH depuis mon IP locale
 (On accède au site avec http://+ipv4 de l'instance)
 
-(Si on veut juste test le fonctionnement avec un simple serveur nginx/apache et un index.html:
-ssh:
-"docker run -d \
-  -p 80:80 \
-  -v /home/ec2-user/index.html:/usr/share/nginx/html/index.html:ro \
-  --name mon-serveur-web \
-  nginx"
-)
 
-### (AVANT) Papatrier/cloner/deplacer projet
-- Copier avec SCP depuis machine locale (hors connection ssh "exit"):
-  -> PAS BON IDEE CAR COPIE VENDOR ET NODE MODULES
-"scp -i "Bubblebook aws ec2.pem" -r /chemin/vers/votre/projet ec2-user@ec2-15-236-131-79.eu-west-3.compute.amazonaws.com:~/"
-- Cloner avec Git (BON IDEE):
-"sudo dnf install -y git"
-"git clone https://github.com/baku67/cda-BubbleBook.git"
-
-/!\ (APRES) Optimisation build Angular (pour éviter de build sur place trop lourd)
-ssh-ec2: "sudo dnf install -y git"
-ssh-ec2: "git clone https://github.com/baku67/cda-BubbleBook.git"
 
 racine ./frontend:
 "ng build --configuration production" sur machine locale puissante
@@ -110,9 +92,6 @@ envrionments.prod.ts
 docker-compose.prod.yaml x2 
 
 
-### Lancement:
-- cd ~/mon-dossier-projet
-- docker-compose up --build (-d)
 ### Controler que tout va bien:
 - docker-compose ps
 - docker-compose logs -f
