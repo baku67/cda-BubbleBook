@@ -3,8 +3,10 @@
 namespace App\DataFixtures;
 
 use App\DataFixtures\DivelogFixtures;
+use App\DataFixtures\DiveTagFixtures; 
 use App\Entity\Divelog\Dive;
 use App\Entity\Divelog\Divelog;
+use App\Entity\Divelog\DiveTag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -14,6 +16,9 @@ class DiveFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
+        // Récupère tous les DiveTags existants
+        $tags = $manager->getRepository(DiveTag::class)->findAll();
+
         // Récupère tous les Divelogs créés
         $divelogs = $manager->getRepository(Divelog::class)->findAll();
 
@@ -30,6 +35,15 @@ class DiveFixtures extends Fixture implements DependentFixtureInterface
                     ->setVisibility(Visibility::cases()[array_rand(Visibility::cases())])
                     ->setSatisfaction(random_int(1, 5))
                     ->setDivelog($divelog);
+                   
+                // Associer un sous-ensemble aléatoire de DiveTags
+                if (!empty($tags)) {
+                    shuffle($tags);
+                    $tagCount = random_int(1, count($tags));
+                    for ($k = 0; $k < $tagCount; $k++) {
+                        $dive->addDiveTag($tags[$k]);
+                    }
+                }
 
                 $manager->persist($dive);
             }
@@ -42,6 +56,7 @@ class DiveFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             DivelogFixtures::class,
+            DiveTagFixtures::class,
         ];
     }
 }

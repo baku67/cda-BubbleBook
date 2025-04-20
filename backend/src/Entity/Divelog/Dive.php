@@ -4,6 +4,8 @@ namespace App\Entity\Divelog;
 
 use App\Enum\Visibility;
 use App\Repository\Divelog\DiveRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,6 +35,17 @@ class Dive
     #[ORM\ManyToOne(inversedBy: 'dives')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Divelog $divelog = null;
+
+    /**
+     * @var Collection<int, DiveTag>
+     */
+    #[ORM\ManyToMany(targetEntity: DiveTag::class)]
+    private Collection $diveTags;
+
+    public function __construct()
+    {
+        $this->diveTags = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -107,6 +120,30 @@ class Dive
     public function setDivelog(?Divelog $divelog): static
     {
         $this->divelog = $divelog;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DiveTag>
+     */
+    public function getDiveTags(): Collection
+    {
+        return $this->diveTags;
+    }
+
+    public function addDiveTag(DiveTag $diveTag): static
+    {
+        if (!$this->diveTags->contains($diveTag)) {
+            $this->diveTags->add($diveTag);
+        }
+
+        return $this;
+    }
+
+    public function removeDiveTag(DiveTag $diveTag): static
+    {
+        $this->diveTags->removeElement($diveTag);
 
         return $this;
     }
