@@ -2,6 +2,7 @@
 
 namespace App\Repository\Divelog;
 
+use App\DTO\Response\DivelogDTO;
 use App\Entity\Divelog\Divelog;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -16,28 +17,35 @@ class DivelogRepository extends ServiceEntityRepository
         parent::__construct($registry, Divelog::class);
     }
 
-    //    /**
-    //     * @return Divelog[] Returns an array of Divelog objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('d')
-    //            ->andWhere('d.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('d.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * Récupère tous les divelogs de l'utilisateur connecté 
+     * Ne récupère pas les dives associés pour éviter de surcharger la requête.
+     * 
+     * @param int $userId
+     * @return array
+     */
+    public function findCurrentUserDivelogs(int $userId): array
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.owner = :userId')
+            ->setParameter('userId', $userId)
+            ->orderBy('d.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 
-    //    public function findOneBySomeField($value): ?Divelog
-    //    {
-    //        return $this->createQueryBuilder('d')
-    //            ->andWhere('d.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /**
+     * SELON PRIVACY SETTINGS:
+     * Récupère tous les divelogs d'un autre utilisateur par ID e
+     * Ne récupère pas les dives associés pour éviter de surcharger la requête.
+     * 
+     * @param int $userId
+     * @return array
+     */
+    // public function findDivelogsByUserId(int $userId): array
+    // {
+
+    //     return null;
+    // }
+
 }

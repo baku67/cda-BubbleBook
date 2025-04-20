@@ -14,15 +14,16 @@ export class SocialPageComponent {
 
   isAnimatingFadeOut = false;
 
-      constructor(
-        private animationService: AnimationService,
-        private route: ActivatedRoute
-      ) {
-        this.animationService.isAnimating$.subscribe((animating) => {
-          this.isAnimatingFadeOut = animating;
-        });
+  constructor(
+    private animationService: AnimationService,
+    private route: ActivatedRoute
+  ) 
+  {
+    this.animationService.isAnimating$.subscribe((animating) => {
+      this.isAnimatingFadeOut = animating;
+    });
 
-        this.currentUser = this.route.snapshot.data['currentUser'];
-      }
+    this.currentUser = this.route.snapshot.data['currentUser'];
+  }
 
 }

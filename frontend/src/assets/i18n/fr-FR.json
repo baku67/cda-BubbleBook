@@ -119,5 +119,8 @@
     "PAGE_NOT_FOUND": "Page introuvable",
     "PAGE_NOT_FOUND_DESCRIPTION": "La page ou la ressource que vous cherchez n'existe pas ou a été modifiée.",
 
-    "LP_DISCOVER_BTN": "Découvrir"
+    "LP_DISCOVER_BTN": "Découvrir",
+
+    "SOCIAL": "Communauté",
+    "DIVELOGS": "Carnets"
 }

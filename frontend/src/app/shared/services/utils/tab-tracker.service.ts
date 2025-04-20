@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { routes } from '../../../app.routes';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +35,7 @@ export class TabTrackerService {
   private updateActiveTab(url: string) {
     const tabMapping: { [index: number]: string[] } = {
       0: ['/certificates', '/user-profil'],
-      1: ['/user-divelog'],
+      1: ['/divelogs'],
       2: ['/social'],
       3: ['/account-settings'],
     };

@@ -12,14 +12,13 @@ import { AccountSettingsComponent } from './features/profil/components/account-s
 import { CertificateManagerPageComponent } from './features/certificates/components/certificate-manager-page/certificate-manager-page.component';
 import { NotFoundPageComponent } from './shared/ui-components/not-found-page/not-found-page.component';
 import { FadeOutGuard } from './core/guards/fade-out.guard';
-import { Test1Component } from './shared/ui-components/test/test-1/test-1.component';
-import { Test2Component } from './shared/ui-components/test/test-2/test-2.component';
 import { SocialPageComponent } from './features/social/components/social-page/social-page.component';
 import { OtherUserProfilComponent } from './features/social/components/other-user-profil/other-user-profil.component';
 import { OtherUserProfileResolver } from './core/resolvers/other-user-profil.resolver';
 import { UserProfileResolver } from './core/resolvers/user-profil.resolver';
 import { LandingPageHomeComponent } from './features/landing-page/components/landing-page-home/landing-page-home.component';
 import { LandingPageDiscoverComponent } from './features/landing-page/components/landing-page-discover/landing-page-discover.component';
+import { DivelogPageComponent } from './features/divelog/components/divelog-page/divelog-page.component';
 
 export const routes: Routes = [
     // LandingPage + Login/Register Pages
@@ -71,8 +70,25 @@ export const routes: Routes = [
     { path: 'first-login/step-one', component: FirstLoginStep1Component, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
     { path: 'first-login/step-two', component: FirstLoginStep2Component, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
 
-    { path: 'certificates', component: CertificateManagerPageComponent, canActivate: [AuthGuard], canDeactivate: [FadeOutGuard] },
+    { 
+        path: 'certificates', 
+        component: CertificateManagerPageComponent, 
+        canActivate: [AuthGuard], 
+        canDeactivate: [FadeOutGuard] 
+    },
 
+
+    // DIVELOGS:
+    { 
+        path: 'divelogs', 
+        component: DivelogPageComponent, 
+        canActivate: [AuthGuard], 
+        canDeactivate: [FadeOutGuard],
+        resolve: { currentUser: UserProfileResolver } // pour savoir par exemple si isVerified
+    },
+
+
+    // SOCIAL:
     { 
         path: 'social', 
         component: SocialPageComponent, 
@@ -91,9 +107,6 @@ export const routes: Routes = [
 
     // Confirmation mail:
     { path: 'confirm-email', component: ConfirmEmailComponent, canDeactivate: [FadeOutGuard] },
-
-    { path: 'test1', component: Test1Component, canDeactivate: [FadeOutGuard] },
-    { path: 'test2', component: Test2Component, canDeactivate: [FadeOutGuard] },
 
     { path: 'not-found', component: NotFoundPageComponent, canDeactivate: [FadeOutGuard] },  
     // EN DERNIER:

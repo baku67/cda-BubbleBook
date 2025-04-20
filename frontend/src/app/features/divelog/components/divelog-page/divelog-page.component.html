@@ -1,0 +1,24 @@
+<div class="pageContent" >
+
+  <app-page-header 
+      [title]="('DIVELOGS' | translate)" 
+      [matIcon]="'menu_book'"
+      class="fadeInNav"
+      [class.fadeOutNav]="isAnimatingFadeOut"
+  />
+
+  <div *ngIf="this.currentUser!.isVerified; else forbidden" class="" [class.fadeOutNav]="isAnimatingFadeOut">
+
+      <p>cela fonctionne </p>
+  </div>
+      
+  <ng-template #forbidden>
+      <app-alert-banner  
+        maticon="alternate_email" 
+        [style]="'warn'" 
+        msgAlert="{{ 'ALERT_CONFIRM_MAIL' | translate }}" 
+      ></app-alert-banner>
+    </ng-template>
+
+</div>
+

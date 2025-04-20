@@ -48,4 +48,8 @@ export class UserProfilComponent implements OnInit{
   navigateCertificates(): void {
     this.router.navigate(['/certificates']);
   }
+
+  navigate404(): void {
+    this.router.navigate(['/not-implmented-yet']);
+  }
 }

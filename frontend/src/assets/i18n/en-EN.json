@@ -115,5 +115,8 @@
     "PAGE_NOT_FOUND": "Page not found",
     "PAGE_NOT_FOUND_DESCRIPTION": "The page or the ressource you are requesting was not found or has been modified.",
 
-    "LP_DISCOVER_BTN": "Discover"
+    "LP_DISCOVER_BTN": "Discover",
+
+    "SOCIAL": "Social",
+    "DIVELOGS": "Divelogs"
 }
