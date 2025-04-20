@@ -2,6 +2,7 @@
 namespace App\Entity\User;
 
 use App\Entity\Certificate\UserCertificate;
+use App\Entity\Divelog\Divelog;
 use App\Enum\PrivacyOption;
 use App\Repository\User\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -85,11 +86,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', enumType: PrivacyOption::class, options: ['default' => PrivacyOption::NO_ONE->value])]
     private PrivacyOption $galleryPrivacy = PrivacyOption::NO_ONE;
 
+    /**
+     * @var Collection<int, Divelog>
+     */
+    #[ORM\OneToMany(targetEntity: Divelog::class, mappedBy: 'owner', orphanRemoval: true)]
+    private Collection $divelogs;
+
 
     public function __construct()
     {
         $this->roles = new ArrayCollection();
         $this->userCertificates = new ArrayCollection();
+        $this->divelogs = new ArrayCollection();
     }
 
 
@@ -386,6 +394,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGalleryPrivacy(PrivacyOption $galleryPrivacy): self
     {
         $this->galleryPrivacy = $galleryPrivacy;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Divelog>
+     */
+    public function getDivelogs(): Collection
+    {
+        return $this->divelogs;
+    }
+
+    public function addDivelog(Divelog $divelog): static
+    {
+        if (!$this->divelogs->contains($divelog)) {
+            $this->divelogs->add($divelog);
+            $divelog->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDivelog(Divelog $divelog): static
+    {
+        if ($this->divelogs->removeElement($divelog)) {
+            // set the owning side to null (unless already changed)
+            if ($divelog->getOwner() === $this) {
+                $divelog->setOwner(null);
+            }
+        }
+
         return $this;
     }
 
