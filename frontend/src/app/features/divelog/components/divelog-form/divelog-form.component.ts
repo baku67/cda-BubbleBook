@@ -1,0 +1,52 @@
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalService } from '../../../../shared/services/utils/modal.service';
+import { DivelogService } from '../../services/divelog.service';
+
+@Component({
+  selector: 'app-divelog-form',
+  templateUrl: './divelog-form.component.html',
+  styleUrl: './divelog-form.component.scss'
+})
+export class DivelogFormComponent {
+
+  addDivelogForm!: FormGroup;
+  currentYear: number = new Date().getFullYear();
+
+  isLoading = false;
+  errorMessage: string | null = null;
+
+  constructor(
+    private formBuilder: FormBuilder, 
+    private modalService: ModalService,
+    private divelogService: DivelogService,
+  ) {}
+
+  ngOnInit() {
+    this.addDivelogForm = this.formBuilder.group({
+      title: ['', [Validators.required]], 
+      description: ['', []], 
+      theme: ['blue', []]
+    });
+  }
+
+  onSubmit(): void {
+    if (this.addDivelogForm.valid) {
+      this.isLoading = true;
+
+      this.divelogService.addDivelogToUser(this.addDivelogForm.value).subscribe({
+        next: (createdDivelog) => {
+          this.modalService.close(createdDivelog); // Passe l'objet créé au parent
+        },
+        error: (error:any) => {
+          console.error('There was an error during the request (addDivelogToUser)', error);
+          this.errorMessage = 'There was an error adding a divelog. Try again later';
+          this.isLoading = false;
+        }
+      });
+    } else {
+      console.error('Form is invalid');
+      this.errorMessage = 'Please fill in all required fields correctly.';
+    }
+  }
+}

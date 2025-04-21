@@ -26,7 +26,7 @@ class Divelog
     #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: false, options: ["default" => "blue"])] // default ?
     private ?string $theme = null;
 
     /**

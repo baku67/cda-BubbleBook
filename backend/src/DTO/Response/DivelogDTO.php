@@ -10,5 +10,6 @@ class DivelogDTO
         readonly public ?string $description,
         readonly public \DateTimeImmutable $createdAt,
         readonly public ?string $theme,
+        readonly public int $diveCount = 0,
     ) {}
 }

@@ -1,7 +1,9 @@
 <?php
 namespace App\Service\Divelog;
 
+use App\DTO\Request\AddUserDivelogDTO;
 use App\DTO\Response\DivelogDTO;
+use App\Entity\Divelog\Divelog;
 use App\Entity\User\User;
 use App\Repository\Divelog\DivelogRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,7 +29,8 @@ class DivelogService
             $divelog->getTitle(),
             $divelog->getDescription(),
             $divelog->getCreatedAt(),
-            $divelog->getTheme()
+            $divelog->getTheme(),
+            $divelog->getDives()->count()
         ), $divelogs);
     }
 
@@ -36,5 +39,54 @@ class DivelogService
     {
         return $this->divelogRepository->findPublicOrFriendVisibleByUserId($targetUserId);
     }
+
+
+    public function addUserDivelog(User $user, AddUserDivelogDTO $dto): Divelog
+    {
+        $existingDivelog = $this->divelogRepository->findOneBy([
+            'owner' => $user,
+            'title' => $dto->title,
+        ]);
+
+        if ($existingDivelog) {
+            throw new \LogicException('Un carnet du même nom existe déjà.');
+        }
+
+        $userDivelog = new Divelog();
+        $userDivelog->setOwner($user);
+        $userDivelog->setTitle($dto->title);
+        $userDivelog->setDescription($dto->description);
+
+        $dateMutable = $dto->createdAt ?? new \DateTime(); 
+        $userDivelog->setCreatedAt(
+            \DateTimeImmutable::createFromMutable($dateMutable)
+        );
+
+        $userDivelog->setTheme($dto->theme ?? '');
+
+        $this->entityManager->persist($userDivelog);
+        $this->entityManager->flush();
+
+        return $userDivelog;
+    }
+
+
+    public function deleteUserDivelog(User $user, int $divelogId): void
+    {
+        $userDivelog = $this->divelogRepository->findOneBy([
+            'divelog' => $divelogId,
+            'owner' => $user,
+        ]);
+
+        if (!$userDivelog) {
+            throw new \InvalidArgumentException('Divelog not found or does not belong to the user.');
+        }
+
+        $this->entityManager->remove($userDivelog);
+        $this->entityManager->flush();
+
+        // $this->reorderDisplayOrders($user); // Pour éviter les trous
+    }
+
 
 }

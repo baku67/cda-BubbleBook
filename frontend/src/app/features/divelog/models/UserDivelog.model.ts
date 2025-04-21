@@ -1,6 +1,6 @@
 export interface UserDivelog {
     id: number;
-    name: string;
+    title: string;
     description: string | null;
     createdAt: string;
     theme: string | null;

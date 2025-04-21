@@ -1,0 +1,66 @@
+<form
+    class="modalContent"
+    [formGroup]="addDivelogForm" 
+    *ngIf="!isLoading"
+    (ngSubmit)="onSubmit()" 
+>
+
+  <h2>{{ "ADD_DIVELOG_FORM_TITLE" | translate }}&nbsp;:</h2>
+
+  <section>
+
+    <!-- Titre du carnet  -->
+    <mat-form-field appearance="outline" class="matFieldInput">
+      <mat-label>{{ "TITLE_LABEL" | translate }}</mat-label>
+      <input 
+        matInput 
+        formControlName="title" 
+        [placeholder]="('DIVELOG_TITLE_PLACEHOLDER' | translate:{year: currentYear})"
+      >
+    </mat-form-field>
+
+    <!-- Description du carnet (optionnel) -->
+    <mat-form-field appearance="outline">
+      <mat-label>{{ "DESCRIPTION_LABEL" | translate }}</mat-label>
+      <textarea 
+        matInput 
+        [placeholder]="('' | translate)"
+        formControlName="description"
+        rows="3"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="10"
+        style="resize: none;">
+      </textarea>
+    </mat-form-field>
+
+    <!-- Thème du carnet (todo: trad et revoir couleurs) -->
+    <mat-label>{{ "THEME_LABEL" | translate }}</mat-label>
+    <mat-button-toggle-group formControlName="theme" aria-label="Font Style" class="theme-choice-container">
+      <mat-button-toggle value="default">{{ 'DEFAULT' | translate }}</mat-button-toggle>
+      <mat-button-toggle value="red">{{ 'RED' | translate }}</mat-button-toggle>
+      <mat-button-toggle value="green">{{ 'GREEN' | translate }}</mat-button-toggle>
+      <mat-button-toggle value="blue">{{ 'BLUE' | translate }}</mat-button-toggle>
+    </mat-button-toggle-group>
+
+  </section>
+
+  <button 
+    mat-flat-button 
+    color="primary"
+    class="cta-btn-primary bigButton" 
+    type="submit" 
+    [disabled]="addDivelogForm.invalid"
+  >
+    <span>{{ "ADD" | translate }}</span>
+  </button>
+
+</form>
+ 
+
+<!-- Loader/Spinner page -->
+<div class="spinner-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+</div>
+
+

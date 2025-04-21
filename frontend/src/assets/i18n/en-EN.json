@@ -81,6 +81,7 @@
     "ADD": "Add",
     "DATE_MUST_BE_IN_THE_PAST": "Date must be in the past",
     "LOCATION_LABEL": "Location",
+    "TITLE_LABEL": "Title",
     "LOCATION_PLACEHOLDER": "Country, City, Diving club...",
     "EDIT_CERTIFICATE_BUTTON": "Edit",
 
@@ -118,5 +119,16 @@
     "LP_DISCOVER_BTN": "Discover",
 
     "SOCIAL": "Social",
-    "DIVELOGS": "Divelogs"
+    "DIVELOGS": "Divelogs",
+
+    "ADD_DIVELOG_FORM_TITLE": "Add a dive log",
+    "DIVELOG_TITLE_PLACEHOLDER": "\"My {{year}}\" divelog\", ...",
+    "DESCRIPTION_LABEL": "Description",
+
+    "THEME_LABEL": "Theme",
+    "DEFAULT": "Default",
+    "RED": "Red",
+    "BLUE": "Blue",
+    "GREEN": "Green",
+    "YELLOW": "Yellow"
 }

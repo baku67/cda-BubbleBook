@@ -1,0 +1,26 @@
+.example-box {
+    padding: 15px 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: move;
+    font-size: 14px;
+    border: solid 1px #8989898c;
+    background-color: var(--element-bg-color);
+    border-radius: 5px;
+  }
+
+  .certificates-btns {
+    color: black;
+    border-radius: 5px;
+  }
+
+  .addCertif-button {
+    cursor: pointer;
+    width: 100%;
+    background-color: var(--green);
+    text-align: center;
+    border: none;
+  }

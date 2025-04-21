@@ -85,6 +85,7 @@
     "ADD": "Ajouter",
     "DATE_MUST_BE_IN_THE_PAST": "La date sélectionnée doit être dans le passé",
     "LOCATION_LABEL": "Localité",
+    "TITLE_LABEL": "Titre",
     "LOCATION_PLACEHOLDER": "Pays, Ville, Club de plongée...",
     "EDIT_CERTIFICATE_BUTTON": "Modifier",
 
@@ -122,5 +123,16 @@
     "LP_DISCOVER_BTN": "Découvrir",
 
     "SOCIAL": "Communauté",
-    "DIVELOGS": "Carnets"
+    "DIVELOGS": "Carnets",
+
+    "ADD_DIVELOG_FORM_TITLE": "Ajouter un carnet de plongée",
+    "DIVELOG_TITLE_PLACEHOLDER": "\"Mon carnet de {{year}}\", ...",
+    "DESCRIPTION_LABEL": "Description",
+
+    "THEME_LABEL": "Thème",
+    "DEFAULT": "Neutre",
+    "RED": "Rouge",
+    "BLUE": "Bleu",
+    "GREEN": "Vert",
+    "YELLOW": "Jaune"
 }

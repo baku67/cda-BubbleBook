@@ -61,6 +61,8 @@ import { AccountSettingsPrivacyComponent } from './features/profil/components/ac
 import { AccountSettingsProfilComponent } from './features/profil/components/account-settings-profil/account-settings-profil.component';
 import { LandingPageDiscoverComponent } from './features/landing-page/components/landing-page-discover/landing-page-discover.component';
 import { DivelogPageComponent } from './features/divelog/components/divelog-page/divelog-page.component';
+import { DivelogFormComponent } from './features/divelog/components/divelog-form/divelog-form.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -100,6 +102,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     UserSearchComponent,
     OtherUserProfilComponent,
     DivelogPageComponent,
+    DivelogFormComponent,
   ],
   imports: [
     MatCardModule,
@@ -150,6 +153,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatTabsModule,
     FontAwesomeModule,
     LottieComponent,
+    MatButtonToggleModule
 ],
   providers: [
     { 

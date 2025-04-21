@@ -9,7 +9,25 @@
 
   <div *ngIf="this.currentUser!.isVerified; else forbidden" class="" [class.fadeOutNav]="isAnimatingFadeOut">
 
-      <p>cela fonctionne </p>
+    <!-- Bouton d'ajout -->
+    <button *ngIf="!isEditMode" class="example-box certificates-btns addCertif-button" (click)="openAddDivelogModal()">
+      <div class="addCertif-button-container">
+          <mat-icon>add</mat-icon>
+          <span>{{ "ADD_CERTIFICATE_BUTTON" | translate }}</span>
+      </div>
+    </button>
+
+    <div class="divelogs-list-container">
+
+      <!-- <liste des carnets -->
+      @for (divelog of userDivelogs; track divelog.id) {
+        <div class="divelog-card">
+          <!-- bgImage default ou image du carnet -->
+          <span>{{ divelog.title }}</span>
+        </div>
+      }
+    </div>
+        
   </div>
       
   <ng-template #forbidden>

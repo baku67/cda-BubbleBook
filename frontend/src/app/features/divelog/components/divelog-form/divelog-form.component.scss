@@ -1,0 +1,51 @@
+
+form section {
+    width: 100%;
+    gap: 8px;
+    display: inline-flex;
+    flex-direction: column;
+}
+form section mat-form-field {
+    width: 100%;
+}
+
+
+.theme-choice-container {
+    width: fit-content;
+    margin: 0 auto;
+
+
+}
+
+/* === Rouge === */
+:host ::ng-deep mat-button-toggle[value="red"] .mat-button-toggle-button {
+    color: #f44336;            /* texte rouge */
+    background-color: transparent;
+  }
+  :host ::ng-deep mat-button-toggle[value="red"].mat-button-toggle-checked
+    .mat-button-toggle-button {
+    background-color: #f44336; /* fond rouge */
+    color: white;              /* texte blanc */
+  }
+  
+  /* === Vert === */
+  :host ::ng-deep mat-button-toggle[value="green"] .mat-button-toggle-button {
+    color: #4caf50;
+    background-color: transparent;
+  }
+  :host ::ng-deep mat-button-toggle[value="green"].mat-button-toggle-checked
+    .mat-button-toggle-button {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  /* === Bleu === */
+  :host ::ng-deep mat-button-toggle[value="blue"] .mat-button-toggle-button {
+    color: #2196f3;
+    background-color: transparent;
+  }
+  :host ::ng-deep mat-button-toggle[value="blue"].mat-button-toggle-checked
+    .mat-button-toggle-button {
+    background-color: #2196f3;
+    color: white;
+  }
