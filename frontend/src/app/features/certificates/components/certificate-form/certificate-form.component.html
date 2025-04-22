@@ -1,11 +1,11 @@
 <form
-    class="modalContent"
+    class="modalContent modal-ref-content"
     [formGroup]="addCertificateForm" 
     *ngIf="!isLoading"
     (ngSubmit)="onSubmit()" 
 >
 
-    <h2>{{ "ADD_CERTIFICATE_FORM_TITLE" | translate }} :</h2>
+    <h3><span class="title-new">{{ 'NEW' | translate }} </span>{{ "ADD_CERTIFICATE_FORM_TITLE" | translate }}&nbsp;:</h3>
 
     <section>
 

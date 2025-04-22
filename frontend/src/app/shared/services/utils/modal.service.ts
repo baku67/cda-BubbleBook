@@ -12,6 +12,8 @@ export class ModalService {
   close$ = this.closeSubject.asObservable();
   private subscription: Subscription | null = null; // Ajout pour gérer les abonnements
 
+  private modalIcon?: string; 
+
   constructor(
     private appRef: ApplicationRef,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -50,9 +52,9 @@ export class ModalService {
 
     // Passer les données via @Input()
     if (data) {
-      Object.keys(data).forEach((key) => {
-        if (componentRef.instance[key] !== undefined) {
-          componentRef.instance[key] = data[key];
+      Object.entries(data).forEach(([key, value]) => {
+        if (this.modalRef!.instance.hasOwnProperty(key)) {
+          (this.modalRef!.instance as any)[key] = value;
         }
       });
     }

@@ -75,9 +75,11 @@
 
     "INFO_LOCALSTORAGE": "Interface customisation is specific to the device used",
 
+    "NEW": "New",
+
     "ADD_CERTIFICATE_BUTTON": "Add",
     "REVERT_REORDER_CERTIF_BUTTON": "Cancel",
-    "ADD_CERTIFICATE_FORM_TITLE": "Add a diving certificate",
+    "ADD_CERTIFICATE_FORM_TITLE": "diving certificate",
     "ADD": "Add",
     "DATE_MUST_BE_IN_THE_PAST": "Date must be in the past",
     "LOCATION_LABEL": "Location",
@@ -121,7 +123,7 @@
     "SOCIAL": "Social",
     "DIVELOGS": "Divelogs",
 
-    "ADD_DIVELOG_FORM_TITLE": "Add a dive log",
+    "ADD_DIVELOG_FORM_TITLE": "dive log",
     "DIVELOG_TITLE_PLACEHOLDER": "\"My {{year}}\" divelog\", ...",
     "DESCRIPTION_LABEL": "Description",
 

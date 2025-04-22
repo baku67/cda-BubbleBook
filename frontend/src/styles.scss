@@ -109,6 +109,11 @@ body.dark-theme .border {
 }
 
 
+body.dark-theme .modal-content {
+    border-top-width: 5px;
+}
+
+
 // GLOBAL LOADER
 body.light-theme .loading-screen {
     background-color: var(--primary-color);

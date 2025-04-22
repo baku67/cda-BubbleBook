@@ -12,6 +12,7 @@
 }
 
 .modal-content {
+  overflow: visible !important; // pour iconModal
   opacity: 0;
 
   position: fixed;
@@ -19,7 +20,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   // background: white;
-  padding: 20px;
+  padding: 17px 20px 20px 20px;
   border-radius: 8px;
   z-index: 1001;
   width: 90%;
@@ -28,6 +29,49 @@
 
   animation: fadeInModal 0.5s ease forwards;
 }
+
+.modal-icon-wrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -38px;
+
+  height: auto;
+  width: auto;
+  font-size: 2em;
+
+  background-color: var(--primary-color);
+  color: rgb(10, 10, 10);
+  padding: 3px 15px;
+  
+  .modal-icon {
+    z-index: 999999999;
+    position: relative;
+
+    font-size: 0.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    width: 32px;
+    top: 0px;
+  }
+
+  .modal-icon-svg {
+    position: absolute;
+    overflow: visible;
+    height: 50px;
+    top: 0px;
+    left: 37%;
+    transform: translateX(-63%);
+
+    path {
+      fill: var(--primary-color);
+    }
+  }
+
+}
+
 
 :host.modal-closing .modal-overlay {
   animation: fadeOutLayout 0.5s ease forwards;

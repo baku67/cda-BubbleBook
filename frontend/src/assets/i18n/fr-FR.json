@@ -79,9 +79,11 @@
 
     "INFO_LOCALSTORAGE": "La personnalisation de l'interface est propre à l'appareil utilisé",
 
+    "NEW": "Nouveau",
+
     "ADD_CERTIFICATE_BUTTON": "Ajouter",
     "REVERT_REORDER_CERTIF_BUTTON": "Annuler",
-    "ADD_CERTIFICATE_FORM_TITLE": "Ajouter un certificat de plongée",
+    "ADD_CERTIFICATE_FORM_TITLE": "certificat de plongée",
     "ADD": "Ajouter",
     "DATE_MUST_BE_IN_THE_PAST": "La date sélectionnée doit être dans le passé",
     "LOCATION_LABEL": "Localité",
@@ -125,7 +127,7 @@
     "SOCIAL": "Communauté",
     "DIVELOGS": "Carnets",
 
-    "ADD_DIVELOG_FORM_TITLE": "Ajouter un carnet de plongée",
+    "ADD_DIVELOG_FORM_TITLE": "carnet de plongée",
     "DIVELOG_TITLE_PLACEHOLDER": "\"Mon carnet de {{year}}\", ...",
     "DESCRIPTION_LABEL": "Description",
 

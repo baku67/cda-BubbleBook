@@ -119,6 +119,7 @@ export class CertificateManagerPageComponent implements OnInit{
 
   openAddCertifModal(): void {
     this.modalService.open(CertificateFormComponent, {
+      modalIcon: "workspace_premium",
       certificates: this.allCertificates,
       userCertificates: this.userCertificates,
     });

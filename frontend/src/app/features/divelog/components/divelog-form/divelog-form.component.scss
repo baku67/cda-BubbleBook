@@ -9,12 +9,18 @@ form section mat-form-field {
     width: 100%;
 }
 
+.modal-ref-content {
+    
+  .title-new {
+    color: var(--primary-color);
+    margin-right: 2px;
+  }
+}
+
 
 .theme-choice-container {
     width: fit-content;
     margin: 0 auto;
-
-
 }
 
 /* === Rouge === */

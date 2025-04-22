@@ -1,11 +1,11 @@
 <form
-    class="modalContent"
+    class="modalContent modal-ref-content"
     [formGroup]="addDivelogForm" 
     *ngIf="!isLoading"
     (ngSubmit)="onSubmit()" 
 >
 
-  <h2>{{ "ADD_DIVELOG_FORM_TITLE" | translate }}&nbsp;:</h2>
+  <h2><span class="title-new">{{ 'NEW' | translate }} </span>{{ "ADD_DIVELOG_FORM_TITLE" | translate }}&nbsp;:</h2>
 
   <section>
 

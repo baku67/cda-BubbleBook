@@ -54,7 +54,9 @@ export class DivelogPageComponent {
   }
 
   openAddDivelogModal(): void {
-    this.modalService.open(DivelogFormComponent, {}); // On a rien à lui passer
+    this.modalService.open(DivelogFormComponent, {
+      modalIcon: "menu_book"
+    }); // On a rien à lui passer
 
     // Ajout du divelog en dur (front) sans reload 
     this.modalService.subscribeToClose((createdDivelog: UserDivelog) => {
