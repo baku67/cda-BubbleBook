@@ -50,11 +50,16 @@ export class ModalService {
     // Créer le composant et capturer sa référence
     const componentRef = viewContainerRef.createComponent(factory);
 
-    // Passer les données via @Input()
+    // Passer les données via @Input() (au modale et à l'enfant du modale)
     if (data) {
       Object.entries(data).forEach(([key, value]) => {
+        // Les données qu'on passe au modal:
         if (this.modalRef!.instance.hasOwnProperty(key)) {
           (this.modalRef!.instance as any)[key] = value;
+        }
+        // Les données qu'on passe à l'enfant du modal:
+        if (componentRef.instance[key] !== undefined) { 
+          componentRef.instance[key] = data[key];
         }
       });
     }
