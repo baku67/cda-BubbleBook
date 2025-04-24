@@ -50,6 +50,7 @@ export class ModalService {
     // Créer le composant et capturer sa référence
     const componentRef = viewContainerRef.createComponent(factory);
 
+    // TODO utiliser les InjecktionToken
     // Passer les données via @Input() (au modale et à l'enfant du modale)
     if (data) {
       Object.entries(data).forEach(([key, value]) => {

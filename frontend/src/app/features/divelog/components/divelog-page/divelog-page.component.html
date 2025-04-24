@@ -7,7 +7,11 @@
       [class.fadeOutNav]="isAnimatingFadeOut"
   />
 
-  <div *ngIf="this.currentUser!.isVerified; else forbidden" class="" [class.fadeOutNav]="isAnimatingFadeOut">
+  <div 
+    *ngIf="this.currentUser!.isVerified; else forbidden" 
+    class="divelog-page-content" 
+    [class.fadeOutNav]="isAnimatingFadeOut"
+  >
 
     <!-- Bouton d'ajout -->
     <button *ngIf="!isEditMode" class="example-box certificates-btns addCertif-button" (click)="openAddDivelogModal()">
