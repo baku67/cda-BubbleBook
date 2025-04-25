@@ -29,7 +29,7 @@ export class DivelogService {
   deleteUserDivelog(divelogId: number): Observable<unknown> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.delete(
-      `${environment.apiUrl}/api/me/divelogs/${divelogId}`,
+      `${environment.apiUrl}/api/me/divelog/${divelogId}`,
       { headers }
     );
   }

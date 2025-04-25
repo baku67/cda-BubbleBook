@@ -74,7 +74,7 @@ class DivelogService
     public function deleteUserDivelog(User $user, int $divelogId): void
     {
         $userDivelog = $this->divelogRepository->findOneBy([
-            'divelog' => $divelogId,
+            'id' => $divelogId,
             'owner' => $user,
         ]);
 
