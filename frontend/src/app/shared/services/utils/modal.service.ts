@@ -35,9 +35,16 @@ export class ModalService {
     // Attache le composant au cycle de détection
     this.appRef.attachView(this.modalRef.hostView);
 
-    // Ajoute l'élément DOM au `<body>`
+    // Append du modal sur le <main>.globalMain sinon sur le <body>
     const modalDomElem = (this.modalRef.hostView as any).rootNodes[0];
-    document.body.appendChild(modalDomElem);
+    const mainEl = document.querySelector('main .globalMain');
+    if (mainEl) {
+      mainEl.appendChild(modalDomElem);
+    } else {
+      // En cas d'absence de <main>.globalMain, on retombe sur le body
+      console.warn('Élément <main> introuvable, on append quand même sur le body');
+      document.body.appendChild(modalDomElem);
+    }
 
     // Ajoute une classe pour l'animation "fadeIn"
     modalDomElem.classList.add('modal-opening');
@@ -50,7 +57,7 @@ export class ModalService {
     // Créer le composant et capturer sa référence
     const componentRef = viewContainerRef.createComponent(factory);
 
-    // TODO utiliser les InjecktionToken
+    // TODO utiliser les InjectionToken
     // Passer les données via @Input() (au modale et à l'enfant du modale)
     if (data) {
       Object.entries(data).forEach(([key, value]) => {
