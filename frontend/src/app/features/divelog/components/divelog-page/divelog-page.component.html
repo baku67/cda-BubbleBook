@@ -1,4 +1,4 @@
-<div class="pageContent" >
+<div class="pageContent">
 
   <app-page-header 
       [title]="('DIVELOGS' | translate)" 
@@ -7,40 +7,109 @@
       [class.fadeOutNav]="isAnimatingFadeOut"
   />
 
-  <div 
-    *ngIf="this.currentUser!.isVerified; else forbidden" 
-    class="divelog-page-content" 
-    [class.fadeOutNav]="isAnimatingFadeOut"
+  <div [class.fadeOutNav]="isAnimatingFadeOut" class="buttons-container">
+      <div style="display:flex; gap:10px;">
+          <!-- Bouton d'ajout ou de cancelEdit -->
+          <button *ngIf="!isEditMode" class="example-box divelogs-btns addDivelog-button" (click)="openAddDivelogModal()">
+              <div class="addDivelog-button-container">
+                  <mat-icon>add</mat-icon>
+                  <span>{{ "ADD_DIVELOG_BUTTON" | translate }}</span>
+              </div>
+          </button>
+          <button *ngIf="isEditMode" class="example-box divelogs-btns cancelEdit-button" (click)="openAddDivelogModal()">
+              <div class="addDivelog-button-container">
+                  <mat-icon>undo</mat-icon>
+                  <!-- <span>{{ "REVERT_REORDER_CERTIF_BUTTON" | translate }}</span> -->
+              </div>
+          </button>
+  
+          <!-- Bouton pour toggler le mode édition -->
+          <button [ngClass]="isEditMode ? 'editValidateBtn' : ''" class="example-box divelogs-btns editDivelog-button" (click)="toggleEditMode()" >
+              <div class="addDivelog-button-container">
+                  <mat-icon>{{ isEditMode ? 'check' : 'edit' }}</mat-icon>
+                  <span>{{ (isEditMode ? "VALIDATE" : "EDIT_DIVELOG_BUTTON") | translate }}</span>
+              </div>
+          </button>
+      </div>
+  </div>
+
+
+  <section 
+      *ngIf="!isUserDivelogsLoading" 
+      class="section-list-divelogs"
+      [class.fadeOutNav]="isAnimatingFadeOut"
   >
 
-    <!-- Bouton d'ajout -->
-    <button *ngIf="!isEditMode" class="example-box certificates-btns addCertif-button" (click)="openAddDivelogModal()">
-      <div class="addCertif-button-container">
-          <mat-icon>add</mat-icon>
-          <span>{{ "ADD_CERTIFICATE_BUTTON" | translate }}</span>
+      <div class="divelogs-list">
+          <!-- spinner: pas de skeleton -->
+          <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+
+              <div class="divelogs-list-wrapper">
+                  <!-- liste vide -->
+                  <div class="example-box" *ngIf=" userDivelogs.length === 0" class="empty-list">
+                      <mat-icon>info</mat-icon>
+                      <span>{{ "NO_DIVELOG_YET" | translate }}</span>
+                  </div>
+
+                  <div 
+                      class="example-box" 
+                      *ngFor="let userDivelog of userDivelogs; let i = index; trackBy: trackByDivelogId" 
+                      cdkDrag
+                      [cdkDragDisabled]="!isEditMode"
+                      [ngClass]="{ 'drag-disabled': !isEditMode, 'shrinked-box': isEditMode}"
+                  >
+                      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+
+                      <div class="content">
+                          <div class="divelog-header">
+                              <!-- <span class="divelog-organization">{{ userDivelog.certificate.type }}</span> -->
+                              <span class="cartif-name">{{ userDivelog.title }}</span>
+                          </div>
+                      </div>
+
+                      <div *ngIf="!isEditMode" class="divelog-infos">
+                          <!-- <div *ngIf="userDivelog.obtainedDate" class="inline-flex" style="gap:5px;">
+                              <mat-icon class="certif-icon">event_available</mat-icon><span>{{userDivelog.obtainedDate | date:'yyyy'}}</span>
+                          </div>
+                          <div *ngIf="userDivelog.location" class="inline-flex" style="gap:5px;">
+                              <mat-icon class="certif-icon">location_on</mat-icon><span>{{userDivelog.location}}</span>
+                          </div> -->
+                              
+                      </div>
+                      
+                      <div *ngIf="isEditMode" class="editMode-buttons-div">
+                          <!-- dragHandle -->
+                          <mat-icon cdkDragHandle class="drag-handle">drag_handle</mat-icon>
+
+                          <!-- delete -->
+                          <button 
+                              mat-icon-button 
+                              color="warn" 
+                              (click)="deleteDivelog(userDivelog)" 
+                              [disabled]="isDeleting[userDivelog.id]"
+                              class="non-draggable-button"
+                          >
+                              <mat-icon *ngIf="!isDeleting[userDivelog.id]" >delete_forever</mat-icon>
+                              <mat-spinner 
+                                  *ngIf="isDeleting[userDivelog.id]" 
+                                  diameter="20" 
+                                  strokeWidth="3"
+                          ></mat-spinner>
+                          </button>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
       </div>
-    </button>
+  </section>
 
-    <div class="divelogs-list-container">
-
-      <!-- <liste des carnets -->
-      @for (divelog of userDivelogs; track divelog.id) {
-        <div class="divelog-card">
-          <!-- bgImage default ou image du carnet -->
-          <span>{{ divelog.title }}</span>
-        </div>
-      }
-    </div>
-        
+  <!-- Loader/Spinner page -->
+  <div class="spinner-container" *ngIf="isUserDivelogsLoading">
+      <mat-spinner></mat-spinner>
   </div>
-      
-  <ng-template #forbidden>
-      <app-alert-banner  
-        maticon="alternate_email" 
-        [style]="'warn'" 
-        msgAlert="{{ 'ALERT_CONFIRM_MAIL' | translate }}" 
-      ></app-alert-banner>
-    </ng-template>
 
+  <div class="pageContent-bottom-nav-decal"></div>
 </div>
+
 

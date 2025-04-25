@@ -1,44 +1,201 @@
-.divelog-page-content {
-  width: 95%;
+:host {
+  /* Pour footer */
+  // min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+ngx-skeleton-loader  {
+  ::ng-deep .skeleton-loader {
+    margin-bottom: 0;
+}
+}
+
+
+.buttons-container {
+  width: 100%;
+  padding: 0 10px;
+}
+
+.section-list-divelogs {
+  padding: 10px;
+}
+
+.empty-list {
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  padding: 12px 0px;
+  gap: 10px;
+  opacity: 0.8;
+  font-style: italic;
+  font-size: 90%;
+}
+
+.certif-icon {
+  font-size: 1.4em;
+  height: auto;
+  width: auto;
+
+  opacity: 0.6;
+}
+
+
+// CDK drag-drop "custom placeholder"::after.example-list {
+.example-list {
+  width: 500px;
+  max-width: 100%;
+  min-height: 60px;
+  display: block;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .example-box {
-    padding: 15px 15px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    cursor: move;
-    font-size: 14px;
-    border: solid 1px #8989898c;
-    background-color: var(--element-bg-color);
-    border-radius: 5px;
-  }
+  padding: 15px 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  font-size: 14px;
+  border: solid 1px #8989898c;
+  background-color: var(--element-bg-color);
+  border-radius: 5px;
+}
+.shrinked-box {
+  padding: 10px 10px 11px 15px; 
+}
 
-  .certificates-btns {
-    color: black;
-    border-radius: 5px;
-  }
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
 
-  .addCertif-button {
-    cursor: pointer;
-    width: 100%;
-    background-color: var(--green);
-    text-align: center;
-    border: none;
-  }
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
 
-  .divelogs-list-container {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    gap: 10px;
-    margin-top: 20px;
 
-    .divelog-card {
-      padding: 10px;
-      border: 1px solid;
-      border-radius: 5px;
-    }
-  }
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-custom-placeholder {
+  background: #ccc;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.content {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  width: 65%; 
+}
+
+
+.divelog-header {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.divelog-organization {
+  font-size: 0.85em;
+  // color: var(--primary-color);
+  background-color: var(--primary-color);
+  width: fit-content;
+  padding: 1px 5px;
+  margin: 0px 0 5px 0;
+  color: black;
+  border-radius: 2px;
+}
+
+.divelog-infos {
+  display: inline-flex;
+  flex-direction: column;
+  text-align: right;
+  opacity: 0.75;
+  font-size: 85%;
+  gap: 4px;
+  width: 30%;
+}
+
+button .mat-spinner {
+  display: inline-block;
+  margin: auto;
+  vertical-align: middle;
+}
+
+.divelogs-btns {
+  color: black;
+  border-radius: 5px;
+}
+
+.addDivelog-button {
+  cursor: pointer;
+  width: 100%;
+  background-color: var(--green);
+  text-align: center;
+  border: none;
+}
+.cancelEdit-button {
+  width: 30% !important;
+  cursor: pointer;
+  width: 100%;
+  background-color: var(--red);
+  text-align: center;
+  border: none;
+}
+
+
+.editDivelog-button {
+  cursor: pointer;
+  width: 100%;
+  background-color: var(--primary-color);
+  text-align: center;
+  border: none;
+}
+
+.editValidateBtn {
+  background-color: var(--green);
+}
+
+.editMode-buttons-div {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.addDivelog-button-container {
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+  font-size: 1.2em;
+  position: relative;
+  right: 3px;
+}
+
+.drag-disabled {
+  cursor: default !important; /* Change le curseur en flèche classique */
+}
+
+.divelogs-list-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
