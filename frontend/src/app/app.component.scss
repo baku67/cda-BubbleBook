@@ -136,11 +136,12 @@ mat-menu {
     flex-direction: column;
     gap: 60px;
 }
+// COULEUR SYNC .TS
 .loading-screen-title {
     text-align: center;
     opacity: 0;
     font-size: 250%;
-    color: #f0f1f7;
+    color: rgb(0 255 195); // /!\ Même couleur que le spinnerLottie mais en +PEPS (couleur sync avec app.component.ts:animationCreated())
 
     animation: titlePop 0.7s 0s ease forwards;
 }
@@ -158,8 +159,11 @@ mat-menu {
         font-size: 250%;
     }
 }
+
+
+// Lottie loader global container:
 .spinner-container {
-    min-height: 0px;
+    min-height: 400px; // correspond à la hauteur du Lottie svg
     opacity: 0;
     animation: spinnerPop 0.5s 0.5s ease forwards;
 }

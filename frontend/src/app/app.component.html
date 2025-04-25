@@ -6,7 +6,9 @@
     <div class="loading-screen">
       <div class="loading-screen-content">
         <h1 class="loading-screen-title">Bubblebook</h1>
-        <div class="spinner-container">
+
+        <!-- ID veiwChild pour la couleur du svg Lottie (autre option: recompiler le JSON mais Lottie.url 404 introuvable) -->
+        <div class="spinner-container" #lottieWrapper>
           <!-- <mat-spinner></mat-spinner> -->
           <ng-lottie [options]="options" (animationCreated)="animationCreated($event)" /> 
         </div>

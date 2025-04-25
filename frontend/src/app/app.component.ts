@@ -42,6 +42,9 @@ export class AppComponent implements OnInit {
   public videoIcon = faVideo;
   public videoIconSlash = faVideoSlash;
 
+  // *** Lottie SVG container (pour modifier la couleur sans recompilation JSON depuis le site):
+  @ViewChild('lottieWrapper', { static: false }) lottieWrapper!: ElementRef;
+
   // *** UxMenuBtn:
   @ViewChild('UxMenuWrapper', { static: false }) UxMenuWrapper!: ElementRef;
   public isMenuOpen = false;
@@ -140,10 +143,18 @@ export class AppComponent implements OnInit {
     loop: true,
     autoplay: true,
   };
-  animationCreated(animationItem: AnimationItem): void {
-    console.log(animationItem);
+  animationCreated(anim: AnimationItem) {
+    setTimeout(() => {
+      const svgEl: SVGElement | null =
+        this.lottieWrapper.nativeElement.querySelector('svg');
+      if (svgEl) {
+        svgEl.querySelectorAll('[fill]').forEach(el =>
+          // // COULEUR SYNC .SCSS
+          (el as SVGElement).setAttribute('fill', '#00ffc3') // /!\ synchro avec app.component.scss:.loading-screen-title
+        );
+      }
+    }, 0);
   }
-
   private toggleBodyScroll(): void {
     const shouldDisableScroll = this.isInitializingAuth || this.isInitializingVideoBg;
     document.body.style.overflow = shouldDisableScroll ? 'hidden' : '';
