@@ -416,7 +416,6 @@ h1, h2, h3 {
         // Anim déplacée sur chaque enfant de .pageContent
         opacity: 0;
         animation: fadeInNav 0.6s ease forwards;
-        backdrop-filter: blur(12px);
     }
 
     app-user-card {

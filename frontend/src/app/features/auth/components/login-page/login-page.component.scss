@@ -9,8 +9,9 @@
     margin-top: 17px; // synchro register-page-component
   }
 
-  .subPageContent {
+  .blurredForm {
     backdrop-filter: blur(12px);
+    gap: 15px;
     animation: fadeIn 1s ease forwards;
   }
 }
