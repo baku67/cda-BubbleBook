@@ -418,6 +418,10 @@ h1, h2, h3 {
         animation: fadeInNav 0.6s ease forwards;
     }
 
+    .firstLoginForm, .secondLoginForm  {
+        backdrop-filter: blur(10px);
+    }
+
     app-user-card {
         opacity: 0;
         animation: fadeInNav 0.6s ease forwards;
