@@ -1,0 +1,22 @@
+<div class="pageContent">
+
+    <app-page-header 
+        [title]="('DIVELOG' | translate)" 
+        [matIcon]="'menu_book'"
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    />
+
+    <div class="divelog-page-content">
+        <span class="divelog-title">{{ divelog?.title }}</span>
+    </div>
+
+    <!-- TODO trop bien: change le app-background ou trick (au dessus avec fade-in fadeOut pour eviter de casser le fade-slide ?) -->
+    <img 
+        *ngIf="divelog?.theme" 
+        [src]="getThemeImage(divelog!.theme)" 
+        alt="Image de couverture du carnet de plongée" 
+        class="divelog-image"
+    />
+
+</div>

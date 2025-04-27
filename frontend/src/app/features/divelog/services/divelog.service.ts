@@ -17,6 +17,10 @@ export class DivelogService {
     return this.http.get<UserDivelog[]>(`${environment.apiUrl}/api/me/divelogs`);
   }
 
+  getCurrentUserDivelog(divelogId: string): Observable<UserDivelog> {
+    return this.http.get<UserDivelog>(`${environment.apiUrl}/api/me/divelogs/${divelogId}`);
+  }
+
   addDivelogToUser(divelogData: DivelogFormData): Observable<unknown> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(
@@ -29,7 +33,7 @@ export class DivelogService {
   deleteUserDivelog(divelogId: number): Observable<unknown> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.delete(
-      `${environment.apiUrl}/api/me/divelog/${divelogId}`,
+      `${environment.apiUrl}/api/me/divelogs/${divelogId}`,
       { headers }
     );
   }

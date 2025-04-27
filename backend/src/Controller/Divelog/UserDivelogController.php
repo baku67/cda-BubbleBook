@@ -90,7 +90,7 @@ class UserDivelogController extends AbstractController
     }
 
 
-    #[Route('/api/me/divelog/{divelogId}', name: 'api_me_delete_certificate', methods: ['DELETE'])]
+    #[Route('/api/me/divelogs/{divelogId}', name: 'api_me_delete_certificate', methods: ['DELETE'])]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function deleteUserDivelog(int $divelogId): JsonResponse
     {
@@ -107,18 +107,35 @@ class UserDivelogController extends AbstractController
         }
     }
 
-}
+
+    #[Route('/api/me/divelogs/{divelogId}', name: 'api_me_get_divelog', methods: ['GET'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function getUserDivelog(int $divelogId): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'Unauthorized access.'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $userDivelogDTO = $this->userDivelogService->getCurrentUserDivelog($user, $divelogId);
+        return $this->json($userDivelogDTO, Response::HTTP_OK);
+    }
 
 
-    // #[Route('/api/user/divelogs/{id}', name: 'api_get_user_divelog', methods: ['GET'])]
+    // *** VERIF PRIVACY SETTINGS otherUserDivelog
+    // #[Route('/api/user/divelogs/{divelogId}', name: 'api_user_get_divelog', methods: ['GET'])]
     // #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    // public function getUserDivelog(int $id): JsonResponse
+    // public function getOtherUserDivelog(int $userId, int $divelogId): JsonResponse
     // {
     //     $user = $this->getUser();
     //     if (!$user instanceof User) {
     //         return new JsonResponse(['error' => 'Unauthorized access.'], Response::HTTP_UNAUTHORIZED);
     //     }
 
-    //     $userDivelogDTO = $this->userDivelogService->getUserDivelog($user, $id);
-    //     return $this->json($userDivelogDTO, Response::HTTP_OK);
+    //     // récup de l'user
+
+    //     $userDivelogDTO = $this->userDivelogService->getOtherUserDivelog($user, $divelogId);
+    //     return $this->json($otherUserDivelogDTO, Response::HTTP_OK);
     // }
+
+}

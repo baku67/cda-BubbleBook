@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DivelogPageComponent } from './divelog-page.component';
+import { DivelogDetailComponent } from './divelog-detail.component';
 
-describe('DivelogPageComponent', () => {
-  let component: DivelogPageComponent;
-  let fixture: ComponentFixture<DivelogPageComponent>;
+describe('DivelogDetailComponent', () => {
+  let component: DivelogDetailComponent;
+  let fixture: ComponentFixture<DivelogDetailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DivelogPageComponent]
+      imports: [DivelogDetailComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DivelogPageComponent);
+    fixture = TestBed.createComponent(DivelogDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

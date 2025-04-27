@@ -58,6 +58,8 @@
                       class="divelog-box" 
                       cdkDrag
                       [cdkDragDisabled]="!isEditMode"
+                      [routerLink]="!isEditMode ? ['/divelogs', userDivelog.id] : null"
+                      routerLinkActive="active"
                       [ngClass]="{ 'drag-disabled': !isEditMode, 'shrinked-box': isEditMode}"
                   >
 

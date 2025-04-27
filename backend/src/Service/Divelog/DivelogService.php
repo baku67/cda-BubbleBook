@@ -89,4 +89,26 @@ class DivelogService
     }
 
 
+    public function getCurrentUserDivelog(User $user, int $divelogId): DivelogDTO
+    {
+        $userDivelog = $this->divelogRepository->findOneBy([
+            'id' => $divelogId,
+            'owner' => $user,
+        ]);
+
+        if (!$userDivelog) {
+            throw new \InvalidArgumentException('Divelog not found or does not belong to the user.');
+        }
+
+        return new DivelogDTO(
+            $userDivelog->getId(),
+            $userDivelog->getTitle(),
+            $userDivelog->getDescription(),
+            $userDivelog->getCreatedAt(),
+            $userDivelog->getTheme(),
+            $userDivelog->getDives()->count()
+        );
+    }
+
+
 }

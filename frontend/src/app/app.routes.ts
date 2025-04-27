@@ -18,7 +18,9 @@ import { OtherUserProfileResolver } from './core/resolvers/other-user-profil.res
 import { UserProfileResolver } from './core/resolvers/user-profil.resolver';
 import { LandingPageHomeComponent } from './features/landing-page/components/landing-page-home/landing-page-home.component';
 import { LandingPageDiscoverComponent } from './features/landing-page/components/landing-page-discover/landing-page-discover.component';
-import { DivelogPageComponent } from './features/divelog/components/divelog-page/divelog-page.component';
+import { DivelogListComponent } from './features/divelog/components/divelog-list/divelog-list.component';
+import { DivelogDetailComponent } from './features/divelog/components/divelog-detail/divelog-detail.component';
+import { UserDivelogResolver } from './features/divelog/resolvers/user-divelog.resolver';
 
 export const routes: Routes = [
     // LandingPage + Login/Register Pages
@@ -81,10 +83,24 @@ export const routes: Routes = [
     // DIVELOGS:
     { 
         path: 'divelogs', 
-        component: DivelogPageComponent, 
+        // component: DivelogPageComponent, 
         canActivate: [AuthGuard], 
         canDeactivate: [FadeOutGuard],
-        resolve: { currentUser: UserProfileResolver } // pour savoir par exemple si isVerified
+        resolve: { currentUser: UserProfileResolver }, // pour savoir par exemple si isVerified
+        children: [
+            {
+                path: '',
+                component: DivelogListComponent, // liste des carnets
+            },
+            {
+              path: ':id',
+              component: DivelogDetailComponent,
+              resolve: {
+                divelog: UserDivelogResolver, // charge le carnet via l’ID
+                currentUser: UserProfileResolver // si besoin de rechanger quoi
+              }
+            }
+          ]
     },
 
 

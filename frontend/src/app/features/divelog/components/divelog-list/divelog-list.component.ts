@@ -10,11 +10,11 @@ import { DivelogFormComponent } from '../divelog-form/divelog-form.component';
 import { DIVELOG_THEMES, DivelogThemeOption } from '../../models/divelog-theme';
 
 @Component({
-  selector: 'app-divelog-page',
-  templateUrl: './divelog-page.component.html',
-  styleUrl: './divelog-page.component.scss'
+  selector: 'app-divelog-list',
+  templateUrl: './divelog-list.component.html',
+  styleUrl: './divelog-list.component.scss'
 })
-export class DivelogPageComponent {
+export class DivelogListComponent {
 
   isUserDivelogsLoading : boolean;
   userDivelogs: UserDivelog[] = [];
