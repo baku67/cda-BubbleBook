@@ -133,6 +133,7 @@
     "ADD_DIVELOG_FORM_TITLE": "carnet de plongée",
     "DIVELOG_TITLE_PLACEHOLDER": "\"Mon carnet de {{year}}\", ...",
     "DESCRIPTION_LABEL": "Description",
+    "COVER_IMAGE_LABEL": "Image de couverture",
 
     "THEME_LABEL": "Thème",
     "DEFAULT": "Neutre",

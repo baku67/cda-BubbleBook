@@ -103,13 +103,13 @@
                         <defs>
                             <!-- Ancien: width="200" height="250" (x2) -->
                             <pattern
-                            id="texturePattern"
-                            patternUnits="userSpaceOnUse"
-                            width="136" height="156"
+                                [attr.id]="'texturePattern' + userDivelog.id"
+                                patternUnits="userSpaceOnUse"
+                                width="136" height="156"
                             >
                             <!-- IMG Texture carnet de plongée -->
                             <image
-                                href="assets/images/textures/divelog-texture-2.webp"
+                                [attr.href]='getThemeImage(userDivelog.theme)'
                                 x="0" y="0"
                                 width="136" height="156"
                                 preserveAspectRatio="xMidYMid slice"
@@ -118,7 +118,7 @@
                         </defs>
 
                         <!-- Couverture arrière -->
-                        <path fill="url(#texturePattern)" d="M 137.895 177.3105 h -106.8555 c -2.541 0 -1.929 -1.944 -1.929 -4.335 V 22.3245 c 0 -2.3895 2.0655 -4.335 4.605 -4.335 h 106.122 c 4.161 0 7.542 3.183 7.542 7.101 v 143.655 c 0 5.5575 -2.799 8.5665 -9.486 8.5665 z"/>
+                        <path [attr.fill]="'url(#texturePattern' + userDivelog.id + ')'" d="M 137.895 177.3105 h -106.8555 c -2.541 0 -1.929 -1.944 -1.929 -4.335 V 22.3245 c 0 -2.3895 2.0655 -4.335 4.605 -4.335 h 106.122 c 4.161 0 7.542 3.183 7.542 7.101 v 143.655 c 0 5.5575 -2.799 8.5665 -9.486 8.5665 z"/>
                         <!-- Epaisseur pages bas -->
                         <path fill="#94c6d6" d="M 12.93 168.3945 c 0 2.3565 4.4655 4.338 7.2885 4.338 l 116.967 -0.0615 c 4.335 0 6.606 -1.92 6.606 -4.2765 l -0.3645 -25.905 H 12.93 v 25.905 z"/>
                         <!-- Epaisseur page droite -->
@@ -126,7 +126,7 @@
                         <!-- bordure-ombre 1ere de couverture (désactivé et première de couverture adaptée) -->
                         <!-- <path class="divelog-svg-path-primary-color-ombre" d="M 127.74 168.06 h -105.78 v -156.6 h 108.375 c 3.405 0 5.805 0.915 6.93 2.43 c 1.47 1.965 2.25 4.95 2.25 8.22 v 134.175 a 11.775 11.775 90 0 1 -11.775 11.775 z"/> -->
                         <!-- 1ere de couverture -->
-                        <path class="divelog-svg-front-cover" fill="url(#texturePattern)" d="M125 167c7 1 13 0 13-6V21.855c0-7.11-4.65-10.38-10.38-10.38H25c-4.125 0-7.485 3.345-7.485 7.485V160c0 4.125 3.345 7.485 7.281 7.485H124.53Z"/>
+                        <path class="divelog-svg-front-cover" [attr.fill]="'url(#texturePattern' + userDivelog.id + ')'" d="M125 167c7 1 13 0 13-6V21.855c0-7.11-4.65-10.38-10.38-10.38H25c-4.125 0-7.485 3.345-7.485 7.485V160c0 4.125 3.345 7.485 7.281 7.485H124.53Z"/>
                         <!-- Bande gauche -->
                         <path fill="#616161" d="M 28.0365 164.7255 l -0.048 -153.3855 h -10.752 s -2.217 -0.594 -3.696 0 c -2.6775 1.0845 -3.417 4.098 -3.417 9.015 v 140.1975 c 0.2205 9 0.2205 13.455 5.0205 14.94 c -2.88 -1.485 -1.8435 -7.6785 -1.065 -9.831 c 0.69 -1.9005 13.9575 -0.936 13.9575 -0.936 z"/>
                         <!-- 2 Trucs sans couleurs: -->

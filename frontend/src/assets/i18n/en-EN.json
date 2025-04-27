@@ -129,6 +129,7 @@
     "ADD_DIVELOG_FORM_TITLE": "dive log",
     "DIVELOG_TITLE_PLACEHOLDER": "\"My {{year}}\" divelog\", ...",
     "DESCRIPTION_LABEL": "Description",
+    "COVER_IMAGE_LABEL": "Cover image",
 
     "THEME_LABEL": "Theme",
     "DEFAULT": "Default",

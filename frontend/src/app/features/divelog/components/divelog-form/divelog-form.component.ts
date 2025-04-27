@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from '../../../../shared/services/utils/modal.service';
 import { DivelogService } from '../../services/divelog.service';
+import { DIVELOG_THEMES, DivelogThemeOption } from '../../models/divelog-theme';
+
 
 @Component({
   selector: 'app-divelog-form',
@@ -12,6 +14,8 @@ export class DivelogFormComponent {
 
   addDivelogForm!: FormGroup;
   currentYear: number = new Date().getFullYear();
+
+  themes: DivelogThemeOption[] = DIVELOG_THEMES;
 
   isLoading = false;
   errorMessage: string | null = null;
@@ -25,9 +29,13 @@ export class DivelogFormComponent {
   ngOnInit() {
     this.addDivelogForm = this.formBuilder.group({
       title: ['', [Validators.required]], 
-      description: ['', []], 
-      theme: ['blue', []]
+      description: [''], 
+      theme: [this.themes[0].id]
     });
+  }
+
+  selectTheme(id: string): void {
+    this.addDivelogForm.get('theme')!.setValue(id);
   }
 
   onSubmit(): void {

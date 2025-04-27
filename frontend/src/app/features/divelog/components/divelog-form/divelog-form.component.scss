@@ -18,40 +18,83 @@ form section mat-form-field {
 }
 
 
-.theme-choice-container {
-    width: fit-content;
-    margin: 0 auto;
+
+
+.theme-selector {
+  overflow: hidden;
 }
 
-/* === Rouge === */
-:host ::ng-deep mat-button-toggle[value="red"] .mat-button-toggle-button {
-    color: #f44336;            /* texte rouge */
-    background-color: transparent;
-  }
-  :host ::ng-deep mat-button-toggle[value="red"].mat-button-toggle-checked
-    .mat-button-toggle-button {
-    background-color: #f44336; /* fond rouge */
-    color: white;              /* texte blanc */
-  }
+.theme-options {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  gap: 5px;
+  margin: 10px auto;
+  justify-content: space-evenly;
+
+  // ScrollBar Firefox (casse les autres):
+  // scrollbar-width: thin;          /* peut être auto, thin, none */
+  // scrollbar-color: var(--primary-color) #0000006b;     /* thumb, track */
   
-  /* === Vert === */
-  :host ::ng-deep mat-button-toggle[value="green"] .mat-button-toggle-button {
-    color: #4caf50;
-    background-color: transparent;
+
+  .theme-thumbnail {
+    // box-sizing: content-box;
+    width: 60px;
+    border-radius: 5px;
   }
-  :host ::ng-deep mat-button-toggle[value="green"].mat-button-toggle-checked
-    .mat-button-toggle-button {
-    background-color: #4caf50;
-    color: white;
+}
+
+.theme-option.selectedCover {
+  position: relative;
+  transition: all 0.5s ease;
+
+  .theme-thumbnail {
+    border: 1px solid var(--primary-color);
+    padding: 2px;
   }
-  
-  /* === Bleu === */
-  :host ::ng-deep mat-button-toggle[value="blue"] .mat-button-toggle-button {
-    color: #2196f3;
-    background-color: transparent;
+}
+.theme-option.selectedCover:after {
+  color: black;
+  content: "check";                /* ligature Material Icons */
+  font-family: 'Material Icons';   /* police d’icônes */
+  position: absolute;
+  right: 3px;
+  bottom: 7px;
+  border-radius: 3px;
+  background-color: var(--primary-color);
+  width: 16px;
+  height: 16px;
+  /* active les ligatures */
+  font-feature-settings: 'liga';
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+
+  opacity: 0;
+  animation: fade-in-check 0.5s 0.2s ease forwards;
+}
+@keyframes fade-in-check {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
   }
-  :host ::ng-deep mat-button-toggle[value="blue"].mat-button-toggle-checked
-    .mat-button-toggle-button {
-    background-color: #2196f3;
-    color: white;
+  90% {
+    opacity: 1;
+    transform: scale(1.1);
   }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ScrollBar Chrome, Edge, Safari */
+.theme-options::-webkit-scrollbar {
+  height: 4px;                    /* hauteur de la scrollbar horizontale */
+}
+.theme-options::-webkit-scrollbar-track {
+  background: #0000006b;               /* couleur de fond sous le thumb */
+}
+.theme-options::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);         /* couleur du “curseur” */
+  border-radius: 4px;             /* arrondir les coins */
+}

@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
 <form
     class="modalContent modal-ref-content"
     [formGroup]="addDivelogForm" 
@@ -34,14 +35,20 @@
       </textarea>
     </mat-form-field>
 
-    <!-- Thème du carnet (todo: trad et revoir couleurs) -->
-    <mat-label>{{ "THEME_LABEL" | translate }}</mat-label>
-    <mat-button-toggle-group formControlName="theme" aria-label="Font Style" class="theme-choice-container">
-      <mat-button-toggle value="default">{{ 'DEFAULT' | translate }}</mat-button-toggle>
-      <mat-button-toggle value="red">{{ 'RED' | translate }}</mat-button-toggle>
-      <mat-button-toggle value="green">{{ 'GREEN' | translate }}</mat-button-toggle>
-      <mat-button-toggle value="blue">{{ 'BLUE' | translate }}</mat-button-toggle>
-    </mat-button-toggle-group>
+    <!-- Thème du carnet (couleur d'illustration) -->
+    <div class="theme-selector">
+      <label class="mat-label">{{ 'COVER_IMAGE_LABEL' | translate }}</label>
+      <div class="theme-options">
+        <div
+          *ngFor="let t of themes"
+          class="theme-option"
+          [class.selectedCover]="addDivelogForm.value.theme === t.id"
+          (click)="selectTheme(t.id)"
+        >
+          <img [src]="t.imageUrlThumnail" [alt]="t.id" class="theme-thumbnail"/>
+        </div>
+      </div>
+    </div>
 
   </section>
 

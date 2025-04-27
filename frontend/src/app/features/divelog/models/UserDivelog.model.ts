@@ -3,6 +3,6 @@ export interface UserDivelog {
     title: string;
     description: string | null;
     createdAt: string;
-    theme: string | null;
+    theme: string;
     diveCount: number;
 }

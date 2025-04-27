@@ -7,6 +7,7 @@ import { FlashMessageService } from '../../../../shared/services/utils/flash-mes
 import { UserDivelog } from '../../models/UserDivelog.model';
 import { DivelogService } from '../../services/divelog.service';
 import { DivelogFormComponent } from '../divelog-form/divelog-form.component';
+import { DIVELOG_THEMES, DivelogThemeOption } from '../../models/divelog-theme';
 
 @Component({
   selector: 'app-divelog-page',
@@ -17,13 +18,13 @@ export class DivelogPageComponent {
 
   isUserDivelogsLoading : boolean;
   userDivelogs: UserDivelog[] = [];
+  themes: DivelogThemeOption[] = DIVELOG_THEMES;
 
   isDeleting: { [id: number]: boolean } = {};
   isEditMode: boolean = false;
   // TODO: sort comme certif: 
   // originalOrder: { id: number, displayOrder: number }[] = []; // Pour pouvoir stocke l'ordre initial
   // originalUserCertificates: UserDivelog[] = []; // Pour restaurer si cancel
-
 
   isAnimatingFadeOut = false;
 
@@ -57,6 +58,12 @@ export class DivelogPageComponent {
         this.isUserDivelogsLoading = false;
       }
     });
+  }
+
+  // Récup url des Couvertures des divelogs:
+  getThemeImage(themeId: string): string {
+    const theme = this.themes.find(t => t.id === themeId);
+    return theme ? theme.imageUrl : '';
   }
 
   toggleEditMode() {

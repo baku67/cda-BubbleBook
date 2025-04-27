@@ -11,6 +11,22 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class DivelogFixtures extends Fixture implements DependentFixtureInterface
 {
+
+    private const THEMES = [
+        'divelog-theme-1',
+        'divelog-theme-2',
+        'divelog-theme-3',
+        'divelog-theme-4',
+        'divelog-theme-5',
+        'divelog-theme-6',
+        'divelog-theme-7',
+        'divelog-theme-8',
+        'divelog-theme-9',
+        'divelog-theme-10',
+        'divelog-theme-11',
+    ];
+
+
     public function load(ObjectManager $manager): void
     {
         // Récupère les utilisateurs créés dans UserFixtures
@@ -83,7 +99,10 @@ class DivelogFixtures extends Fixture implements DependentFixtureInterface
                 $divelog->setTitle($item['title']);
                 $divelog->setDescription($item['description']);
                 $divelog->setCreatedAt($item['createdAt']);
-                $divelog->setTheme($item['theme']);
+                
+                $randomTheme = self::THEMES[array_rand(self::THEMES)];
+                $divelog->setTheme($randomTheme);
+
                 $manager->persist($divelog);
             }
         }
