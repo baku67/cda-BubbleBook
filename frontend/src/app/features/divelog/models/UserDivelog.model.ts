@@ -4,4 +4,5 @@ export interface UserDivelog {
     description: string | null;
     createdAt: string;
     theme: string | null;
+    diveCount: number;
 }

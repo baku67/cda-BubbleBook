@@ -110,6 +110,7 @@ export class DivelogPageComponent {
 
     this.modalService.subscribeToClose((createdDivelog: UserDivelog) => {
       if (createdDivelog) {
+        createdDivelog.diveCount = createdDivelog.diveCount ?? 0;
         this.userDivelogs = [...this.userDivelogs, createdDivelog];
         console.log("Nouvelle liste de userCertifs :", this.userDivelogs);
       }

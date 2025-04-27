@@ -204,6 +204,7 @@ button .mat-spinner {
   grid-row-gap: 5px;
 
   .divelog-box {
+    width: 157px; // sync avec width du svg "divelog-svg-2"
     position: relative;
     display: flex;
     justify-content: center;
@@ -212,22 +213,36 @@ button .mat-spinner {
     .divelog-title {
       z-index: 200;
       position: absolute;
-      color: black;
-      border: 1px solid #80808042;
-      font-size: 0.9em;
-      background-color: #ffffffcf;
+      // color: var(--primary-color);
+      background-image: radial-gradient(
+        circle at center,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0)    100%
+      );
       text-align: center;
       width: 65%;
       top: 17px;
       left: 32px;
       border-radius: 5px;
 
-      // max-height: 75%;
-      // overflow: hidden;
+      // Hauteur et centrage:
+      align-content: center;
+      align-items: center;
+
+      // Ellipsis 6 lignes max;
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 6;
+      height: 103px; // dépend de la police/font
+      -webkit-line-clamp: 4; // dépend de la police/font
       overflow: hidden;
+
+      span {
+        font-family: "Dancing Script", cursive;
+        color: white;
+        font-size: 1.3em;
+        font-weight: bold;
+        text-shadow: 0px 0px 4px black;
+      }
     }
 
     .divelog-dives-count {
@@ -237,42 +252,38 @@ button .mat-spinner {
       align-items: center;
       gap: 5px;
       position: absolute;
-      color: black;
-      font-size: 1.2em;
-      bottom: 30px;
-      right: 22px;
+      color: var(--primary-color);
+      background-color: #313030;
+      padding: 3px 5px;
+      // text-shadow: 0px 0px 2px white;
+      font-size: 0.9em;
+      bottom: 25px;
+      right: 21px;
+      border-radius: 3px;
+      border-top-left-radius: 7px;
+      border-bottom-right-radius: 5px;
 
       mat-icon {
         transform: rotateY(180deg);
-        height: 20px;
-        width: 20px;
-        font-size: 20px;
-        opacity: 0.6;
+        height: 15px;
+        width: 15px;
+        font-size: 15px;
       }
     }
-  
-    // .divelog-svg {
-    //   filter: drop-shadow(0px 0px 2px white);
-    //   height: auto;
-    //   width: 100%;
-    
-    //   .divelog-svg-path-primary-color {
-    //     fill: var(--primary-color);
-    //   }
-    
-    //   .divelog-svg-path-primary-color-ombre {
-    //     fill: var(--primary-color);
-    //     filter: brightness(80%);
-    //   }
-    // }
+
 
     .divelog-svg-2 {
-      filter: drop-shadow(0px 0px 2px white);
-      width: 100%;
+      // filter: drop-shadow(0px 0px 1px var(--primary-color)); // Pour le hover/click ?
+      width: 157px; // sync avec width du wrapper "divelog-box"
       height: 190px;
 
-      .divelog-svg-path-primary-color {
-        fill: var(--primary-color);
+      .divelog-svg-front-cover {
+        // filter: saturate(0.8); A voir ?
+      }
+
+      .divelog-svg-trait {
+        stroke: var(--primary-color);
+        filter: saturate(0.7);
       }
     
       .divelog-svg-path-primary-color-ombre {
