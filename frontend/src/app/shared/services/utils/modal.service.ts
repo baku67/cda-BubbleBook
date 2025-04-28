@@ -8,6 +8,7 @@ import { Subject, Subscription } from 'rxjs';
 })
 export class ModalService {
   private modalRef: ComponentRef<any> | null = null;
+  private _scrollY = 0;
   private closeSubject = new Subject<any>();
   close$ = this.closeSubject.asObservable();
   private subscription: Subscription | null = null; // Ajout pour gérer les abonnements
@@ -22,6 +23,8 @@ export class ModalService {
 
   open(component: any, data?: any, onClose?: (data?: any) => void): void {
     console.log("Data reçu en paramètre de open() modal.service: " + JSON.stringify(data, null, 2)); // OK
+
+    this._disableBackgroundScroll();
 
     // Si un modal existe déjà, on le ferme
     if (this.modalRef) {
@@ -82,6 +85,8 @@ export class ModalService {
 
   close(result?: any): void {
 
+    this._enableBackgroundScroll();
+
     this.closeSubject.next(result);
     
     if (this.modalRef) {
@@ -100,15 +105,33 @@ export class ModalService {
     }
   }
 
-    /**
-   * Gère l'abonnement à close$ pour éviter les doublons.
-   */
-    subscribeToClose(callback: (result: any) => void): void {
-      // Nettoie tout abonnement précédent
-      if (this.subscription) {
-        this.subscription.unsubscribe();
-      }
-  
-      this.subscription = this.close$.subscribe(callback);
+  /**
+  * Gère l'abonnement à close$ pour éviter les doublons.
+  */
+  subscribeToClose(callback: (result: any) => void): void {
+    // Nettoie tout abonnement précédent
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
+
+    this.subscription = this.close$.subscribe(callback);
+  }
+
+  private _disableBackgroundScroll(): void {
+    // Mémorise la position courante
+    this._scrollY = window.scrollY || window.pageYOffset;
+    // Fige le body en position fixed (empêche le scroll)...
+    document.body.style.position = 'fixed';
+    document.body.style.top      = `-${this._scrollY}px`;
+    document.body.style.width    = '100%';  // évite un léger « shift »
+  }
+
+  private _enableBackgroundScroll(): void {
+    // Remet le body en flow normal
+    document.body.style.position = '';
+    document.body.style.top      = '';
+    document.body.style.width    = '';
+    // Restaure la position scroll initiale
+    window.scrollTo(0, this._scrollY);
+  }
 }

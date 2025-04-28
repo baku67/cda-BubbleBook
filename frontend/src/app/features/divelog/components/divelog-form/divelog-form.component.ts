@@ -27,6 +27,7 @@ export class DivelogFormComponent {
   ) {}
 
   ngOnInit() {
+    this.themes = this._shuffleArray(DIVELOG_THEMES); // Mélange a chaque ouverture de modal Form
     this.addDivelogForm = this.formBuilder.group({
       title: ['', [Validators.required]], 
       description: [''], 
@@ -56,5 +57,14 @@ export class DivelogFormComponent {
       console.error('Form is invalid');
       this.errorMessage = 'Please fill in all required fields correctly.';
     }
+  }
+
+  private _shuffleArray<T>(arr: T[]): T[] {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
   }
 }

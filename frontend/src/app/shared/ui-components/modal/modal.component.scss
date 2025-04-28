@@ -21,7 +21,7 @@
   opacity: 0;
 
   position: fixed;
-  top: 50%;
+  top: calc(50% + 35px); // décalage fix en plus pour le icon-shape absolute (pas ouf)
   left: 50%;
   transform: translate(-50%, -50%);
   // background: white;
