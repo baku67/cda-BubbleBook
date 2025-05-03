@@ -4,9 +4,9 @@ namespace App\DataFixtures;
 
 use App\DataFixtures\DivelogFixtures;
 use App\DataFixtures\DiveTagFixtures; 
-use App\Entity\Divelog\Dive;
+use App\Entity\Dive\Dive;
+use App\Entity\Dive\DiveTag;
 use App\Entity\Divelog\Divelog;
-use App\Entity\Divelog\DiveTag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;

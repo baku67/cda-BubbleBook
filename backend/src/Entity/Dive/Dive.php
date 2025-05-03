@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Entity\Divelog;
+namespace App\Entity\Dive;
 
 use App\Enum\Visibility;
+use App\Entity\Dive\DiveTag;
+use App\Entity\Divelog\Divelog;
 use App\Repository\Divelog\DiveRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

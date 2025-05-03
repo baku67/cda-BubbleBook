@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity\Divelog;
+namespace App\Entity\Dive;
 
-use App\Repository\Divelog\DiveTagRepository;
+use App\Repository\Dive\DiveTagRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DiveTagRepository::class)]

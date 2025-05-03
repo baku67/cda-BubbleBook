@@ -2,7 +2,6 @@
 
 namespace App\Repository\Divelog;
 
-use App\DTO\Response\DivelogDTO;
 use App\Entity\Divelog\Divelog;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Divelog\DiveTag;
+use App\Entity\Dive\DiveTag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 

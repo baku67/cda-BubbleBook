@@ -3,6 +3,7 @@
 namespace App\Entity\Divelog;
 
 use App\Entity\User\User;
+use App\Entity\Dive\Dive;
 use App\Repository\Divelog\DivelogRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

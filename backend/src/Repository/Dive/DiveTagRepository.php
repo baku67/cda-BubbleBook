@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Repository\Divelog;
+namespace App\Repository\Dive;
 
-use App\Entity\Divelog\Dive;
+use App\Entity\Dive\DiveTag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Dive>
+ * @extends ServiceEntityRepository<DiveTag>
  */
-class DiveRepository extends ServiceEntityRepository
+class DiveTagRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Dive::class);
+        parent::__construct($registry, DiveTag::class);
     }
 
     //    /**
-    //     * @return Dive[] Returns an array of Dive objects
+    //     * @return DiveTag[] Returns an array of DiveTag objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class DiveRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Dive
+    //    public function findOneBySomeField($value): ?DiveTag
     //    {
     //        return $this->createQueryBuilder('d')
     //            ->andWhere('d.exampleField = :val')
