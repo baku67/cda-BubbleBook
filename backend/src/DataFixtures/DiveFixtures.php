@@ -34,7 +34,12 @@ class DiveFixtures extends Fixture implements DependentFixtureInterface
                     ->setTemperature(random_int(18, 30))
                     ->setVisibility(Visibility::cases()[array_rand(Visibility::cases())])
                     ->setSatisfaction(random_int(1, 5))
-                    ->setDivelog($divelog);
+                    ->setDivelog($divelog)
+                    ->setDiveDatetime(
+                        new \DateTimeImmutable(sprintf('2025-05-%02d 08:00:00', min(28, ($divelog->getId() * 3))) )
+                    )
+                    ->setDiveDuration(rand(30, 70))
+                    ->setWeight(rand(2, 15));
                    
                 // Associer un sous-ensemble aléatoire de DiveTags
                 if (!empty($tags)) {

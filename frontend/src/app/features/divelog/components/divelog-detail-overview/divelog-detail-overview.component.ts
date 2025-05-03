@@ -5,6 +5,7 @@ import { AnimationOptions } from 'ngx-lottie';
 import { UserDivelog } from '../../models/UserDivelog.model';
 import { DivelogStoreService } from '../../services/divelog-detail-store.service';
 import { filter } from 'rxjs';
+import { DiveService } from '../../../dive/services/dive.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class DivelogDetailOverviewComponent {
     constructor(
       private animationService: AnimationService,
       private divelogStore: DivelogStoreService,
+      private diveService: DiveService,
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
         this.isAnimatingFadeOut = animating;
@@ -35,6 +37,10 @@ export class DivelogDetailOverviewComponent {
         .subscribe(d => {
           this.divelog = d!;
           console.log('divelog reçu sans resolver:', this.divelog);
+          this.diveService.getUserDivelogDives(d.id).subscribe(dives => {
+            console.log('dives:', dives);
+            // stocke-les dans une propriété pour affichage...
+          });
         });
     }
 

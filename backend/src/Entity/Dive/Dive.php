@@ -34,15 +34,24 @@ class Dive
     #[ORM\Column(nullable: true)]
     private ?int $satisfaction = null;
 
-    #[ORM\ManyToOne(inversedBy: 'dives')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Divelog $divelog = null;
-
     /**
      * @var Collection<int, DiveTag>
      */
     #[ORM\ManyToMany(targetEntity: DiveTag::class)]
     private Collection $diveTags;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $diveDatetime = null;
+
+    #[ORM\Column(type: Types::SMALLINT)]
+    private ?int $diveDuration = null;
+
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $weight = null;
+
+    #[ORM\ManyToOne(inversedBy: 'dives')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Divelog $divelog = null;
 
     public function __construct()
     {
@@ -114,18 +123,6 @@ class Dive
         return $this;
     }
 
-    public function getDivelog(): ?Divelog
-    {
-        return $this->divelog;
-    }
-
-    public function setDivelog(?Divelog $divelog): static
-    {
-        $this->divelog = $divelog;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, DiveTag>
      */
@@ -146,6 +143,54 @@ class Dive
     public function removeDiveTag(DiveTag $diveTag): static
     {
         $this->diveTags->removeElement($diveTag);
+
+        return $this;
+    }
+
+    public function getDiveDatetime(): ?\DateTimeInterface
+    {
+        return $this->diveDatetime;
+    }
+
+    public function setDiveDatetime(\DateTimeInterface $diveDatetime): static
+    {
+        $this->diveDatetime = $diveDatetime;
+
+        return $this;
+    }
+
+    public function getDiveDuration(): ?int
+    {
+        return $this->diveDuration;
+    }
+
+    public function setDiveDuration(int $diveDuration): static
+    {
+        $this->diveDuration = $diveDuration;
+
+        return $this;
+    }
+
+    public function getWeight(): ?int
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(?int $weight): static
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    public function getDivelog(): ?Divelog
+    {
+        return $this->divelog;
+    }
+
+    public function setDivelog(?Divelog $divelog): static
+    {
+        $this->divelog = $divelog;
 
         return $this;
     }
