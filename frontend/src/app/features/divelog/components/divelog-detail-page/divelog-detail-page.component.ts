@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserDivelog } from '../../models/UserDivelog.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DIVELOG_THEMES, DivelogThemeOption } from '../../models/divelog-theme';
