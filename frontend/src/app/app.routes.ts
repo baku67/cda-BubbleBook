@@ -89,17 +89,20 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
+                canDeactivate: [FadeOutGuard],
                 component: DivelogListPageComponent, // liste des carnets
             },
             {
-              path: ':id',
-              component: DivelogDetailPageComponent,
-              children: [
-                {
-                    path: '',
-                    component: DivelogDetailOverviewComponent, // détail du carnet
-                }
-              ]
+                path: ':id',
+                canDeactivate: [FadeOutGuard],
+                component: DivelogDetailPageComponent,
+                children: [
+                    {
+                        path: '',
+                        canDeactivate: [FadeOutGuard],
+                        component: DivelogDetailOverviewComponent, // détail du carnet
+                    }
+                ]
             }
           ]
     },

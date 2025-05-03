@@ -1,22 +1,22 @@
 <div class="pageContent">
 
-    <app-page-header 
-        [title]="('DIVELOG' | translate)" 
-        [matIcon]="'menu_book'"
-        class="fadeInNav"
-        [class.fadeOutNav]="isAnimatingFadeOut"
-    />
-
     <ng-container *ngIf="parent.divelog as divelog; else loading">
-        <div class="divelog-page-content" [class.fadeOutNav]="isAnimatingFadeOut">
-            <span class="divelog-title">{{ divelog.title }}</span>
+        <div class="divelog-lottie-title-container" [class.fadeOutNav]="isAnimatingFadeOut">
+            <div class="divelog-lottie-container">
+                <ng-lottie [options]="optionsCarnet" (animationCreated)="animationCarnetCreated($event)" /> 
+            </div>
+            <div class="divelog-title-wrapper">
+                <span class="divelog-title">{{ divelog.title }}</span>
+            </div>
         </div>
     </ng-container>
 
     <ng-template #loading>
-        <div class="spinner-container">
-            <mat-spinner></mat-spinner>
+        <div #lottieLoadingWrapper class="loading-divelog-lottie-container" [@fadeOutNav]="isAnimatingFadeOut">
+            <ng-lottie [options]="optionsLoader" (animationCreated)="animationLoaderCreated($event)" /> 
         </div>
     </ng-template>
+
+
 
 </div>

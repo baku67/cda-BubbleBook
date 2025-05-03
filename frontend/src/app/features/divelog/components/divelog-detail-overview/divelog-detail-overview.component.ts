@@ -1,7 +1,10 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, ElementRef, Inject, Optional, ViewChild } from '@angular/core';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
 import { DivelogDetailPageComponent } from '../divelog-detail-page/divelog-detail-page.component';
 import { DIVELOG_DETAIL_PAGE } from '../../injection-tokens/divelog-detail-page.token';
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
+
 
 @Component({
   selector: 'app-divelog-detail-overview',
@@ -11,7 +14,9 @@ import { DIVELOG_DETAIL_PAGE } from '../../injection-tokens/divelog-detail-page.
 export class DivelogDetailOverviewComponent {
 
     isAnimatingFadeOut = false;
-  
+
+    @ViewChild('lottieLoadingWrapper', { static: false }) lottieLoadingWrapper!: ElementRef;
+
     constructor(
       @Optional()
       @Inject(DIVELOG_DETAIL_PAGE)
@@ -24,4 +29,38 @@ export class DivelogDetailOverviewComponent {
     }
 
     ngOnInit(): void {}
+
+
+    // Animation Loader global Lottie:
+    optionsLoader: AnimationOptions = {
+      path: '/assets/Lottie-animations/loader-water.json',
+      loop: true,
+      autoplay: true,
+    };
+    animationLoaderCreated(anim: AnimationItem) {
+      setTimeout(() => {
+        const svgEl: SVGElement | null =
+          this.lottieLoadingWrapper.nativeElement.querySelector('svg');
+        if (svgEl) {
+          svgEl.querySelectorAll('[fill]').forEach(el =>
+            // // COULEUR SYNC .SCSS
+            (el as SVGElement).setAttribute('fill', '#00ffc3') // /!\ synchro avec app.component.scss:.loading-screen-title
+          );
+        }
+      }, 0);
+    }
+
+    // Animation Carnet Lottie (couleurs dans CSS):
+    optionsCarnet: AnimationOptions = {
+      path: '/assets/Lottie-animations/trimmed-divelog.json',
+      loop: false,
+      autoplay: true,
+    };
+    animationCarnetCreated(anim: AnimationItem) {
+      anim.addEventListener('DOMLoaded', () => {
+        anim.playSegments([0, 85], true);
+  
+      });
+      anim.loop = false;
+    }
 }

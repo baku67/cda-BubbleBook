@@ -1,0 +1,70 @@
+.pageContent { 
+    overflow: hidden;
+}
+
+.divelog-lottie-title-container {
+    display: inline-flex;
+    gap: 20px;
+
+    backdrop-filter: blur(7px);
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    border-radius: 8px;
+    padding: 5px 0px 3px 0px;
+}
+
+.divelog-title-wrapper {
+    display: flex;
+    align-items: center;
+
+    .divelog-title {
+        font-family: "Dancing Script", cursive;
+        font-size: 2.2rem;
+        text-shadow: 0px 0px 5px black;
+
+        position: relative;
+        bottom: 5px; // déclalage du au viewbox/crop du lottie
+    }
+}
+
+
+// Couleurs du loader Lottie:
+:host ::ng-deep .loading-divelog-lottie-container svg g path {
+    fill: var(--primary-color) !important;
+    stroke: var(--primary-color) !important;
+}
+
+
+:host ::ng-deep .divelog-lottie-container {
+    width: 90px;
+    margin-left: 10px; // pour centrer la ligne
+    transform: rotate(355deg); // à voir
+}
+:host ::ng-deep .divelog-lottie-container svg {
+    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.3));
+}
+
+// Couleurs du carnet Lottie (un > g en plus pour le "trimmed" du SVG):
+:host ::ng-deep .divelog-lottie-container
+  svg > g:first-of-type > g:first-of-type > g:first-of-type > g:nth-of-type(2) path,
+:host ::ng-deep .divelog-lottie-container
+  svg > g:first-of-type > g:first-of-type > g:first-of-type > g:nth-of-type(4) path
+{
+  fill: var(--primary-color) !important;
+}
+:host ::ng-deep .divelog-lottie-container
+  svg > g:first-of-type > g:first-of-type > g:first-of-type > g:nth-of-type(1) path,
+:host ::ng-deep .divelog-lottie-container
+  svg > g:first-of-type > g:first-of-type > g:first-of-type > g:nth-of-type(3) path,
+  :host ::ng-deep .divelog-lottie-container
+  svg > g:first-of-type > g:first-of-type > g:first-of-type > g:nth-of-type(5) path,
+:host ::ng-deep .divelog-lottie-container
+  svg > g:first-of-type > g:first-of-type > g:first-of-type > g:nth-of-type(6) path,
+  :host ::ng-deep .divelog-lottie-container
+  svg > g:first-of-type > g:first-of-type > g:first-of-type > g:nth-of-type(7) path,
+:host ::ng-deep .divelog-lottie-container
+  svg > g:first-of-type > g:first-of-type > g:first-of-type > g:nth-of-type(8) path,
+:host ::ng-deep .divelog-lottie-container
+  svg > g:first-of-type > g:first-of-type > g:first-of-type > g:nth-of-type(9) path
+{
+    fill: rgba(0, 46, 95, 1) !important;
+}

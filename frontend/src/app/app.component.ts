@@ -155,6 +155,7 @@ export class AppComponent implements OnInit {
       }
     }, 0);
   }
+  
   private toggleBodyScroll(): void {
     const shouldDisableScroll = this.isInitializingAuth || this.isInitializingVideoBg;
     document.body.style.overflow = shouldDisableScroll ? 'hidden' : '';
