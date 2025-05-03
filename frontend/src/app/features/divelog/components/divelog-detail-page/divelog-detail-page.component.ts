@@ -5,18 +5,12 @@ import { DIVELOG_THEMES, DivelogThemeOption } from '../../models/divelog-theme';
 import { BackgroundService } from '../../../../shared/services/utils/background.service';
 import { DivelogService } from '../../services/divelog.service';
 import { catchError, EMPTY, tap } from 'rxjs';
-import { DIVELOG_DETAIL_PAGE } from '../../injection-tokens/divelog-detail-page.token';
+import { DivelogStoreService } from '../../services/divelog-detail-store.service';
 
 @Component({
   selector: 'app-divelog-detail-page',
   templateUrl: './divelog-detail-page.component.html',
   styleUrl: './divelog-detail-page.component.scss',
-  providers: [
-    {
-      provide: DIVELOG_DETAIL_PAGE, 
-      useExisting: forwardRef(() => DivelogDetailPageComponent) 
-    }
-  ]
 })
 export class DivelogDetailPageComponent {
 
@@ -27,6 +21,7 @@ export class DivelogDetailPageComponent {
   constructor(
     private backgroundService: BackgroundService,
     private divelogService: DivelogService,
+    private divelogStore: DivelogStoreService, // cache pour partager le divelog avec les subRoutes
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -44,6 +39,7 @@ export class DivelogDetailPageComponent {
           this.router.navigate(['/not-found']);
         } else {
           this.divelog = divelog;
+          this.divelogStore.setDivelog(divelog);
           // ** Modification de l'image de fond:
           this.backgroundService.setBgImage(this.getThemeImage(divelog.theme));
         }

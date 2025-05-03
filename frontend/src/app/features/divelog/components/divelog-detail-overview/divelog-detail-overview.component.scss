@@ -4,21 +4,30 @@
 
 .divelog-lottie-title-container {
     display: inline-flex;
+    min-width: 100%;
     gap: 20px;
 
+    -webkit-backdrop-filter: blur(7px);
     backdrop-filter: blur(7px);
     border: 1px solid rgba(128, 128, 128, 0.2);
-    border-radius: 8px;
-    padding: 5px 0px 3px 0px;
+    border-radius: 8px; 
+    padding: 5px 0px 5px 0px;
+}
+
+mat-divider {
+    width: 85%;
+    background-color: var(--primary-color);
+    filter: opacity(0.7);
 }
 
 .divelog-title-wrapper {
     display: flex;
     align-items: center;
+    padding: 0px 10px;
 
     .divelog-title {
         font-family: "Dancing Script", cursive;
-        font-size: 2.2rem;
+        font-size: 1.8rem;
         text-shadow: 0px 0px 5px black;
 
         position: relative;
@@ -35,7 +44,7 @@
 
 
 :host ::ng-deep .divelog-lottie-container {
-    width: 90px;
+    width: 55px; // taille du lottie
     margin-left: 10px; // pour centrer la ligne
     transform: rotate(355deg); // à voir
 }

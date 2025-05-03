@@ -1,9 +1,10 @@
 import { Component, ElementRef, Inject, Optional, ViewChild } from '@angular/core';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
-import { DivelogDetailPageComponent } from '../divelog-detail-page/divelog-detail-page.component';
-import { DIVELOG_DETAIL_PAGE } from '../../injection-tokens/divelog-detail-page.token';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
+import { UserDivelog } from '../../models/UserDivelog.model';
+import { DivelogStoreService } from '../../services/divelog-detail-store.service';
+import { filter } from 'rxjs';
 
 
 @Component({
@@ -13,22 +14,29 @@ import { AnimationOptions } from 'ngx-lottie';
 })
 export class DivelogDetailOverviewComponent {
 
+    divelog!: UserDivelog;
+
     isAnimatingFadeOut = false;
 
     @ViewChild('lottieLoadingWrapper', { static: false }) lottieLoadingWrapper!: ElementRef;
 
     constructor(
-      @Optional()
-      @Inject(DIVELOG_DETAIL_PAGE)
-      public parent: DivelogDetailPageComponent, // Récupération du composant parent pour récup le divelog
       private animationService: AnimationService,
+      private divelogStore: DivelogStoreService,
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
         this.isAnimatingFadeOut = animating;
       });
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+      this.divelogStore.divelog$
+        .pipe(filter(d => d !== null))
+        .subscribe(d => {
+          this.divelog = d!;
+          console.log('divelog reçu sans resolver:', this.divelog);
+        });
+    }
 
 
     // Animation Loader global Lottie:

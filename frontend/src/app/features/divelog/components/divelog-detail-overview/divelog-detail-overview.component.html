@@ -1,6 +1,7 @@
 <div class="pageContent">
 
-    <ng-container *ngIf="parent.divelog as divelog; else loading">
+    <ng-container *ngIf="divelog as divelog; else loading">
+
         <div class="divelog-lottie-title-container" [class.fadeOutNav]="isAnimatingFadeOut">
             <div class="divelog-lottie-container">
                 <ng-lottie [options]="optionsCarnet" (animationCreated)="animationCarnetCreated($event)" /> 
@@ -9,14 +10,15 @@
                 <span class="divelog-title">{{ divelog.title }}</span>
             </div>
         </div>
+
+        <mat-divider [class.fadeOutNav]="isAnimatingFadeOut"></mat-divider>
+
     </ng-container>
 
     <ng-template #loading>
-        <div #lottieLoadingWrapper class="loading-divelog-lottie-container" [@fadeOutNav]="isAnimatingFadeOut">
+        <div #lottieLoadingWrapper class="loading-divelog-lottie-container" [class.fadeOutNav]="isAnimatingFadeOut">
             <ng-lottie [options]="optionsLoader" (animationCreated)="animationLoaderCreated($event)" /> 
         </div>
     </ng-template>
-
-
 
 </div>
