@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
-import { ActivatedRoute } from '@angular/router';
-import { UserDivelog } from '../../models/UserDivelog.model';
+import { DivelogDetailPageComponent } from '../divelog-detail-page/divelog-detail-page.component';
+import { DIVELOG_DETAIL_PAGE } from '../../injection-tokens/divelog-detail-page.token';
 
 @Component({
   selector: 'app-divelog-detail-overview',
@@ -10,13 +10,12 @@ import { UserDivelog } from '../../models/UserDivelog.model';
 })
 export class DivelogDetailOverviewComponent {
 
-    /** Carnet récupéré par le resolver */
-    divelog: UserDivelog | null = null;
-
     isAnimatingFadeOut = false;
   
     constructor(
-      private route: ActivatedRoute,
+      @Optional()
+      @Inject(DIVELOG_DETAIL_PAGE)
+      public parent: DivelogDetailPageComponent, // Récupération du composant parent pour récup le divelog
       private animationService: AnimationService,
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
@@ -24,12 +23,5 @@ export class DivelogDetailOverviewComponent {
       });
     }
 
-    ngOnInit(): void {
-      // Récup du divelog snapshot du composant parent (qui récupère du resolver):
-      this.divelog = this.route.parent!.snapshot.data['divelog'];
-      // ** ou réactif:
-      // this.route.parent!.data
-      // .subscribe(({ divelog }) => this.divelog = divelog);
-      // }
-    }
+    ngOnInit(): void {}
 }

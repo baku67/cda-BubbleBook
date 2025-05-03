@@ -20,7 +20,6 @@ import { LandingPageHomeComponent } from './features/landing-page/components/lan
 import { LandingPageDiscoverComponent } from './features/landing-page/components/landing-page-discover/landing-page-discover.component';
 import { DivelogListPageComponent } from './features/divelog/components/divelog-list-page/divelog-list-page.component';
 import { DivelogDetailPageComponent } from './features/divelog/components/divelog-detail-page/divelog-detail-page.component';
-import { UserDivelogResolver } from './features/divelog/resolvers/user-divelog.resolver';
 import { DivelogDetailOverviewComponent } from './features/divelog/components/divelog-detail-overview/divelog-detail-overview.component';
 
 export const routes: Routes = [
@@ -84,7 +83,6 @@ export const routes: Routes = [
     // DIVELOGS:
     { 
         path: 'divelogs', 
-        // component: DivelogPageComponent, 
         canActivate: [AuthGuard], 
         canDeactivate: [FadeOutGuard],
         resolve: { currentUser: UserProfileResolver }, // pour savoir par exemple si isVerified
@@ -96,9 +94,6 @@ export const routes: Routes = [
             {
               path: ':id',
               component: DivelogDetailPageComponent,
-              resolve: {
-                divelog: UserDivelogResolver, // charge le carnet via l’ID
-              },
               children: [
                 {
                     path: '',
