@@ -37,7 +37,7 @@
 			[style.object-position]="bgObjectPosition"
 		> -->
 		<img 
-			src="assets/images/backgrounds/kelp.jpg" 
+			[fadeOnSrcChange]="bgImage$ | async"
 			class="background-img-dark-theme" 
 			alt="background underwater kelp"
 			#backgroundImgDarkTheme

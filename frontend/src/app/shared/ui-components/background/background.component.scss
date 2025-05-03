@@ -75,43 +75,55 @@
 }
 
 .background-img-dark-theme {
-    // Object-position décalé quand on nav
     width: 100%;
     height: 100dvh;
-    height: -webkit-fill-available; // fallback safari
+    height: -webkit-fill-available;
     object-fit: cover;
-
-    // *** IMPORTANT *** //
-    // IMPORTANT Durée de la transition du slide Background lors de la navigation
-    // "ease-in-out" ou "ease" (rien d'autre)
-    transition: object-position 1.5s ease; 
-    // *** IMPORTANT  *** //
-
-    filter: blur(4px) brightness(0.3) hue-rotate(5deg);
-    opacity: 0;
-    animation: image-fade-in 2s ease forwards, hueRotate 10s 2s ease infinite;
-}
-@keyframes image-fade-in {
+    transition: object-position 1.5s ease;
+    /* blur retiré ici : */
+    filter: brightness(0.3) hue-rotate(5deg);
+    opacity: 1;
+    animation: hueRotate 10s 2s ease infinite;
+  }
+  
+  /* 2. Fade-in initial ― blur → 0 + opacity */
+  @keyframes initial-fade-in {
     from {
-        filter: blur(4px) brightness(0.3) hue-rotate(5deg);
-        opacity: 0;
+      filter: blur(4px) brightness(0.3) hue-rotate(5deg);
+      opacity: 0;
     }
     to {
-        filter: blur(0px) brightness(0.3) hue-rotate(5deg);
-        opacity: 1;
+      filter: blur(0px) brightness(0.3) hue-rotate(5deg);
+      opacity: 1;
     }
-}
-@keyframes hueRotate {
-    0% {
-        filter: blur(0px) brightness(0.3) hue-rotate(5deg);
-    }
-    50% {
-        filter: blur(0px) brightness(0.3) hue-rotate(-15deg);
-    }
-    100% {
-        filter: blur(0px) brightness(0.3) hue-rotate(5deg);
-    }
-}
+  }
+  .initial-fade-in {
+    animation: initial-fade-in 2s ease forwards;
+  }
+  
+  /* 3. Hue rotation continue (sans blur) */
+  @keyframes hueRotate {
+    0%   { filter: blur(0px) brightness(0.3) hue-rotate(5deg); }
+    50%  { filter: blur(0px) brightness(0.3) hue-rotate(-15deg); }
+    100% { filter: blur(0px) brightness(0.3) hue-rotate(5deg); }
+  }
+  
+  /* 4. Changements de src ― fade-out puis simple fade-in (opacité seule) */
+  @keyframes fade-out-srcChanged {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  @keyframes fade-in-srcChanged {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .fade-out-srcChanged {
+    animation: fade-out-srcChanged 500ms ease forwards; 
+  }
+  .fade-in-srcChanged {
+    animation: fade-in-srcChanged 1000ms ease forwards;
+  }
+
 
 
 // Dark-theme rayons haut-gauche
@@ -184,6 +196,20 @@
         opacity: 0.4;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

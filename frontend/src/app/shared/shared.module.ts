@@ -14,11 +14,12 @@ import { AlertBannerComponent } from './ui-components/alert-banner/alert-banner.
 import { NotFoundPageComponent } from './ui-components/not-found-page/not-found-page.component';
 import { BackgroundComponent } from './ui-components/background/background.component';
 import { ChoiceComponent } from './ui-components/choice/choice.component';
+import { FadeOnSrcChangeDirective } from './directives/fadeInOutOnSrcChange.directive';
 
 
 @NgModule({
   declarations: [
-
+    
   ],
   imports: [
     CommonModule,
@@ -36,6 +37,7 @@ import { ChoiceComponent } from './ui-components/choice/choice.component';
     NotFoundPageComponent,
     BackgroundComponent,
     ChoiceComponent,
+    FadeOnSrcChangeDirective,
   ],
   exports: [
     PageHeaderComponent,
@@ -49,6 +51,7 @@ import { ChoiceComponent } from './ui-components/choice/choice.component';
     NotFoundPageComponent,
     BackgroundComponent,
     ChoiceComponent,
+    FadeOnSrcChangeDirective
   ]
 })
 export class SharedModule { }

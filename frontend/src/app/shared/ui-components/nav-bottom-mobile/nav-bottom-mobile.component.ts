@@ -10,6 +10,7 @@ import { LanguageService } from '../../services/utils/language.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { TabTrackerService } from '../../services/utils/tab-tracker.service';
 import { Observable } from 'rxjs';
+import { BackgroundService } from '../../services/utils/background.service';
 
 @Component({
   selector: 'app-nav-bottom-mobile',
@@ -28,6 +29,7 @@ export class NavBottomMobileComponent implements OnInit {
     private router: Router,
     private themeService: ThemeService,
     private langService: LanguageService,
+    private backgroundService: BackgroundService,
     private tabTrackerService: TabTrackerService,
   ) {
     this.activeTabIndex$ = this.tabTrackerService.activeTabIndex$;
@@ -59,6 +61,8 @@ export class NavBottomMobileComponent implements OnInit {
 
   triggerBackgroundPreSlide(tabIndex: number): void {
     this.tabTrackerService.setActiveTabIndex(tabIndex);
+    // et reset du img src background (voir le composant divelog-detail, anciennement onDestroy):
+    this.backgroundService.setBgImage('assets/images/backgrounds/kelp.jpg');
   }
 
   navigateAccountSettings(): void {

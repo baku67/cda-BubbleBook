@@ -5,13 +5,15 @@ import { ThemeType } from '../../models/ThemeType.model';
 import { CommonModule } from '@angular/common';
 import { CustomizationService } from '../../services/utils/customization.service';
 import { TabTrackerService } from '../../services/utils/tab-tracker.service';
+import { BackgroundService } from '../../services/utils/background.service';
+import { FadeOnSrcChangeDirective } from '../../directives/fadeInOutOnSrcChange.directive';
 
 @Component({
   selector: 'app-background',
   templateUrl: './background.component.html',
   styleUrl: './background.component.scss',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FadeOnSrcChangeDirective],
 })
 export class BackgroundComponent {
   
@@ -21,6 +23,7 @@ export class BackgroundComponent {
 
   activeTabIndex$: Observable<number |null>;
   currentTheme$: Observable<ThemeType>;
+  bgImage$!: Observable<string>;
 
   // dark-theme:
   displayFish$!: Observable<boolean>;
@@ -37,10 +40,12 @@ export class BackgroundComponent {
     private tabTrackerService: TabTrackerService,
     private themeService: ThemeService,
     private customizationService: CustomizationService,
+    private backgroundService: BackgroundService,
     private renderer: Renderer2,
   ) {
     this.activeTabIndex$ = this.tabTrackerService.activeTabIndex$;
     this.currentTheme$ = this.themeService.currentTheme$;
+    this.bgImage$ = this.backgroundService.bgImage$;
     this.displayFish$ = this.customizationService.displayFishState$;
     this.isBgVideo$ = this.customizationService.isBgVideoState$;
   }
