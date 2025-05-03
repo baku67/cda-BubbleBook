@@ -60,10 +60,11 @@ import { AccountSettingsInterfaceComponent } from "./features/profil/components/
 import { AccountSettingsPrivacyComponent } from './features/profil/components/account-settings-privacy/account-settings-privacy.component';
 import { AccountSettingsProfilComponent } from './features/profil/components/account-settings-profil/account-settings-profil.component';
 import { LandingPageDiscoverComponent } from './features/landing-page/components/landing-page-discover/landing-page-discover.component';
-import { DivelogListComponent } from './features/divelog/components/divelog-list/divelog-list.component';
+import { DivelogListPageComponent } from './features/divelog/components/divelog-list-page/divelog-list-page.component';
 import { DivelogFormComponent } from './features/divelog/components/divelog-form/divelog-form.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import { DivelogDetailComponent } from './features/divelog/components/divelog-detail/divelog-detail.component';
+import { DivelogDetailPageComponent } from './features/divelog/components/divelog-detail-page/divelog-detail-page.component';
+import { DivelogDetailOverviewComponent } from './features/divelog/components/divelog-detail-overview/divelog-detail-overview.component';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -102,9 +103,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     SocialPageComponent,
     UserSearchComponent,
     OtherUserProfilComponent,
-    DivelogListComponent,
+    DivelogListPageComponent,
     DivelogFormComponent,
-    DivelogDetailComponent
+    DivelogDetailPageComponent,
+    DivelogDetailOverviewComponent,
   ],
   imports: [
     MatCardModule,
