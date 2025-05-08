@@ -37,6 +37,7 @@ mat-divider {
 
 
 :host ::ng-deep .divelog-lottie-container {
+  min-height: 79px; // fix taille initiale avant chargement 
   width: 55px; // taille du lottie carnet
   margin-left: 10px; // pour centrer la ligne
   transform: rotate(355deg); 

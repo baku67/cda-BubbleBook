@@ -6,6 +6,7 @@ import { UserDivelog } from '../../models/UserDivelog.model';
 import { DivelogStoreService } from '../../services/divelog-detail-store.service';
 import { filter } from 'rxjs';
 import { DiveService } from '../../../dive/services/dive.service';
+import { Dive } from '../../../dive/models/Dive.model';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { DiveService } from '../../../dive/services/dive.service';
 export class DivelogDetailOverviewComponent {
 
     divelog!: UserDivelog;
+    divelogDives!: Dive[];
 
     isAnimatingFadeOut = false;
 
@@ -36,10 +38,10 @@ export class DivelogDetailOverviewComponent {
         .pipe(filter(d => d !== null))
         .subscribe(d => {
           this.divelog = d!;
-          console.log('divelog reçu sans resolver:', this.divelog);
+          console.log('divelog reçu du store (cache):', this.divelog);
           this.diveService.getUserDivelogDives(d.id).subscribe(dives => {
-            console.log('dives:', dives);
-            // stocke-les dans une propriété pour affichage...
+            this.divelogDives = dives;
+            console.log('dives:', this.divelogDives);
           });
         });
     }

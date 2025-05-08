@@ -1,4 +1,4 @@
-export interface DiveDTO {
+export interface Dive {
     id: number;
     title: string;
     description?: string | null;
