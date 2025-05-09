@@ -8,6 +8,7 @@ import { UserDivelog } from '../../models/UserDivelog.model';
 import { DivelogService } from '../../services/divelog.service';
 import { DivelogFormComponent } from '../divelog-form/divelog-form.component';
 import { DIVELOG_THEMES, DivelogThemeOption } from '../../models/divelog-theme';
+import { DivelogConfirmationDeleteComponent } from '../divelog-confirmation-delete/divelog-confirmation-delete.component';
 
 @Component({
   selector: 'app-divelog-list-page',
@@ -82,6 +83,74 @@ export class DivelogListPageComponent {
     this.isEditMode = !this.isEditMode;
   }
 
+  openAddDivelogModal(): void {
+    this.modalService.open(DivelogFormComponent, {
+      modalIcon: "menu_book"
+    }); 
+
+    this.modalService.subscribeToClose((createdDivelog: UserDivelog) => {
+      if (createdDivelog) {
+        createdDivelog.diveCount = createdDivelog.diveCount ?? 0;
+        this.userDivelogs = [...this.userDivelogs, createdDivelog];
+        console.log("Nouvelle liste de userCertifs :", this.userDivelogs);
+      }
+    });
+  }
+
+  deleteUserDivelog(userDivelog: UserDivelog): void {
+    // Activer le spinner pour ce certificat
+    this.isDeleting[userDivelog.id] = true;
+
+    // Modal de confirmation si diveCount > 0:
+    if(userDivelog.diveCount > 0) {
+      this.modalService.open(DivelogConfirmationDeleteComponent, {
+        modalIcon: "warning",
+        divelogToDelete: userDivelog
+      })
+
+      // (Gestion du mismatch du retappage dans le modal)
+      this.modalService.subscribeToClose((choice: boolean) => {
+        if(choice) {
+          this.performDelete(userDivelog);
+        }
+        else {
+          // Si on annule ou click out
+          this.isDeleting[userDivelog.id] = false;
+        }
+      });
+    }
+    // Si diveCount = 0, suppression sans confirmation
+    else {
+      this.performDelete(userDivelog);
+    }
+  }
+
+  private performDelete(userDivelog: UserDivelog) {
+    this.divelogService.deleteUserDivelog(userDivelog.id).subscribe({
+      next: () => {
+        // Supprimer l'élément localement après la suppression réussie
+        this.userDivelogs = this.userDivelogs.filter(
+          divelog => divelog.id !== userDivelog.id
+        );
+        this.isDeleting[userDivelog.id] = false;
+        console.log('Divelog deleted successfully');
+      },
+      error: (err) => {
+        this.isDeleting[userDivelog.id] = false;
+        console.error('Error while deleting divelog:', err);
+      },
+    });
+  }
+
+  // cdk drag-drop dans list certifs
+  drop(event: CdkDragDrop<UserDivelog[]>) {
+    moveItemInArray(this.userDivelogs, event.previousIndex, event.currentIndex);
+  }
+  
+  trackByDivelogId(index: number, userDivelog: UserDivelog): number | string {
+    return userDivelog.id || index;
+  }
+
   // revertReorderCertifs(): void {
   //   // Restaure la liste complète des certificats pour éviter l'erreur
   //   this.userCertificates = JSON.parse(JSON.stringify(this.originalUserCertificates));
@@ -109,53 +178,6 @@ export class DivelogListPageComponent {
   //     },
   //   });
   // }
-
-  openAddDivelogModal(): void {
-    this.modalService.open(DivelogFormComponent, {
-      modalIcon: "menu_book"
-    }); 
-
-    this.modalService.subscribeToClose((createdDivelog: UserDivelog) => {
-      if (createdDivelog) {
-        createdDivelog.diveCount = createdDivelog.diveCount ?? 0;
-        this.userDivelogs = [...this.userDivelogs, createdDivelog];
-        console.log("Nouvelle liste de userCertifs :", this.userDivelogs);
-      }
-    });
-  }
-
-  deleteUserDivelog(userDivelog: UserDivelog): void {
-
-    // Activer le spinner pour ce certificat
-    this.isDeleting[userDivelog.id] = true;
-
-    // Modal de confirmation si diveCount > 0:
-    // this.modalService.open()
-
-    this.divelogService.deleteUserDivelog(userDivelog.id).subscribe({
-      next: () => {
-        // Supprimer l'élément localement après la suppression réussie
-        this.userDivelogs = this.userDivelogs.filter(
-          divelog => divelog.id !== userDivelog.id
-        );
-        this.isDeleting[userDivelog.id] = false;
-        console.log('Divelog deleted successfully');
-      },
-      error: (err) => {
-        this.isDeleting[userDivelog.id] = false;
-        console.error('Error while deleting divelog:', err);
-      },
-    });
-  }
-
-  // cdk drag-drop dans list certifs
-  drop(event: CdkDragDrop<UserDivelog[]>) {
-    moveItemInArray(this.userDivelogs, event.previousIndex, event.currentIndex);
-  }
-  
-  trackByDivelogId(index: number, userDivelog: UserDivelog): number | string {
-    return userDivelog.id || index;
-  }
 
 }
 

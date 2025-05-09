@@ -1,0 +1,41 @@
+<form [formGroup]="confirmationForm" class="delete-form">
+    <p>
+      Vous vous apprêtez à supprimer un carnet avec
+      <strong>{{ divelogToDelete!.diveCount }}</strong>
+      plongées encore à l’intérieur !
+    </p>
+    <br>
+    <p>
+      Pour confirmer, veuillez taper son titre&nbsp;:
+      &#xAB;&nbsp;<strong>{{ divelogToDelete!.title }}</strong>&nbsp;&#xBB;
+    </p>
+  
+    <mat-form-field appearance="outline" class="confirmation-field">
+      <mat-label>Titre du carnet</mat-label>
+      <input matInput formControlName="confirmation" autocomplete="off" />
+      <mat-error *ngIf="confirmationForm.get('confirmation')?.hasError('required')">
+        Ce champ est requis.
+      </mat-error>
+      <mat-error *ngIf="confirmationForm.get('confirmation')?.hasError('titleMismatch')">
+        Le titre ne correspond pas.
+      </mat-error>
+    </mat-form-field>
+  
+    <div class="buttons">
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="confirmDelete()"
+        [disabled]="!confirmationForm.valid"
+      >
+        Supprimer définitivement
+      </button>
+      <button
+        mat-button
+        (click)="cancel()"
+        type="button"
+      >
+        Annuler
+      </button>
+    </div>
+  </form>

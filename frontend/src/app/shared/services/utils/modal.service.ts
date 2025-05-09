@@ -60,19 +60,21 @@ export class ModalService {
     // Créer le composant et capturer sa référence
     const componentRef = viewContainerRef.createComponent(factory);
 
-    // TODO utiliser les InjectionToken
     // Passer les données via @Input() (au modale et à l'enfant du modale)
     if (data) {
       Object.entries(data).forEach(([key, value]) => {
-        // Les données qu'on passe au modal:
-        if (this.modalRef!.instance.hasOwnProperty(key)) {
+        // … données pour le modal container
+        if (key in this.modalRef!.instance) {
           (this.modalRef!.instance as any)[key] = value;
         }
-        // Les données qu'on passe à l'enfant du modal:
-        if (componentRef.instance[key] !== undefined) { 
-          componentRef.instance[key] = data[key];
+        // … données pour le composant interne
+        if (key in componentRef.instance) {
+          (componentRef.instance as any)[key] = value;
         }
       });
+      // On déclenche enfin la détection de changements pour faire remonter les @Input() 
+      this.modalRef!.changeDetectorRef.detectChanges();
+      componentRef.changeDetectorRef.detectChanges();
     }
 
     // Ajouter un callback sur la fermeture (avec data renvoyé au composant appelant)

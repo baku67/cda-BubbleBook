@@ -65,6 +65,7 @@ import { DivelogFormComponent } from './features/divelog/components/divelog-form
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { DivelogDetailPageComponent } from './features/divelog/components/divelog-detail-page/divelog-detail-page.component';
 import { DivelogDetailOverviewComponent } from './features/divelog/components/divelog-detail-overview/divelog-detail-overview.component';
+import { DivelogConfirmationDeleteComponent } from './features/divelog/components/divelog-confirmation-delete/divelog-confirmation-delete.component';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -107,6 +108,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DivelogFormComponent,
     DivelogDetailPageComponent,
     DivelogDetailOverviewComponent,
+    DivelogConfirmationDeleteComponent,
   ],
   imports: [
     MatCardModule,
