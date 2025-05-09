@@ -5,4 +5,5 @@ export interface UserDivelog {
     createdAt: string;
     theme: string;
     diveCount: number;
+    displayOrder: number;
 }

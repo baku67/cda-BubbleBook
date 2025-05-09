@@ -23,9 +23,9 @@ export class DivelogListPageComponent {
 
   isDeleting: { [id: number]: boolean } = {};
   isEditMode: boolean = false;
-  // TODO: sort comme certif: 
-  // originalOrder: { id: number, displayOrder: number }[] = []; // Pour pouvoir stocke l'ordre initial
-  // originalUserCertificates: UserDivelog[] = []; // Pour restaurer si cancel
+  // DisplayOrder: 
+  originalOrder: { id: number, displayOrder: number }[] = []; // Pour pouvoir stocke l'ordre initial
+  originalUserDivelogs: UserDivelog[] = []; // Pour restaurer si cancel
 
   isAnimatingFadeOut = false;
 
@@ -50,8 +50,7 @@ export class DivelogListPageComponent {
     this.divelogService.getCurrentUserDivelogs().subscribe({
       next: (divelogs) => {
         // TODO: sort comme certif:
-        // this.userDivelogs = divelogs.sort((a, b) => a.displayOrder - b.displayOrder); // sortBy displayOrder
-        this.userDivelogs = divelogs;
+        this.userDivelogs = divelogs.sort((a, b) => a.displayOrder - b.displayOrder); // sortBy displayOrder
         this.isUserDivelogsLoading = false;
       },
       error: (error) => {
@@ -69,15 +68,15 @@ export class DivelogListPageComponent {
 
   toggleEditMode() {
     if (!this.isEditMode) {
-      // // Avant d'activer l'édition, on stocke l'ordre initial (pour comparer si modifs)
-      // this.originalOrder = this.userCertificates.map(cert => ({
-      //   id: cert.id,
-      //   displayOrder: cert.displayOrder
-      // }));
-      // // Stocke une copie complète pour restaurer en cas d'annulation (revert aussi le fav)
-      // this.originalUserCertificates = JSON.parse(JSON.stringify(this.userCertificates));
+      // Avant d'activer l'édition, on stocke l'ordre initial (pour comparer si modifs)
+      this.originalOrder = this.userDivelogs.map(divelog => ({
+        id: divelog.id,
+        displayOrder: divelog.displayOrder
+      }));
+      // Stocke une copie complète pour restaurer en cas d'annulation (revert aussi le fav)
+      this.originalUserDivelogs = JSON.parse(JSON.stringify(this.userDivelogs));
     } else {
-      // this.saveCertificateOrder();
+      this.saveDivelogsOrder();
     }
 
     this.isEditMode = !this.isEditMode;
@@ -157,27 +156,27 @@ export class DivelogListPageComponent {
   //   this.isEditMode = false;
   // }
 
-  // saveCertificateOrder(): void {
-  //   const updatedOrder = this.userCertificates.map((cert, index) => ({
-  //     id: cert.id,
-  //     displayOrder: index + 1
-  //   }));
+  saveDivelogsOrder(): void {
+    const updatedOrder = this.userDivelogs.map((divelog, index) => ({
+      id: divelog.id,
+      displayOrder: index + 1
+    }));
 
-  //   // Vérifier si l’ordre a changé avant d’envoyer la requête (early return)
-  //   if (JSON.stringify(this.originalOrder) === JSON.stringify(updatedOrder)) {
-  //     console.log('No changes detected, skipping request.');
-  //     return;
-  //   }
+    // Vérifier si l’ordre a changé avant d’envoyer la requête (early return)
+    if (JSON.stringify(this.originalOrder) === JSON.stringify(updatedOrder)) {
+      console.log('No changes detected, skipping request.');
+      return;
+    }
 
-  //   this.certificateService.updateUserCertificatesOrder(updatedOrder).subscribe({
-  //     next: () => {
-  //       this.flashMessageService.success('CERTIFS_REORDER_SUCCESS');
-  //     },
-  //     error: () => {
-  //       this.flashMessageService.error('CERTIFS_REORDER_ERROR');
-  //     },
-  //   });
-  // }
+    this.divelogService.updateUserDivelogsOrder(updatedOrder).subscribe({
+      next: () => {
+        this.flashMessageService.success('DIVELOGS_REORDER_SUCCESS');
+      },
+      error: () => {
+        this.flashMessageService.error('DIVELOGS_REORDER_ERROR');
+      },
+    });
+  }
 
 }
 

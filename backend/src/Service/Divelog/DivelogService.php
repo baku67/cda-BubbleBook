@@ -30,7 +30,8 @@ class DivelogService
             $divelog->getDescription(),
             $divelog->getCreatedAt(),
             $divelog->getTheme(),
-            $divelog->getDives()->count()
+            $divelog->getDives()->count(),
+            $divelog->getDisplayOrder()
         ), $divelogs);
     }
 
@@ -38,6 +39,14 @@ class DivelogService
     public function getOtherUserDiveLogs(int $targetUserId): array
     {
         return $this->divelogRepository->findPublicOrFriendVisibleByUserId($targetUserId);
+    }
+
+    public function addUserDivelogWithOrder(User $user, AddUserDivelogDTO $dto): Divelog
+    {
+        // Récupérer le dernier displayOrder et l'incrémenter
+        $lastOrder = $this->divelogRepository->getMaxDisplayOrderForUser($user);
+        $dto->displayOrder = $lastOrder + 1;
+        return $this->addUserDivelog($user, $dto);
     }
 
 
@@ -85,7 +94,7 @@ class DivelogService
         $this->entityManager->remove($userDivelog);
         $this->entityManager->flush();
 
-        // $this->reorderDisplayOrders($user); // Pour éviter les trous
+        $this->reorderDisplayOrders($user); // Pour éviter les trous
     }
 
 
@@ -106,8 +115,42 @@ class DivelogService
             $userDivelog->getDescription(),
             $userDivelog->getCreatedAt(),
             $userDivelog->getTheme(),
-            $userDivelog->getDives()->count()
+            $userDivelog->getDives()->count(),
+            $userDivelog->getDisplayOrder(),
         );
+    }
+
+    // Suite à suppression d'un divelog pour éviter les trous
+    private function reorderDisplayOrders(User $user): void
+    {
+        $divelogs = $this->divelogRepository->findBy(
+            ['owner' => $user],
+            ['displayOrder' => 'ASC']
+        );
+
+        $order = 1;
+        foreach ($divelogs as $divelog) {
+            $divelog->setDisplayOrder($order++);
+        }
+
+        $this->entityManager->flush();
+    }
+
+    // Réorganisation de l'ordre des divelogs (drag and drop front)
+    public function updateDivelogsOrder(User $user, array $updatedOrder): void
+    {
+        foreach ($updatedOrder as $orderData) {
+            $divelog = $this->divelogRepository->findOneBy([
+                'id' => $orderData['id'],
+                'owner' => $user
+            ]);
+
+            if ($divelog) {
+                $divelog->setDisplayOrder($orderData['displayOrder']);
+            }
+        }
+
+        $this->entityManager->flush();
     }
 
 

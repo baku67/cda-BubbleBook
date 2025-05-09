@@ -92,6 +92,9 @@
     "CERTIFS_REORDER_SUCCESS": "Certificates order updated",
     "CERTIFS_REORDER_ERROR": "Error updating certificates order",
 
+    "DIVELOGS_REORDER_SUCCESS": "Dive logs order updated",
+    "DIVELOGS_REORDER_ERROR": "Error updating dive logs order",
+
     "EQUIPMENT": "My equipment",
     "PUBLISHES": "My publications",
     "GALLERY": "My Gallery",

@@ -138,4 +138,28 @@ class UserDivelogController extends AbstractController
     //     return $this->json($otherUserDivelogDTO, Response::HTTP_OK);
     // }
 
+
+    #[Route('/api/me/divelogs/order', name: 'api_me_update_divelogs_order', methods: ['PUT'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function updateUserDivelogsOrder(Request $request): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'Unauthorized access.'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $data = json_decode($request->getContent(), true);
+
+        if (!isset($data['divelogs']) || !is_array($data['divelogs'])) {
+            return new JsonResponse(['error' => 'Invalid data format'], Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            $this->userDivelogService->updateDivelogsOrder($user, $data['divelogs']);
+            return new JsonResponse(['message' => 'Order updated successfully'], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
 }

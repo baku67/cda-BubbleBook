@@ -38,4 +38,13 @@ export class DivelogService {
     );
   }
 
+  updateUserDivelogsOrder(updatedOrder: { id: number, displayOrder: number }[]): Observable<void> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<void>(
+      `${environment.apiUrl}/api/me/divelogs/order`,
+      { divelogs: updatedOrder },
+      { headers }
+    );
+  }
+
 }

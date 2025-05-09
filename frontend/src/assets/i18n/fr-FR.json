@@ -96,6 +96,9 @@
     "CERTIFS_REORDER_SUCCESS": "Certificats mis à jour",
     "CERTIFS_REORDER_ERROR": "Erreur lors de la mise à jour des certificats",
 
+    "DIVELOGS_REORDER_SUCCESS": "Carnets de plongés mis à jour",
+    "DIVELOGS_REORDER_ERROR": "Erreur lors de la mise à jour des carnets de plongés",
+
     "EQUIPMENT": "Mon équipement",
     "PUBLISHES": "Mes publications",
     "GALLERY": "Ma gallerie",
