@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum Visibility: string
+enum DiveVisibility: string
 {
     case BAD = 'bad';
     case AVERAGE = 'average';

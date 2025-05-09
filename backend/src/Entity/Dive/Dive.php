@@ -2,10 +2,11 @@
 
 namespace App\Entity\Dive;
 
-use App\Enum\Visibility;
+use App\Enum\DiveOxygenMode;
+use App\Enum\DiveVisibility;
 use App\Entity\Dive\DiveTag;
 use App\Entity\Divelog\Divelog;
-use App\Repository\Divelog\DiveRepository;
+use App\Repository\Dive\DiveRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -28,8 +29,8 @@ class Dive
     #[ORM\Column(nullable: true)]
     private ?int $temperature = null;
 
-    #[ORM\Column(nullable: true, enumType: Visibility::class)]
-    private ?Visibility $visibility = null;
+    #[ORM\Column(nullable: true, enumType: DiveVisibility::class)]
+    private ?DiveVisibility $visibility = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $satisfaction = null;
@@ -53,9 +54,30 @@ class Dive
     #[ORM\JoinColumn(nullable: false)]
     private ?Divelog $divelog = null;
 
+    #[ORM\Column(type: Types::SMALLINT)]
+    private ?int $maxDepth = null;
+
+    #[ORM\Column(enumType: DiveOxygenMode::class)]
+    private ?DiveOxygenMode $oxygenMode = null;
+
+    // Mélange d'O2 si oxygenMode = MIX
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $oxygenMix = null;
+
+    // palier de sécurité (default true)
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
+    private ?bool $safetyStop = null;
+
+    /**
+     * @var Collection<int, DecompressionStop>
+     */
+    #[ORM\OneToMany(targetEntity: DecompressionStop::class, mappedBy: 'dive', orphanRemoval: true)]
+    private Collection $decompressionStops;
+
     public function __construct()
     {
         $this->diveTags = new ArrayCollection();
+        $this->decompressionStops = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -99,12 +121,12 @@ class Dive
         return $this;
     }
 
-    public function getVisibility(): ?Visibility
+    public function getVisibility(): ?DiveVisibility
     {
         return $this->visibility;
     }
 
-    public function setVisibility(?Visibility $visibility): static
+    public function setVisibility(?DiveVisibility $visibility): static
     {
         $this->visibility = $visibility;
 
@@ -191,6 +213,88 @@ class Dive
     public function setDivelog(?Divelog $divelog): static
     {
         $this->divelog = $divelog;
+
+        return $this;
+    }
+
+    public function getMaxDepth(): ?int
+    {
+        return $this->maxDepth;
+    }
+
+    public function setMaxDepth(int $maxDepth): static
+    {
+        $this->maxDepth = $maxDepth;
+
+        return $this;
+    }
+
+    public function getOxygenMode(): ?DiveOxygenMode
+    {
+        return $this->oxygenMode;
+    }
+
+    public function setOxygenMode(DiveOxygenMode $oxygenMode): static
+    {
+        // Si le mode d'oxygen est diiférent de "MIX" ou "NITROX" (soit AIR), on a pas de valeur de mélange
+        $this->oxygenMode = $oxygenMode;
+        if ($oxygenMode == DiveOxygenMode::AIR) {
+            $this->oxygenMix = null;
+        }
+        return $this;
+    }
+
+    // Mélange d'O2 si oxygenMode = MIX
+    public function getOxygenMix(): ?int
+    {
+        return $this->oxygenMix;
+    }
+
+    public function setOxygenMix(?int $oxygenMix): static
+    {
+        $this->oxygenMix = $oxygenMix;
+
+        return $this;
+    }
+
+    public function isSafetyStop(): ?bool
+    {
+        return $this->safetyStop;
+    }
+
+    public function setSafetyStop(bool $safetyStop): static
+    {
+        $this->safetyStop = $safetyStop;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DecompressionStop>
+     */
+    public function getDecompressionStops(): Collection
+    {
+        return $this->decompressionStops;
+    }
+
+    public function addDecompressionStop(DecompressionStop $decompressionStop): static
+    {
+        if (!$this->decompressionStops->contains($decompressionStop)) {
+            $this->decompressionStops->add($decompressionStop);
+            $decompressionStop->setDive($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDecompressionStop(DecompressionStop $decompressionStop): static
+    {
+        if ($this->decompressionStops->removeElement($decompressionStop)) {
+            // set the owning side to null (unless already changed)
+            if ($decompressionStop->getDive() === $this) {
+                $decompressionStop->setDive(null);
+            }
+        }
 
         return $this;
     }
