@@ -49,7 +49,6 @@ export class DivelogListPageComponent {
   private loadUserDivelogs(): void {
     this.divelogService.getCurrentUserDivelogs().subscribe({
       next: (divelogs) => {
-        // TODO: sort comme certif:
         this.userDivelogs = divelogs.sort((a, b) => a.displayOrder - b.displayOrder); // sortBy displayOrder
         this.isUserDivelogsLoading = false;
       },
@@ -90,14 +89,14 @@ export class DivelogListPageComponent {
     this.modalService.subscribeToClose((createdDivelog: UserDivelog) => {
       if (createdDivelog) {
         createdDivelog.diveCount = createdDivelog.diveCount ?? 0;
-        this.userDivelogs = [...this.userDivelogs, createdDivelog];
-        console.log("Nouvelle liste de userCertifs :", this.userDivelogs);
+        this.userDivelogs = [createdDivelog, ...this.userDivelogs]; // Ajouté en premier de la liste (synchro backend displayOrder=1 et décal)
+        console.log("Nouvelle liste de userDivelogs :", this.userDivelogs);
       }
     });
   }
 
   deleteUserDivelog(userDivelog: UserDivelog): void {
-    // Activer le spinner pour ce certificat
+    // Activer le spinner pour ce divelog
     this.isDeleting[userDivelog.id] = true;
 
     // Modal de confirmation si diveCount > 0:
@@ -141,7 +140,7 @@ export class DivelogListPageComponent {
     });
   }
 
-  // cdk drag-drop dans list certifs
+  // cdk drag-drop dans list divelogs
   drop(event: CdkDragDrop<UserDivelog[]>) {
     moveItemInArray(this.userDivelogs, event.previousIndex, event.currentIndex);
   }
@@ -150,11 +149,11 @@ export class DivelogListPageComponent {
     return userDivelog.id || index;
   }
 
-  // revertReorderCertifs(): void {
-  //   // Restaure la liste complète des certificats pour éviter l'erreur
-  //   this.userCertificates = JSON.parse(JSON.stringify(this.originalUserCertificates));
-  //   this.isEditMode = false;
-  // }
+  revertReorderDivelogs(): void {
+    // Restaure la liste complète des divelogs pour éviter l'erreur
+    this.userDivelogs = JSON.parse(JSON.stringify(this.originalUserDivelogs));
+    this.isEditMode = false;
+  }
 
   saveDivelogsOrder(): void {
     const updatedOrder = this.userDivelogs.map((divelog, index) => ({

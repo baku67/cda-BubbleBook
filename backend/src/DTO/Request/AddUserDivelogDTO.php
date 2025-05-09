@@ -18,4 +18,5 @@ class AddUserDivelogDTO
 
     public ?string $theme = '';
 
+    public int $displayOrder = 0; // Initialisation avec 0 par défaut (valeur non reçue du frontend, calculée en backend)
 }

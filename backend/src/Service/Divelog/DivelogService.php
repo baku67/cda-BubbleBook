@@ -7,6 +7,7 @@ use App\Entity\Divelog\Divelog;
 use App\Entity\User\User;
 use App\Repository\Divelog\DivelogRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\DBAL\Connection;
 
 class DivelogService
 {
@@ -43,10 +44,18 @@ class DivelogService
 
     public function addUserDivelogWithOrder(User $user, AddUserDivelogDTO $dto): Divelog
     {
-        // Récupérer le dernier displayOrder et l'incrémenter
-        $lastOrder = $this->divelogRepository->getMaxDisplayOrderForUser($user);
-        $dto->displayOrder = $lastOrder + 1;
-        return $this->addUserDivelog($user, $dto);
+        /** @var Connection $conn */
+        $conn = $this->entityManager->getConnection();
+    
+        // Transactional permet de rollback la modif BDD si une étape échoue
+        return $conn->transactional(function(Connection $conn) use ($user, $dto) {
+            // 1) Décaler tous les displayOrder
+            $this->divelogRepository->incrementDisplayOrdersForUser($user);
+            // 2) Mettre le nouveau en tête
+            $dto->displayOrder = 1;
+            // 3) Créer le Divelog
+            return $this->addUserDivelog($user, $dto);
+        });
     }
 
 
@@ -65,6 +74,7 @@ class DivelogService
         $userDivelog->setOwner($user);
         $userDivelog->setTitle($dto->title);
         $userDivelog->setDescription($dto->description);
+        $userDivelog->setDisplayOrder($dto->displayOrder);
 
         $dateMutable = $dto->createdAt ?? new \DateTime(); 
         $userDivelog->setCreatedAt(

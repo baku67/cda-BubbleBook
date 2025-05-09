@@ -16,7 +16,7 @@
                   <span>{{ "ADD_DIVELOG_BUTTON" | translate }}</span>
               </div>
           </button>
-          <button *ngIf="isEditMode" class="example-box divelogs-btns cancelEdit-button" (click)="openAddDivelogModal()">
+          <button *ngIf="isEditMode" class="example-box divelogs-btns cancelEdit-button" (click)="revertReorderDivelogs()">
               <div class="addDivelog-button-container">
                   <mat-icon>undo</mat-icon>
                   <!-- <span>{{ "REVERT_REORDER_CERTIF_BUTTON" | translate }}</span> -->

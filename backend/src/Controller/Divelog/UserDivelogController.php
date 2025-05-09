@@ -73,7 +73,7 @@ class UserDivelogController extends AbstractController
         }
 
         try {
-            $userDivelog = $this->userDivelogService->addUserDivelog($user, $dto);
+            $userDivelog = $this->userDivelogService->addUserDivelogWithOrder($user, $dto);
             return new JsonResponse([
                 'id' => $userDivelog->getId(),
                 // 'owner' => $userDivelog->getOwner()->getId(),
