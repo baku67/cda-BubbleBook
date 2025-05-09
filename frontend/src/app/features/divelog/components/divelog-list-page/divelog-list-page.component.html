@@ -40,68 +40,62 @@
       [class.fadeOutNav]="isAnimatingFadeOut"
   >
 
-      <div class="divelogs-list">
-          <!-- spinner: pas de skeleton -->
-          <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <!-- spinner: pas de skeleton -->
+        <div class="divelogs-list-wrapper">
 
-              <!-- Grid divelogs -->
-              <div class="divelogs-list-wrapper">
+            <!-- Grid divelogs -->
+            <div class="divelogs-list" cdkDropList cdkDropListOrientation="mixed" (cdkDropListDropped)="drop($event)">
 
-                  <!-- liste vide -->
-                  <div class="example-box" *ngIf="userDivelogs.length === 0" class="empty-list">
-                      <mat-icon>info</mat-icon>
-                      <span>{{ "NO_DIVELOG_YET" | translate }}</span>
-                  </div>
+                <!-- liste vide -->
+                <div class="example-box" *ngIf="userDivelogs.length === 0" class="empty-list">
+                    <mat-icon>info</mat-icon>
+                    <span>{{ "NO_DIVELOG_YET" | translate }}</span>
+                </div>
 
-                  <div 
-                      *ngFor="let userDivelog of userDivelogs; let i = index; trackBy: trackByDivelogId" 
-                      class="divelog-box" 
-                      cdkDrag
-                      [cdkDragDisabled]="!isEditMode"
-                      [routerLink]="!isEditMode ? ['/divelogs', userDivelog.id] : null"
-                      routerLinkActive="active"
-                      [ngClass]="{ 'drag-disabled': !isEditMode, 'shrinked-box': isEditMode}"
-                  >
+                <div 
+                    *ngFor="let userDivelog of userDivelogs; let i = index; trackBy: trackByDivelogId" 
+                    class="divelog-box" 
+                    cdkDrag
+                    [cdkDragDisabled]="!isEditMode"
+                    [routerLink]="!isEditMode ? ['/divelogs', userDivelog.id] : null"
+                    routerLinkActive="active"
+                    [ngClass]="{ 'drag-disabled': !isEditMode, 'shrinked-box': false}"
+                >
 
+                    <ng-template cdkDragPlaceholder>
+                        <div class="example-custom-placeholder"></div>
+                    </ng-template>
 
-                        <div class="divelog-title">
-                            <span>{{ userDivelog.title }}</span>
-                        </div>
+                    <div class="divelog-title">
+                        <span>{{ userDivelog.title }}</span>
+                    </div>
 
-                        <div class="divelog-dives-count">
-                            <span>{{ userDivelog.diveCount }}</span>
-                            <mat-icon>scuba_diving</mat-icon>
-                        </div>
+                    <div class="divelog-dives-count" *ngIf="!isEditMode">
+                        <span>{{ userDivelog.diveCount }}</span>
+                        <mat-icon>scuba_diving</mat-icon>
+                    </div>
 
-                      <!-- <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                    <div class="edit-btns" *ngIf="isEditMode">
+                        <!-- Drag Handle -->
+                        <mat-icon class="divelog-drag-handle">drag_handle</mat-icon>
+                        <!-- delete -->
+                        <button 
+                            mat-icon-button 
+                            color="warn" 
+                            [disabled]="isDeleting[userDivelog.id]"
+                            class="non-draggable-button"
+                            (click)="deleteUserDivelog(userDivelog)"
+                        >
+                            <mat-icon *ngIf="!isDeleting[userDivelog.id]">delete</mat-icon>
+                            <mat-spinner 
+                                *ngIf="isDeleting[userDivelog.id]" 
+                                diameter="20" 
+                                strokeWidth="3"
+                            ></mat-spinner>
+                        </button>
+                    </div>
 
-                      <div class="content">
-                          <div class="divelog-header">
-                              <span class="cartif-name">{{ userDivelog.title }}</span>
-                          </div>
-                      </div>
-                      
-                      <div *ngIf="isEditMode" class="editMode-buttons-div">
-                        
-                          <mat-icon cdkDragHandle class="drag-handle">drag_handle</mat-icon>
-
-                          <button 
-                              mat-icon-button 
-                              color="warn" 
-                              (click)="deleteDivelog(userDivelog)" 
-                              [disabled]="isDeleting[userDivelog.id]"
-                              class="non-draggable-button"
-                          >
-                              <mat-icon *ngIf="!isDeleting[userDivelog.id]" >delete_forever</mat-icon>
-                              <mat-spinner 
-                                  *ngIf="isDeleting[userDivelog.id]" 
-                                  diameter="20" 
-                                  strokeWidth="3"
-                          ></mat-spinner>
-                          </button>
-                      </div> -->
-
-                      <svg class="divelog-svg-2">
+                    <svg class="divelog-svg-2">
                         <defs>
                             <!-- Ancien: width="200" height="250" (x2) -->
                             <pattern
@@ -137,11 +131,10 @@
                     </svg>
 
 
-                  </div>
+                </div>
 
-              </div>
-          </div>
-      </div>
+            </div>
+        </div>
   </section>
 
   <!-- Loader/Spinner page -->

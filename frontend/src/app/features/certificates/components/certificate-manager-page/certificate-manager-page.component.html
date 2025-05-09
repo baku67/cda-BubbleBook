@@ -91,12 +91,12 @@
                                 [disabled]="isDeleting[userCertif.certificate.id]"
                                 class="non-draggable-button"
                             >
-                                <mat-icon *ngIf="!isDeleting[userCertif.certificate.id]" >delete_forever</mat-icon>
+                                <mat-icon *ngIf="!isDeleting[userCertif.certificate.id]" >delete</mat-icon>
                                 <mat-spinner 
                                     *ngIf="isDeleting[userCertif.certificate.id]" 
                                     diameter="20" 
                                     strokeWidth="3"
-                            ></mat-spinner>
+                                ></mat-spinner>
                             </button>
                         </div>
                     </div>

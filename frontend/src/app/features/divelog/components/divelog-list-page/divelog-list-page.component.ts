@@ -124,10 +124,13 @@ export class DivelogListPageComponent {
     });
   }
 
-  deleteDivelog(userDivelog: UserDivelog): void {
+  deleteUserDivelog(userDivelog: UserDivelog): void {
 
     // Activer le spinner pour ce certificat
     this.isDeleting[userDivelog.id] = true;
+
+    // Modal de confirmation si diveCount > 0:
+    // this.modalService.open()
 
     this.divelogService.deleteUserDivelog(userDivelog.id).subscribe({
       next: () => {
