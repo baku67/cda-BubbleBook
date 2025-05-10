@@ -27,30 +27,6 @@
       </button>
   </div>
 
-  <!-- <div [class.fadeOutNav]="isAnimatingFadeOut" class="buttons-container">
-      <div style="display:flex; gap:10px;">
-          <button *ngIf="!isEditMode" class="example-box divelogs-btns addDivelog-button" (click)="openAddDivelogModal()">
-              <div class="addDivelog-button-container">
-                  <mat-icon>add</mat-icon>
-                  <span>{{ "ADD_DIVELOG_BUTTON" | translate }}</span>
-              </div>
-          </button>
-          <button *ngIf="isEditMode" class="example-box divelogs-btns cancelEdit-button" (click)="revertReorderDivelogs()">
-              <div class="addDivelog-button-container">
-                  <mat-icon>undo</mat-icon>
-              </div>
-          </button>
-  
-          <button [ngClass]="isEditMode ? 'editValidateBtn' : ''" class="example-box divelogs-btns editDivelog-button" (click)="toggleEditMode()" >
-              <div class="addDivelog-button-container">
-                  <mat-icon>{{ isEditMode ? 'check' : 'edit' }}</mat-icon>
-                  <span>{{ (isEditMode ? "VALIDATE" : "EDIT_DIVELOG_BUTTON") | translate }}</span>
-              </div>
-          </button>
-      </div>
-  </div> -->
-
-
   <section 
       *ngIf="!isUserDivelogsLoading" 
       class="section-list-divelogs"
