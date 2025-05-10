@@ -131,8 +131,6 @@
     "DIVELOGS": "Carnets",
     "DIVELOG": "Carnet",
 
-    "ADD_DIVELOG_BUTTON": "Ajouter",
-    "EDIT_DIVELOG_BUTTON": "Modifier",
     "NO_DIVELOG_YET": "Aucun carnet de plongée pour l'instant",
     "ADD_DIVELOG_FORM_TITLE": "carnet de plongée",
     "DIVELOG_TITLE_PLACEHOLDER": "\"Mon carnet de {{year}}\", ...",

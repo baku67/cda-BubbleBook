@@ -4,6 +4,14 @@
   display: flex;
   flex-direction: column;
 }
+// pas sûr de ça:
+.pageContent {
+  gap: 10px !important; 
+  section {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(px);
+  }
+}
 
 
 ngx-skeleton-loader  {
@@ -14,8 +22,87 @@ ngx-skeleton-loader  {
 
 
 .buttons-container {
+  z-index: 9;
+  position: fixed;
+  bottom: 65px;
+  right: 15px;
+
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 15px;
+
+  opacity: 0;
+  animation: fadeIn 0.7s ease forwards;
+
+  .editDivelog-button {
+    cursor: pointer;
+    background-color: var(--green);
+    text-align: center;
+    border: none;
+    padding: 10px 15px;
+
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 4px black;
+  
+    mat-icon {
+      height: 24px;
+      width: 20px;
+      font-size: 1.5em;
+
+      position: relative;
+      top: 3px;
+    }
+  }
+  .cancel-btn {
+    background-color: var(--red);
+  }
+  
+  .addDivelog-button {
+    cursor: pointer;
+    background-color: var(--green);
+    text-align: center;
+    border: none;
+    padding: 15px;
+
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 4px black;
+  
+    mat-icon {
+      height: 32px;
+      width: 36px;
+      font-size: 2.7em;
+    }
+  }
+  .validate-btn {
+    background-color: var(--green);
+  }
+}
+
+.divelogs-btns {
+  color: black;
+  border-radius: 50%;
+}
+
+
+.cancelEdit-button {
+  width: 30% !important;
+  cursor: pointer;
   width: 100%;
-  padding: 0 10px;
+  background-color: var(--red);
+  text-align: center;
+  border: none;
+}
+
+.editDivelog-button {
+  cursor: pointer;
+  width: 100%;
+  background-color: var(--primary-color);
+  text-align: center;
+  border: none;
+}
+
+.editValidateBtn {
+  background-color: var(--green);
 }
 
 .section-list-divelogs {
@@ -141,39 +228,7 @@ button .mat-spinner {
   vertical-align: middle;
 }
 
-.divelogs-btns {
-  color: black;
-  border-radius: 5px;
-}
 
-.addDivelog-button {
-  cursor: pointer;
-  width: 100%;
-  background-color: var(--green);
-  text-align: center;
-  border: none;
-}
-.cancelEdit-button {
-  width: 30% !important;
-  cursor: pointer;
-  width: 100%;
-  background-color: var(--red);
-  text-align: center;
-  border: none;
-}
-
-
-.editDivelog-button {
-  cursor: pointer;
-  width: 100%;
-  background-color: var(--primary-color);
-  text-align: center;
-  border: none;
-}
-
-.editValidateBtn {
-  background-color: var(--green);
-}
 
 .editMode-buttons-div {
   display: inline-flex;
@@ -282,13 +337,18 @@ button .mat-spinner {
 
 .divelog-box .edit-btns {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.8);
   width: 139px;
   display: inline-flex;
   justify-content: space-evenly;
   bottom: 12px;
   padding: 5px 0px;
   align-items: center;
+  border-radius: 4px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  animation: fadeIn 0.4s ease forwards;
 
   .divelog-drag-handle {
     color: var(--primary-color);

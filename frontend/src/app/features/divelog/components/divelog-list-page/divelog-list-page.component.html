@@ -5,11 +5,30 @@
       [matIcon]="'menu_book'"
       class="fadeInNav"
       [class.fadeOutNav]="isAnimatingFadeOut"
-  />
+  /> 
 
-  <div [class.fadeOutNav]="isAnimatingFadeOut" class="buttons-container">
+  <div *ngIf="!isUserDivelogsLoading" class="buttons-container" [class.fadeOutNav]="isAnimatingFadeOut">
+      <!-- Base: editButton => devient revert (editMode) -->
+      <button *ngIf="!isEditMode" class="divelogs-btns editDivelog-button" (click)="toggleEditMode()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <!-- Devient revert edit: -->
+      <button *ngIf="isEditMode" class="divelogs-btns editDivelog-button cancel-btn" (click)="revertReorderDivelogs()">
+        <mat-icon>undo</mat-icon>
+      </button>
+      
+      <!-- Base: Ajout => deveint validate (editMode) -->
+      <button *ngIf="!isEditMode" class="divelogs-btns addDivelog-button" (click)="openAddDivelogModal()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <!-- Devient validate edit: -->
+      <button *ngIf="isEditMode" class="divelogs-btns addDivelog-button validate-btn" (click)="toggleEditMode()">
+        <mat-icon>check</mat-icon>
+      </button>
+  </div>
+
+  <!-- <div [class.fadeOutNav]="isAnimatingFadeOut" class="buttons-container">
       <div style="display:flex; gap:10px;">
-          <!-- Bouton d'ajout ou de cancelEdit -->
           <button *ngIf="!isEditMode" class="example-box divelogs-btns addDivelog-button" (click)="openAddDivelogModal()">
               <div class="addDivelog-button-container">
                   <mat-icon>add</mat-icon>
@@ -19,11 +38,9 @@
           <button *ngIf="isEditMode" class="example-box divelogs-btns cancelEdit-button" (click)="revertReorderDivelogs()">
               <div class="addDivelog-button-container">
                   <mat-icon>undo</mat-icon>
-                  <!-- <span>{{ "REVERT_REORDER_CERTIF_BUTTON" | translate }}</span> -->
               </div>
           </button>
   
-          <!-- Bouton pour toggler le mode édition -->
           <button [ngClass]="isEditMode ? 'editValidateBtn' : ''" class="example-box divelogs-btns editDivelog-button" (click)="toggleEditMode()" >
               <div class="addDivelog-button-container">
                   <mat-icon>{{ isEditMode ? 'check' : 'edit' }}</mat-icon>
@@ -31,7 +48,7 @@
               </div>
           </button>
       </div>
-  </div>
+  </div> -->
 
 
   <section 

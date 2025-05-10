@@ -127,8 +127,6 @@
     "DIVELOGS": "Divelogs",
     "DIVELOG": "Divelog",
 
-    "ADD_DIVELOG_BUTTON": "Add",
-    "EDIT_DIVELOG_BUTTON": "Edit",
     "NO_DIVELOG_YET": "No divelog yet",
     "ADD_DIVELOG_FORM_TITLE": "dive log",
     "DIVELOG_TITLE_PLACEHOLDER": "\"My {{year}}\" divelog\", ...",
