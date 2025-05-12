@@ -12,46 +12,81 @@
 
     <div class="section-content">
 
-        
-        <p>Email: {{ user!.email }}</p>
-            
-        <p>Email vérifié: {{ user!.isVerified }}</p>
+        <div>
+            <p>Email: {{ user!.email }}</p>
 
-        <!-- Renvoi mail de confirmation  -->
-        <div *ngIf="!user?.isVerified">
+            <div class="email-status-container">
+                <span>Email vérifié: </span>
+                <mat-icon [ngClass]="user!.isVerified ? 'matIcon-green' : 'matIcon-red'">{{ user!.isVerified ? 'check_circle' : 'error'}}</mat-icon>
+            </div>
 
-            <button 
-                *ngIf="!emailConfirmResent"
-                mat-flat-button 
+            <button
+                mat-raised-button
                 color="primary"
-                (click)="resendConfirmationEmail(user.email)"
+                class="profil-modal-change-btn"
+                (click)="openModalChangeEmailAddress()"
             >
-                <span *ngIf="!emailConfirmResentLoading">{{ "EMAIL_RESEND_CONFIRMATION" | translate }}</span>
-                <mat-spinner *ngIf="emailConfirmResentLoading"></mat-spinner>
+                Changer d'adresse mail
             </button>
+        
 
-            <app-alert-banner 
-                *ngIf="emailConfirmResent"
-                maticon="task_alt" 
-                [style]="'success'" 
-                [msgAlert]="'EMAIL_CONFIRMATION_SENT' | translate: { email: user!.email }" 
-            ></app-alert-banner>
+            <!-- Renvoi mail de confirmation  -->
+            <div *ngIf="!user?.isVerified">
+
+                <button 
+                    *ngIf="!emailConfirmResent"
+                    mat-flat-button 
+                    color="primary"
+                    (click)="resendConfirmationEmail(user.email)"
+                >
+                    <span *ngIf="!emailConfirmResentLoading">{{ "EMAIL_RESEND_CONFIRMATION" | translate }}</span>
+                    <mat-spinner *ngIf="emailConfirmResentLoading"></mat-spinner>
+                </button>
+
+                <app-alert-banner 
+                    *ngIf="emailConfirmResent"
+                    maticon="task_alt" 
+                    [style]="'success'" 
+                    [msgAlert]="'EMAIL_CONFIRMATION_SENT' | translate: { email: user!.email }" 
+                ></app-alert-banner>
+
+            </div>
+
+            <div>
+                <button
+                    mat-raised-button
+                    color="primary"
+                    class="profil-modal-change-btn"
+                    (click)="openModalChangePassword()"
+                >
+                    Changer de mot de passe
+                </button>
+            </div>
 
         </div>
 
-        <h5>Changer de mot de passe</h5>
-        <h5>Changer d'adresse mail</h5>
-        <h5>Supprimer le compte</h5>
-        <h5>Autentification à 2 facteurs</h5>
+        <mat-divider class="profil-settings-divider"></mat-divider>
+
+        <div>
+            <button
+                mat-raised-button
+                color="warn"
+                class="profil-modal-change-btn delete-account-btn"
+                [disabled]="isAccountDeleting"
+                (click)="openModalDeleteAccount()"
+            >
+                <mat-icon *ngIf="!isAccountDeleting">warning</mat-icon>
+                <mat-spinner *ngIf="isAccountDeleting" diameter="20" ></mat-spinner>
+                <span>&nbsp;Supprimer le compte</span>
+            </button>
+        </div>
+
+
+        <!-- <h5>Autentification à 2 facteurs</h5> -->
 
         <!-- avatar
         banniere
-        nbrInitialPlongées
-
-
-        // change mdp
-        // change mail
-        // suppr compte -->
+        nbrInitialPlongées -->
 
 
     </div>

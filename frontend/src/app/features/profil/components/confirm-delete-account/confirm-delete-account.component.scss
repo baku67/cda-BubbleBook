@@ -1,0 +1,14 @@
+strong {
+    color: var(--red);
+}
+
+.confirmation-field {
+    width: 100%;
+    margin: 15px auto;
+}
+
+.buttons {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+}

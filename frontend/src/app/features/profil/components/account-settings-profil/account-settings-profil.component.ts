@@ -3,6 +3,11 @@ import { UserProfil } from '../../models/userProfile.model';
 import { UserService } from '../../services/user.service';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
 import { AuthService } from '../../../auth/services/auth.service';
+import { ModalService } from '../../../../shared/services/utils/modal.service';
+import { ChangeEmailAddressComponent } from '../change-email-address/change-email-address.component';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { ConfirmDeleteAccountComponent } from '../confirm-delete-account/confirm-delete-account.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-account-settings-profil',
@@ -18,9 +23,12 @@ export class AccountSettingsProfilComponent {
     emailConfirmResent = false;
     emailConfirmResentLoading = false;
 
+    isAccountDeleting = false;
+
     constructor(
       private authService: AuthService,
       private userService: UserService, 
+      private modalService: ModalService,
       private flashMessageService: FlashMessageService
     ) {}
   
@@ -31,14 +39,52 @@ export class AccountSettingsProfilComponent {
       
       this.authService.resendConfirmationEmail(userEmail).subscribe({
         next: (response) => {
-          console.log('Email de confirmation renvoyé:', response);
           this.emailConfirmResentLoading = false;
           this.emailConfirmResent = true;
+          this.flashMessageService.success("Email de confirmation renvoyé");
         },
         error: (error) => {
-          console.error('Erreur lors de la régénération du token:', error);
           this.emailConfirmResentLoading = false;
-          alert('Impossible d\'envoyer l\'email de confirmation. Veuillez réessayer plus tard.');
+          this.flashMessageService.error("Impossible de renvoyer le mail de confirmation");
+        }
+      });
+    }
+
+    public openModalChangeEmailAddress() {
+      this.modalService.open(ChangeEmailAddressComponent, {
+        modalIcon: 'alternate_email'
+      })
+    }
+
+    public openModalChangePassword() {
+      this.modalService.open(ChangePasswordComponent, {
+        modalIcon: 'password'
+      })
+      // requete envoyée depuis le modal (et gestion d'erreur/flashMsg)
+    }
+
+    public openModalDeleteAccount() {
+      this.isAccountDeleting = true;
+      this.modalService.open(ConfirmDeleteAccountComponent, {
+        modalIcon: 'warning'
+      })
+
+      // (Gestion du mismatch du retappage dans le modal)
+      this.modalService.subscribeToClose((choice: boolean) => {
+        if(choice) {
+          this.userService.deleteUserAccount().subscribe({
+            next: () => {
+              this.authService.logout();
+            },
+            error: () => {
+              this.isAccountDeleting = false;
+              console.error('Erreur lors de la suppression du compte');
+              this.flashMessageService.error("Erreur lors de la suppression du compte");
+            },
+          });
+        }
+        else {
+          this.isAccountDeleting = false;
         }
       });
     }

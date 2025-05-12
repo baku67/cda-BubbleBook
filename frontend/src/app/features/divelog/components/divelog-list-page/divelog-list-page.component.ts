@@ -54,6 +54,7 @@ export class DivelogListPageComponent {
       },
       error: (error) => {
         console.error('Failed to load users divelogs', error);
+        this.flashMessageService.error("Failed to load users divelogs");
         this.isUserDivelogsLoading = false;
       }
     });
@@ -132,10 +133,12 @@ export class DivelogListPageComponent {
         );
         this.isDeleting[userDivelog.id] = false;
         console.log('Divelog deleted successfully');
+        this.flashMessageService.success("Carnet de plongée supprimé");
       },
       error: (err) => {
         this.isDeleting[userDivelog.id] = false;
         console.error('Error while deleting divelog:', err);
+        this.flashMessageService.error("Erreur lors de la suppression du carnet de plongée");
       },
     });
   }

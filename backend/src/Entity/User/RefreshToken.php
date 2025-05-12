@@ -15,7 +15,16 @@ class RefreshToken
     #[ORM\Column(type: 'string', length: 255, unique: true)]
     private ?string $token = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'refresh_token')]
+    #[ORM\ManyToOne(
+        targetEntity: User::class, 
+        inversedBy: 'refresh_token'
+    )]
+    #[ORM\JoinColumn(
+        name: 'user_id',
+        referencedColumnName: 'id',
+        nullable: false,
+        onDelete: 'CASCADE' // le SGBD supprime en SQL tous les tokens liés lors suppression User
+    )]
     private ?User $user = null;
 
     #[ORM\Column(type: 'datetime')]

@@ -4,6 +4,7 @@ namespace App\Controller\User;
 use App\DTO\Request\UserSearchCriteriaDTO;
 use App\Entity\User\User;
 use App\Repository\User\UserRepository;
+use App\Service\Auth\MailerService;
 use App\Service\User\UserProfileService;
 use App\Service\User\UserSearchService;
 use App\Service\User\UserUpdateService;
@@ -13,7 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
@@ -22,6 +23,7 @@ class UserController extends AbstractController
         private UserRepository $userRepository,
         private UserSearchService $userSearchService,
         private EntityManagerInterface $entityManager,
+        private MailerService $mailerService
     ){}
 
     #[Route('/api/user/me', name: 'api_user_me', methods: ['GET'])]
@@ -138,6 +140,54 @@ class UserController extends AbstractController
         }
     
         return $this->json($otherUserProfilDTO);
+    }
+
+
+    #[Route('/api/user/me', name: 'api_user_delete_me', methods: ['DELETE'])]
+    public function deleteMe(): Response
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $this->entityManager->remove($user);
+        $this->entityManager->flush();
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+
+    #[Route('/api/user/me/password', name: 'api_user_change_password', methods: ['PATCH'])]
+    public function changePassword(
+        Request $request,
+        UserPasswordHasherInterface $passwordHasher,
+    ): Response {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $data = json_decode($request->getContent(), true);
+        $current = $data['currentPassword'] ?? '';
+        $new     = $data['newPassword']     ?? '';
+
+        // Vérifie le mot de passe actuel
+        if (!$passwordHasher->isPasswordValid($user, $current)) {
+            return new JsonResponse(
+                ['message' => 'Mot de passe actuel incorrect.'],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        // Met à jour le mot de passe
+        $hashed = $passwordHasher->hashPassword($user, $new);
+        $user->setPassword($hashed);
+        $this->entityManager->flush();
+
+        $this->mailerService->sendPasswordModified($user->getEmail());
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
 }

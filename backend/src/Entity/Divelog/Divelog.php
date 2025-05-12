@@ -33,7 +33,12 @@ class Divelog
     /**
      * @var Collection<int, Dive>
      */
-    #[ORM\OneToMany(targetEntity: Dive::class, mappedBy: 'divelog', orphanRemoval: true)]
+    #[ORM\OneToMany(
+        targetEntity: Dive::class, 
+        mappedBy: 'divelog', 
+        orphanRemoval: true,
+        cascade: ['remove']
+    )]
     private Collection $dives;
 
     #[ORM\ManyToOne(inversedBy: 'divelogs')]

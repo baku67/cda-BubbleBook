@@ -59,7 +59,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, UserCertificate>
      */
-    #[ORM\OneToMany(targetEntity: UserCertificate::class, mappedBy: 'user', orphanRemoval: true)]
+    #[ORM\OneToMany(
+        targetEntity: UserCertificate::class, 
+        mappedBy: 'user', 
+        orphanRemoval: true,
+        cascade: ['remove']
+    )]
     private Collection $userCertificates;
 
     #[ORM\Column(length: 255, nullable: true, options: ['default' => 'assets/images/default/avatars/profil-picture-default-original.webp'])]
@@ -89,7 +94,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Divelog>
      */
-    #[ORM\OneToMany(targetEntity: Divelog::class, mappedBy: 'owner', orphanRemoval: true)]
+    #[ORM\OneToMany(
+        targetEntity: Divelog::class, 
+        mappedBy: 'owner', 
+        orphanRemoval: true,
+        cascade: ['remove']
+    )]
     private Collection $divelogs;
 
 

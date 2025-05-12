@@ -1,0 +1,39 @@
+<form [formGroup]="confirmationForm" class="delete-form">
+    <p>
+      Vous vous apprêtez à supprimer votre compte Bubblebook, cette action et irréversible et entrainera la suppression de tout votre contenu et de toutes vos données !
+    </p>
+    <br>
+    <p>
+      Pour confirmer la suppression, veuillez taper cette phrase&nbsp;:
+      &#xAB;&nbsp;<strong>{{ confirmationSentence }}</strong>&nbsp;&#xBB;
+    </p>
+  
+    <mat-form-field appearance="outline" class="confirmation-field">
+      <mat-label>Phrase de confirmation</mat-label>
+      <input matInput formControlName="confirmation" autocomplete="off" />
+      <mat-error *ngIf="confirmationForm.get('confirmation')?.hasError('required')">
+        Ce champ est requis.
+      </mat-error>
+      <mat-error *ngIf="confirmationForm.get('confirmation')?.hasError('titleMismatch')">
+        La phrase ne correspond pas.
+      </mat-error>
+    </mat-form-field>
+  
+    <div class="buttons">
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="confirmDelete()"
+        [disabled]="!confirmationForm.valid"
+      >
+        Supprimer définitivement
+      </button>
+      <button
+        mat-button
+        (click)="cancel()"
+        type="button"
+      >
+        Annuler
+      </button>
+    </div>
+  </form>

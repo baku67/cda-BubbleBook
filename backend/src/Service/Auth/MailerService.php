@@ -20,10 +20,21 @@ class MailerService
         $confirmationUrl = $this->frontendBaseUrl . '/confirm-email?token=' . $token . '&emailAddress=' . $to;
         
         $email = (new Email())
-            ->from('noreply@yourapp.com')
+            ->from('noreply@bubblebook.fun')
             ->to($to)
             ->subject('Confirmez votre inscription')
             ->html('<p>Merci de vous être inscrit ! Cliquez sur ce lien pour confirmer votre inscription : <a href="' . $confirmationUrl . '">Confirmer</a></p>');
+
+        $this->mailer->send($email);
+    }
+
+    public function sendPasswordModified(string $to): void
+    {
+        $email = (new Email())
+            ->from('noreply@bubblebook.fun')
+            ->to($to)
+            ->subject('Mot de passe modifié')
+            ->html('<p>Le mot de passe de votre compte Bubblebook vient d\'être modifié.</p>');
 
         $this->mailer->send($email);
     }

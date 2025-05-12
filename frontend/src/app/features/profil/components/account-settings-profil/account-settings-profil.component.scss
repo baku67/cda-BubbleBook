@@ -1,3 +1,38 @@
 .section-content {
-    margin: 20px 0px 10px 8px;
+    margin: 20px 0px 0px 0px;
+}
+
+.profil-modal-change-btn {
+    margin: 5px auto;
+}
+
+.profil-settings-divider {
+    width: 70%;
+    background-color: var(--mat-divider-color, var(--mat-app-outline));
+    margin: 15px auto;
+}
+
+.email-status-container {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin: 5px auto;
+
+    .matIcon-green {
+        color: var(--green);
+    }
+    .matIcon-red {
+        color: var(--red);
+    }
+}
+
+.delete-account-btn {
+    width: 100%;
+}
+::ng-deep button.delete-account-btn .mdc-button__label {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }

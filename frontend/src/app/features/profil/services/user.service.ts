@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, EMPTY, filter, Observable, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, EMPTY, filter, Observable, switchMap, tap } from 'rxjs';
 import { UserProfil } from '../models/userProfile.model';
 import { environment } from '../../../../environments/environments';
 import { OtherUserProfil } from '../../social/models/other-user-profil.model';
-
+interface ChangePasswordPayload {
+  currentPassword: string;
+  newPassword: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -100,6 +103,21 @@ export class UserService {
    */
   getOtherUserProfil(otherUserId: string): Observable<OtherUserProfil> {
     return this.http.get<OtherUserProfil>(`${this.apiUrl}/${otherUserId}`);
+  }
+
+  /**
+   * Suppression du compte utlisateur
+   */
+  deleteUserAccount(): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/me`);
+  }
+
+  updatePassword(currentPassword: string, newPassword: string): Observable<void> {
+    const payload: ChangePasswordPayload = {
+      currentPassword,
+      newPassword
+    };
+    return this.http.patch<void>(`${this.apiUrl}/me/password`, payload);  
   }
 
 }
