@@ -1,49 +1,49 @@
 <div class="pageContent">
 
-  <app-page-header 
-      [title]="('DIVELOGS' | translate)" 
-      [matIcon]="'menu_book'"
-      class="fadeInNav"
-      [class.fadeOutNav]="isAnimatingFadeOut"
-  /> 
+    <app-page-header 
+        [title]="('DIVELOGS' | translate)" 
+        [matIcon]="'menu_book'"
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    /> 
 
-  <div *ngIf="!isUserDivelogsLoading" class="buttons-container" [class.fadeOutNav]="isAnimatingFadeOut">
-      <!-- Base: editButton => devient revert (editMode) -->
-      <button *ngIf="!isEditMode" class="divelogs-btns editDivelog-button" (click)="toggleEditMode()">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <!-- Devient revert edit: -->
-      <button *ngIf="isEditMode" class="divelogs-btns editDivelog-button cancel-btn" (click)="revertReorderDivelogs()">
-        <mat-icon>undo</mat-icon>
-      </button>
-      
-      <!-- Base: Ajout => deveint validate (editMode) -->
-      <button *ngIf="!isEditMode" class="divelogs-btns addDivelog-button" (click)="openAddDivelogModal()">
-        <mat-icon>add</mat-icon>
-      </button>
-      <!-- Devient validate edit: -->
-      <button *ngIf="isEditMode" class="divelogs-btns addDivelog-button validate-btn" (click)="toggleEditMode()">
-        <mat-icon>check</mat-icon>
-      </button>
-  </div>
+    <div *ngIf="!isUserDivelogsLoading" class="buttons-container" [class.fadeOutNav]="isAnimatingFadeOut">
+        <!-- Base: editButton => devient revert (editMode) -->
+        <button *ngIf="!isEditMode" class="divelogs-btns editDivelog-button" (click)="toggleEditMode()">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <!-- Devient revert edit: -->
+        <button *ngIf="isEditMode" class="divelogs-btns editDivelog-button cancel-btn" (click)="revertReorderDivelogs()">
+            <mat-icon>undo</mat-icon>
+        </button>
+        
+        <!-- Base: Ajout => deveint validate (editMode) -->
+        <button *ngIf="!isEditMode" class="divelogs-btns addDivelog-button" (click)="openAddDivelogModal()">
+            <mat-icon>add</mat-icon>
+        </button>
+        <!-- Devient validate edit: -->
+        <button *ngIf="isEditMode" class="divelogs-btns addDivelog-button validate-btn" (click)="toggleEditMode()">
+            <mat-icon>check</mat-icon>
+        </button>
+    </div>
 
-  <section 
-      *ngIf="!isUserDivelogsLoading" 
-      class="section-list-divelogs"
-      [class.fadeOutNav]="isAnimatingFadeOut"
-  >
+    <section 
+        *ngIf="!isUserDivelogsLoading" 
+        class="section-list-divelogs"
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    >
 
         <!-- spinner: pas de skeleton -->
         <div class="divelogs-list-wrapper">
 
+            <!-- liste vide -->
+            <div class="example-box" *ngIf="userDivelogs.length === 0" class="empty-list">
+                <mat-icon>info</mat-icon>
+                <span>{{ "NO_DIVELOG_YET" | translate }}</span>
+            </div>
+
             <!-- Grid divelogs -->
             <div class="divelogs-list" cdkDropList cdkDropListOrientation="mixed" (cdkDropListDropped)="drop($event)">
-
-                <!-- liste vide -->
-                <div class="example-box" *ngIf="userDivelogs.length === 0" class="empty-list">
-                    <mat-icon>info</mat-icon>
-                    <span>{{ "NO_DIVELOG_YET" | translate }}</span>
-                </div>
 
                 <div 
                     *ngFor="let userDivelog of userDivelogs; let i = index; trackBy: trackByDivelogId" 
@@ -128,14 +128,14 @@
 
             </div>
         </div>
-  </section>
+    </section>
 
-  <!-- Loader/Spinner page -->
-  <div class="spinner-container" *ngIf="isUserDivelogsLoading">
-      <mat-spinner></mat-spinner>
-  </div>
+    <!-- Loader/Spinner page -->
+    <div class="spinner-container" *ngIf="isUserDivelogsLoading">
+        <mat-spinner></mat-spinner>
+    </div>
 
-  <div class="pageContent-bottom-nav-decal"></div>
+    <div class="pageContent-bottom-nav-decal"></div>
 </div>
 
 
