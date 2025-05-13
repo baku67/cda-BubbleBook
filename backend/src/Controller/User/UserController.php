@@ -4,6 +4,7 @@ namespace App\Controller\User;
 use App\DTO\Request\UserSearchCriteriaDTO;
 use App\Entity\User\User;
 use App\Repository\User\UserRepository;
+use App\Service\Auth\MailConfirmationTokenService;
 use App\Service\Auth\MailerService;
 use App\Service\User\UserProfileService;
 use App\Service\User\UserSearchService;
@@ -23,6 +24,7 @@ class UserController extends AbstractController
         private UserRepository $userRepository,
         private UserSearchService $userSearchService,
         private EntityManagerInterface $entityManager,
+        private MailConfirmationTokenService $mailConfirmationTokenService,
         private MailerService $mailerService
     ){}
 
@@ -188,6 +190,59 @@ class UserController extends AbstractController
         $this->mailerService->sendPasswordModified($user->getEmail());
 
         return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+
+    /**
+     * Demande de changement d'adresse e-mail
+     */
+    #[Route('/api/user/me/email', name: 'api_user_request_email_change', methods: ['POST'])]
+    public function requestEmailChange(Request $request): Response
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        // Vérification nouvelle adresse différente et valide:
+        $data = json_decode($request->getContent(), true);
+        $newEmail = trim($data['newEmail'] ?? '');
+        if ('' === $newEmail || $newEmail === $user->getEmail()) {
+            return new JsonResponse(
+                ['error' => 'Nouvelle adresse invalide ou identique à l’actuelle.'],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        // Vérification d'unicité:
+        $existing = $this->userRepository->findOneBy(['email' => $newEmail]);
+        if (null !== $existing && $existing->getId() !== $user->getId()) {
+            return new JsonResponse(
+                ['error' => 'Cette adresse e-mail est déjà utilisée.'],
+                Response::HTTP_CONFLICT
+            );
+        }
+
+        // génère le token, stocke pendingEmail + confirmationToken + expiry + envoi du mail
+        $this->mailConfirmationTokenService->generateEmailChangeToken($newEmail, $user);
+
+        // flush et 204 No Content
+        $this->entityManager->flush();
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    #[Route('/api/user/email/confirm', name: 'api_user_confirm_email_change', methods: ['GET'])]
+    public function confirmEmailChange(Request $request): Response
+    {
+        $token = $request->query->get('token');
+
+        try {
+            $this->mailConfirmationTokenService->confirmEmail($token);
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        } catch (\InvalidArgumentException $e) {
+            return $this->json(['message' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
     }
 
 }

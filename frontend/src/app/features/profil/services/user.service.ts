@@ -120,4 +120,8 @@ export class UserService {
     return this.http.patch<void>(`${this.apiUrl}/me/password`, payload);  
   }
 
+  updateEmailAddress(newEmailAddress: string): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/me/email`, { newEmail: newEmailAddress });  
+  }
+
 }

@@ -1,1 +1,45 @@
-<p>change-email-address works!</p>
+<form [formGroup]="changeEmailForm">
+    <p>
+      Changement d'adresse mail :
+    </p>
+  
+    <div class="form-container">
+        <!-- Nouvelle adresse: -->
+        <mat-form-field appearance="outline" class="email-field">
+            <mat-label>Nouvelle adresse mail</mat-label>
+            <input 
+                matInput 
+                formControlName="email" 
+                type='text'
+                autocomplete="off" 
+            />
+            <mat-error *ngIf="changeEmailForm.get('email')?.hasError('required')">
+                {{ "EMAIL_ADDRESS_REQUIRED" | translate }}
+            </mat-error>
+            <mat-error *ngIf="changeEmailForm.get('email')?.hasError('email') && changeEmailForm.get('email')?.touched">
+                {{ "EMAIL_ADDRESS_INVALID" | translate }}
+            </mat-error>
+        </mat-form-field>
+    
+    </div>
+  
+    <div class="buttons">
+      <button
+        mat-raised-button
+        color="primary"
+        class="button-loader"
+        (click)="confirmEmailChange()"
+        [disabled]="!changeEmailForm.valid || isLoading"
+      >
+        <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+        <span>Modifier l'adresse mail</span>
+      </button>
+      <button
+        mat-button
+        (click)="cancel()"
+        type="button"
+      >
+        Annuler
+      </button>
+    </div>
+  </form>

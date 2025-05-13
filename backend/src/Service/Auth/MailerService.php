@@ -1,6 +1,7 @@
 <?php
 namespace App\Service\Auth;
 
+use App\Entity\User\User;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
@@ -24,6 +25,19 @@ class MailerService
             ->to($to)
             ->subject('Confirmez votre inscription')
             ->html('<p>Merci de vous être inscrit ! Cliquez sur ce lien pour confirmer votre inscription : <a href="' . $confirmationUrl . '">Confirmer</a></p>');
+
+        $this->mailer->send($email);
+    }
+
+    public function sendEmailChangeConfirmation(User $user): void
+    {
+        $confirmationUrl = $this->frontendBaseUrl . '/confirm-email?token=' . $user->getConfirmationToken() . '&changingEmail=true' . '&emailAddress=' . $user->getPendingEmail();
+        
+        $email = (new Email())
+            ->from('noreply@bubblebook.fun')
+            ->to($user->getPendingEmail())
+            ->subject('Changement d\'adresse mail')
+            ->html('<p>Vous avez fait une demande de modification d\'adresse mail concernant votre compte Bubblebook. Cliquez sur ce lien pour confirmer la nouvelle adresse : <a href="' . $confirmationUrl . '">Confirmer</a></p>');
 
         $this->mailer->send($email);
     }

@@ -26,7 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $username = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
@@ -101,6 +101,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         cascade: ['remove']
     )]
     private Collection $divelogs;
+
+    #[ORM\Column(length: 180, unique: true, nullable: true)]
+    private ?string $pendingEmail = null;
 
 
     public function __construct()
@@ -434,6 +437,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             }
         }
 
+        return $this;
+    }
+
+    public function getPendingEmail(): ?string
+    {
+        return $this->pendingEmail;
+    }
+
+    public function setPendingEmail(?string $pendingEmail): static
+    {
+        $this->pendingEmail = $pendingEmail;
+
+        return $this;
+    }
+
+    public function clearPendingEmail(): self
+    {
+        $this->pendingEmail = null;
         return $this;
     }
 

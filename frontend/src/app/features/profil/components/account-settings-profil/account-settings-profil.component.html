@@ -14,6 +14,10 @@
 
         <div>
             <p>Email: {{ user!.email }}</p>
+            <ng-container *ngIf="user!.pendingEmail">
+                <br >
+                <p>Nouvel Email (en attente): {{ user!.pendingEmail }}</p>
+            </ng-container>
 
             <div class="email-status-container">
                 <span>Email vérifié: </span>

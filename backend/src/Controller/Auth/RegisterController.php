@@ -6,7 +6,6 @@ use App\Entity\User\User;
 use App\Repository\User\RoleRepository;
 use App\Repository\User\UserRepository;
 use App\Service\Auth\EmailCheckExistService;
-use App\Service\Auth\EmailConfirmationService;
 use App\Service\Auth\RegistrationService;
 use App\Service\Auth\ResendConfirmationMailService;
 use App\Service\Auth\MailConfirmationTokenService;
@@ -93,12 +92,12 @@ class RegisterController extends AbstractController
 
     // Click sur le lien de Confirmation de mail:
     #[Route('/api/confirm-email', name: 'api_confirm_email', methods: ['GET'])]
-    public function confirmEmail(Request $request, EmailConfirmationService $emailConfirmationService): JsonResponse
+    public function confirmEmail(Request $request, MailConfirmationTokenService $emailConfirmationTokenService): JsonResponse
     {
         $token = $request->query->get('token');
     
         try {
-            $emailConfirmationService->confirmEmail($token);
+            $emailConfirmationTokenService->confirmEmail($token);
             return new JsonResponse(['status' => 'Email successfully verified'], Response::HTTP_OK);
         } catch (\InvalidArgumentException $e) {
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);

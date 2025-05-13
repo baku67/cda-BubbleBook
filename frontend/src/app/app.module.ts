@@ -16,7 +16,7 @@ import { UserProfilComponent } from './features/profil/components/user-profil/us
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { FirstLoginStepsModule } from './features/first-login-steps/first-login-steps.module';
-import { ConfirmEmailComponent } from './features/profil/components/confirm-email/confirm-email.component';
+import { ConfirmEmailPageComponent } from './features/profil/components/confirm-email-page/confirm-email-page.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -94,7 +94,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   
     UserProfilComponent,
     UserCardComponent,
-    ConfirmEmailComponent,
+    ConfirmEmailPageComponent,
     AccountSettingsComponent,
     AccountSettingsProfilComponent,
     ChangeEmailAddressComponent,

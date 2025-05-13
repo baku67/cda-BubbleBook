@@ -12,7 +12,12 @@
     <section *ngIf="!isLoading" [class.fadeOutNav]="isAnimatingFadeOut">
 
         <app-alert-banner 
-            [msgAlert]="confirmSuccess ? 'EMAIL_ADDRESS_CONFIRMED' : 'EMAIL_ADDRESS_NOT_CONFIRMED' | translate" 
+            [msgAlert]="
+                (
+                    confirmSuccess 
+                    ? 'EMAIL_ADDRESS_CONFIRMED' 
+                    : 'EMAIL_ADDRESS_NOT_CONFIRMED' 
+                ) | translate" 
             [maticon]="confirmSuccess ? 'task_alt' : 'unpublished'" 
             [style]="confirmSuccess ? 'success' : 'warn'"
         ></app-alert-banner>

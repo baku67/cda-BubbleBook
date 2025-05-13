@@ -54,6 +54,13 @@ export class AccountSettingsProfilComponent {
       this.modalService.open(ChangeEmailAddressComponent, {
         modalIcon: 'alternate_email'
       })
+
+      // Si succss: on recharge le User et met à jour en cache
+      this.modalService.subscribeToClose((result: boolean) => {
+        if(result) {
+          this.userService.refreshUser();
+        }
+      });
     }
 
     public openModalChangePassword() {

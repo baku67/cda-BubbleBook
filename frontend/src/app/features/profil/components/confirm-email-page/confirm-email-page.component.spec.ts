@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ConfirmEmailComponent } from './confirm-email.component';
+import { ConfirmEmailPageComponent } from './confirm-email-page.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { of } from 'rxjs';
@@ -10,9 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-describe('ConfirmEmailComponent', () => {
-  let component: ConfirmEmailComponent;
-  let fixture: ComponentFixture<ConfirmEmailComponent>;
+describe('ConfirmEmailPageComponent', () => {
+  let component: ConfirmEmailPageComponent;
+  let fixture: ComponentFixture<ConfirmEmailPageComponent>;
   let httpMock: HttpTestingController;
   let routerSpy: jasmine.SpyObj<Router>;
 
@@ -20,7 +20,7 @@ describe('ConfirmEmailComponent', () => {
     const mockRouter = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
-      declarations: [ConfirmEmailComponent],
+      declarations: [ConfirmEmailPageComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -40,7 +40,7 @@ describe('ConfirmEmailComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ignore les erreurs liées à des composants non déclarés
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ConfirmEmailComponent);
+    fixture = TestBed.createComponent(ConfirmEmailPageComponent);
     component = fixture.componentInstance;
     httpMock = TestBed.inject(HttpTestingController);
     routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
@@ -78,7 +78,7 @@ describe('ConfirmEmailComponent', () => {
   describe('Redirect tests', () => {
     beforeEach(async () => {
       await TestBed.resetTestingModule().configureTestingModule({
-        declarations: [ConfirmEmailComponent],
+        declarations: [ConfirmEmailPageComponent],
         imports: [
           RouterTestingModule,
           HttpClientTestingModule,
@@ -95,7 +95,7 @@ describe('ConfirmEmailComponent', () => {
         ],
       }).compileComponents();
 
-      fixture = TestBed.createComponent(ConfirmEmailComponent);
+      fixture = TestBed.createComponent(ConfirmEmailPageComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
