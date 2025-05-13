@@ -5,6 +5,18 @@
     flex-direction: column;
 }
 
+.notifs-btn {
+    position: fixed;
+    bottom: 70px;
+    right: 14px;
+
+    button {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+    }
+}
+
 
 .user-avatar {
     width: 50px;

@@ -25,7 +25,7 @@
     ></app-alert-banner>
 
 
-    <!-- Grid vuttons nav -->
+    <!-- Grid buttons nav -->
     <section class="nav-btn-grid" [class.fadeOutNav]="isAnimatingFadeOut">
 
         <div class="middle-btn-toggle"></div>
@@ -68,12 +68,23 @@
             class="home-nav-button btn-bottom-right"
             (click)="navigate404()"
         >
-            <!-- <mat-icon>gallery_thumbnail</mat-icon> -->
             <mat-icon>image</mat-icon>
             <span>{{ "GALLERY" | translate }}</span>
         </button>
 
     </section>
+
+
+    <div class="notifs-btn" [class.fadeOutNav]="isAnimatingFadeOut">
+        <button 
+            mat-flat-button 
+            color="primary"
+            class="home-nav-button btn-bottom-right"
+            (click)="navigateNotifs()"
+        >
+            <mat-icon>notifications</mat-icon>
+        </button>
+    </div>
 
 
     <div class="pageContent-bottom-nav-decal"></div>

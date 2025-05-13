@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
 import { UserSearchResults } from '../../models/user-search-results.model';
 import { Observable, of } from 'rxjs';
@@ -20,28 +20,36 @@ export class UserSearchComponent implements OnInit {
 
   loading = false; 
   users: UserSearchResults[] = [];
+  hasSearched = false;
 
   constructor(private searchService: SearchService) {}
 
   ngOnInit(): void {
     this.searchControl.valueChanges
       .pipe(
+        // Min 3 caractères + debouncing + différent:
+        filter(query => typeof query === 'string' && query.trim().length >= 3),
         debounceTime(200),
-        distinctUntilChanged(),
+        // distinctUntilChanged(), // fix retaper après suppression = HS
         switchMap((query) => this.triggerSearch(query)) 
       )
       .subscribe({
         next: (users) => {
           this.users = users;
           this.loading = false;
+          this.hasSearched = true;
         },
         error: () => {
           this.users = [];
           this.loading = false;
+          this.hasSearched = true;
         }
       });
   
     this.typeControl.valueChanges.subscribe(() => {
+      if (!this.hasSearched) {
+        return;
+      }
       this.triggerSearch(this.searchControl.value).subscribe({
         next: (users) => {
           this.users = users;
@@ -52,6 +60,13 @@ export class UserSearchComponent implements OnInit {
           this.loading = false;
         }
       });
+    });
+    // Vider les résultats et cacher le message liste vide quand on redescend en dessous de 3 char:
+    this.searchControl.valueChanges.pipe(
+      filter(query => typeof query === 'string' && query.trim().length < 3)
+    ).subscribe(() => {
+      this.users = [];
+      this.hasSearched = false;
     });
   }
   

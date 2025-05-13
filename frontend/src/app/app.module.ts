@@ -69,6 +69,7 @@ import { DivelogConfirmationDeleteComponent } from './features/divelog/component
 import { ChangeEmailAddressComponent } from './features/profil/components/change-email-address/change-email-address.component';
 import { ChangePasswordComponent } from './features/profil/components/change-password/change-password.component';
 import { ConfirmDeleteAccountComponent } from './features/profil/components/confirm-delete-account/confirm-delete-account.component';
+import { NotificationsPageComponent } from './features/notification/components/notifications-page/notifications-page.component';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -115,6 +116,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DivelogDetailPageComponent,
     DivelogDetailOverviewComponent,
     DivelogConfirmationDeleteComponent,
+
+    NotificationsPageComponent,
   ],
   imports: [
     MatCardModule,

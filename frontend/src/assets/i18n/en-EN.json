@@ -96,8 +96,16 @@
     "DIVELOGS_REORDER_ERROR": "Error updating dive logs order",
 
     "EQUIPMENT": "My equipment",
+    "OTHER_USER_EQUIPMENT": "Equipement",
     "PUBLISHES": "My publications",
-    "GALLERY": "My Gallery",
+    "GALLERY": "My gallery",
+    "OTHER_USER_GALLERY": "Gallery",
+
+    "OTHER_USER_DIVELOGS": "Divelogs",
+
+    "NOTIFICATIONS": "Notifications",
+
+    "SEND_FRIEND_REQUEST": "Send friend request",
 
     "EDIT_PROFILE": "Edit",
 

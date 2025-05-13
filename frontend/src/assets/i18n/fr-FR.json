@@ -100,8 +100,16 @@
     "DIVELOGS_REORDER_ERROR": "Erreur lors de la mise à jour des carnets de plongés",
 
     "EQUIPMENT": "Mon équipement",
+    "OTHER_USER_EQUIPMENT": "Équipement",
     "PUBLISHES": "Mes publications",
     "GALLERY": "Ma gallerie",
+    "OTHER_USER_GALLERY": "Gallerie",
+
+    "OTHER_USER_DIVELOGS": "Carnets",
+
+    "NOTIFICATIONS": "Notifications",
+
+    "SEND_FRIEND_REQUEST": "Envoyer une demande d'ajout",
 
     "EDIT_PROFILE": "Modifier",
 

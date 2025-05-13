@@ -1,0 +1,110 @@
+.social-page-content {
+    width: 100%;
+}
+
+
+.friend-status-container {
+    margin: 15px auto 5px auto;
+    display: inline-flex;
+    width: 100%;
+}
+.friend-request-btn {
+    height: 55px;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-shadow: 0px 0px 2px black;
+
+    mat-icon {
+        font-size: 2rem;
+        height: 2rem;
+        width: 2rem;
+        margin: 0;
+        color: var(--green);
+    }
+}
+.friend-remove-btn {
+
+}
+
+::ng-deep button.friend-request-btn .mdc-button__label {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+
+// Grid nav buttons:
+.nav-btn-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 7px;
+    grid-row-gap: 7px;
+
+    margin-top: 3px;
+}
+.home-nav-button {
+    width: 100%;
+    height: 85px;
+    border: 1px solid #00000038;
+
+    display: inline-flex;
+    flex-direction: column;
+}
+.home-nav-button mat-icon {
+    font-size: 2rem;
+    height: 2rem;
+    width: 2rem;
+    margin: 0;
+    color: var(--primary-color);
+}
+.home-nav-button svg {
+    font-size: 2rem;
+    height: 2rem;
+    width: 2rem;
+    margin: 0;
+    fill: var(--primary-color);
+    position: relative;
+    top: 3px;
+}
+.home-nav-button span {
+    width: 100%;
+    display: block;
+    padding-top: 5px;
+}
+.nav-btn-grid {
+    margin-top: 15px;
+    
+    .btn-up-left {
+        border-top-left-radius: 15px !important;
+        border-bottom-right-radius: 15px !important;
+    }
+    .btn-up-right {
+        border-top-right-radius: 15px !important;
+        border-bottom-left-radius: 15px !important;
+    }
+    .btn-bottom-left {
+        border-bottom-left-radius: 15px !important;
+        border-top-right-radius: 15px !important;
+    }
+    .btn-bottom-right {
+        border-bottom-right-radius: 15px !important;
+        border-top-left-radius: 15px !important;
+    }
+}
+.middle-btn-toggle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 21px;
+    height: 21px;
+    border-radius: 1px;
+    background-color: var(--primary-color);
+
+    clip-path: path("M 0 0 Q 10 6 20 0 Q 14 10 20 20 H 20 Q 10 14 0 20 Q 6 10 0 0");
+}

@@ -8,12 +8,104 @@
     />
 
     <div 
-        class="social-page-content" 
-        class="fadeInNav" 
+        class="fadeInNav social-page-content" 
         [class.fadeOutNav]="isAnimatingFadeOut"
     >
-        <!-- <app-user-card [user]="user" [isCurrentUser]="false"></app-user-card> -->
         <app-user-card [user$]="otherUser$"></app-user-card>
+        
+        <ng-container *ngIf="otherUser$ | async as otherUser">
+            <!-- Statut amitié ou bouton ajout: -->
+            <div class="friend-status-container">
+                <!-- Bouton d'ajout si pas amis: -->
+                <button 
+                    *ngIf="otherUser.friendshipStatus === 'none'"
+                    mat-flat-button 
+                    color="primary"
+                    class="friend-request-btn"
+                    (click)="sendFriendRequest()"
+                    [disabled]="isSendingRequest"
+                >
+                    <mat-spinner *ngIf="isSendingRequest" diameter="20"></mat-spinner>
+                    <mat-icon *ngIf="!isSendingRequest">person_add</mat-icon>
+                    <span>{{ "SEND_FRIEND_REQUEST" | translate }}</span>
+                </button>
+
+                <!-- Si amis: -->
+                <div *ngIf="otherUser.friendshipStatus === 'ACCEPTED'">
+                    <div>
+                        <mat-icon>group</mat-icon>
+                        <span>Vous êtes amis.</span>
+                    </div>
+                    <button 
+                        mat-flat-button 
+                        color="warn"
+                        class="friend-request-btn friend-remove-btn"
+                        (click)="sendFriendRemoveRequest()"
+                        [disabled]="isSendingRemoveRequest"
+                    >
+                        <mat-spinner *ngIf="isSendingRemoveRequest" diameter="20"></mat-spinner>
+                        <mat-icon *ngIf="!isSendingRequest">person_remove</mat-icon>
+                        <!-- <span>{{ "SEND_FRIEND_REQUEST" | translate }}</span> -->
+                    </button>
+                </div>
+
+                <!-- Si pending: -->
+                <div *ngIf="otherUser.friendshipStatus === 'PENDING'">
+                    <p>Demande d'amis en cours</p>
+                </div>
+                
+            </div>
+        </ng-container>
+
+        <!-- Grid Nav otherUser: -->
+        <section class="nav-btn-grid">
+
+            <div class="middle-btn-toggle"></div>
+
+            <button 
+                mat-flat-button 
+                color="primary"
+                class="home-nav-button btn-up-left"
+                (click)="navigate404()"
+            >
+                <mat-icon>workspace_premium</mat-icon>
+                <span>{{ "CERTIFICATES" | translate }}</span>
+            </button>
+
+            <button 
+                mat-flat-button 
+                color="primary"
+                class="home-nav-button btn-up-right"
+                (click)="navigate404()"
+            >
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M280-720v-40q0-33 23.5-56.5T360-840h240q33 0 56.5 23.5T680-760v40h28q24 0 43.5 13.5T780-672l94 216q3 8 4.5 16t1.5 16v184q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-184q0-8 1.5-16t4.5-16l94-216q9-21 28.5-34.5T252-720h28Zm80 0h240v-40H360v40Zm-80 240v-40h80v40h240v-40h80v40h96l-68-160H252l-68 160h96Zm0 80H160v160h640v-160H680v40h-80v-40H360v40h-80v-40Zm200-40Zm0-40Zm0 80Z"/></svg>
+                </div>
+                <span>{{ "OTHER_USER_EQUIPMENT" | translate }}</span>
+            </button>
+
+            <button 
+                mat-flat-button 
+                color="primary"
+                class="home-nav-button btn-bottom-left"
+                (click)="navigate404()"
+            >
+                <mat-icon>auto_stories</mat-icon>
+                <span>{{ "DIVELOGS" | translate }}</span>
+            </button>
+
+            <button 
+                mat-flat-button 
+                color="primary"
+                class="home-nav-button btn-bottom-right"
+                (click)="navigate404()"
+            >
+                <!-- <mat-icon>gallery_thumbnail</mat-icon> -->
+                <mat-icon>image</mat-icon>
+                <span>{{ "GALLERY" | translate }}</span>
+            </button>
+
+        </section>
     </div>
 
     <div class="pageContent-bottom-nav-decal"></div>

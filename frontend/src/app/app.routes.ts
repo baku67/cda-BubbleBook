@@ -21,6 +21,7 @@ import { LandingPageDiscoverComponent } from './features/landing-page/components
 import { DivelogListPageComponent } from './features/divelog/components/divelog-list-page/divelog-list-page.component';
 import { DivelogDetailPageComponent } from './features/divelog/components/divelog-detail-page/divelog-detail-page.component';
 import { DivelogDetailOverviewComponent } from './features/divelog/components/divelog-detail-overview/divelog-detail-overview.component';
+import { NotificationsPageComponent } from './features/notification/components/notifications-page/notifications-page.component';
 
 export const routes: Routes = [
     // LandingPage + Login/Register Pages
@@ -59,6 +60,13 @@ export const routes: Routes = [
         canActivate: [AuthGuard], 
         canDeactivate: [FadeOutGuard],
         // resolve: { currentUser: UserProfileResolver } // Pas de resolver pour avoir toujours l'user à jour
+    },
+
+    {
+        path: 'notifications',
+        component: NotificationsPageComponent,
+        canActivate: [AuthGuard], 
+        canDeactivate: [FadeOutGuard],
     },
 
     { 

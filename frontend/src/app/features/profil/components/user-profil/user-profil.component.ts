@@ -49,6 +49,10 @@ export class UserProfilComponent implements OnInit{
     this.router.navigate(['/certificates']);
   }
 
+  navigateNotifs(): void {
+    this.router.navigate(['/notifications']);
+  }
+
   navigate404(): void {
     this.router.navigate(['/not-implmented-yet']);
   }

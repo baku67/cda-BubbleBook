@@ -3,6 +3,7 @@ namespace App\Entity\User;
 
 use App\Entity\Certificate\UserCertificate;
 use App\Entity\Divelog\Divelog;
+use App\Entity\Friendship\Friendship;
 use App\Enum\PrivacyOption;
 use App\Repository\User\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -105,12 +106,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true, nullable: true)]
     private ?string $pendingEmail = null;
 
+    /**
+     * @var Collection<int, Friendship>
+     */
+    #[ORM\OneToMany(targetEntity: Friendship::class, mappedBy: 'emitter', orphanRemoval: true)]
+    private Collection $friendships;
+
 
     public function __construct()
     {
         $this->roles = new ArrayCollection();
         $this->userCertificates = new ArrayCollection();
         $this->divelogs = new ArrayCollection();
+        $this->friendships = new ArrayCollection();
     }
 
 
@@ -455,6 +463,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function clearPendingEmail(): self
     {
         $this->pendingEmail = null;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Friendship>
+     */
+    public function getFriendships(): Collection
+    {
+        return $this->friendships;
+    }
+
+    public function addFriendship(Friendship $friendship): static
+    {
+        if (!$this->friendships->contains($friendship)) {
+            $this->friendships->add($friendship);
+            $friendship->setEmitter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFriendship(Friendship $friendship): static
+    {
+        if ($this->friendships->removeElement($friendship)) {
+            // set the owning side to null (unless already changed)
+            if ($friendship->getEmitter() === $this) {
+                $friendship->setEmitter(null);
+            }
+        }
+
         return $this;
     }
 

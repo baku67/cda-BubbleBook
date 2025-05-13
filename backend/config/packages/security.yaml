@@ -69,6 +69,7 @@ security:
         # Toutes les autres routes API doivent être sécurisées par JWT
         - { path: ^/api/resend-confirmation, roles: IS_AUTHENTICATED_FULLY } 
         - { path: ^/api/user/certificates, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/friendship, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY, methods : [OPTIONS] }
 
 

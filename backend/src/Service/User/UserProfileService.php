@@ -4,11 +4,15 @@ namespace App\Service\User;
 use App\DTO\Response\OtherUserProfilDTO;
 use App\DTO\Response\UserProfilDTO;
 use App\Entity\User\User;
+use App\Repository\Friendship\FriendshipRepository;
 use App\Repository\User\UserRepository;
 
 class UserProfileService
 {
-    public function __construct(private UserRepository $userRepository) {}
+    public function __construct(
+        private UserRepository $userRepository,
+        private FriendshipRepository $friendshipRepository
+    ) {}
 
     public function getProfile(User $user): UserProfilDTO
     {
@@ -31,21 +35,33 @@ class UserProfileService
         );
     }
 
-    public function getOtherUserProfile(int $otherUserId): ?OtherUserProfilDTO
+    public function getOtherUserProfile(User $currentUser, int $otherUserId): ?OtherUserProfilDTO
     {
-        $user = $this->userRepository->findOtherUser($otherUserId);
+        $otherUser = $this->userRepository->findOtherUser($otherUserId);
 
-        if (!$user) {
+        if (!$otherUser) {
             return null; 
         }
 
+        // Statut relation amis inclu dans le DTO:
+        $friendship = $this->friendshipRepository
+            ->findOneBetween($currentUser, $otherUser);
+        $friendshipStatus = $friendship
+            ? $friendship->getStatus()   // 'pending' ou 'accepted' etc.
+            : 'none';
+
         return new OtherUserProfilDTO(
-            $user->getAccountType(),
-            $user->getUsername(),
-            $user->getAvatarUrl(),
-            $user->getBannerUrl(),
-            $user->getInitialDivesCount(),
-            $user->getNationality(),
+            $otherUser->getId(),
+            $otherUser->getAccountType(),
+            $otherUser->getUsername(),
+            $otherUser->getAvatarUrl(),
+            $otherUser->getBannerUrl(),
+            $otherUser->getInitialDivesCount(),
+            $otherUser->getNationality(),
+            $otherUser->getLogBooksPrivacy()->value,
+            $otherUser->getCertificatesPrivacy()->value,
+            $otherUser->getGalleryPrivacy()->value,
+            $friendshipStatus
 
             // ajouter les ?Carnets (filtré via privacySettings dans query)
             // ajouter les ?Certificates (filtré via privacySettings dans query)

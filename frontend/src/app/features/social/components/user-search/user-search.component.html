@@ -26,27 +26,29 @@
     <ul class="search-users-list">
       <li *ngFor="let user of users">
         <a [routerLink]="['/social/user-profil/', user.id]">
-        <div class="search-user-card">
-            <!-- ** On oublie la bannière sur les résultats -->
-            <!-- <div [ngStyle]="{ 'background-image': 'url(' + user.bannerUrl + ')' }" class="search-user-card-background"></div> -->
-            <div class="search-user-card-avatar-wrapper">
+        <div class="search-user-card">            
+            <!-- <div class="search-user-card-avatar-wrapper"> -->
+            <div class="search-user-card-avatar-wrapper" [ngStyle]="{ 'background-image': 'url(' + user.bannerUrl + ')' }">
               <div class="search-user-card-avatar-container">
                 <img [src]="user.avatarUrl" class="search-user-card-avatar-img" alt="User avatar" />
               </div>
             </div>
+
             <div class="section-bottom-line-left">
-              <img 
-                  *ngIf="user.flagSvgUrl"
-                  [src]="user.flagSvgUrl" 
-                  [alt]="user.countryName" 
-                  width="15" 
-                  height="15"
-                  [matTooltip]="user.countryName"
-                  class="country-flag-png"
-              >
+              <div class="search-user-card-icons">
+                <img 
+                    *ngIf="user.flagSvgUrl"
+                    [src]="user.flagSvgUrl" 
+                    [alt]="user.countryName" 
+                    width="15" 
+                    height="15"
+                    [matTooltip]="user.countryName"
+                    class="country-flag-png"
+                >
+                <mat-icon>{{ user.accountType==='option-diver' ? 'scuba_diving' : 'store' }}</mat-icon>
+              </div>
+              <span class="username">{{ user.username }}</span>
             </div>
-            <span>{{ user.username }}</span>
-            <span>{{ user.accountType }}</span>
           </div>
         </a>
       </li>
@@ -55,9 +57,11 @@
 
 
   <!-- *** Loading Users -->
-  <div *ngIf="loading" class="loading">Chargement...</div>
+  <div *ngIf="loading" class="loading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
   <!-- 0 Users match -->
-  <p *ngIf="!loading && users.length === 0">Aucun résultat trouvé.</p>
+  <p *ngIf="!loading && users.length === 0 && hasSearched">Aucun résultat trouvé.</p>
 
 </div>
 

@@ -1,0 +1,19 @@
+<div class="pageContent">
+
+    <app-page-header 
+        [title]='("NOTIFICATIONS" | translate)' 
+        matIcon="notifications" 
+        [colorTheme]="true"
+        class="fadeInNav"
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    />
+
+    <div [class.fadeOutNav]="isAnimatingFadeOut" class="notifications-container">
+
+        <div>
+            <h3>Amis</h3>
+        </div>
+
+    </div>
+
+</div>
