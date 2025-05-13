@@ -47,7 +47,7 @@ class UserProfileService
         $friendship = $this->friendshipRepository
             ->findOneBetween($currentUser, $otherUser);
         $friendshipStatus = $friendship
-            ? $friendship->getStatus()   // 'pending' ou 'accepted' etc.
+            ? $friendship->getStatus()->value   // 'pending' ou 'accepted' etc.
             : 'none';
 
         return new OtherUserProfilDTO(

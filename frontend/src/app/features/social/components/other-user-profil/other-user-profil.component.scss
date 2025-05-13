@@ -14,7 +14,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    text-shadow: 0px 0px 2px black;
+    text-shadow: 0px 0px 1px black;
 
     mat-icon {
         font-size: 2rem;
@@ -24,9 +24,73 @@
         color: var(--green);
     }
 }
-.friend-remove-btn {
 
+.friend-status-accepted-wrapper {
+    display: inline-flex;
+    width: 100%;
+    gap: 8px;
+
+    .friend-status-accepted {
+        flex: 1;
+        background-color: var(--element-bg-color) !important;
+        border: 1px solid var(--primary-color);
+        border-radius: 6px;
+        height: 55px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 9px;
+        padding: 15px;
+        color: var(--green);
+    }
+    .friend-remove-btn {
+        flex: 0;
+        height: 55px;
+        gap: 0px !important;
+        display: inline-flex;
+        align-items: center;
+        text-shadow: 0px 0px 2px black;
+        background-color: var(--element-bg-color) !important;
+        border: 1px solid var(--red);
+        border-radius: 6px;
+        mat-icon {
+            color: var(--red);
+            font-size: 1.5rem;
+            height: 1.5rem;
+            width: 1.5rem;
+        }
+    }
 }
+
+.friend-status-pending-container {
+    background-color: var(--element-bg-color) !important;
+    border-top: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+    width: 100%;
+    border-radius: 0px;
+    height: 55px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    padding: 15px;
+    color: var(--green);
+}
+
+// .friend-status-refused-container {
+//     background-color: var(--element-bg-color) !important;
+//     border-top: 1px solid var(--primary-color);
+//     border-bottom: 1px solid var(--primary-color);
+//     width: 100%;
+//     border-radius: 0px;
+//     height: 55px;
+//     display: inline-flex;
+//     justify-content: center;
+//     align-items: center;
+//     gap: 9px;
+//     padding: 15px;
+//     color: var(--red);
+// }
 
 ::ng-deep button.friend-request-btn .mdc-button__label {
     display: inline-flex;

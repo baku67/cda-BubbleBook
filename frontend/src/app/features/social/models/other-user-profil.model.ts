@@ -20,5 +20,4 @@ export interface OtherUserProfil {
     // ajouter les ?Certificates (filtré via privacySettings dans query)
 
     // ajouter les ?Gallerie(MediasURLs?) (filtrés via privacySettings dans query)
-
 }

@@ -18,7 +18,7 @@
             <div class="friend-status-container">
                 <!-- Bouton d'ajout si pas amis: -->
                 <button 
-                    *ngIf="otherUser.friendshipStatus === 'none'"
+                    *ngIf="otherUser.friendshipStatus === 'none' || otherUser.friendshipStatus === 'REFUSED'"
                     mat-flat-button 
                     color="primary"
                     class="friend-request-btn"
@@ -31,8 +31,8 @@
                 </button>
 
                 <!-- Si amis: -->
-                <div *ngIf="otherUser.friendshipStatus === 'ACCEPTED'">
-                    <div>
+                <div *ngIf="otherUser.friendshipStatus === 'ACCEPTED'" class="friend-status-accepted-wrapper">
+                    <div class="friend-status-accepted">
                         <mat-icon>group</mat-icon>
                         <span>Vous êtes amis.</span>
                     </div>
@@ -44,15 +44,22 @@
                         [disabled]="isSendingRemoveRequest"
                     >
                         <mat-spinner *ngIf="isSendingRemoveRequest" diameter="20"></mat-spinner>
-                        <mat-icon *ngIf="!isSendingRequest">person_remove</mat-icon>
+                        <mat-icon *ngIf="!isSendingRemoveRequest">person_remove</mat-icon>
                         <!-- <span>{{ "SEND_FRIEND_REQUEST" | translate }}</span> -->
                     </button>
                 </div>
 
                 <!-- Si pending: -->
-                <div *ngIf="otherUser.friendshipStatus === 'PENDING'">
-                    <p>Demande d'amis en cours</p>
+                <div *ngIf="otherUser.friendshipStatus === 'PENDING'" class="friend-status-pending-container">
+                    <mat-icon>connect_without_contact</mat-icon>
+                    <span>Demande d'amis en cours</span>
                 </div>
+
+                <!-- Si refused ?: -->
+                <!-- <div *ngIf="otherUser.friendshipStatus === 'REFUSED'" class="friend-status-refused-container">
+                    <mat-icon>person_add_disabled</mat-icon>
+                    <span>Demande d'amis refusée</span>
+                </div> -->
                 
             </div>
         </ng-container>

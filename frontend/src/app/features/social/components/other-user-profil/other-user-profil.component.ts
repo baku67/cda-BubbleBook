@@ -52,8 +52,14 @@ export class OtherUserProfilComponent implements OnInit {
       .sendFriendRequest(other.id)
       .subscribe({
         next: () => {
-          this.flashMessageService.success('Demande d’ami envoyée !');
           this.isSendingRequest = false;
+          this.flashMessageService.success('Demande d’ami envoyée !');
+          // Màj du BehaviorSubject
+          const updatedUser: OtherUserProfil = {
+            ...other,
+            friendshipStatus: 'PENDING'
+          };
+          this.otherUser$.next(updatedUser);
         },
         error: (err) => {
           if(err.status === 409) {
@@ -86,6 +92,12 @@ export class OtherUserProfilComponent implements OnInit {
         next: () => {
           this.flashMessageService.success(`Vous n\'êtes plus ami avec ${other.username} !`);
           this.isSendingRemoveRequest = false;
+          // Màj du BehaviorSubject
+          const updatedUser: OtherUserProfil = {
+            ...other,
+            friendshipStatus: 'none'
+          };
+          this.otherUser$.next(updatedUser);
         },
         error: (err:any) => {
           this.flashMessageService.error('Impossible de retirer des amis. Réessayez plus tard.');
