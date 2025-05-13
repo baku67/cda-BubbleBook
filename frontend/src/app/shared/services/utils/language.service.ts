@@ -24,6 +24,12 @@ export class LanguageService {
     localStorage.setItem('language', newLang);
   }
 
+  public setLanguage(lang: string): void {
+    this.currentLangSubject.next(lang);
+    this.translate.use(lang);
+    localStorage.setItem('language', lang);
+  }
+
   getCurrentLang(): string {
     return this.currentLangSubject.value; // Retourner la valeur courante du BehaviorSubject
   }

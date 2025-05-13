@@ -1,7 +1,28 @@
 .section-content {
-    margin: 20px 0px 10px 8px;
+    margin: 7px 0px 0px 0px;
 }
 
+app-alert-banner {
+    margin-bottom: 7px;
+}
+
+.lang-container {
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: 15px auto;
+}
+::ng-deep .lang-container mat-button-toggle-group mat-button-toggle.mat-button-toggle-checked button span mat-pseudo-checkbox.mat-pseudo-checkbox-checked::after {
+    color: var(--primary-color);
+}
+
+.fish-toggle-line {
+    margin: 15px auto;
+}
+::ng-deep .fish-toggle-line mat-slide-toggle label.mdc-label {
+    padding-left: 0px !important;
+}
 
 .toggle-theme-and-preferences {
     // border: 1px solid var(--primary-color);
@@ -9,16 +30,18 @@
 }
 
 .interface-DT-primary-color-selection {
-    padding: 15px;
+    margin: 25px auto 0px auto;
     width: 100%;
 
     .predefined-colors-div {
         display: inline-flex;
+        gap: 5px;
         flex-direction: column;
         width: 100%;
 
         .colors-container {
             display: inline-flex;
+            justify-content: center;
             flex-flow: wrap;
             gap: 5px;
             margin: 5px 0 7px 0;

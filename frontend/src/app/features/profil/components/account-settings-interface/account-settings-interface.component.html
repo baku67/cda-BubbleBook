@@ -19,30 +19,51 @@
                 msgAlert="{{ 'INFO_LOCALSTORAGE' | translate }}" 
             ></app-alert-banner>
 
-            
-            <!-- x2 Remplacer par toggles material MAIS plus gros que les sous-paramètres (et garder le mat-menu nav comme il est ou uniformiser?) -->
-            
-            <app-language-switch></app-language-switch>
+            <div class="lang-container">
+                <span>Langue :</span>
+                <mat-button-toggle-group
+                    [value]="currentLang"
+                    (change)="switchLanguage($event.value)"
+                    aria-label="Choix de la langue"
+                >
+                    <mat-button-toggle value="en-EN">EN</mat-button-toggle>
+                    <mat-button-toggle value="fr-FR">FR</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
 
 
             <div class="toggle-theme-and-preferences">
 
-                <app-theme-switch></app-theme-switch>
+                <div class="lang-container">
+                    <span>Thème :</span>
+                    <mat-button-toggle-group
+                        [value]="currentTheme$ | async"
+                        (change)="switchTheme($event.value)"
+                        aria-label="Choix du thème"
+                    >
+                        <mat-button-toggle value="dark-theme">
+                            <mat-icon>dark_mode</mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="light-theme">
+                            <mat-icon>light_mode</mat-icon>
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
 
                 <!-- Laisser les paramètres des 2 modes (sans conditions) ? -->
                 <ng-container *ngIf="currentTheme$ | async as currentTheme">
 
                     <!-- Si dark-theme: toggle poissons et choix img background -->
                     <ng-container *ngIf="currentTheme === 'dark-theme'">
-                        <p>
+                        <div class="fish-toggle-line">
                             <mat-slide-toggle 
                                 labelPosition="before"
                                 [checked]="displayFish$ | async"
                                 (change)="toggleFishDisplay()"
                             >
-                                &nbsp;Afficher les poissons
+                                Afficher les poissons&nbsp;
                             </mat-slide-toggle>
-                        </p>
+                        </div>
 
                         <!-- Choix Image -->
                         
