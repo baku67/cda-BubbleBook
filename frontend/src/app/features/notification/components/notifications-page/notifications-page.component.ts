@@ -5,7 +5,7 @@ import { NotificationService } from '../../services/notification.service';
 import { FriendService } from '../../../social/services/friend.service';
 import { FriendRequest } from '../../../social/models/friend-request.model';
 import { COUNTRIES_DB } from '@angular-material-extensions/select-country';
-import { map } from 'rxjs';
+import { finalize, map } from 'rxjs';
 
 @Component({
   selector: 'app-notifications-page',
@@ -17,7 +17,11 @@ export class NotificationsPageComponent {
     friendRequests: FriendRequest[] = [];
     friendRequestLoading = true;
 
+    // TODO:
+    notifications: any[] = [];
+    notificationsLoading = false;
 
+    userNotVerified: boolean = false;
 
     isAnimatingFadeOut = false;
 
@@ -49,7 +53,12 @@ export class NotificationsPageComponent {
             this.friendRequestLoading = false;
           },
           error: (error) => {
-            this.flashMessageService.error("Impossible de charger les demandes d'amis");
+            if(error.status === 403) {
+              // this.flashMessageService.error("Vous devez valider votre adresse mail pour recevoir des demandes d'amis");
+              this.userNotVerified = true;
+            } else {
+              this.flashMessageService.error("Impossible de charger les demandes d'amis");
+            }
             this.friendRequestLoading = false;
           }
         })
@@ -75,26 +84,46 @@ export class NotificationsPageComponent {
       });
     }
 
-    acceptFriendRequest(friendship: FriendRequest) {
-      this.friendService.acceptFriendRequest(friendship.friendshipId).subscribe({
-        next: () => {
-          this.flashMessageService.success(`Vous êtes désormais amis avec ${friendship.emitterUsername} !`);
-          this.loadFriendRequests()
-        },
-        error: (error) => {
-          this.flashMessageService.error("Impossible d'accepter la demande d'amis");
-        }
-      });
+    acceptFriendRequest(friendRequest: FriendRequest) {
+      // spinner btn accept
+      friendRequest.isLoading = true;
+      friendRequest.actionLoading = 'accept';
+
+      this.friendService.acceptFriendRequest(friendRequest.friendshipId)
+        .pipe(finalize(() => {
+          // reset des flags à la fin
+          friendRequest.isLoading = false;
+          friendRequest.actionLoading = undefined;
+        }))
+        .subscribe({
+          next: () => {
+            this.flashMessageService.success(`Vous êtes désormais amis avec ${friendRequest.emitterUsername} !`);
+            this.loadFriendRequests()
+          },
+          error: (error) => {
+            this.flashMessageService.error("Impossible d'accepter la demande d'amis");
+          }
+        });
     }
-    rejectFriendRequest(friendship: FriendRequest) {
-      this.friendService.rejectFriendRequest(friendship.friendshipId).subscribe({
-        next: () => {
-          this.flashMessageService.success(`Vous avez refusé la demande d'amis de ${friendship.emitterUsername} !`);
-          this.loadFriendRequests();
-        },
-        error: (err) => {
-          this.flashMessageService.error("Impossible de refuser la demande d'amis");
-        }
-      });
+    rejectFriendRequest(friendRequest: FriendRequest) {
+      // spinner btn reject
+      friendRequest.isLoading = true;
+      friendRequest.actionLoading = 'reject';
+
+      this.friendService.rejectFriendRequest(friendRequest.friendshipId)
+        .pipe(finalize(() => {
+          // reset des flags à la fin
+          friendRequest.isLoading = false;
+          friendRequest.actionLoading = undefined;
+        }))
+        .subscribe({
+          next: () => {
+            this.flashMessageService.success(`Vous avez refusé la demande d'amis de ${friendRequest.emitterUsername} !`);
+            this.loadFriendRequests();
+          },
+          error: (err) => {
+            this.flashMessageService.error("Impossible de refuser la demande d'amis");
+          }
+        });
     }
 }

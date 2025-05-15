@@ -41,10 +41,12 @@
                     *ngIf="!emailConfirmResent"
                     mat-flat-button 
                     color="primary"
+                    class="profil-modal-change-btn loader-btn"
                     (click)="resendConfirmationEmail(user.email)"
+                    [disabled]="emailConfirmResentLoading"
                 >
-                    <span *ngIf="!emailConfirmResentLoading">{{ "EMAIL_RESEND_CONFIRMATION" | translate }}</span>
-                    <mat-spinner *ngIf="emailConfirmResentLoading"></mat-spinner>
+                    <mat-spinner *ngIf="emailConfirmResentLoading" diameter="20"></mat-spinner>
+                    <span>{{ "EMAIL_RESEND_CONFIRMATION" | translate }}</span>
                 </button>
 
                 <app-alert-banner 
@@ -75,7 +77,7 @@
             <button
                 mat-raised-button
                 color="warn"
-                class="profil-modal-change-btn delete-account-btn"
+                class="profil-modal-change-btn loader-btn"
                 [disabled]="isAccountDeleting"
                 (click)="openModalDeleteAccount()"
             >

@@ -8,6 +8,7 @@
 
 .profil-modal-change-btn {
     margin: 5px auto;
+    width: 100%;
 }
 
 .profil-settings-divider {
@@ -31,12 +32,13 @@
     }
 }
 
-.delete-account-btn {
+.loader-btn {
     width: 100%;
 }
-::ng-deep button.delete-account-btn .mdc-button__label {
+::ng-deep button.loader-btn .mdc-button__label {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    gap: 5px;
 }

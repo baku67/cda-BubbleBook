@@ -32,6 +32,8 @@
     flex-direction: column;
     gap: 3px;
 
+    animation: fadeIn 0.5s ease forwards;
+
     .friend-request-card-infos {
         display: inline-flex;
         gap: 15px;
@@ -106,6 +108,10 @@
             border: 0;
             border-top-left-radius: 4px;
             border-bottom-left-radius: 4px;
+
+            &:disabled {
+                background-color: rgba(128, 128, 128, 0.3);
+            }
         }
         .refuse-btn {
             flex: 1;
@@ -116,11 +122,24 @@
             border: 0;
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
+
+            &:disabled {
+                background-color: rgba(128, 128, 128, 0.3);
+            }
         }
     }
 }
 
-.friend-request-empty-list {
+.spinner-container {
+    min-height: 120px;
+}
+
+.divider {
+    width: 70%;
+    background-color: #9d9d9d;
+}
+
+.empty-list {
     width: 100%;
     margin: 0 auto;
     display: inline-flex;
@@ -128,7 +147,12 @@
     align-items: center;
     gap: 14px;
     margin: 5px auto;
-    backdrop-filter: blur(10px);
     padding: 15px 20px;
     border-radius: 5px;
+    color: rgb(255 255 255 / 75%);
+    font-size: 0.9em;
+}
+
+.notVerified-msg {
+    margin: 10px auto;
 }

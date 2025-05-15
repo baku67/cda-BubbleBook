@@ -12,7 +12,7 @@
 
         <!-- FriendRequests: -->
         <div>
-            <div class="friendrequest-title-container">
+            <div class="friendrequest-title-container fadeInNav">
                 <mat-icon>waving_hand</mat-icon>
                 <h3>Demande d'amis</h3>
             </div>
@@ -20,13 +20,21 @@
             <ng-container *ngIf="!friendRequestLoading">
 
                 <!-- liste vide -->
-                <div *ngIf="friendRequests.length === 0" class="friend-request-empty-list">
+                <div *ngIf="friendRequests.length === 0 && !userNotVerified" class="empty-list fadeInNav">
                     <mat-icon>info</mat-icon>
                     <span>Aucune demande d'amis pour l'instant</span>
                 </div>
 
+                <app-alert-banner 
+                    *ngIf="userNotVerified"
+                    maticon="alternate_email" 
+                    [style]="'warn'" 
+                    msgAlert="{{ 'ALERT_CONFIRM_MAIL' | translate }}"
+                    class="notVerified-msg fadeInNav" 
+                ></app-alert-banner>
+
                 <!-- liste -->
-                <div *ngIf="friendRequests.length !== 0" class="friend-request-list">
+                <div *ngIf="friendRequests.length !== 0" class="friend-request-list fadeInNav">
                     <div *ngFor="let friendRequest of friendRequests" class="friend-request-card">
                         <div class="friend-request-card-infos">
 
@@ -57,11 +65,27 @@
                         </div>
 
                         <div class="friend-request-card-btns">
-                            <button class="accept-btn" (click)="acceptFriendRequest(friendRequest)">
-                                <mat-icon>check</mat-icon>
+                            <button 
+                                class="accept-btn" 
+                                (click)="acceptFriendRequest(friendRequest)"
+                                [disabled]="friendRequest.isLoading"
+                            >
+                                <mat-spinner 
+                                    [diameter]="20"
+                                    *ngIf="friendRequest.isLoading && friendRequest.actionLoading === 'accept'"
+                                ></mat-spinner>
+                                <mat-icon *ngIf="!friendRequest.isLoading || friendRequest.actionLoading !== 'accept'">check</mat-icon>
                             </button>
-                            <button class="refuse-btn" (click)="rejectFriendRequest(friendRequest)">
-                                <mat-icon>close</mat-icon>
+                            <button 
+                                class="refuse-btn" 
+                                (click)="rejectFriendRequest(friendRequest)"
+                                [disabled]="friendRequest.isLoading"
+                            >
+                                <mat-spinner 
+                                    [diameter]="20"
+                                    *ngIf="friendRequest.isLoading && friendRequest.actionLoading === 'reject'"
+                                ></mat-spinner>
+                                <mat-icon *ngIf="!friendRequest.isLoading || friendRequest.actionLoading !== 'reject'">close</mat-icon>
                             </button>
                         </div>
                     </div>
@@ -69,13 +93,24 @@
 
             </ng-container>
 
-            <div class="spinner-container" *ngIf="friendRequestLoading">
-                <mat-spinner></mat-spinner>
+            <div class="spinner-container fadeInNav" *ngIf="friendRequestLoading">
+                <mat-spinner diameter="50"></mat-spinner>
             </div>
         </div>
     </div>
 
 
+    <mat-divider class="divider fadeInNav" [class.fadeOutNav]="isAnimatingFadeOut"></mat-divider>
+
+
     <!-- Notifications: -->
+    <div [class.fadeOutNav]="isAnimatingFadeOut">
+        <!-- Pas de titre (redondant) -->
+        <!-- liste vide -->
+        <div *ngIf="notifications.length === 0" class="empty-list fadeInNav">
+            <mat-icon>info</mat-icon>
+            <span>Aucune notification pour l'instant</span>
+        </div>
+    </div>
 
 </div>

@@ -3,9 +3,6 @@
     display: block;
 }
 
-.errorMsg {
-
-}
 .error-message-text {
     flex: 1; // important sinon icon machée
     color: white; // toujours blanc
@@ -24,23 +21,23 @@
 
 
 .warn {
-    background-color: #750000db;
+    background-color: var(--element-bg-color);
     border: 1px solid var(--red);
 
     mat-icon {
-        color: #ff434c;
+        color: var(--red);
     }
 }
 .success {
-    background-color: #00b570d4;
-    border: 1px solid #00ff6f;
+    background-color: var(--element-bg-color);
+    border: 1px solid var(--green);
 
     mat-icon {
-        color: #00ff6f;
+        color: var(--green);
     }
 }
 .info {
-    background-color: #006dc7d1;
+    background-color: var(--element-bg-color);
     border: 1px solid #00d3ff;
 
     mat-icon {

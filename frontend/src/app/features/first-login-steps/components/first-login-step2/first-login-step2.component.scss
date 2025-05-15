@@ -5,6 +5,10 @@
     flex-direction: column;
 }
 
+.pageContent form {
+    margin-bottom: 70px; // pour aérer en bas
+}
+
 .firstLoginForm {
     margin-top: 30px;
 }
@@ -216,4 +220,10 @@
     100% {
         transform: scale(1.2);
     }
+}
+
+
+.validate-btn, .pass-btn {
+    width: 100%;
+    height: 55px
 }
