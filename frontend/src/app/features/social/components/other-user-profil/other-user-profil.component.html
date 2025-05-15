@@ -18,7 +18,7 @@
             <div class="friend-status-container">
                 <!-- Bouton d'ajout si pas amis: -->
                 <button 
-                    *ngIf="otherUser.friendshipStatus === 'none' || otherUser.friendshipStatus === 'REFUSED'"
+                    *ngIf="otherUser.friendshipStatus === 'none' || otherUser.friendshipStatus === friendshipStatus.Refused"
                     mat-flat-button 
                     color="primary"
                     class="friend-request-btn"
@@ -31,7 +31,7 @@
                 </button>
 
                 <!-- Si amis: -->
-                <div *ngIf="otherUser.friendshipStatus === 'ACCEPTED'" class="friend-status-accepted-wrapper">
+                <div *ngIf="otherUser.friendshipStatus === friendshipStatus.Accepted" class="friend-status-accepted-wrapper">
                     <div class="friend-status-accepted">
                         <mat-icon>group</mat-icon>
                         <span>Vous êtes amis.</span>
@@ -50,7 +50,7 @@
                 </div>
 
                 <!-- Si pending: -->
-                <div *ngIf="otherUser.friendshipStatus === 'PENDING'" class="friend-status-pending-container">
+                <div *ngIf="otherUser.friendshipStatus === friendshipStatus.Pending" class="friend-status-pending-container">
                     <mat-icon>connect_without_contact</mat-icon>
                     <span>Demande d'amis en cours</span>
                 </div>

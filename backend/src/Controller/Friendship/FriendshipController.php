@@ -2,11 +2,13 @@
 namespace App\Controller\Friendship;
 
 use App\Entity\User\User;
+use App\Enum\FriendshipStatus;
 use App\Repository\User\UserRepository;
 use App\Service\Friendship\FriendshipService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -60,8 +62,9 @@ class FriendshipController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
+    // Récupère les FriendShips selon status 
     #[Route('/api/friendship/request', name: 'api_friendship_requests', methods: ['GET'])]
-    public function listRequests(): JsonResponse
+    public function listRequests(Request $request): JsonResponse
     {
         $user = $this->getUser();
         if (!$user instanceof User) {
@@ -71,7 +74,15 @@ class FriendshipController extends AbstractController
             return new JsonResponse(['error' => 'User not verified'], Response::HTTP_FORBIDDEN);
         }
 
-        $dtos = $this->friendshipService->getIncomingFriendRequests($user);
+        // lecture du paramètre ?status=pending ou accepted
+        $statusParam = $request->query->get('status');
+        try {
+            $status = FriendshipStatus::from($statusParam);
+        } catch (\ValueError) {
+            return $this->json(['error'=>'Invalid status'], 400);
+        }
+
+        $dtos = $this->friendshipService->getRequestsByStatus($user, $status);
 
         return $this->json(
             $dtos,

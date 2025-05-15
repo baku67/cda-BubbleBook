@@ -4,6 +4,7 @@ namespace App\Service\Friendship;
 use App\DTO\Response\UserFriendRequestDTO;
 use App\Entity\Friendship\Friendship;
 use App\Entity\User\User;
+use App\Enum\FriendshipStatus;
 use App\Repository\Friendship\FriendshipRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -73,19 +74,29 @@ class FriendshipService
 
 
 
-    public function getIncomingFriendRequests(User $recipient): array
+    public function getRequestsByStatus(User $user, FriendshipStatus $status): array
     {
-        $friendships = $this->friendshipRepository->findPendingByRecipient($recipient);
+        $friendships = $this->friendshipRepository->findByUserAndStatus($user, $status);
+        
         $dtos = [];
         foreach ($friendships as $f) {
-            $e = $f->getEmitter();
+            // Si c'est une demande en attente (pending), on sait que $user === recipient,
+            // donc l’autre est toujours l'emitter()
+            //
+            // Si c'est accepted, $user peut être emitter ou recipient,
+            // on veut toujours l’autre user
+            $other = $f->getEmitter()->getId() === $user->getId()
+                ? $f->getRecipient()
+                : $f->getEmitter()
+            ;
+
             $dtos[] = new UserFriendRequestDTO(
                 $f->getId(),
-                $e->getId(),
-                $e->getUsername(),
-                $e->getAvatarUrl(),
-                $e->getBannerUrl(),
-                $e->getNationality(),
+                $other->getId(),
+                $other->getUsername(),
+                $other->getAvatarUrl(),
+                $other->getBannerUrl(),
+                $other->getNationality(),
                 $f->getStatus()->value,
                 $f->getCreatedAt()
             );

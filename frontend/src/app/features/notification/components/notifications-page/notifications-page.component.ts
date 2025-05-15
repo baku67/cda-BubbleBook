@@ -6,6 +6,7 @@ import { FriendService } from '../../../social/services/friend.service';
 import { FriendRequest } from '../../../social/models/friend-request.model';
 import { COUNTRIES_DB } from '@angular-material-extensions/select-country';
 import { finalize, map } from 'rxjs';
+import { FriendshipStatus } from '../../../social/models/friend-request-status.enum';
 
 @Component({
   selector: 'app-notifications-page',
@@ -43,7 +44,7 @@ export class NotificationsPageComponent {
     private loadFriendRequests() {
       this.friendRequestLoading = true;
 
-      this.friendService.getUserFriendRequests()
+      this.friendService.getUserPendingFriendRequests(FriendshipStatus.Pending)
         .pipe(
           map(friendRequests => this.updateCountryInfoForUsers(friendRequests))
         )
@@ -54,8 +55,7 @@ export class NotificationsPageComponent {
           },
           error: (error) => {
             if(error.status === 403) {
-              // this.flashMessageService.error("Vous devez valider votre adresse mail pour recevoir des demandes d'amis");
-              this.userNotVerified = true;
+              this.userNotVerified = true; // affiche un app-alert
             } else {
               this.flashMessageService.error("Impossible de charger les demandes d'amis");
             }

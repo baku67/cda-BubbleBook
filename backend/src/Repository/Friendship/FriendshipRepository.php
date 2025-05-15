@@ -51,15 +51,25 @@ class FriendshipRepository extends ServiceEntityRepository
 
 
     /**
-     * Retourne la liste des FriendRequest dont l'utilisateur passé en paramètre est le réceptionneur et dont le status est en attente
+     * Récupère les Friendships pour $user selon $status :
+     *  - pending  => uniquement comme recipient (liste des Firend requests dans notifs)
+     *  - accepted => comme recipient OU emitter (liste amis)
      */
-    public function findPendingByRecipient(User $recipient): array
+    public function findByUserAndStatus(User $user, FriendshipStatus $status): array
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.recipient = :recipient')
-            ->andWhere('f.status = :pending')
-            ->setParameter('recipient', $recipient)
-            ->setParameter('pending', FriendshipStatus::PENDING->value)
+        $qb = $this->createQueryBuilder('f')
+            ->andWhere('f.status = :status')
+            ->setParameter('status', $status);
+
+        if ($status === FriendshipStatus::PENDING) {
+            $qb->andWhere('f.recipient = :user')
+               ->setParameter('user', $user);
+        } else if ($status === FriendshipStatus::ACCEPTED) { 
+            $qb->andWhere('(f.recipient = :user OR f.emitter = :user)')
+               ->setParameter('user', $user);
+        }
+
+        return $qb
             ->orderBy('f.createdAt', 'DESC')
             ->getQuery()
             ->getResult();

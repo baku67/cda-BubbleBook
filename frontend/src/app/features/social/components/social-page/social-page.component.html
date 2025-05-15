@@ -11,24 +11,40 @@
     <section class="social-page-content" [class.fadeOutNav]="isAnimatingFadeOut">
 
         <!-- Onglets NEWS, SEARCH -->
-        <mat-tab-group>
+        <mat-tab-group
+            [(selectedIndex)]="selectedIndex"
+            (selectedTabChange)="onTabChange($event)"
+        >
 
             <!-- FIL D'ACTUALITE  -->
             <mat-tab>
                 <ng-template mat-tab-label>
                     <mat-icon class="tab-title-icon">forum</mat-icon>
-                    <span>Activités</span>
+                    <!-- <span>{{ "NEWS_FEED_TITLE" | translate }}</span> -->
                 </ng-template>
                 <div class="tab-page-wrapper">
                     contenu actu GET
                 </div>
             </mat-tab>
 
+            <!-- AMIS -->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="tab-title-icon">diversity_1</mat-icon>
+                    <!-- <span>{{ "FRIENDS_TITLE" | translate }}</span> -->
+                </ng-template>
+                <ng-template matTabContent>
+                    <div class="tab-page-wrapper">
+                        <app-friends-list></app-friends-list>
+                    </div>
+                </ng-template>
+            </mat-tab>
+
             <!-- Recherche -->
             <mat-tab>
                 <ng-template mat-tab-label>
                     <mat-icon class="tab-title-icon">person_search</mat-icon>
-                    <span>Recherche</span>
+                    <!-- <span>{{ "SEARCH_USER_TITLE" | translate }}</span> -->
                 </ng-template>
                 <div class="tab-page-wrapper">
                     <app-user-search [currentUser]="currentUser"></app-user-search>

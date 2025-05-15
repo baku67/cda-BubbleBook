@@ -71,6 +71,7 @@ import { ChangePasswordComponent } from './features/profil/components/change-pas
 import { ConfirmDeleteAccountComponent } from './features/profil/components/confirm-delete-account/confirm-delete-account.component';
 import { NotificationsPageComponent } from './features/notification/components/notifications-page/notifications-page.component';
 import { TimeAgoPipe } from './shared/pipes/time-ago.pipe';
+import { FriendsListComponent } from './features/social/components/friends-list/friends-list.component';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -120,6 +121,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
     NotificationsPageComponent,
     TimeAgoPipe,
+
+    FriendsListComponent,
   ],
   imports: [
     MatCardModule,

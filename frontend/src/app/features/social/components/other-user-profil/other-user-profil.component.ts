@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { FriendService } from '../../services/friend.service';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
+import { FriendshipStatus } from '../../models/friend-request-status.enum';
 
 @Component({
   selector: 'app-other-user-profil',
@@ -14,6 +15,8 @@ import { FlashMessageService } from '../../../../shared/services/utils/flash-mes
 export class OtherUserProfilComponent implements OnInit {
 
   otherUser$ = new BehaviorSubject<OtherUserProfil | null>(null);
+
+  friendshipStatus = FriendshipStatus;
 
   isSendingRequest = false;
   isSendingRemoveRequest = false;
@@ -57,7 +60,7 @@ export class OtherUserProfilComponent implements OnInit {
           // Màj du BehaviorSubject
           const updatedUser: OtherUserProfil = {
             ...other,
-            friendshipStatus: 'PENDING'
+            friendshipStatus: FriendshipStatus.Pending
           };
           this.otherUser$.next(updatedUser);
         },
