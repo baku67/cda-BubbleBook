@@ -60,4 +60,51 @@ class FriendshipController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
+    #[Route('/api/friendship/request', name: 'api_friendship_requests', methods: ['GET'])]
+    public function listRequests(): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
+        if (!$user->isVerified()) {
+            return new JsonResponse(['error' => 'User not verified'], Response::HTTP_FORBIDDEN);
+        }
+
+        $dtos = $this->friendshipService->getIncomingFriendRequests($user);
+
+        return $this->json(
+            $dtos,
+            Response::HTTP_OK,
+            [],
+            // ['groups' => ['friend_request_list']]
+        );
+    }
+
+    #[Route('/api/friendship/{id}/accept', name: 'api_friendship_accept', methods: ['PATCH'])]
+    public function acceptFriend(int $id): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user?->isVerified()) {
+            return $this->json(['error'=>'Non autorisé'], Response::HTTP_FORBIDDEN);
+        }
+
+        $this->friendshipService->respondToRequestById($user, $id, true);
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
+    #[Route('/api/friendship/{id}/reject', name: 'api_friendship_reject', methods: ['PATCH'])]
+    public function rejectFriend(int $id): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user?->isVerified()) {
+            return $this->json(['error'=>'Non autorisé'], Response::HTTP_FORBIDDEN);
+        }
+
+        $this->friendshipService->respondToRequestById($user, $id, false);
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
 }

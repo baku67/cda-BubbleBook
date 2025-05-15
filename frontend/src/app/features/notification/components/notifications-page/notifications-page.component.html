@@ -10,10 +10,72 @@
 
     <div [class.fadeOutNav]="isAnimatingFadeOut" class="notifications-container">
 
+        <!-- FriendRequests: -->
         <div>
-            <h3>Amis</h3>
-        </div>
+            <div class="friendrequest-title-container">
+                <mat-icon>waving_hand</mat-icon>
+                <h3>Demande d'amis</h3>
+            </div>
 
+            <ng-container *ngIf="!friendRequestLoading">
+
+                <!-- liste vide -->
+                <div *ngIf="friendRequests.length === 0" class="friend-request-empty-list">
+                    <mat-icon>info</mat-icon>
+                    <span>Aucune demande d'amis pour l'instant</span>
+                </div>
+
+                <!-- liste -->
+                <div *ngIf="friendRequests.length !== 0" class="friend-request-list">
+                    <div *ngFor="let friendRequest of friendRequests" class="friend-request-card">
+                        <div class="friend-request-card-infos">
+
+                            <!-- Avatar: -->
+                            <div class="search-user-card-avatar-wrapper" [ngStyle]="{ 'background-image': 'url(' + friendRequest.emitterBannerUrl + ')' }">
+                                <div class="search-user-card-avatar-container">
+                                    <img [src]="friendRequest.emitterAvatarUrl" class="search-user-card-avatar-img" alt="User avatar" />
+                                </div>
+                            </div>
+
+                            <div class="friend-request-card-center-div">
+                                <!-- Drapeau + username -->
+                                <div class="flag-and-username">
+                                    <img 
+                                        *ngIf="friendRequest.flagSvgUrl"
+                                        [src]="friendRequest.flagSvgUrl"
+                                        [alt]="friendRequest.countryName"
+                                        width="24"
+                                        height="24"
+                                        [matTooltip]="friendRequest.countryName"
+                                        class="country-flag-png"
+                                    >
+                                    <span>{{ friendRequest.emitterUsername }}</span>
+                                </div>
+                                
+                                <span class="created-at">{{ friendRequest.sentAt | timeAgo }}</span>
+                            </div>
+                        </div>
+
+                        <div class="friend-request-card-btns">
+                            <button class="accept-btn" (click)="acceptFriendRequest(friendRequest)">
+                                <mat-icon>check</mat-icon>
+                            </button>
+                            <button class="refuse-btn" (click)="rejectFriendRequest(friendRequest)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </ng-container>
+
+            <div class="spinner-container" *ngIf="friendRequestLoading">
+                <mat-spinner></mat-spinner>
+            </div>
+        </div>
     </div>
+
+
+    <!-- Notifications: -->
 
 </div>

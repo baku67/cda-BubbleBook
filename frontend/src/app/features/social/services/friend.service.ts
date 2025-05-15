@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environments';
 import { Observable } from 'rxjs';
+import { FriendRequest } from '../models/friend-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +29,30 @@ export class FriendService {
      * Envoie une requête DELETE pour supprimer une amitié avec l'utilisateur {recipientId}.
      */
     public sendFriendRemoveRequest(recipientId: string): Observable<void> {
-        return this.http.delete<void>(
-            `${this.apiUrl}/api/friendship/request/${recipientId}`,
-            {} // pas de payload, tout est dans l’URL
-        );
+        return this.http.delete<void>(`${this.apiUrl}/api/friendship/request/${recipientId}`);
     }
 
+
+    /**
+     * Envoie une requête GET pour récupérer les demande d'amis dont l'utilisateur connecté est récepteur.
+     */
+    public getUserFriendRequests(): Observable<FriendRequest[]> {
+        return this.http.get<FriendRequest[]>(`${this.apiUrl}/api/friendship/request`);
+    }
+
+    // accept FriendRequest
+    public acceptFriendRequest(friendshipId: string): Observable<void> {
+    return this.http.patch<void>(
+        `${this.apiUrl}/api/friendship/${friendshipId}/accept`,
+        {}
+    );
+    }
+
+    // reject FriendRequest
+    public rejectFriendRequest(friendshipId: string): Observable<void> {
+    return this.http.patch<void>(
+        `${this.apiUrl}/api/friendship/${friendshipId}/reject`,
+        {}
+    );
+    }
 }

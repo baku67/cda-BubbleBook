@@ -4,6 +4,7 @@ namespace App\Repository\Friendship;
 
 use App\Entity\Friendship\Friendship;
 use App\Entity\User\User;
+use App\Enum\FriendshipStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -46,6 +47,22 @@ class FriendshipRepository extends ServiceEntityRepository
             ->setParameter('b', $b)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+
+    /**
+     * Retourne la liste des FriendRequest dont l'utilisateur passé en paramètre est le réceptionneur et dont le status est en attente
+     */
+    public function findPendingByRecipient(User $recipient): array
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.recipient = :recipient')
+            ->andWhere('f.status = :pending')
+            ->setParameter('recipient', $recipient)
+            ->setParameter('pending', FriendshipStatus::PENDING->value)
+            ->orderBy('f.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
     
 

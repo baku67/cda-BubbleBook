@@ -26,7 +26,7 @@
     <ul class="search-users-list">
       <li *ngFor="let user of users">
         <a [routerLink]="['/social/user-profil/', user.id]">
-        <div class="search-user-card">            
+          <div class="search-user-card">            
             <!-- <div class="search-user-card-avatar-wrapper"> -->
             <div class="search-user-card-avatar-wrapper" [ngStyle]="{ 'background-image': 'url(' + user.bannerUrl + ')' }">
               <div class="search-user-card-avatar-container">

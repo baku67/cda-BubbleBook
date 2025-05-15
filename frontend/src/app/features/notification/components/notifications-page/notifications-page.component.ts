@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
+import { NotificationService } from '../../services/notification.service';
+import { FriendService } from '../../../social/services/friend.service';
+import { FriendRequest } from '../../../social/models/friend-request.model';
+import { COUNTRIES_DB } from '@angular-material-extensions/select-country';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-notifications-page',
@@ -9,14 +14,87 @@ import { FlashMessageService } from '../../../../shared/services/utils/flash-mes
 })
 export class NotificationsPageComponent {
 
+    friendRequests: FriendRequest[] = [];
+    friendRequestLoading = true;
+
+
+
     isAnimatingFadeOut = false;
 
     constructor(
       private animationService: AnimationService,
       private flashMessageService: FlashMessageService,
+      private notificationService: NotificationService,
+      private friendService: FriendService
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
         this.isAnimatingFadeOut = animating;
+      });
+    }
+
+    ngOnInit(): void {
+      this.loadFriendRequests();
+    }
+
+    private loadFriendRequests() {
+      this.friendRequestLoading = true;
+
+      this.friendService.getUserFriendRequests()
+        .pipe(
+          map(friendRequests => this.updateCountryInfoForUsers(friendRequests))
+        )
+        .subscribe({
+          next: (friendRequests) => {
+            this.friendRequests = friendRequests;
+            this.friendRequestLoading = false;
+          },
+          error: (error) => {
+            this.flashMessageService.error("Impossible de charger les demandes d'amis");
+            this.friendRequestLoading = false;
+          }
+        })
+    }
+
+    private updateCountryInfoForUsers(friendRequests: FriendRequest[]): FriendRequest[] {
+      return friendRequests.map(friendReq => {
+        if (friendReq.emitterNationality) {
+          const country = COUNTRIES_DB.find(c => c.alpha3Code === friendReq.emitterNationality);
+          if (country) {
+            return {
+              ...friendReq,
+              countryName: country.name,
+              flagSvgUrl: `assets/svg-country-flags/svg/${country.alpha2Code.toLowerCase()}.svg`
+            };
+          }
+        }
+        return {
+          ...friendReq,
+          countryName: 'Inconnu',
+          flagSvgUrl: `assets/images/default-flag.png`
+        };
+      });
+    }
+
+    acceptFriendRequest(friendship: FriendRequest) {
+      this.friendService.acceptFriendRequest(friendship.friendshipId).subscribe({
+        next: () => {
+          this.flashMessageService.success(`Vous êtes désormais amis avec ${friendship.emitterUsername} !`);
+          this.loadFriendRequests()
+        },
+        error: (error) => {
+          this.flashMessageService.error("Impossible d'accepter la demande d'amis");
+        }
+      });
+    }
+    rejectFriendRequest(friendship: FriendRequest) {
+      this.friendService.rejectFriendRequest(friendship.friendshipId).subscribe({
+        next: () => {
+          this.flashMessageService.success(`Vous avez refusé la demande d'amis de ${friendship.emitterUsername} !`);
+          this.loadFriendRequests();
+        },
+        error: (err) => {
+          this.flashMessageService.error("Impossible de refuser la demande d'amis");
+        }
       });
     }
 }

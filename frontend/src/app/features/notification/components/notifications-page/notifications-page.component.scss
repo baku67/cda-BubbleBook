@@ -1,0 +1,134 @@
+.notifications-container {
+    width: 100%;
+    max-width: 100%;
+}
+
+.friendrequest-title-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.904);
+    mat-icon {
+        color: var(--primary-color);
+    }
+}
+
+.friend-request-list {
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px auto;
+}
+
+.friend-request-card {
+    width: 95%;
+    margin: 0 auto;
+    background-color: var(--element-bg-color);
+    padding: 2px 2px;
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 3px;
+
+    .friend-request-card-infos {
+        display: inline-flex;
+        gap: 15px;
+
+        .search-user-card-avatar-wrapper {
+            // BannerUrl:
+            background-position: center;
+            background-size: cover;
+
+            display: flex;
+            height: 100%;
+            clip-path: polygon(100% 0, 71% 100%, 0 100%, 0 0);
+            background-color: var(--primary-color);
+            padding: 7px 32px 7px 10px;
+            border-radius: 4px 0px 0px 4px;
+        }
+        .search-user-card-avatar-container {
+            align-self: center;
+            overflow: hidden;
+            display: flex;
+
+            border: 1px solid rgba(128, 128, 128, 0.288);
+            border-radius: 50%;
+        }
+
+        .search-user-card-avatar-img {
+            height: 50px;
+            width: 50px;
+            padding: 2px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+
+        .friend-request-card-center-div {
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: -webkit-fill-available;
+            overflow: hidden;
+
+            .flag-and-username {
+                display: inline-flex;               
+                align-items: center;
+                gap: 7px;
+            }
+        }
+
+        .country-flag-png {
+            width: 30px;
+            height: 20px;
+        }
+
+        .created-at {
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+    }
+    .friend-request-card-btns {
+        display: inline-flex;
+        flex-direction: row;
+        height: 43px;
+        gap: 2px;
+        color: black;
+
+        .accept-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--green);
+            border: 0;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+        .refuse-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--red);
+            border: 0;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+    }
+}
+
+.friend-request-empty-list {
+    width: 100%;
+    margin: 0 auto;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin: 5px auto;
+    backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    border-radius: 5px;
+}
