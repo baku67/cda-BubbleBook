@@ -5,6 +5,7 @@ import { FriendshipStatus } from '../../models/friend-request-status.enum';
 import { map } from 'rxjs';
 import { COUNTRIES_DB } from '@angular-material-extensions/select-country';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-friends-list',
@@ -20,7 +21,8 @@ export class FriendsListComponent {
 
     constructor(
       private friendService: FriendService,
-      private flashMessageService: FlashMessageService
+      private flashMessageService: FlashMessageService,
+      private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -68,5 +70,9 @@ export class FriendsListComponent {
           flagSvgUrl: `assets/images/default-flag.png`
         };
       });
+    }
+
+    public navigateFriendProfil(friendId: string) {
+      this.router.navigate(['/social', 'user-profil', friendId]);
     }
 }

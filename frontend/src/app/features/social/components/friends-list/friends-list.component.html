@@ -1,3 +1,8 @@
+<div class="friendrequest-title-container fadeInNav">
+    <mat-icon>diversity_1</mat-icon>
+    <h3>Amis</h3>
+</div>
+
 <ng-container *ngIf="!friendsLoading">
 
     <!-- liste vide -->
@@ -16,7 +21,7 @@
 
     <!-- liste -->
     <div *ngIf="friends.length !== 0" class="friend-request-list fadeInNav">
-        <div *ngFor="let friendRequest of friends" class="friend-request-card">
+        <div *ngFor="let friendRequest of friends" class="friend-request-card" (click)="navigateFriendProfil(friendRequest.emitterId)">
             <div class="friend-request-card-infos">
 
                 <!-- Avatar + Banniere + Flag -->

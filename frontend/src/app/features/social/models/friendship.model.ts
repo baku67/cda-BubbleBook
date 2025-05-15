@@ -3,7 +3,7 @@ import { FriendshipStatus } from "./friend-request-status.enum";
 // Sert pour les friendRequest et les FriendLists
 export interface Friendship {
   friendshipId: string;
-  emitterId: string;
+  emitterId: string; // Dans le cadre des Friendship.status = ACCEPTED (Amis), l'emitter est l'autre User forcément
   emitterUsername: string;
   emitterAvatarUrl: string;
   emitterBannerUrl: string;
