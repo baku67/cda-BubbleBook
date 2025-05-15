@@ -51,12 +51,22 @@
             border-radius: 4px 0px 0px 4px;
         }
         .search-user-card-avatar-container {
+            position: relative;
             align-self: center;
-            overflow: hidden;
+            overflow: visible;
             display: flex;
 
-            border: 1px solid rgba(128, 128, 128, 0.288);
+            border: 1px solid rgb(0 0 0);
             border-radius: 50%;
+
+            .country-flag-png {
+                position: absolute;
+                bottom: 0;
+                right: -2px;
+                width: 22px;
+                height: 16px;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+            }
         }
 
         .search-user-card-avatar-img {
@@ -80,11 +90,6 @@
                 align-items: center;
                 gap: 7px;
             }
-        }
-
-        .country-flag-png {
-            width: 30px;
-            height: 20px;
         }
 
         .created-at {

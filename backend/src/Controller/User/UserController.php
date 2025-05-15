@@ -117,7 +117,7 @@ class UserController extends AbstractController
             return $this->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $users = $userSearchService->search($searchCriteria);
+        $users = $userSearchService->search($user, $searchCriteria);
     
         return $this->json($users, Response::HTTP_OK);
     }

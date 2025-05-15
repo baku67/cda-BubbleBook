@@ -1,0 +1,104 @@
+.empty-list {
+    width: 100%;
+    margin: 0 auto;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin: 5px auto;
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: rgb(255 255 255 / 75%);
+    font-size: 0.9em;
+}
+
+.notVerified-msg {
+    margin: 10px auto;
+}
+
+.friend-request-list {
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px auto;
+}
+
+.friend-request-card {
+    width: 95%;
+    margin: 0 auto;
+    background-color: var(--element-bg-color);
+    padding: 2px 2px;
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 3px;
+
+    animation: fadeIn 0.5s ease forwards;
+
+    .friend-request-card-infos {
+        display: inline-flex;
+        gap: 15px;
+
+        .search-user-card-avatar-wrapper {
+            // BannerUrl:
+            background-position: center;
+            background-size: cover;
+
+            display: flex;
+            height: 100%;
+            clip-path: polygon(100% 0, 71% 100%, 0 100%, 0 0);
+            background-color: var(--primary-color);
+            padding: 3px 32px 3px 10px;
+            border-radius: 4px 0px 0px 4px;
+        }
+        .search-user-card-avatar-container {
+            position: relative;
+            overflow: visible;
+            align-self: center;
+            display: flex;
+
+            border: 1px solid rgb(0 0 0);
+            border-radius: 50%;
+
+            .country-flag-png {
+                position: absolute;
+                bottom: 0;
+                right: -2px;
+                width: 22px;
+                height: 16px;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        .search-user-card-avatar-img {
+            height: 50px;
+            width: 50px;
+            padding: 2px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+
+        .friend-request-card-center-div {
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: -webkit-fill-available;
+            overflow: hidden;
+
+            .flag-and-username {
+                display: inline-flex;               
+                align-items: center;
+                gap: 7px;
+            }
+        }
+
+
+    }
+}
+
+.spinner-container {
+    min-height: 120px;
+}

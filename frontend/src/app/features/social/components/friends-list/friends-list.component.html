@@ -1,1 +1,53 @@
-<p>friends-list works!</p>
+<ng-container *ngIf="!friendsLoading">
+
+    <!-- liste vide -->
+    <div *ngIf="friends.length === 0 && !userNotVerified" class="empty-list fadeInNav">
+        <mat-icon>info</mat-icon>
+        <span>Aucun amis pour le moment</span>
+    </div>
+
+    <app-alert-banner 
+        *ngIf="userNotVerified"
+        maticon="alternate_email" 
+        [style]="'warn'" 
+        msgAlert="{{ 'ALERT_CONFIRM_MAIL' | translate }}"
+        class="notVerified-msg fadeInNav" 
+    ></app-alert-banner>
+
+    <!-- liste -->
+    <div *ngIf="friends.length !== 0" class="friend-request-list fadeInNav">
+        <div *ngFor="let friendRequest of friends" class="friend-request-card">
+            <div class="friend-request-card-infos">
+
+                <!-- Avatar + Banniere + Flag -->
+                <div class="search-user-card-avatar-wrapper" [ngStyle]="{ 'background-image': 'url(' + friendRequest.emitterBannerUrl + ')' }">
+                    <div class="search-user-card-avatar-container">
+                        <img [src]="friendRequest.emitterAvatarUrl" class="search-user-card-avatar-img" alt="User avatar" />
+                        <img 
+                            *ngIf="friendRequest.flagSvgUrl"
+                            [src]="friendRequest.flagSvgUrl"
+                            [alt]="friendRequest.countryName"
+                            width="24"
+                            height="24"
+                            [matTooltip]="friendRequest.countryName"
+                            class="country-flag-png"
+                        >
+                    </div>
+                </div>
+
+                <div class="friend-request-card-center-div">
+                    <div class="flag-and-username">
+                        <span>{{ friendRequest.emitterUsername }}</span>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</ng-container>
+
+<div class="spinner-container fadeInNav" *ngIf="friendsLoading">
+    <mat-spinner diameter="50"></mat-spinner>
+</div>

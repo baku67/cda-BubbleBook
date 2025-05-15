@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FriendRequest } from '../../models/friend-request.model';
+import { Friendship } from '../../models/friendship.model';
 import { FriendService } from '../../services/friend.service';
 import { FriendshipStatus } from '../../models/friend-request-status.enum';
 import { map } from 'rxjs';
@@ -13,8 +13,8 @@ import { FlashMessageService } from '../../../../shared/services/utils/flash-mes
 })
 export class FriendsListComponent {
 
-    friendRequests: FriendRequest[] = [];
-    friendRequestLoading = true;
+    friends: Friendship[] = [];
+    friendsLoading = true;
 
     userNotVerified: boolean = false;
 
@@ -28,7 +28,7 @@ export class FriendsListComponent {
     }
 
     private loadFriends() {
-      this.friendRequestLoading = true;
+      this.friendsLoading = true;
 
       this.friendService.getUserPendingFriendRequests(FriendshipStatus.Accepted)
         .pipe(
@@ -36,8 +36,8 @@ export class FriendsListComponent {
         )
         .subscribe({
           next: (friendRequests) => {
-            this.friendRequests = friendRequests;
-            this.friendRequestLoading = false;
+            this.friends = friendRequests;
+            this.friendsLoading = false;
           },
           error: (error) => {
             if(error.status === 403) {
@@ -45,12 +45,12 @@ export class FriendsListComponent {
             } else {
               this.flashMessageService.error("Impossible de charger les amis");
             }
-            this.friendRequestLoading = false;
+            this.friendsLoading = false;
           }
         })
     }
 
-    private updateCountryInfoForUsers(friendRequests: FriendRequest[]): FriendRequest[] {
+    private updateCountryInfoForUsers(friendRequests: Friendship[]): Friendship[] {
       return friendRequests.map(friendReq => {
         if (friendReq.emitterNationality) {
           const country = COUNTRIES_DB.find(c => c.alpha3Code === friendReq.emitterNationality);

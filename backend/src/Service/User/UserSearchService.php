@@ -4,6 +4,7 @@ namespace App\Service\User;
 
 use App\DTO\Request\UserSearchCriteriaDTO;
 use App\DTO\Response\UsersSearchDTO;
+use App\Entity\User\User;
 use App\Repository\User\UserRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -22,9 +23,10 @@ class UserSearchService
      * @param UserSearchCriteriaDTO $searchDTO
      * @return array
      */
-    public function search(UserSearchCriteriaDTO $searchDTO): array
+    public function search(User $viewer, UserSearchCriteriaDTO $searchDTO): array
     {
         $users = $this->userRepository->searchUsers(
+            $viewer,
             $searchDTO->query,
             $searchDTO->type,
             $searchDTO->order,

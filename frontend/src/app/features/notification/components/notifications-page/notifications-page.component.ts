@@ -3,7 +3,7 @@ import { AnimationService } from '../../../../shared/services/utils/animation.se
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
 import { NotificationService } from '../../services/notification.service';
 import { FriendService } from '../../../social/services/friend.service';
-import { FriendRequest } from '../../../social/models/friend-request.model';
+import { Friendship } from '../../../social/models/friendship.model';
 import { COUNTRIES_DB } from '@angular-material-extensions/select-country';
 import { finalize, map } from 'rxjs';
 import { FriendshipStatus } from '../../../social/models/friend-request-status.enum';
@@ -15,7 +15,7 @@ import { FriendshipStatus } from '../../../social/models/friend-request-status.e
 })
 export class NotificationsPageComponent {
 
-    friendRequests: FriendRequest[] = [];
+    friendRequests: Friendship[] = [];
     friendRequestLoading = true;
 
     // TODO:
@@ -64,7 +64,7 @@ export class NotificationsPageComponent {
         })
     }
 
-    private updateCountryInfoForUsers(friendRequests: FriendRequest[]): FriendRequest[] {
+    private updateCountryInfoForUsers(friendRequests: Friendship[]): Friendship[] {
       return friendRequests.map(friendReq => {
         if (friendReq.emitterNationality) {
           const country = COUNTRIES_DB.find(c => c.alpha3Code === friendReq.emitterNationality);
@@ -84,7 +84,7 @@ export class NotificationsPageComponent {
       });
     }
 
-    acceptFriendRequest(friendRequest: FriendRequest) {
+    acceptFriendRequest(friendRequest: Friendship) {
       // spinner btn accept
       friendRequest.isLoading = true;
       friendRequest.actionLoading = 'accept';
@@ -105,7 +105,7 @@ export class NotificationsPageComponent {
           }
         });
     }
-    rejectFriendRequest(friendRequest: FriendRequest) {
+    rejectFriendRequest(friendRequest: Friendship) {
       // spinner btn reject
       friendRequest.isLoading = true;
       friendRequest.actionLoading = 'reject';

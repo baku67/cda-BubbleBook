@@ -37,7 +37,7 @@ class UserProfileService
 
     public function getOtherUserProfile(User $currentUser, int $otherUserId): ?OtherUserProfilDTO
     {
-        $otherUser = $this->userRepository->findOtherUser($otherUserId);
+        $otherUser = $this->userRepository->findVisibleUserById($currentUser, $otherUserId);
 
         if (!$otherUser) {
             return null; 

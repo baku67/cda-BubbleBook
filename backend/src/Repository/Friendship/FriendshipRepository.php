@@ -5,6 +5,7 @@ namespace App\Repository\Friendship;
 use App\Entity\Friendship\Friendship;
 use App\Entity\User\User;
 use App\Enum\FriendshipStatus;
+use App\Enum\PrivacyOption;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -51,22 +52,38 @@ class FriendshipRepository extends ServiceEntityRepository
 
 
     /**
-     * Récupère les Friendships pour $user selon $status :
+     * Récupère les Friendships pour $user selon $status (Friend-requests et friends-list):
      *  - pending  => uniquement comme recipient (liste des Firend requests dans notifs)
+     *      => ! Même si leurs profil est privé (à voir..)
      *  - accepted => comme recipient OU emitter (liste amis)
+     *      => ! Vérification du profilPrivacy PrivacyOption.ALL ou PrivacyOption.FRIENDS_ONLY
      */
     public function findByUserAndStatus(User $user, FriendshipStatus $status): array
     {
         $qb = $this->createQueryBuilder('f')
+            // joins pour pouvoir filtrer sur profilPrivacy
+            ->leftJoin('f.emitter',   'e')
+            ->leftJoin('f.recipient', 'r')
+            ->addSelect('e', 'r')
             ->andWhere('f.status = :status')
             ->setParameter('status', $status);
 
         if ($status === FriendshipStatus::PENDING) {
+            // on liste les demandes reçues
             $qb->andWhere('f.recipient = :user')
                ->setParameter('user', $user);
-        } else if ($status === FriendshipStatus::ACCEPTED) { 
-            $qb->andWhere('(f.recipient = :user OR f.emitter = :user)')
-               ->setParameter('user', $user);
+        } else {
+            // on liste les amis, quel que soit le sens,
+            // mais on ne veut que ceux dont l’autre user.profilPrivacy est publique ou amis-only
+            $qb->andWhere(
+                '( (f.recipient = :user AND e.profilPrivacy IN (:privacyOptions)) ' .
+                'OR (f.emitter   = :user AND r.profilPrivacy IN (:privacyOptions)) )'
+            )
+            ->setParameter('user', $user)
+            ->setParameter('privacyOptions', [
+                PrivacyOption::ALL,
+                PrivacyOption::FRIENDS_ONLY,
+            ]);
         }
 
         return $qb

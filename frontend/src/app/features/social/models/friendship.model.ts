@@ -1,7 +1,7 @@
 import { FriendshipStatus } from "./friend-request-status.enum";
 
 // Sert pour les friendRequest et les FriendLists
-export interface FriendRequest {
+export interface Friendship {
   friendshipId: string;
   emitterId: string;
   emitterUsername: string;

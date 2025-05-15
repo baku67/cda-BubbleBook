@@ -38,16 +38,9 @@
                     <div *ngFor="let friendRequest of friendRequests" class="friend-request-card">
                         <div class="friend-request-card-infos">
 
-                            <!-- Avatar: -->
+                            <!-- Avatar + Banner + Flag -->
                             <div class="search-user-card-avatar-wrapper" [ngStyle]="{ 'background-image': 'url(' + friendRequest.emitterBannerUrl + ')' }">
                                 <div class="search-user-card-avatar-container">
-                                    <img [src]="friendRequest.emitterAvatarUrl" class="search-user-card-avatar-img" alt="User avatar" />
-                                </div>
-                            </div>
-
-                            <div class="friend-request-card-center-div">
-                                <!-- Drapeau + username -->
-                                <div class="flag-and-username">
                                     <img 
                                         *ngIf="friendRequest.flagSvgUrl"
                                         [src]="friendRequest.flagSvgUrl"
@@ -57,6 +50,13 @@
                                         [matTooltip]="friendRequest.countryName"
                                         class="country-flag-png"
                                     >
+                                    <img [src]="friendRequest.emitterAvatarUrl" class="search-user-card-avatar-img" alt="User avatar" />
+                                </div>
+                            </div>
+
+                            <div class="friend-request-card-center-div">
+                                <!-- username -->
+                                <div class="flag-and-username">
                                     <span>{{ friendRequest.emitterUsername }}</span>
                                 </div>
                                 

@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environments';
 import { Observable } from 'rxjs';
-import { FriendRequest } from '../models/friend-request.model';
+import { Friendship } from '../models/friendship.model';
 import { FriendshipStatus } from '../models/friend-request-status.enum';
 
 @Injectable({
@@ -37,9 +37,9 @@ export class FriendService {
     /**
      * Envoie une requête GET pour récupérer les demande d'amis (selon status en paramètre) dont l'utilisateur connecté est récepteur.
      */
-    public getUserPendingFriendRequests(status: FriendshipStatus): Observable<FriendRequest[]> {
+    public getUserPendingFriendRequests(status: FriendshipStatus): Observable<Friendship[]> {
         const params = new HttpParams().set("status", status);
-        return this.http.get<FriendRequest[]>(
+        return this.http.get<Friendship[]>(
             `${this.apiUrl}/api/friendship/request`,
             { params }
         );

@@ -1,9 +1,9 @@
 <?php
 namespace App\Repository\User;
 
-use App\DTO\Response\OtherUserProfilDTO;
-use App\DTO\Response\UserProfilDTO;
 use App\Entity\User\User;
+use App\Enum\FriendshipStatus;
+use App\Enum\PrivacyOption;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,58 +18,123 @@ class UserRepository extends ServiceEntityRepository
     }
 
 
-    public function findOtherUser(int $userId): ?User {
-        return $this->createQueryBuilder('u')
-        ->where('u.id = :userId')
-        ->andWhere('u.profilPrivacy != :privacy')
-        ->setParameter('userId', $userId)
-        ->setParameter('privacy', 'NO_ONE')
-        ->getQuery()
-        ->getOneOrNullResult();
+    /**
+     * Cherche un utilisateur par id **seulement** s’il est visible par $viewer :
+     * - profilPrivacy != NO_ONE
+     * - et si profilPrivacy = FRIENDS_ONLY, il doit exister une amitié accepted
+     */
+    public function findVisibleUserById(User $viewer, int $otherUserId): ?User
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->leftJoin(
+                'App\Entity\Friendship\Friendship',
+                'f',
+                'WITH',
+                '(f.emitter   = :viewer AND f.recipient = u AND f.status = :accepted)
+                OR
+                (f.recipient = :viewer AND f.emitter   = u AND f.status = :accepted)'
+            )
+            ->andWhere('u.id = :otherUserId')
+            ->andWhere('u.profilPrivacy != :noOne')
+            ->andWhere(
+                '(u.profilPrivacy = :all OR (u.profilPrivacy = :friendsOnly AND f.id IS NOT NULL))'
+            )
+            // Remplace setParameters() par setParameter() à chaque fois :
+            ->setParameter('viewer',      $viewer)
+            ->setParameter('otherUserId', $otherUserId)
+            ->setParameter('noOne',       PrivacyOption::NO_ONE)
+            ->setParameter('all',         PrivacyOption::ALL)
+            ->setParameter('friendsOnly', PrivacyOption::FRIENDS_ONLY)
+            ->setParameter('accepted',    FriendshipStatus::ACCEPTED)
+            ->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
-    public function searchUsers(?string $query, ?string $type, string $order, int $page, int $pageSize): array
+
+    /**
+     * Recherche des users visibles par $viewer, avec filtres, pagination, et projection.
+     *
+     * @param User        $viewer    L’utilisateur qui fait la recherche
+     * @param string|null $query     Mot-clé sur le username
+     * @param string|null $type      Filtre accountType
+     * @param string      $order     Champ de tri (ex. "username") + direction (ex. "asc")
+     * @param int         $page
+     * @param int         $pageSize
+     *
+     * @return array[]  getArrayResult()
+     */
+    public function searchUsers(
+        User $viewer, 
+        ?string $query, 
+        ?string $type, 
+        string $order, 
+        int $page, 
+        int $pageSize
+    ): array
     {
-        // On ne récupère plus une entité User mais un tableau avec ce qu'il faut (double sécu + opti)
-        $queryBuilder = $this->createQueryBuilder('u')
-        ->select([
-            'u.id',
-            'u.username',
-            'u.nationality',
-            'u.avatarUrl',
-            'u.bannerUrl',
-            'u.initialDivesCount',
-            'u.accountType'
-        ]);
+        $qb = $this->createQueryBuilder('u')
+            // Projection légère
+            ->select([
+                'u.id',
+                'u.username',
+                'u.nationality',
+                'u.avatarUrl',
+                'u.bannerUrl',
+                'u.initialDivesCount',
+                'u.accountType',
+            ])
+            // Join conditionnel pour tester l’amitié validée
+            ->leftJoin(
+                'App\Entity\Friendship\Friendship',
+                'f',
+                'WITH',
+                '(f.emitter   = :viewer AND f.recipient = u AND f.status = :accepted)
+                 OR
+                 (f.recipient = :viewer AND f.emitter   = u AND f.status = :accepted)'
+            )
+            // Exclusion totale de NO_ONE
+            ->andWhere('u.profilPrivacy != :noOne')
+            // On inclut soit ALL, soit FRIENDS_ONLY avec amitié existante
+            ->andWhere(
+                '(u.profilPrivacy = :all
+                  OR (u.profilPrivacy = :friendsOnly AND f.id IS NOT NULL))'
+            )
+            // On ne doit pas voir soi-même
+            ->andWhere('u.id != :viewerId')
+            // Paramètres de base
+            ->setParameter('viewer',      $viewer)
+            ->setParameter('accepted',    FriendshipStatus::ACCEPTED)
+            ->setParameter('noOne',       PrivacyOption::NO_ONE)
+            ->setParameter('all',         PrivacyOption::ALL)
+            ->setParameter('friendsOnly', PrivacyOption::FRIENDS_ONLY)
+            ->setParameter('viewerId',    $viewer->getId());
 
-        // EN PREMIER pour sécu
-        // Exclure les utilisateurs dont "profil_privacy" est "NO_ONE"
-        // TODO: gérer l'affichage des profils amis qui ont "FRIENDS_ONLY"
-        $queryBuilder->andWhere('u.profilPrivacy != :privacy')
-            ->setParameter('privacy', 'NO_ONE');
-
-        // Filtrage par type de compte (option-diver / option-club)
-        $allowedAccountTypes = ['option-diver', 'option-club'];
-        if (!empty($type) && in_array($type, $allowedAccountTypes, true)) {
-            $queryBuilder
-                ->andWhere('u.accountType = :accountType')
-                ->setParameter('accountType', $type);
+        // Filtre accountType
+        if ($type !== null) {
+            $qb->andWhere('u.accountType = :accountType')
+               ->setParameter('accountType', $type);
         }
 
-        // Filtrage par mot-clé (noms)
-        if (!empty($query)) {
-            $queryBuilder
-                ->andWhere('LOWER(u.username) LIKE LOWER(:query)')
-                ->setParameter('query', '%' . strtolower($query) . '%');
+        // Filtre mot-clé sur username
+        if ($query !== null) {
+            $qb->andWhere('LOWER(u.username) LIKE LOWER(:q)')
+               ->setParameter('q', '%'.trim($query).'%');
         }
+
+        // Gérer le tri : on explode l’ordre en champ + sens
+        [$field, $dir] = explode(' ', trim($order)) + [1 => 'asc'];
+        $field     = in_array($field, ['username','id','nationality','initialDivesCount','accountType'], true)
+                   ? $field
+                   : 'username';
+        $direction = strtoupper($dir) === 'DESC' ? 'DESC' : 'ASC';
+        $qb->orderBy("u.$field", $direction);
 
         // Pagination
-        $queryBuilder
-            ->setFirstResult(($page - 1) * $pageSize)
-            ->setMaxResults($pageSize);
+        $qb->setFirstResult(($page - 1) * $pageSize)
+           ->setMaxResults($pageSize);
 
-        // Exécuter la requête et retourner les résultats
-        return $queryBuilder->getQuery()->getArrayResult();
+        return $qb->getQuery()->getArrayResult();
     }
 
 //    /**
