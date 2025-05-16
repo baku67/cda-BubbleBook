@@ -92,6 +92,36 @@ class FriendshipController extends AbstractController
         );
     }
 
+    // Récupère les FriendShips selon status 
+    #[Route('/api/friendship/count-request', name: 'api_friendship_requests_count', methods: ['GET'])]
+    public function countRequests(Request $request): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
+        if (!$user->isVerified()) {
+            return new JsonResponse(['error' => 'User not verified'], Response::HTTP_FORBIDDEN);
+        }
+
+        // lecture du paramètre ?status=pending ou accepted
+        $statusParam = $request->query->get('status');
+        try {
+            $status = FriendshipStatus::from($statusParam);
+        } catch (\ValueError) {
+            return $this->json(['error'=>'Invalid status'], 400);
+        }
+
+        $count = $this->friendshipService->getRequestsCountByStatus($user, $status);
+
+        return $this->json(
+            $count,
+            Response::HTTP_OK,
+            [],
+            // ['groups' => ['friend_request_list']]
+        );
+    }
+
     #[Route('/api/friendship/{id}/accept', name: 'api_friendship_accept', methods: ['PATCH'])]
     public function acceptFriend(int $id): JsonResponse
     {

@@ -44,7 +44,7 @@ export class NotificationsPageComponent {
     private loadFriendRequests() {
       this.friendRequestLoading = true;
 
-      this.friendService.getUserPendingFriendRequests(FriendshipStatus.Pending)
+      this.friendService.getUserFriendRequests(FriendshipStatus.Pending)
         .pipe(
           map(friendRequests => this.updateCountryInfoForUsers(friendRequests))
         )

@@ -83,6 +83,7 @@
             (click)="navigateNotifs()"
         >
             <mat-icon>notifications</mat-icon>
+            <span *ngIf="showNotifCount" class="notif-count">{{ totalNotifCount }}</span>
         </button>
     </div>
 

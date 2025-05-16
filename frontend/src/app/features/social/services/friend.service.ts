@@ -33,14 +33,24 @@ export class FriendService {
         return this.http.delete<void>(`${this.apiUrl}/api/friendship/request/${recipientId}`);
     }
 
-
     /**
-     * Envoie une requête GET pour récupérer les demande d'amis (selon status en paramètre) dont l'utilisateur connecté est récepteur.
+     * Envoie une requête GET pour récupérer les demandes d'amis (selon status en paramètre) dont l'utilisateur connecté est récepteur.
      */
-    public getUserPendingFriendRequests(status: FriendshipStatus): Observable<Friendship[]> {
+    public getUserFriendRequests(status: FriendshipStatus): Observable<Friendship[]> {
         const params = new HttpParams().set("status", status);
         return this.http.get<Friendship[]>(
             `${this.apiUrl}/api/friendship/request`,
+            { params }
+        );
+    }
+
+    /**
+     * Envoie une requête GET pour récupérer le nombre de demandes d'amis (selon status en paramètre) dont l'utilisateur connecté est récepteur.
+     */
+    public getUserFriendRequestsCount(status: FriendshipStatus): Observable<number> {
+        const params = new HttpParams().set("status", status);
+        return this.http.get<number>(
+            `${this.apiUrl}/api/friendship/count-request`,
             { params }
         );
     }

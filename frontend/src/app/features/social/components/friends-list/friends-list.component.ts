@@ -32,7 +32,7 @@ export class FriendsListComponent {
     private loadFriends() {
       this.friendsLoading = true;
 
-      this.friendService.getUserPendingFriendRequests(FriendshipStatus.Accepted)
+      this.friendService.getUserFriendRequests(FriendshipStatus.Accepted)
         .pipe(
           map(friendRequests => this.updateCountryInfoForUsers(friendRequests))
         )

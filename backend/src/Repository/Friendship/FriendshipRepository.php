@@ -91,6 +91,40 @@ class FriendshipRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+
+    public function countByUserAndStatus(User $user, FriendshipStatus $status): int
+    {
+        $qb = $this->createQueryBuilder('f')
+            // joins pour pouvoir filtrer sur profilPrivacy
+            ->select('COUNT(f.id)')
+            ->leftJoin('f.emitter',   'e')
+            ->leftJoin('f.recipient', 'r')
+            ->andWhere('f.status = :status')
+            ->setParameter('status', $status);
+
+        if ($status === FriendshipStatus::PENDING) {
+            // on compte les demandes reçues
+            $qb->andWhere('f.recipient = :user')
+            ->setParameter('user', $user);
+        } else {
+            // on compte les amis, quel que soit le sens,
+            // mais on ne veut que ceux dont l’autre user.profilPrivacy est publique ou amis-only
+            $qb->andWhere(
+                '( (f.recipient = :user AND e.profilPrivacy IN (:privacyOptions)) ' .
+                'OR (f.emitter   = :user AND r.profilPrivacy IN (:privacyOptions)) )'
+            )
+            ->setParameter('user', $user)
+            ->setParameter('privacyOptions', [
+                PrivacyOption::ALL,
+                PrivacyOption::FRIENDS_ONLY,
+            ]);
+        }
+
+        return (int) $qb
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
     
 
     //    /**

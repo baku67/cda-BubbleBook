@@ -14,9 +14,46 @@
         width: 65px;
         height: 65px;
         border-radius: 50%;
+        backdrop-filter: blur(3px);
     }
 }
+::ng-deep div.notifs-btn button .mdc-button__label {
+    position: static !important;
+}
 
+::ng-deep /* ou :host ::ng-deep si encapsulé */
+.notifs-btn button.home-nav-button {
+  position: relative !important;  /* (1) le conteneur */
+}
+
+::ng-deep .notifs-btn button.home-nav-button .notif-count {
+  position: absolute !important;  /* (2) la bulle */
+  top: -5px;
+  right: 0;
+  background-color: var(--red);
+  width: 25px !important;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding-top: 4px !important;
+  
+  font-size: 0.2em;
+  transform: scale(0.1);
+  animation: fade-in-notif 0.5s 0s ease forwards;
+}
+@keyframes fade-in-notif {
+    from {
+        transform: scale(0.3);
+        font-size: 0.2em;
+    }
+    to {
+        transform: scale(1);
+        font-size: 0.9em;
+    }
+}
 
 .user-avatar {
     width: 50px;

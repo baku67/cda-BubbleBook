@@ -105,6 +105,14 @@ class FriendshipService
     }
 
 
+    public function getRequestsCountByStatus(User $user, FriendshipStatus $status): int
+    {
+        $friendshipsCount = $this->friendshipRepository->countByUserAndStatus($user, $status);
+        
+        return $friendshipsCount;
+    }
+
+
     /**
      * @param int  $friendshipId
      * @param bool $accept        true = accept, false = reject
