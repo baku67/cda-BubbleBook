@@ -148,12 +148,18 @@ export class FirstLoginStep2Component {
 
 
   openBannerSelectionModal() {
-    this.modalService.open(BannerSelectionComponent, { banners: this.banners, selectedBanner: this.selectedBanner }, (selectedBanner?: string) => {
-      if (selectedBanner) {
-        this.selectedBanner = selectedBanner;
-        this.firstLoginForm2.get('banner')?.setValue(selectedBanner);
-      }
-    });
+    this.modalService.open(BannerSelectionComponent, 
+      { 
+        modalIcon: 'panorama',
+        banners: this.banners, 
+        selectedBanner: this.selectedBanner 
+      }, 
+      (selectedBanner?: string) => {
+        if (selectedBanner) {
+          this.selectedBanner = selectedBanner;
+          this.firstLoginForm2.get('banner')?.setValue(selectedBanner);
+        }
+      });
   }
 
   

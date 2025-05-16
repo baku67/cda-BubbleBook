@@ -24,7 +24,7 @@ ngx-skeleton-loader  {
 .buttons-container {
   z-index: 9;
   position: fixed;
-  bottom: 65px;
+  bottom: 72px;
   right: 15px;
 
   display: inline-flex;
@@ -65,7 +65,7 @@ ngx-skeleton-loader  {
     padding: 15px;
 
     border: 1px solid rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 0px 4px black;
+    box-shadow: 0px 0px 2px black;
   
     mat-icon {
       height: 32px;

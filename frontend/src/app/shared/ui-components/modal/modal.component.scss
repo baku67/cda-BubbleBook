@@ -18,6 +18,7 @@
 
 .modal-content {
   overflow: visible !important; // pour iconModal
+  // overflow-y: scroll !important; // pour modal choixw de banniere (step2) -> css du banner-selection
   opacity: 0;
 
   position: fixed;
@@ -42,7 +43,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: -38px;
+  top: -40px;
 
   height: auto;
   width: auto;
@@ -69,7 +70,7 @@
     position: absolute;
     overflow: visible;
     height: 50px;
-    top: 0px;
+    top: -2px;
     left: 37%;
     transform: translateX(-63%);
 

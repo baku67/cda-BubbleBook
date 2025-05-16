@@ -15,5 +15,4 @@ export const DIVELOG_THEMES: DivelogThemeOption[] = [
     { id: 'divelog-theme-8', imageUrl: 'assets/images/textures/divelog-texture-8.webp', imageUrlThumnail: 'assets/images/textures/thumbnails/divelog-texture-min-8.webp'  },
     { id: 'divelog-theme-9', imageUrl: 'assets/images/textures/divelog-texture-9.webp', imageUrlThumnail: 'assets/images/textures/thumbnails/divelog-texture-min-9.webp'  },
     { id: 'divelog-theme-10', imageUrl: 'assets/images/textures/divelog-texture-10.webp', imageUrlThumnail: 'assets/images/textures/thumbnails/divelog-texture-min-10.webp'  },
-    { id: 'divelog-theme-11', imageUrl: 'assets/images/textures/divelog-texture-11.webp', imageUrlThumnail: 'assets/images/textures/thumbnails/divelog-texture-min-11.webp'  }
 ];

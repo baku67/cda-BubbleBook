@@ -84,7 +84,7 @@ export class DivelogListPageComponent {
 
   openAddDivelogModal(): void {
     this.modalService.open(DivelogFormComponent, {
-      modalIcon: "menu_book"
+      modalIcon: "auto_stories"
     }); 
 
     this.modalService.subscribeToClose((createdDivelog: UserDivelog) => {
