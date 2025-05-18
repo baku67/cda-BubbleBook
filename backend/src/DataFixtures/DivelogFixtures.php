@@ -23,7 +23,6 @@ class DivelogFixtures extends Fixture implements DependentFixtureInterface
         'divelog-theme-8',
         'divelog-theme-9',
         'divelog-theme-10',
-        'divelog-theme-11',
     ];
 
 

@@ -13,7 +13,7 @@
     >
         <app-user-card [user$]="otherUser$"></app-user-card>
         
-        <ng-container *ngIf="otherUser$ | async as otherUser">
+        <ng-container *ngIf="otherUser$ | async as otherUser; else loadingFriendshipStatus">
             <!-- Statut amitié ou bouton ajout: -->
             <div class="friend-status-container">
                 <!-- Bouton d'ajout si pas amis: -->
@@ -64,8 +64,20 @@
             </div>
         </ng-container>
 
+        <ng-template #loadingFriendshipStatus>
+            <ngx-skeleton-loader
+                [theme]="{
+                    width: '100%',
+                    'border-radius': '5px',
+                    height: '50px',
+                    'margin-top': '20px',
+                    'margin-bottom': '0px'
+                }"
+            ></ngx-skeleton-loader>
+        </ng-template>
+
         <!-- Grid Nav otherUser: -->
-        <section class="nav-btn-grid">
+        <section *ngIf="otherUser$ | async as otherUser; else loadingOtherUserNavBtns" class="nav-btn-grid">
 
             <div class="middle-btn-toggle"></div>
 
@@ -98,7 +110,7 @@
                 (click)="navigate404()"
             >
                 <mat-icon>auto_stories</mat-icon>
-                <span>{{ "DIVELOGS" | translate }}</span>
+                <span>{{ "OTHER_USER_DIVELOGS" | translate }}</span>
             </button>
 
             <button 
@@ -109,10 +121,58 @@
             >
                 <!-- <mat-icon>gallery_thumbnail</mat-icon> -->
                 <mat-icon>image</mat-icon>
-                <span>{{ "GALLERY" | translate }}</span>
+                <span>{{ "OTHER_USER_GALLERY" | translate }}</span>
             </button>
 
         </section>
+
+        <ng-template #loadingOtherUserNavBtns>
+
+            <section class="nav-btn-grid">
+
+                <div class="middle-btn-toggle"></div>
+
+                <ngx-skeleton-loader
+                    class="home-nav-button btn-up-left"
+                    [theme]="{
+                        height: '-webkit-fill-available',
+                        'margin-bottom': '0px',
+                        'border-top-left-radius': '15px',
+                        'border-bottom-right-radius': '12px',
+                    }"
+                ></ngx-skeleton-loader>
+                
+                <ngx-skeleton-loader
+                    class="home-nav-button btn-up-right"
+                    [theme]="{
+                        height: '-webkit-fill-available',
+                        'margin-bottom': '0px',
+                        'border-top-right-radius': '15px',
+                        'border-bottom-left-radius': '12px',
+                    }"
+                ></ngx-skeleton-loader>
+
+                <ngx-skeleton-loader
+                    class="home-nav-button btn-bottom-left"
+                    [theme]="{
+                        height: '-webkit-fill-available',
+                        'margin-bottom': '0px',
+                        'border-bottom-left-radius': '15px',
+                        'border-top-right-radius': '12px',
+                    }"
+                ></ngx-skeleton-loader>
+
+                <ngx-skeleton-loader
+                    class="home-nav-button btn-bottom-right"
+                    [theme]="{
+                        height: '-webkit-fill-available',
+                        'margin-bottom': '0px',
+                        'border-bottom-right-radius': '15px',
+                        'border-top-left-radius': '12px',
+                    }"
+                ></ngx-skeleton-loader>
+            </section>
+        </ng-template>
     </div>
 
     <div class="pageContent-bottom-nav-decal"></div>

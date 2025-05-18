@@ -21,7 +21,7 @@
 
 
 .warn {
-    background-color: var(--element-bg-color);
+    background-color: var(--element-bg-color-more-transparent);
     border: 1px solid var(--red);
 
     mat-icon {
@@ -29,7 +29,7 @@
     }
 }
 .success {
-    background-color: var(--element-bg-color);
+    background-color: var(--element-bg-color-more-transparent);
     border: 1px solid var(--green);
 
     mat-icon {
@@ -37,7 +37,7 @@
     }
 }
 .info {
-    background-color: var(--element-bg-color);
+    background-color: var(--element-bg-color-more-transparent);
     border: 1px solid #00d3ff;
 
     mat-icon {
