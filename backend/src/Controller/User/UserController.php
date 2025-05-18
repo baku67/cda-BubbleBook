@@ -14,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -125,23 +127,36 @@ class UserController extends AbstractController
 
     // Récupération d'un profil utilisateur
     #[Route('/api/user/{otherUserId}', name: 'api_other_user', methods: ['GET'])]
-    public function getOtherUserProfil(int $otherUserId, UserProfileService $userProfileService): JsonResponse
+    public function getOtherUserProfil(int $otherUserId, UserProfileService $svc): JsonResponse
     {
         $user = $this->getUser();
         if (!$user instanceof User) {
-            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+            return new JsonResponse(
+                ['error'=>'User not authenticated', 'code'=>'UNAUTHORIZED'],
+                Response::HTTP_UNAUTHORIZED
+            );
         }
         if (!$user->isVerified()) {
-            return new JsonResponse(['error' => 'User not verified'], Response::HTTP_FORBIDDEN);
+            return new JsonResponse(
+                ['error'=>'User not verified', 'code'=>'NOT_VERIFIED'],
+                Response::HTTP_FORBIDDEN
+            );
         }
-    
-        $otherUserProfilDTO = $userProfileService->getOtherUserProfile($user, $otherUserId);
-        
-        if (!$otherUserProfilDTO) {
-            return new JsonResponse(['error' => 'User not found'], Response::HTTP_NOT_FOUND);
+
+        try {
+            $dto = $svc->getOtherUserProfile($user, $otherUserId);
+            return $this->json($dto);
+        } catch (NotFoundHttpException $e) {
+            return new JsonResponse(
+                ['error'=>'Utilisateur introuvable', 'code'=>'NOT_FOUND'],
+                Response::HTTP_NOT_FOUND
+            );
+        } catch (AccessDeniedHttpException $e) {
+            return new JsonResponse(
+                ['error'=>'Profil non visible', 'code'=>'PRIVACY_FORBIDDEN'],
+                Response::HTTP_FORBIDDEN
+            );
         }
-    
-        return $this->json($otherUserProfilDTO);
     }
 
 

@@ -6,6 +6,8 @@ use App\DTO\Response\UserProfilDTO;
 use App\Entity\User\User;
 use App\Repository\Friendship\FriendshipRepository;
 use App\Repository\User\UserRepository;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserProfileService
 {
@@ -35,41 +37,37 @@ class UserProfileService
         );
     }
 
-    public function getOtherUserProfile(User $currentUser, int $otherUserId): ?OtherUserProfilDTO
+    public function getOtherUserProfile(User $currentUser, int $otherUserId): OtherUserProfilDTO
     {
-        $otherUser = $this->userRepository->findVisibleUserById($currentUser, $otherUserId);
-
-        if (!$otherUser) {
-            return null; 
+        // 1) existence
+        $other = $this->userRepository->find($otherUserId);
+        if (!$other) {
+            throw new NotFoundHttpException('Utilisateur introuvable');
         }
 
-        // Statut relation amis inclu dans le DTO:
-        $friendship = $this->friendshipRepository
-            ->findOneBetween($currentUser, $otherUser);
-        $friendshipStatus = $friendship
-            ? $friendship->getStatus()->value   // 'pending' ou 'accepted' etc.
-            : 'none';
+        // 2) privacy
+        $canSee = $this->userRepository->isVisibleTo($currentUser, $other);
+        if (!$canSee) {
+            throw new AccessDeniedHttpException('Profil non visible (privacy)');
+        }
 
+        // 3) friendship
+        $friendship = $this->friendshipRepository->findOneBetween($currentUser, $other);
+        $status     = $friendship?->getStatus()->value ?? 'none';
+
+        // 4) DTO de réponse
         return new OtherUserProfilDTO(
-            $otherUser->getId(),
-            $otherUser->getAccountType(),
-            $otherUser->getUsername(),
-            $otherUser->getAvatarUrl(),
-            $otherUser->getBannerUrl(),
-            $otherUser->getInitialDivesCount(),
-            $otherUser->getNationality(),
-            $otherUser->getLogBooksPrivacy()->value,
-            $otherUser->getCertificatesPrivacy()->value,
-            $otherUser->getGalleryPrivacy()->value,
-            $friendshipStatus
-
-            // ajouter les ?Carnets (filtré via privacySettings dans query)
-            // ajouter les ?Certificates (filtré via privacySettings dans query)
-            // ajouter les ?Gallerie(MediasURLs?) (filtrés via privacySettings dans query)
-            // $this->getFilteredDives($user),
-            // $this->getFilteredCertificates($user),
-            // $this->getFilteredGallery($user)
-        
+            $other->getId(),
+            $other->getAccountType(),
+            $other->getUsername(),
+            $other->getAvatarUrl(),
+            $other->getBannerUrl(),
+            $other->getInitialDivesCount(),
+            $other->getNationality(),
+            $other->getLogBooksPrivacy()->value,
+            $other->getCertificatesPrivacy()->value,
+            $other->getGalleryPrivacy()->value,
+            $status
         );
     }
 

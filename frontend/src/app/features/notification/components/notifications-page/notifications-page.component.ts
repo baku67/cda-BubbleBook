@@ -7,6 +7,7 @@ import { Friendship } from '../../../social/models/friendship.model';
 import { COUNTRIES_DB } from '@angular-material-extensions/select-country';
 import { finalize, map } from 'rxjs';
 import { FriendshipStatus } from '../../../social/models/friend-request-status.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications-page',
@@ -27,10 +28,11 @@ export class NotificationsPageComponent {
     isAnimatingFadeOut = false;
 
     constructor(
+      private friendService: FriendService,
       private animationService: AnimationService,
       private flashMessageService: FlashMessageService,
       private notificationService: NotificationService,
-      private friendService: FriendService
+      private router: Router
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
         this.isAnimatingFadeOut = animating;
@@ -84,7 +86,11 @@ export class NotificationsPageComponent {
       });
     }
 
-    acceptFriendRequest(friendRequest: Friendship) {
+    public navigateFriendRequestUserProfil(friendRequestEmitterId: string) {
+      this.router.navigate(['/social', 'user-profil', friendRequestEmitterId]);
+    }
+
+    public acceptFriendRequest(friendRequest: Friendship): void {
       // spinner btn accept
       friendRequest.isLoading = true;
       friendRequest.actionLoading = 'accept';
@@ -105,7 +111,8 @@ export class NotificationsPageComponent {
           }
         });
     }
-    rejectFriendRequest(friendRequest: Friendship) {
+
+    public rejectFriendRequest(friendRequest: Friendship): void {
       // spinner btn reject
       friendRequest.isLoading = true;
       friendRequest.actionLoading = 'reject';

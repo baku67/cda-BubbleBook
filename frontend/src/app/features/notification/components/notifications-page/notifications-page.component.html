@@ -35,7 +35,7 @@
 
                 <!-- liste -->
                 <div *ngIf="friendRequests.length !== 0" class="friend-request-list fadeInNav">
-                    <div *ngFor="let friendRequest of friendRequests" class="friend-request-card">
+                    <div *ngFor="let friendRequest of friendRequests" class="friend-request-card" (click)="navigateFriendRequestUserProfil(friendRequest.emitterId)">
                         <div class="friend-request-card-infos">
 
                             <!-- Avatar + Banner + Flag -->

@@ -14,7 +14,6 @@ import { NotFoundPageComponent } from './shared/ui-components/not-found-page/not
 import { FadeOutGuard } from './core/guards/fade-out.guard';
 import { SocialPageComponent } from './features/social/components/social-page/social-page.component';
 import { OtherUserProfilComponent } from './features/social/components/other-user-profil/other-user-profil.component';
-import { OtherUserProfileResolver } from './core/resolvers/other-user-profil.resolver';
 import { UserProfileResolver } from './core/resolvers/user-profil.resolver';
 import { LandingPageHomeComponent } from './features/landing-page/components/landing-page-home/landing-page-home.component';
 import { LandingPageDiscoverComponent } from './features/landing-page/components/landing-page-discover/landing-page-discover.component';
@@ -129,7 +128,6 @@ export const routes: Routes = [
         component: OtherUserProfilComponent, 
         canActivate: [AuthGuard], 
         canDeactivate: [FadeOutGuard],
-        resolve: { otherUser: OtherUserProfileResolver }
     },
 
 

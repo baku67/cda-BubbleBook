@@ -19,36 +19,38 @@ class UserRepository extends ServiceEntityRepository
 
 
     /**
-     * Cherche un utilisateur par id **seulement** s’il est visible par $viewer :
-     * - profilPrivacy != NO_ONE
-     * - et si profilPrivacy = FRIENDS_ONLY, il doit exister une amitié accepted
+     * Détermine si $other est visible par $viewer selon les règles de privacy.
      */
-    public function findVisibleUserById(User $viewer, int $otherUserId): ?User
+    public function isVisibleTo(User $viewer, User $other): bool
     {
         $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            // On lie la table Friendship pour détecter une relation ACCEPTED
             ->leftJoin(
                 'App\Entity\Friendship\Friendship',
                 'f',
                 'WITH',
                 '(f.emitter   = :viewer AND f.recipient = u AND f.status = :accepted)
-                OR
-                (f.recipient = :viewer AND f.emitter   = u AND f.status = :accepted)'
+                 OR
+                 (f.recipient = :viewer AND f.emitter   = u AND f.status = :accepted)'
             )
-            ->andWhere('u.id = :otherUserId')
+            ->andWhere('u = :other')
             ->andWhere('u.profilPrivacy != :noOne')
             ->andWhere(
-                '(u.profilPrivacy = :all OR (u.profilPrivacy = :friendsOnly AND f.id IS NOT NULL))'
+                '(u.profilPrivacy = :all
+                  OR (u.profilPrivacy = :friendsOnly AND f.id IS NOT NULL)
+                )'
             )
-            // Remplace setParameters() par setParameter() à chaque fois :
             ->setParameter('viewer',      $viewer)
-            ->setParameter('otherUserId', $otherUserId)
+            ->setParameter('other',       $other)
             ->setParameter('noOne',       PrivacyOption::NO_ONE)
             ->setParameter('all',         PrivacyOption::ALL)
             ->setParameter('friendsOnly', PrivacyOption::FRIENDS_ONLY)
             ->setParameter('accepted',    FriendshipStatus::ACCEPTED)
-            ->setMaxResults(1);
+            ->getQuery()
+            ->getSingleScalarResult();
 
-        return $qb->getQuery()->getOneOrNullResult();
+        return (int) $qb > 0;
     }
 
 

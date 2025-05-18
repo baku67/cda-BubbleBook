@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { FriendService } from '../../services/friend.service';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
 import { FriendshipStatus } from '../../models/friend-request-status.enum';
+import { UserService } from '../../../profil/services/user.service';
 
 @Component({
   selector: 'app-other-user-profil',
@@ -15,6 +16,7 @@ import { FriendshipStatus } from '../../models/friend-request-status.enum';
 export class OtherUserProfilComponent implements OnInit {
 
   otherUser$ = new BehaviorSubject<OtherUserProfil | null>(null);
+  isLoading = false;
 
   friendshipStatus = FriendshipStatus;
 
@@ -23,10 +25,11 @@ export class OtherUserProfilComponent implements OnInit {
   isAnimatingFadeOut = false;
 
   constructor(
+    private userService: UserService,
+    private friendService: FriendService,
     private animationService: AnimationService,
     private route: ActivatedRoute,
     private router: Router,
-    private friendService: FriendService,
     private flashMessageService: FlashMessageService,
   ) {
     this.animationService.isAnimating$.subscribe((animating) => {
@@ -35,69 +38,67 @@ export class OtherUserProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // ✅(resolver incroyable) Récupération de l'utilisateur préchargé 
-    // Transformer la donnée en Observable pour être compatible avec app-user-card
-    const user = this.route.snapshot.data['otherUser'];
-    this.otherUser$.next(user); // ✅ Met à jour immédiatement le BehaviorSubject 
+    this.isLoading = true;
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.userService.getOtherUserProfil(id).subscribe({
+        next: (user) => this.otherUser$.next(user),
+        error: (err) => 
+          {
+            if(err.error?.code === 'PRIVACY_FORBIDDEN') {
+              this.flashMessageService.error("Le profil de l'utilisateur est privé");
+            } else {
+              this.flashMessageService.error("Erreur lors du chargement du profil");
+            }
+            // Les friendRequest s'affichent même si l'emitter est profilPrivacy = privé ducoup ça vient souvent de /notifs: (c'est bof)
+            // logiquement on peut que venir de /notifications ou alors on tape des ID randoms dans l'url
+            this.router.navigate(["/notifications"]);  
+          }
+      });
+    }
   }
 
   
   // Clique sur “envoyer une demande d’ami”.
-  public sendFriendRequest(): void {
-    const other = this.otherUser$.value;
-    if (!other) {
-      console.error('Autre utilisateur indisponible');
-      return;
-    }
+  sendFriendRequest(): void {
+    const otherUser = this.otherUser$.getValue();
+    if (!otherUser) return;
 
     this.isSendingRequest = true;
-    this.friendService
-      .sendFriendRequest(other.id)
-      .subscribe({
-        next: () => {
-          this.isSendingRequest = false;
-          this.flashMessageService.success('Demande d’ami envoyée !');
-          // Màj du BehaviorSubject
-          const updatedUser: OtherUserProfil = {
-            ...other,
-            friendshipStatus: FriendshipStatus.Pending
-          };
-          this.otherUser$.next(updatedUser);
-        },
-        error: (err) => {
-          if(err.status === 409) {
-            this.flashMessageService.error('Une demande d\'ajout existe déjà entre vous 2.');
-          }
-          else if(err.status === 403) {
-            this.flashMessageService.error('Vous devez valider votre adresse mail pour envoyer une demande d\'amis');
-          }
-          else {
-            this.flashMessageService.error('Impossible d’envoyer la demande. Réessayez plus tard.');
-          }
-          this.isSendingRequest = false;
-        }
-      });
+
+    this.friendService.sendFriendRequest(otherUser.id).subscribe({
+      next: () => {
+        const updatedUser: OtherUserProfil = {
+          ...otherUser,
+          friendshipStatus: FriendshipStatus.Pending
+        };
+        this.otherUser$.next(updatedUser);
+        this.isSendingRequest = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.flashMessageService.error('Impossible d’envoyer la demande. Réessayez plus tard.');
+        this.isSendingRequest = false;
+      }
+    });
   }
 
 
     // Clique sur "retirer des amis".
   public sendFriendRemoveRequest(): void {
-    const other = this.otherUser$.value;
-    if (!other) {
-      console.error('Autre utilisateur indisponible');
-      return;
-    }
+    const otherUser = this.otherUser$.getValue();
+    if (!otherUser) return;
 
     this.isSendingRemoveRequest = true;
     this.friendService
-      .sendFriendRemoveRequest(other.id)
+      .sendFriendRemoveRequest(otherUser.id)
       .subscribe({
         next: () => {
-          this.flashMessageService.success(`Vous n\'êtes plus ami avec ${other.username} !`);
+          this.flashMessageService.success(`Vous n\'êtes plus ami avec ${otherUser.username} !`);
           this.isSendingRemoveRequest = false;
           // Màj du BehaviorSubject
           const updatedUser: OtherUserProfil = {
-            ...other,
+            ...otherUser,
             friendshipStatus: 'none'
           };
           this.otherUser$.next(updatedUser);
