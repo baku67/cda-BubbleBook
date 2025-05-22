@@ -1,9 +1,11 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { Component, Input, OnInit, signal, ViewChild } from '@angular/core';
 import { PrivacyOption, PrivacyOptionHelper } from '../../models/privacy-option';
 import { UserProfil } from '../../models/userProfile.model';
 import { UserService } from '../../services/user.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
+import { MatExpansionPanel } from '@angular/material/expansion';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-account-settings-privacy',
@@ -11,6 +13,7 @@ import { FlashMessageService } from '../../../../shared/services/utils/flash-mes
   styleUrl: './account-settings-privacy.component.scss'
 })
 export class AccountSettingsPrivacyComponent implements OnInit { 
+  @ViewChild(MatExpansionPanel) panel!: MatExpansionPanel; // pour ouvrir automatiquement le panel Privacy selon router.nav (ici depuis le privacy-summary de userProfil)
 
   @Input() user!: UserProfil;
 
@@ -27,6 +30,7 @@ export class AccountSettingsPrivacyComponent implements OnInit {
   selectedGalleryPrivacyOption: PrivacyOption = this.privacyOptionsEnum.NO_ONE;
 
   constructor(
+    private route: ActivatedRoute,
     private userService: UserService, 
     private flashMessageService: FlashMessageService
   ) {}
@@ -38,6 +42,13 @@ export class AccountSettingsPrivacyComponent implements OnInit {
     this.selectedGalleryPrivacyOption = this.convertToPrivacyOption(this.user.galleryPrivacy) || PrivacyOption.NO_ONE;
   }
 
+  ngAfterViewInit() {
+    this.route.fragment.subscribe(fragment => {
+      if (fragment === 'privacy') {
+        this.panel.open();
+      }
+    });
+  }
 
   private convertToPrivacyOption(value: string): PrivacyOption | undefined {
     return Object.values(PrivacyOption).find(option => option === value);

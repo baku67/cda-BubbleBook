@@ -95,4 +95,11 @@ export class UserProfilComponent implements OnInit{
   navigate404(): void {
     this.router.navigate(['/not-implmented-yet']);
   }
+
+  goToPrivacySettings() {
+    this.router.navigate(
+      ['/account-settings'],
+      { fragment: 'privacy' }
+    );
+  }
 }

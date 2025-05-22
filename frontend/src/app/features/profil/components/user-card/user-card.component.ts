@@ -44,9 +44,12 @@ export class UserCardComponent implements OnInit {
   }
 
   // // PK ça marche sans ça ?
-  navigateToUserProfile(): void {
+  goToProfilSettings(): void {
     if (this.isCurrentUserProfil()) {
-      this.router.navigate(['/account-settings']);
+      this.router.navigate(
+        ['/account-settings'],
+        { fragment: 'profil' }
+      );
     }
   }
 

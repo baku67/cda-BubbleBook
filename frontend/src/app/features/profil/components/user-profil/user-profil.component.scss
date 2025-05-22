@@ -62,6 +62,65 @@
     border-radius: 1px solid rgba(0, 255, 255, 0.11);
 }
 
+
+// PRIVACY SUMMARY DIV:
+.profil-privacy-summary {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: var(--element-bg-color);
+    width: 100%;
+    border: 1px solid var(--primary-color);
+    border-radius: 9px;
+    gap: 6px;
+
+    .profil-privacy-summary-title {
+        background-color: var(--primary-color);
+        color: var(--element-bg-color);
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+        padding: 1px 0px;
+    }
+
+    .profil-privacy-summary-content {
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1px 5px 7px 5px;
+        gap: 5px;
+
+
+        .profil-privacy-summary-profilSection {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+
+        .profil-privacy-summary-subsections-wrapper {
+            display: inline-flex;
+            justify-content: space-evenly;
+        }
+
+        .profil-privacy-summary-subsection {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+
+            mat-icon {
+                color: var(--primary-color);
+            }
+            span {
+
+            }
+        }
+    }
+}
+
+
+// NAV BTNS:
 .nav-btn-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -152,9 +211,13 @@
     .coming-soon-label {
         position: absolute;
         z-index: 9;
-        background-color: var(--primary-color);
-        color: var(--element-bg-color);
-        padding: 1px 8px;
+        
+        // background-color: var(--primary-color);
+        // color: var(--element-bg-color);
+        // padding: 1px 8px;
+        color: var(--primary-color);
+        padding: 3px 8px;
+
         border-radius: 2px;
         border-top-right-radius: 13px;
         border-bottom-left-radius: 12px;

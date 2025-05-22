@@ -24,6 +24,39 @@
         [class.fadeOutNav]="isAnimatingFadeOut"
     ></app-alert-banner>
 
+    <!-- Informations privacy: (mat-icon, sur 2 lignes (profil puis les autres, rouges si NO_ONE) et skeleton)-->
+    <div *ngIf="user$ | async as user" class="profil-privacy-summary fadeInNav" [class.fadeOutNav]="isAnimatingFadeOut">
+
+        <span class="profil-privacy-summary-title">Confidentialité du profil&nbsp;:</span>
+        
+        <!-- <mat-divider></mat-divider> -->
+
+        <div class="profil-privacy-summary-content" (click)="goToPrivacySettings()">
+
+            <div class="profil-privacy-summary-profilSection">
+                <div class="profil-privacy-summary-subsection">
+                    <mat-icon>account_circle</mat-icon>
+                    <span>{{ user.profilPrivacy | privacyLabel }}</span>
+                </div>
+            </div>
+
+            <div class="profil-privacy-summary-subsections-wrapper">
+                <div class="profil-privacy-summary-subsection">
+                    <mat-icon>workspace_premium</mat-icon> 
+                    <span>{{ user.certificatesPrivacy | privacyLabel }}</span>
+                </div>
+                <div class="profil-privacy-summary-subsection">
+                    <mat-icon>auto_stories</mat-icon> 
+                    <span>{{ user.logBooksPrivacy | privacyLabel }}</span>
+                </div>
+                <div class="profil-privacy-summary-subsection">
+                    <mat-icon>image</mat-icon> 
+                    <span>{{ user.galleryPrivacy | privacyLabel }}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <!-- Grid buttons nav -->
     <section class="nav-btn-grid" [class.fadeOutNav]="isAnimatingFadeOut">

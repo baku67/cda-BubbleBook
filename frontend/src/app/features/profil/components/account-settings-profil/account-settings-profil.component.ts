@@ -1,4 +1,4 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input, signal, ViewChild } from '@angular/core';
 import { UserProfil } from '../../models/userProfile.model';
 import { UserService } from '../../services/user.service';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
@@ -8,6 +8,8 @@ import { ChangeEmailAddressComponent } from '../change-email-address/change-emai
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { ConfirmDeleteAccountComponent } from '../confirm-delete-account/confirm-delete-account.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatExpansionPanel } from '@angular/material/expansion';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-account-settings-profil',
@@ -15,6 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './account-settings-profil.component.scss'
 })
 export class AccountSettingsProfilComponent {
+    @ViewChild(MatExpansionPanel) panel!: MatExpansionPanel; // pour ouvrir automatiquement le panel Profil selon router.nav (ici depuis le userCard)
 
     @Input() user!: UserProfil;
 
@@ -26,11 +29,20 @@ export class AccountSettingsProfilComponent {
     isAccountDeleting = false;
 
     constructor(
+      private route: ActivatedRoute,
       private authService: AuthService,
       private userService: UserService, 
       private modalService: ModalService,
       private flashMessageService: FlashMessageService
     ) {}
+
+    ngAfterViewInit() {
+      this.route.fragment.subscribe(fragment => {
+        if (fragment === 'profil') {
+          this.panel.open();
+        }
+      });
+    }
   
     resendConfirmationEmail(userEmail: string): void {
       if (!userEmail) return; // Empêche d'appeler l'API si `userEmail` est `null`

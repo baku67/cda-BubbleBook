@@ -5,7 +5,7 @@
 <div 
     class="surface surface-overflow-hidden matSubMenu inner-container border" 
     *ngIf="user !== null && user !== undefined" 
-    (click)="navigateToUserProfile()"
+    (click)="goToProfilSettings()"
 >
     <div class="section-top">
         <img [src]="user.bannerUrl" alt="user banner" />
