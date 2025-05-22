@@ -48,14 +48,14 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::USER_0_REFERENCE, $user0);
 
 
-        // 1 (Non vérifié, DIVER, no 2FA, [user], DZA)
+        // 1 (FriendshipFixture status = ACCEPTED)
         $user1 = new User();
         $user1->setUsername("user1");
         $user1->setEmail("user1@user1.com");
         $user1->setPassword($this->passwordHasher->hashPassword($user1, "user1"));
-        $user1->setVerified(false);
+        $user1->setVerified(true);
         $user1->setAccountType("option-diver");
-        $user1->setInitialDivesCount(null);
+        $user1->setInitialDivesCount(12);
         $user1->set2fa(is2fa: false);
         $user1->setNationality("DZA");
         $user1->setAvatarUrl($this->getRandomEnumValue(Avatar::class));
@@ -65,31 +65,36 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user1->addRole($this->getReference(RoleFixtures::ROLE_ADMIN_REFERENCE, Role::class));
         $user1->setProfilPrivacy(PrivacyOption::ALL);
         $user1->setLogBooksPrivacy(PrivacyOption::FRIENDS_ONLY);
-        $user1->setCertificatesPrivacy(PrivacyOption::FRIENDS_ONLY);
+        $user1->setCertificatesPrivacy(PrivacyOption::NO_ONE);
         $user1->setGalleryPrivacy(PrivacyOption::NO_ONE);
         $manager->persist($user1);
         $this->addReference(self::USER_1_REFERENCE, $user1);
 
-        // 2 (Non vérifié, CLUB, pas de 2FA, [user], pas de nationality)
+        // 2 (FriendshipFixture status = PENDING)
         $user2 = new User();
         $user2->setUsername("user2");
         $user2->setEmail("user2@user2.com");
         $user2->setPassword($this->passwordHasher->hashPassword($user2, "user2"));
-        $user2->setVerified(false);
-        $user2->setAccountType("option-club");
+        $user2->setVerified(true);
+        $user2->setAccountType("option-diver");
         $user2->setInitialDivesCount(43);
         $user2->set2fa(is2fa: false);
         $user2->setNationality(null);
         $user2->setAvatarUrl($this->getRandomEnumValue(Avatar::class));
         $user2->setBannerUrl($this->getRandomEnumValue(Banner::class)); 
-        $user2->setFirstLoginStep(2); // pas obligatoire parce defaut null en BDD
+        $user2->setFirstLoginStep(null); // pas obligatoire parce defaut null en BDD
         $user2->addRole($this->getReference(RoleFixtures::ROLE_USER_REFERENCE, Role::class));
         $user2->setProfilPrivacy(PrivacyOption::ALL);
         $user2->setLogBooksPrivacy(PrivacyOption::FRIENDS_ONLY);
         $user2->setCertificatesPrivacy(PrivacyOption::FRIENDS_ONLY);
-        $user2->setGalleryPrivacy(PrivacyOption::NO_ONE);
+        $user2->setGalleryPrivacy(PrivacyOption::FRIENDS_ONLY);
         $manager->persist($user2);
         $this->addReference(self::USER_2_REFERENCE, $user2);
+
+        // Autre cas de User privacy/friendship ...
+
+        // User firstLoginStep = 1 ou 2 (pour demo montrer que guard front ok)
+        // User isVerified false (pour demo montrer que isVerified marche et que front bloque fonctionalités)
 
         $manager->flush();
     }

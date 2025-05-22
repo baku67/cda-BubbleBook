@@ -24,13 +24,13 @@ class FriendshipFixtures extends Fixture implements DependentFixtureInterface
         // 1. Demande en attente entre user1 et admin
         $f1 = new Friendship($user1, $admin);
         // le constructeur définit déjà le status en PENDING, mais on s'assure :
-        $f1->setStatus(FriendshipStatus::PENDING);
+        $f1->setStatus(FriendshipStatus::ACCEPTED);
         $manager->persist($f1);
         $this->addReference(self::FRIENDSHIP_1_REFERENCE, $f1);
 
         // 2. Relation acceptée entre user2 et admin
         $f2 = new Friendship($user2, $admin);
-        $f2->setStatus(FriendshipStatus::ACCEPTED);
+        $f2->setStatus(FriendshipStatus::PENDING);
         $manager->persist($f2);
         $this->addReference(self::FRIENDSHIP_2_REFERENCE, $f2);
 
