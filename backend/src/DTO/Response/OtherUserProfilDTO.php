@@ -19,11 +19,5 @@ class OtherUserProfilDTO
         readonly public bool $canViewCertificates,
         readonly public bool $canViewDivelogs,
         readonly public bool $canViewGallery,
-
-        // ajouter les ?Carnets (filtré via privacySettings dans query)
-
-        // ajouter les ?Certificates (filtré via privacySettings dans query)
-
-        // ajouter les ?Gallerie(MediasURLs?) (filtrés via privacySettings dans query)
     ) {}
 }

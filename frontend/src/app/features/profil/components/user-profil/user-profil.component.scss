@@ -134,3 +134,37 @@
 
     clip-path: path("M 0 0 Q 10 6 20 0 Q 14 10 20 20 H 20 Q 10 14 0 20 Q 6 10 0 0");
 }
+
+
+// Nav button désactivé (ng-deep pour le span dans le button)
+::ng-deep .home-nav-button.disabled-privacy {
+    filter: grayscale(0.8);
+    opacity: 0.9;
+    border-bottom-width: 1px !important;
+
+    span.mdc-button__label {
+        opacity: 0.6;
+    }
+}
+
+.coming-soon-navBtn-wrapper {
+    position: relative;
+    .coming-soon-label {
+        position: absolute;
+        z-index: 9;
+        background-color: var(--primary-color);
+        color: var(--element-bg-color);
+        padding: 1px 8px;
+        border-radius: 2px;
+        border-top-right-radius: 13px;
+        border-bottom-left-radius: 12px;
+        right: 0;
+
+        mat-icon {
+            font-size: 1.2em;
+            height: 21px;
+            padding-top: 3px;
+            width: 18px;
+        }
+    }
+}
