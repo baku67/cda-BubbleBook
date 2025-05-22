@@ -20,5 +20,6 @@ class UserProfilDTO
         readonly public string $logBooksPrivacy,
         readonly public string $certificatesPrivacy,
         readonly public string $galleryPrivacy,
+        readonly public int $divesCount,
     ) {}
 }

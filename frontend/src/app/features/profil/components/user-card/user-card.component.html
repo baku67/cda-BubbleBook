@@ -32,7 +32,7 @@
                 >
             </div>
             <div class="section-bottom-line-right">
-                <span class="dive-value">{{ user.initialDivesCount ?? '?' }}</span>
+                <span class="dive-value">{{ user.divesCount }} <span *ngIf="user.initialDivesCount === null">(+)</span></span>
                 <span class="dive-label">{{ "DIVES" | translate }}</span>
             </div>
         </div>

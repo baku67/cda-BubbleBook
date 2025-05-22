@@ -4,6 +4,7 @@ namespace App\Service\User;
 use App\DTO\Response\OtherUserProfilDTO;
 use App\DTO\Response\UserProfilDTO;
 use App\Entity\User\User;
+use App\Repository\Dive\DiveRepository;
 use App\Repository\Friendship\FriendshipRepository;
 use App\Repository\User\UserRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -13,11 +14,14 @@ class UserProfileService
 {
     public function __construct(
         private UserRepository $userRepository,
-        private FriendshipRepository $friendshipRepository
+        private FriendshipRepository $friendshipRepository,
+        private DiveRepository $diveRepository,
     ) {}
 
     public function getProfile(User $user): UserProfilDTO
     {
+        $divesCount = $this->diveRepository->countByUserId($user->getId());
+
         return new UserProfilDTO(
             $user->getUsername(),
             $user->getEmail(),
@@ -34,6 +38,7 @@ class UserProfileService
             $user->getLogBooksPrivacy()->value,
             $user->getCertificatesPrivacy()->value,
             $user->getGalleryPrivacy()->value,
+            $user->getInitialDivesCount() + $divesCount,
         );
     }
 
@@ -55,6 +60,8 @@ class UserProfileService
         $friendship = $this->friendshipRepository->findOneBetween($currentUser, $other);
         $status     = $friendship?->getStatus()->value ?? 'none';
 
+        $divesCount = $this->diveRepository->countByUserId($otherUserId);
+
         // 4) DTO de réponse
         return new OtherUserProfilDTO(
             $other->getId(),
@@ -67,7 +74,8 @@ class UserProfileService
             $other->getLogBooksPrivacy()->value,
             $other->getCertificatesPrivacy()->value,
             $other->getGalleryPrivacy()->value,
-            $status
+            $status,
+            $other->getInitialDivesCount() + $divesCount,
         );
     }
 

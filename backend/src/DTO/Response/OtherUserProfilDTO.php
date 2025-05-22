@@ -19,6 +19,8 @@ class OtherUserProfilDTO
 
         readonly public string $friendshipStatus, // 'none', 'pending', 'accepted'
 
+        readonly public int $divesCount,
+
         // ajouter les ?Carnets (filtré via privacySettings dans query)
 
         // ajouter les ?Certificates (filtré via privacySettings dans query)

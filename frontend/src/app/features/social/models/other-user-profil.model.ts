@@ -13,6 +13,8 @@ export interface OtherUserProfil {
     galleryPrivacy?: string,
 
     friendshipStatus?: string,
+
+    divesCount: number,
     
 
     // ajouter les ?Carnets (filtré via privacySettings dans query)

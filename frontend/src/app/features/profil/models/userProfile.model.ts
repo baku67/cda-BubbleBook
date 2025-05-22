@@ -16,4 +16,5 @@ export interface UserProfil {
     logBooksPrivacy: PrivacyOption;
     certificatesPrivacy: PrivacyOption;
     galleryPrivacy: PrivacyOption;
+    divesCount: number;
 }
