@@ -1,4 +1,4 @@
-import { Component, Input, signal, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, signal, ViewChild } from '@angular/core';
 import { UserProfil } from '../../models/userProfile.model';
 import { UserService } from '../../services/user.service';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
@@ -30,6 +30,7 @@ export class AccountSettingsProfilComponent {
 
     constructor(
       private route: ActivatedRoute,
+      private cdr: ChangeDetectorRef,
       private authService: AuthService,
       private userService: UserService, 
       private modalService: ModalService,
@@ -40,6 +41,7 @@ export class AccountSettingsProfilComponent {
       this.route.fragment.subscribe(fragment => {
         if (fragment === 'profil') {
           this.panel.open();
+          this.cdr.detectChanges(); // stabilisation de la vue (marche sans mais bon)
         }
       });
     }

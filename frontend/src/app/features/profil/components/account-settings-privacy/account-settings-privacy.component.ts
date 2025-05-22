@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, signal, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, signal, ViewChild } from '@angular/core';
 import { PrivacyOption, PrivacyOptionHelper } from '../../models/privacy-option';
 import { UserProfil } from '../../models/userProfile.model';
 import { UserService } from '../../services/user.service';
@@ -31,6 +31,7 @@ export class AccountSettingsPrivacyComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
     private userService: UserService, 
     private flashMessageService: FlashMessageService
   ) {}
@@ -46,6 +47,7 @@ export class AccountSettingsPrivacyComponent implements OnInit {
     this.route.fragment.subscribe(fragment => {
       if (fragment === 'privacy') {
         this.panel.open();
+        this.cdr.detectChanges(); // stabilisation de la vue (marche sans mais bon)
       }
     });
   }
