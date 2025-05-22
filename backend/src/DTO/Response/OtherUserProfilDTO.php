@@ -12,14 +12,13 @@ class OtherUserProfilDTO
         readonly public ?string $bannerUrl,
         readonly public ?int $initialDivesCount,
         readonly public ?string $nationality,
-
-        readonly public ?string $logBooksPrivacy,
-        readonly public ?string $certificatesPrivacy,
-        readonly public ?string $galleryPrivacy,
-
-        readonly public string $friendshipStatus, // 'none', 'pending', 'accepted'
-
+        readonly public string $friendshipStatus, 
         readonly public int $divesCount,
+
+        // Calcul de la possibilité de voir les infos pour l'utilisateur connecté
+        readonly public bool $canViewCertificates,
+        readonly public bool $canViewDivelogs,
+        readonly public bool $canViewGallery,
 
         // ajouter les ?Carnets (filtré via privacySettings dans query)
 

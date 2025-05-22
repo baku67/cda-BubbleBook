@@ -19,7 +19,7 @@ class UserRepository extends ServiceEntityRepository
 
 
     /**
-     * Détermine si $other est visible par $viewer selon les règles de privacy.
+     * Détermine si $other est visible par $viewer selon les règles de privacy (et friendship).
      */
     public function isVisibleTo(User $viewer, User $other): bool
     {

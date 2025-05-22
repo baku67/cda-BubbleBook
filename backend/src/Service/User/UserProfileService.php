@@ -4,6 +4,7 @@ namespace App\Service\User;
 use App\DTO\Response\OtherUserProfilDTO;
 use App\DTO\Response\UserProfilDTO;
 use App\Entity\User\User;
+use App\Enum\FriendshipStatus;
 use App\Repository\Dive\DiveRepository;
 use App\Repository\Friendship\FriendshipRepository;
 use App\Repository\User\UserRepository;
@@ -58,7 +59,25 @@ class UserProfileService
 
         // 3) friendship
         $friendship = $this->friendshipRepository->findOneBetween($currentUser, $other);
-        $status     = $friendship?->getStatus()->value ?? 'none';
+        $friendshipStatus = $friendship?->getStatus()->value ?? 'none';
+
+        // 4) Calcul des privacy (pour désactiver les boutons de nav otherUserCard)
+        $isFriend = $this->isFriend($currentUser, $other);
+        // *** Certificates
+        $canViewCertificates = $this->canViewByPrivacy(
+            $other->getCertificatesPrivacy()->value,
+            $isFriend
+        );
+        // *** Divelogs
+        $canViewDivelogs    = $this->canViewByPrivacy(
+            $other->getLogBooksPrivacy()->value,
+            $isFriend
+        );
+        // *** Gallery
+        $canViewGallery     = $this->canViewByPrivacy(
+            $other->getGalleryPrivacy()->value,
+            $isFriend
+        );
 
         $divesCount = $this->diveRepository->countByUserId($otherUserId);
 
@@ -71,12 +90,37 @@ class UserProfileService
             $other->getBannerUrl(),
             $other->getInitialDivesCount(),
             $other->getNationality(),
-            $other->getLogBooksPrivacy()->value,
-            $other->getCertificatesPrivacy()->value,
-            $other->getGalleryPrivacy()->value,
-            $status,
+            $friendshipStatus,
             $other->getInitialDivesCount() + $divesCount,
+            $canViewCertificates,
+            $canViewDivelogs,
+            $canViewGallery,
         );
+    }
+
+    /**
+     * Détermine si $a et $b sont amis (statut "accepted").
+     */
+    private function isFriend(User $a, User $b): bool
+    {
+        $friendship = $this->friendshipRepository->findOneBetween($a, $b);
+
+        return
+            $friendship !== null
+            && $friendship->getStatus()->value === FriendshipStatus::ACCEPTED->value;
+    }
+
+    /**
+     * @param string $privacy   Valeur de l'énumération : 'ALL', 'FRIENDS_ONLY', 'NO_ONE', etc.
+     * @param bool   $isFriend  Résultat de isFriend()
+     */
+    private function canViewByPrivacy(string $privacy, bool $isFriend): bool
+    {
+        return match ($privacy) {
+            'ALL'          => true,
+            'FRIENDS_ONLY' => $isFriend,
+            default        => false,
+        };
     }
 
     // private function getFilteredDives(User $user): array
