@@ -36,8 +36,8 @@
                 <!-- liste -->
                 <div *ngIf="friendRequests.length !== 0" class="friend-request-list fadeInNav">
                     <div *ngFor="let friendRequest of friendRequests" class="friend-request-card" (click)="navigateFriendRequestUserProfil(friendRequest.emitterId)">
+                        
                         <div class="friend-request-card-infos">
-
                             <!-- Avatar + Banner + Flag -->
                             <div class="search-user-card-avatar-wrapper" [ngStyle]="{ 'background-image': 'url(' + friendRequest.emitterBannerUrl + ')' }">
                                 <div class="search-user-card-avatar-container">
@@ -62,6 +62,12 @@
                                 
                                 <span class="created-at">{{ friendRequest.sentAt | timeAgo }}</span>
                             </div>
+                        </div>
+
+                        <!-- Message de la FriendRequest -->
+                        <div *ngIf="friendRequest.message" class="friend-request-card-message">
+                            <mat-icon>chat</mat-icon>
+                            <span>{{ friendRequest.message }}</span>
                         </div>
 
                         <div class="friend-request-card-btns">

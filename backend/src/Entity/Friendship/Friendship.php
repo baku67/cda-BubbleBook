@@ -5,6 +5,7 @@ namespace App\Entity\Friendship;
 use App\Entity\User\User;
 use App\Enum\FriendshipStatus;
 use App\Repository\Friendship\FriendshipRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FriendshipRepository::class)]
@@ -28,6 +29,9 @@ class Friendship
 
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $message = null;
 
     public function __construct(User $emitter, User $recipient)
     {
@@ -97,6 +101,18 @@ class Friendship
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(?string $message): static
+    {
+        $this->message = $message;
 
         return $this;
     }

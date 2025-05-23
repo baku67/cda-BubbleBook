@@ -12,6 +12,7 @@ class UserFriendRequestDTO
         readonly public string              $emitterBannerUrl,
         readonly public ?string             $emitterNationality,
         readonly public string              $status,
-        readonly public \DateTimeImmutable  $sentAt
+        readonly public \DateTimeImmutable  $sentAt,
+        readonly public ?string             $message,
     ) {}
 }

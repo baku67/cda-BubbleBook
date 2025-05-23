@@ -1,0 +1,43 @@
+<form [formGroup]="messageForm">
+    <p>
+      Envoyez un message (optionnel) :
+    </p>
+  
+    <div class="form-container">
+        <!-- Message de la FriendRequest: -->
+        <mat-form-field appearance="outline" class="message-field">
+            <mat-label>Message</mat-label>
+            <textarea 
+                matInput 
+                formControlName="message" 
+                [placeholder]="('' | translate)"
+                rows="3"
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="3"
+                cdkAutosizeMaxRows="10"
+                style="resize: none;"
+            ></textarea>
+        </mat-form-field>
+    
+    </div>
+  
+    <div class="buttons">
+      <button
+        mat-raised-button
+        color="primary"
+        class="button-loader"
+        (click)="confirmMessage()"
+        [disabled]="!messageForm.valid || isLoading"
+      >
+        <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+        <span>Confirmer</span>
+      </button>
+      <button
+        mat-button
+        (click)="cancel()"
+        type="button"
+      >
+        Annuler
+      </button>
+    </div>
+  </form>

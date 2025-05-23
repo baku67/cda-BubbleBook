@@ -10,6 +10,7 @@ export interface Friendship {
   emitterNationality: string;
   status: FriendshipStatus; 
   sentAt: string; 
+  message?: string; // message optionnel 
 
   countryName?: string; // calculé dans le composant (lib)
   flagSvgUrl?: string; // calculé dans le composant (lib)

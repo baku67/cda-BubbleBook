@@ -24,7 +24,7 @@ class FriendshipService
      *
      * @throws BadRequestHttpException si la demande est invalide ou existe déjà
      */
-    public function createFriendship(User $emitter, User $recipient): void
+    public function createFriendship(User $emitter, User $recipient, ?string $message): void
     {
         if ($emitter === $recipient) {
             throw new BadRequestHttpException('Vous ne pouvez pas vous ajouter vous-même.');
@@ -36,6 +36,10 @@ class FriendshipService
         }
 
         $friendship = new Friendship($emitter, $recipient);
+        if(!empty($message)) {
+            $friendship->setMessage($message);
+        }
+
         $this->entityManager->persist($friendship);
         $this->entityManager->flush();
     }
@@ -98,7 +102,8 @@ class FriendshipService
                 $other->getBannerUrl(),
                 $other->getNationality(),
                 $f->getStatus()->value,
-                $f->getCreatedAt()
+                $f->getCreatedAt(),
+                $f->getMessage(),
             );
         }
         return $dtos;

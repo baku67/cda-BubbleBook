@@ -22,7 +22,13 @@ class FriendshipController extends AbstractController
     ){}
 
     #[Route('/api/friendship/request/{recipient}', name: 'friendship_request', methods: ['POST'])]
-    public function requestFriend(User $recipient): Response {
+    public function requestFriend(Request $request, User $recipient): Response {
+
+        // récup du message optionnel
+        $data = $request->toArray(); 
+        $message = array_key_exists('message', $data)
+            ? (string) $data['message']   
+            : '';                         
 
         // Récupération de l’utilisateur authentifié
         $emitter = $this->getUser();
@@ -39,7 +45,7 @@ class FriendshipController extends AbstractController
         }
 
         // Création de la demande via le service
-        $this->friendshipService->createFriendship($emitter, $recipient);
+        $this->friendshipService->createFriendship($emitter, $recipient, $message);
 
         return new JsonResponse(
             null,

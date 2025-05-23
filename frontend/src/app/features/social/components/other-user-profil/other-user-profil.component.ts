@@ -7,6 +7,8 @@ import { FriendService } from '../../services/friend.service';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
 import { FriendshipStatus } from '../../models/friend-request-status.enum';
 import { UserService } from '../../../profil/services/user.service';
+import { ModalService } from '../../../../shared/services/utils/modal.service';
+import { FriendRequestMessageComponent } from '../friend-request-message/friend-request-message.component';
 
 @Component({
   selector: 'app-other-user-profil',
@@ -31,6 +33,7 @@ export class OtherUserProfilComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private flashMessageService: FlashMessageService,
+    private modalService: ModalService
   ) {
     this.animationService.isAnimating$.subscribe((animating) => {
       this.isAnimatingFadeOut = animating;
@@ -59,26 +62,38 @@ export class OtherUserProfilComponent implements OnInit {
   }
 
   
-  // Clique sur “envoyer une demande d’ami”.
+  // Clique sur “envoyer une demande d’ami” (modal de saisie du message optionnel)
   sendFriendRequest(): void {
     const otherUser = this.otherUser$.getValue();
     if (!otherUser) return;
 
     this.isSendingRequest = true;
 
-    this.friendService.sendFriendRequest(otherUser.id).subscribe({
-      next: () => {
-        const updatedUser: OtherUserProfil = {
-          ...otherUser,
-          friendshipStatus: FriendshipStatus.Pending
-        };
-        this.otherUser$.next(updatedUser);
+    this.modalService.open(FriendRequestMessageComponent, {
+      modalIcon: 'mail'
+    })
+
+    this.modalService.subscribeToClose((data: {choice:boolean, message:string}) => {
+      if(data.choice) {
+        this.friendService.sendFriendRequest(otherUser.id, data.message).subscribe({
+          next: () => {
+            const updatedUser: OtherUserProfil = {
+              ...otherUser,
+              friendshipStatus: FriendshipStatus.Pending
+            };
+            this.otherUser$.next(updatedUser);
+            this.isSendingRequest = false;
+          },
+          error: (err) => {
+            console.error(err);
+            this.flashMessageService.error('Impossible d’envoyer la demande. Réessayez plus tard.');
+            this.isSendingRequest = false;
+          }
+        });
+      }
+      else {
         this.isSendingRequest = false;
-      },
-      error: (err) => {
-        console.error(err);
-        this.flashMessageService.error('Impossible d’envoyer la demande. Réessayez plus tard.');
-        this.isSendingRequest = false;
+        return;
       }
     });
   }
