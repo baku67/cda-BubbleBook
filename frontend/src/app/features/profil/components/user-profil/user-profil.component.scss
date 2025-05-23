@@ -73,21 +73,22 @@
     border: 1px solid var(--primary-color);
     border-radius: 9px;
     gap: 6px;
+    backdrop-filter: blur(5px);
 
     .profil-privacy-summary-title {
         background-color: var(--primary-color);
         color: var(--element-bg-color);
         border-top-right-radius: 6px;
         border-top-left-radius: 6px;
-        padding: 1px 0px;
+        padding: 2px 0px;
     }
 
     .profil-privacy-summary-content {
         display: inline-flex;
         flex-direction: column;
         justify-content: center;
-        padding: 1px 5px 7px 5px;
-        gap: 5px;
+        padding: 3px 5px 9px 5px;
+        gap: 8px;
 
 
         .profil-privacy-summary-profilSection {
@@ -95,6 +96,25 @@
             justify-content: center;
             align-items: center;
             gap: 5px;
+
+            .profil-privacy-summary-subsection {
+                mat-icon {
+                    color: var(--primary-color);
+                    font-size: 1.55em;
+                    height: 24px;
+                    width: 24px;
+                }
+                span {
+                    font-size: 1em;
+                }
+            }
+        }
+
+        .profil-privacy-summary-divider {
+            width: 80%;
+            margin: 0 auto;
+            background-color: var(--primary-color);
+            opacity: 0.3;
         }
 
 
@@ -108,12 +128,16 @@
             justify-content: center;
             align-items: center;
             gap: 5px;
+            
 
             mat-icon {
                 color: var(--primary-color);
+                font-size: 1.3em;
+                height: 20px;
+                width: 20px;
             }
             span {
-
+                font-size: 0.8em;
             }
         }
     }
@@ -122,6 +146,8 @@
 
 // NAV BTNS:
 .nav-btn-grid {
+    position: relative;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -230,4 +256,10 @@
             width: 18px;
         }
     }
+}
+
+// Fix skeleton (theme inline css marche pas)
+.skeleton-fullwidth {
+    display: block;  
+    width: 100%; 
 }

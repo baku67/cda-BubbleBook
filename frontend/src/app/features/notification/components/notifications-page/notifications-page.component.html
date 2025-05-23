@@ -72,8 +72,9 @@
 
                         <div class="friend-request-card-btns">
                             <button 
+                                type="button"
                                 class="accept-btn" 
-                                (click)="acceptFriendRequest(friendRequest)"
+                                (click)="$event.stopPropagation(); acceptFriendRequest(friendRequest)"
                                 [disabled]="friendRequest.isLoading"
                             >
                                 <mat-spinner 
@@ -83,8 +84,9 @@
                                 <mat-icon *ngIf="!friendRequest.isLoading || friendRequest.actionLoading !== 'accept'">check</mat-icon>
                             </button>
                             <button 
+                                type="button"
                                 class="refuse-btn" 
-                                (click)="rejectFriendRequest(friendRequest)"
+                                (click)="$event.stopPropagation(); rejectFriendRequest(friendRequest)"
                                 [disabled]="friendRequest.isLoading"
                             >
                                 <mat-spinner 

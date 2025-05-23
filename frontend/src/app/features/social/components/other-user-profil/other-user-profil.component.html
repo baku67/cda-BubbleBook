@@ -77,7 +77,7 @@
         </ng-template>
 
         <!-- Grid Nav otherUser: -->
-        <section *ngIf="otherUser$ | async as otherUser; else loadingOtherUserNavBtns" class="nav-btn-grid">
+        <div *ngIf="otherUser$ | async as otherUser; else loadingOtherUserNavBtns" class="nav-btn-grid">
 
             <div class="middle-btn-toggle"></div>
 
@@ -126,7 +126,7 @@
                 <span>{{ "OTHER_USER_GALLERY" | translate }}</span>
             </button>
 
-        </section>
+        </div>
 
         <ng-template #loadingOtherUserNavBtns>
             <div class="spinner-container">
