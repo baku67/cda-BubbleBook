@@ -22,12 +22,23 @@ export class AccountSettingsPrivacyComponent implements OnInit {
   isRequestSending = false;
 
   privacyOptionsEnum = PrivacyOption;
+  // Liste ordonnée _manuellement_ : ALL (0) → FRIENDS_ONLY (1) → NO_ONE (2)
+  public privacyOptionsList: PrivacyOption[] = [
+    PrivacyOption.ALL,
+    PrivacyOption.FRIENDS_ONLY,
+    PrivacyOption.NO_ONE
+  ];
+  public privacyLabels: Record<PrivacyOption, string> = {
+    [PrivacyOption.ALL]: 'Public',
+    [PrivacyOption.FRIENDS_ONLY]: 'Amis',
+    [PrivacyOption.NO_ONE]: 'Privé',
+  };
   privacyOptions = PrivacyOptionHelper.getOptions();
 
-  selectedProfilPrivacyOption: PrivacyOption = this.privacyOptionsEnum.NO_ONE;
-  selectedLogBooksPrivacyOption: PrivacyOption = this.privacyOptionsEnum.NO_ONE;
-  selectedCertificatesPrivacyOption: PrivacyOption = this.privacyOptionsEnum.NO_ONE;
-  selectedGalleryPrivacyOption: PrivacyOption = this.privacyOptionsEnum.NO_ONE;
+  selectedProfilPrivacyOption!: PrivacyOption;
+  selectedLogBooksPrivacyOption!: PrivacyOption;
+  selectedCertificatesPrivacyOption!: PrivacyOption;
+  selectedGalleryPrivacyOption!: PrivacyOption;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,8 +67,27 @@ export class AccountSettingsPrivacyComponent implements OnInit {
     return Object.values(PrivacyOption).find(option => option === value);
   }
 
+  /**
+   * Retourne les choix { label, value } valides pour les sous-champs
+   * en fonction de la valeur courante de selectedProfilPrivacyOption.
+   */
+  get allowedSubPrivacyChoices(): { label: string; value: PrivacyOption }[] {
+    const idx = this.privacyOptionsList.indexOf(this.selectedProfilPrivacyOption);
+    const slice = idx >= 0
+      ? this.privacyOptionsList.slice(idx)
+      : this.privacyOptionsList;
+
+    return slice.map(option => ({
+      value: option,
+      label: this.privacyLabels[option]
+    }));
+  }
+
   // Attention: Quand on revient sur profil = NO_ONE => IL FAUT toggle le reste en no_one aussi (ou alors bien géré le back)
-  onPrivacyOptionChange(section: string, newOption: PrivacyOption): void {
+  onPrivacyOptionChange(
+    section: 'profil' | 'logBooks' | 'certificates' | 'gallery', 
+    newOption: PrivacyOption
+  ): void {
     this.isRequestSending = true;
     
     this.userService.updateUserPrivacy({ ...this.user, [`${section}Privacy`]: newOption }).subscribe({

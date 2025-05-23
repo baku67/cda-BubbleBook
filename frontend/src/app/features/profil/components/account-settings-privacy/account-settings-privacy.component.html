@@ -30,7 +30,7 @@
                 <h5 class="visibility-titles">{{ "PRIVACY_LOGBOOKS" | translate }}</h5>
                 <app-choice
                     [style]="'cubic-inline'"
-                    [choices]="privacyOptions"
+                    [choices]="allowedSubPrivacyChoices"
                     [selectedChoice]="selectedLogBooksPrivacyOption"
                     (choiceChange)="!isRequestSending && onPrivacyOptionChange('logBooks', $event)"
                     [isRequestSending]="isRequestSending">
@@ -41,7 +41,7 @@
                 <h5 class="visibility-titles">{{ "PRIVACY_CERTIFICATES" | translate }}</h5>
                 <app-choice
                     [style]="'cubic-inline'"
-                    [choices]="privacyOptions"
+                    [choices]="allowedSubPrivacyChoices"
                     [selectedChoice]="selectedCertificatesPrivacyOption"
                     (choiceChange)="!isRequestSending && onPrivacyOptionChange('certificates', $event)"
                     [isRequestSending]="isRequestSending">
@@ -52,7 +52,7 @@
                 <h5 class="visibility-titles">{{ "PRIVACY_GALLERY" | translate }}</h5>
                 <app-choice
                     [style]="'cubic-inline'"
-                    [choices]="privacyOptions"
+                    [choices]="allowedSubPrivacyChoices"
                     [selectedChoice]="selectedGalleryPrivacyOption"
                     (choiceChange)="!isRequestSending && onPrivacyOptionChange('gallery', $event)"
                     [isRequestSending]="isRequestSending">
