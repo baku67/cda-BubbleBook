@@ -13,9 +13,24 @@
 
         <mat-divider [class.fadeOutNav]="isAnimatingFadeOut"></mat-divider>
 
+        <!-- bouton d'ajout de Dive -->
+        <button 
+            mat-flat-button 
+            color="primary"
+            class="cta-btn-primary bigButton" 
+            [routerLink]="['dive-form']"
+            [routerLinkActive]="'active'"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [disabled]="!divelog.id"
+            [class.fadeOutNav]="isAnimatingFadeOut"
+        >
+            <mat-icon>add</mat-icon>
+            <span>{{ "ADD_DIVE" | translate }}</span>
+        </button>
+
         <!-- // Meme UI que certificats ? -->
         <!-- + Pagination -->
-        <div *ngIf="divelogDives">
+        <div *ngIf="divelogDives" [class.fadeOutNav]="isAnimatingFadeOut">
 
         </div>
 

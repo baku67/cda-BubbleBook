@@ -1,0 +1,66 @@
+<div class="pageContent">
+
+    <!-- Rappel titre Divelog (ellipsis 1 ligne) -->
+
+    <form
+        class="fadeInNav"
+        [formGroup]="addDiveForm" 
+        *ngIf="!isSubmitting"
+        (ngSubmit)="onSubmit()" 
+        [class.fadeOutNav]="isAnimatingFadeOut"
+    >
+    
+        <h2>
+            <mat-icon>scuba_diving</mat-icon>
+            <div>
+                <span class="title-new">{{ 'NEW_FEMININE' | translate }} </span>
+                <span>{{ "ADD_DIVE_FORM_TITLE" | translate }}&nbsp;</span>:
+            </div>
+        </h2>
+    
+        <section>
+    
+            <!-- Titre de la plongée (optionnel?) -->
+            <mat-form-field appearance="outline" class="matFieldInput">
+                <mat-label>{{ "TITLE_LABEL" | translate }}</mat-label>
+                <input 
+                    matInput 
+                    formControlName="title" 
+                    [placeholder]="('' | translate)"
+                >
+            </mat-form-field>
+    
+            <!-- Remarques de la plongée (optionnelles) -->
+            <mat-form-field appearance="outline" class="matFieldInput">
+                <mat-label>{{ "DESCRIPTION_LABEL" | translate }}</mat-label>
+                <textarea 
+                    matInput 
+                    [placeholder]="('' | translate)"
+                    formControlName="description"
+                    rows="3"
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="3"
+                    cdkAutosizeMaxRows="10"
+                    style="resize: none;">
+                </textarea>
+            </mat-form-field>
+    
+            <button 
+                mat-flat-button 
+                color="primary"
+                class="cta-btn-primary bigButton" 
+                type="submit" 
+                [disabled]="addDiveForm.invalid"
+            >
+                <span>{{ "ADD" | translate }}</span>
+            </button>
+    
+        </section>
+    
+    </form>
+    
+    <!-- Loader/Spinner page -->
+    <div class="spinner-container" *ngIf="isSubmitting">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>

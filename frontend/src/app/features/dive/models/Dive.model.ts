@@ -1,5 +1,6 @@
 export interface Dive {
     id: number;
+    divelogId: number;      // ID du Divelog auquel la plongée est associée
     title: string;
     description?: string | null;
     diveDatetime: string;    // ISO 8601

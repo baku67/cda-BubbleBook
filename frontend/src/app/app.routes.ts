@@ -21,6 +21,7 @@ import { DivelogListPageComponent } from './features/divelog/components/divelog-
 import { DivelogDetailPageComponent } from './features/divelog/components/divelog-detail-page/divelog-detail-page.component';
 import { DivelogDetailOverviewComponent } from './features/divelog/components/divelog-detail-overview/divelog-detail-overview.component';
 import { NotificationsPageComponent } from './features/notification/components/notifications-page/notifications-page.component';
+import { DiveFormComponent } from './features/dive/components/dive-form/dive-form.component';
 
 export const routes: Routes = [
     // LandingPage + Login/Register Pages
@@ -97,7 +98,7 @@ export const routes: Routes = [
             {
                 path: '',
                 canDeactivate: [FadeOutGuard],
-                component: DivelogListPageComponent, // liste des carnets
+                component: DivelogListPageComponent, // liste des Divelogs
             },
             {
                 path: ':id',
@@ -107,7 +108,12 @@ export const routes: Routes = [
                     {
                         path: '',
                         canDeactivate: [FadeOutGuard],
-                        component: DivelogDetailOverviewComponent, // détail du carnet
+                        component: DivelogDetailOverviewComponent, // détail du Divelog
+                    },
+                    {
+                        path: 'dive-form',
+                        canDeactivate: [FadeOutGuard],
+                        component: DiveFormComponent, // PAGE formulaire d'ajout d'une Dive au carnet 
                     }
                 ]
             }
