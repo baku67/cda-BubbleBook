@@ -40,7 +40,7 @@
                         mat-flat-button 
                         color="warn"
                         class="friend-request-btn friend-remove-btn"
-                        (click)="sendFriendRemoveRequest()"
+                        (click)="removeFriend()"
                         [disabled]="isSendingRemoveRequest"
                     >
                         <mat-spinner *ngIf="isSendingRemoveRequest" diameter="20"></mat-spinner>

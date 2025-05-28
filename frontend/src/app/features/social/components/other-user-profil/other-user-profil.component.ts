@@ -99,14 +99,14 @@ export class OtherUserProfilComponent implements OnInit {
   }
 
 
-    // Clique sur "retirer des amis".
-  public sendFriendRemoveRequest(): void {
+  // Clique sur "retirer des amis".
+  public removeFriend(): void {
     const otherUser = this.otherUser$.getValue();
     if (!otherUser) return;
 
     this.isSendingRemoveRequest = true;
     this.friendService
-      .sendFriendRemoveRequest(otherUser.id)
+      .removeFriend(otherUser.id)
       .subscribe({
         next: () => {
           this.flashMessageService.success(`Vous n\'êtes plus ami avec ${otherUser.username} !`);

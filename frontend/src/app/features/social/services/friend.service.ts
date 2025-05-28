@@ -30,7 +30,7 @@ export class FriendService {
     /**
      * Envoie une requête DELETE pour supprimer une amitié avec l'utilisateur {recipientId}.
      */
-    public sendFriendRemoveRequest(recipientId: string): Observable<void> {
+    public removeFriend(recipientId: string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/api/friendship/request/${recipientId}`);
     }
 

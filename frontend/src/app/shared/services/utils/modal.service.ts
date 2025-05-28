@@ -15,6 +15,10 @@ export class ModalService {
 
   private modalIcon?: string; 
 
+  // Avoid nav back quand l'User clique sur "précédent" navigateur (close modal à la place)
+  private popStateListener: ((event: PopStateEvent) => void) | null = null;
+  private closingByPopState = false;
+
   constructor(
     private appRef: ApplicationRef,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -83,6 +87,14 @@ export class ModalService {
     }
 
     console.log('Données transmises au modal :', data);
+
+    // Avoid nav back quand l'User clique sur "précédent" navigateur (close modal à la place)
+    history.pushState({ modal: true }, '');
+    this.popStateListener = (event: PopStateEvent) => {
+      this.closingByPopState = true;
+      this.close();
+    };
+    window.addEventListener('popstate', this.popStateListener);
   }
 
   close(result?: any): void {
@@ -90,9 +102,19 @@ export class ModalService {
     this._enableBackgroundScroll();
 
     this.closeSubject.next(result);
+
+    // Avoid nav back quand l'User clique sur "précédent" navigateur (close modal à la place)
+    if (this.popStateListener) {
+      // **Nettoyage du listener popstate**
+      window.removeEventListener('popstate', this.popStateListener);
+      this.popStateListener = null;
+    }
+    if (!this.closingByPopState) {
+      history.back(); // **Si on ferme manuellement** (pas via “Précédent”), on retire l’état ajouté
+    }
+    this.closingByPopState = false;
     
     if (this.modalRef) {
-
       // Ajoutez la classe d'animation "modal-closing"
       const modalDomElem = (this.modalRef.hostView as any).rootNodes[0] as HTMLElement;
       modalDomElem.classList.remove('modal-opening');
