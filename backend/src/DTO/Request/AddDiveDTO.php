@@ -8,20 +8,31 @@ class AddDiveDTO
 {
     public int $divelogId;
 
-    #[Assert\NotBlank(message: 'Le titre est requis')]
-    #[Assert\Length(min: 6, max: 50, minMessage:'Le titre doit faire entre au moins 6', maxMessage:'Le titre ne peut pas faire plus de 50 caractères')]
-    public string $title;
+    /**
+     * @Assert\Valid()
+     * @Type("App\DTO\AddDiveInfosDTO")
+     */
+    private AddDiveInfosDTO $infos;
 
-    public string $description;
+    /**
+     * @Assert\Valid()
+     * @Type("array<App\DTO\MediaDTO>")
+     */
+    private array $medias = [];
 
+    /**
+     * @Assert\All({
+     *   @Assert\Type("integer")
+     * })
+     */
+    private array $buddies = [];
 
+    public function getInfos(): AddDiveInfosDTO { return $this->infos; }
+    public function setInfos(AddDiveInfosDTO $i){ $this->infos = $i; return $this; }
 
+    public function getMedias(): array { return $this->medias; }
+    public function setMedias(array $m){ $this->medias = $m; return $this; }
 
-    // #[Assert\Type(\DateTime::class, message: 'La date doit être une instance valide de DateTime.')]
-    // #[Assert\LessThanOrEqual('today', message: 'La date d\'obtention ne peut pas être dans le futur.')]
-    // public ?\DateTime $obtainedDate = null;
-
-    // public ?string $location = null;
-
-    // public int $displayOrder = 0; // Initialisation avec 0 par défaut (valeur non reçue du frontend, calculée en backend)
+    public function getBuddies(): array { return $this->buddies; }
+    public function setBuddies(array $b){ $this->buddies = $b; return $this; }
 }

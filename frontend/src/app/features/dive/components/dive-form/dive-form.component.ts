@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from '../../../../shared/services/utils/modal.service';
 import { DiveService } from '../../services/dive.service';
 import { DateValidator } from '../../../../shared/validators/dateValidator';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
+import { DiveOxygenMode } from '../../models/dive-oxygen-mode.enum';
 
 @Component({
   selector: 'app-dive-form',
@@ -18,7 +19,10 @@ export class DiveFormComponent implements OnInit {
   divelogId!: number;
   
   isSubmitting = false;
+
   today: Date = new Date();
+  diveOxygenEnum = DiveOxygenMode;
+  diveOxygenModes = Object.values(DiveOxygenMode);
 
   isAnimatingFadeOut = false;
 
@@ -49,19 +53,49 @@ export class DiveFormComponent implements OnInit {
 
   private initForm() {
     this.addDiveForm = this.formBuilder.group({
-      // divelogId: [null, Validators.required], // pas dans le form (url param)
-      title: ['', [Validators.minLength(3), Validators.maxLength(100)]],
-      description: ['', [Validators.maxLength(500)]],
-      // diveDatetime: [null, [Validators.required, DateValidator.isValidDate]],
-      // diveDuration: [null, [Validators.required, Validators.min(1), Validators.max(1440)]], // en minutes
-      // weight: [null, [Validators.required, Validators.min(0), Validators.max(1000)]], // en kg
-      // temperature: [null, [Validators.min(-50), Validators.max(50)]], // en °C
-      // visibility: ['', [Validators.maxLength(100)]],
-      // satisfaction: [null, [Validators.min(1), Validators.max(5)]], // de 1 à 5
-      // tags: [[]] // tableau de chaînes de caractères
+      infos: this.formBuilder.group({
+        // divelogId: [null, Validators.required], // pas dans le form (url param)
+        title: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
+        description: ['', [Validators.maxLength(500)]],
+        // diveDatetime: [null, [Validators.required, DateValidator.isValidDate]],
+        duration: [
+          null,
+          [
+            Validators.required,
+            Validators.min(0),
+            Validators.max(1440),
+          ]
+        ],
+        maxDepth: [
+          null,
+          [
+            Validators.required,
+            Validators.min(0),
+            Validators.max(200),
+          ]
+        ],
+        oxygenMode: [null, Validators.required],
+        oxygenMix:    [null], // à afficher uniquement si MIX
+        safetyStop: [true],
+        weight:     [null, [Validators.required, Validators.min(0)]],
+
+        // weight: [null, [Validators.required, Validators.min(0), Validators.max(1000)]], // en kg
+        // temperature: [null, [Validators.min(-50), Validators.max(50)]], // en °C
+        // visibility: ['', [Validators.maxLength(100)]],
+        // satisfaction: [null, [Validators.min(1), Validators.max(5)]], // de 1 à 5
+        // tags: [[]] // tableau de chaînes de caractères
+      }),
+      medias: this.formBuilder.group({ /* … */ }),
+      buddies: this.formBuilder.group({ /* … */ }),
     });
   }
 
+  get infosGroup(): FormGroup {
+    return this.addDiveForm.get('infos') as FormGroup;
+  }
+  get mediasGroup(): FormGroup {
+    return this.addDiveForm.get('medias') as FormGroup;
+  }
 
   onSubmit(): void {
   if (this.addDiveForm.valid) {

@@ -1,64 +1,227 @@
 <div class="pageContent">
 
-    <!-- Rappel titre Divelog (ellipsis 1 ligne) -->
+    <h2>
+        <mat-icon>scuba_diving</mat-icon>
+        <div>
+            <span class="title-new">{{ 'NEW_FEMININE' | translate }} </span>
+            <span>{{ "ADD_DIVE_FORM_TITLE" | translate }}&nbsp;</span>:
+        </div>
+    </h2>
 
-    <form
-        class="fadeInNav"
-        [formGroup]="addDiveForm" 
-        *ngIf="!isSubmitting"
-        (ngSubmit)="onSubmit()" 
-        [class.fadeOutNav]="isAnimatingFadeOut"
-    >
-    
-        <h2>
-            <mat-icon>scuba_diving</mat-icon>
-            <div>
-                <span class="title-new">{{ 'NEW_FEMININE' | translate }} </span>
-                <span>{{ "ADD_DIVE_FORM_TITLE" | translate }}&nbsp;</span>:
-            </div>
-        </h2>
-    
-        <section>
-    
-            <!-- Titre de la plongée (optionnel?) -->
-            <mat-form-field appearance="outline" class="matFieldInput">
-                <mat-label>{{ "TITLE_LABEL" | translate }}</mat-label>
-                <input 
-                    matInput 
-                    formControlName="title" 
-                    [placeholder]="('' | translate)"
-                >
-            </mat-form-field>
-    
-            <!-- Remarques de la plongée (optionnelles) -->
-            <mat-form-field appearance="outline" class="matFieldInput">
-                <mat-label>{{ "DESCRIPTION_LABEL" | translate }}</mat-label>
-                <textarea 
-                    matInput 
-                    [placeholder]="('' | translate)"
-                    formControlName="description"
-                    rows="3"
-                    cdkTextareaAutosize
-                    cdkAutosizeMinRows="3"
-                    cdkAutosizeMaxRows="10"
-                    style="resize: none;">
-                </textarea>
-            </mat-form-field>
-    
-            <button 
-                mat-flat-button 
-                color="primary"
-                class="cta-btn-primary bigButton" 
-                type="submit" 
-                [disabled]="addDiveForm.invalid"
+    <!-- Rappel titre Divelog ? -->
+    <!-- Ptit btn "retour" ? -->
+
+  <mat-horizontal-stepper linear #stepper class="fadeInNav matStepper card" [formGroup]="addDiveForm" *ngIf="!isSubmitting">
+
+    <!-- Étape 1 : Titre, Description, Durée ... -->
+    <mat-step [stepControl]="infosGroup">
+      <ng-template matStepLabel>{{ 'TITLE_LABEL' | translate }}</ng-template>
+
+      <div formGroupName="infos">
+          <mat-form-field appearance="outline" class="matFieldInput">
+            <mat-label>{{ 'TITLE_LABEL' | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="title"
+              [placeholder]="('' | translate)"
             >
-                <span>{{ "ADD" | translate }}</span>
-            </button>
+            <mat-error *ngIf="addDiveForm.get('title')?.hasError('required')">
+              {{ 'ERROR_REQUIRED' | translate }}
+            </mat-error>
+          </mat-form-field>
     
-        </section>
+          <mat-form-field appearance="outline" class="matFieldInput">
+            <mat-label>{{ 'DESCRIPTION_LABEL' | translate }}</mat-label>
+            <textarea
+              matInput
+              formControlName="description"
+              rows="3"
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="3"
+              cdkAutosizeMaxRows="10"
+              style="resize: none;"
+            ></textarea>
+            <mat-error *ngIf="addDiveForm.get('description')?.hasError('required')">
+              {{ 'ERROR_REQUIRED' | translate }}
+            </mat-error>
+          </mat-form-field>
     
-    </form>
+          <!-- Durée -->
+          <mat-form-field appearance="outline" class="matFieldInput">
+            <mat-label>Durée de la plongée</mat-label>
+            <input
+                matInput
+                type="number"
+                formControlName="duration"
+                min="0"
+                step="1"
+                placeholder="Ex. 45"
+            >
+            <span matSuffix>minutes</span>
     
+            <!-- Erreurs -->
+            <mat-error *ngIf="infosGroup.get('duration')?.hasError('required')">
+              La durée est requise.
+            </mat-error>
+            <mat-error *ngIf="infosGroup.get('duration')?.hasError('min')">
+              La durée ne peut pas être négative.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Profondeur max -->
+          <mat-form-field appearance="outline" class="matFieldInput">
+            <mat-label>Profondeur max</mat-label>
+            <input
+                matInput
+                type="number"
+                formControlName="maxDepth"
+                min="0"
+                step="1"
+                placeholder="Ex. 30"
+            >
+            <span matSuffix>mètres</span>
+    
+            <!-- Erreurs -->
+            <mat-error *ngIf="infosGroup.get('maxDepth')?.hasError('required')">
+              La profondeur maximale est requise.
+            </mat-error>
+            <mat-error *ngIf="infosGroup.get('maxDepth')?.hasError('min')">
+              La profondeur maximale ne peut pas être négative.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Oxygen mode + mix si "MIX" -->
+          <mat-form-field appearance="outline">
+            <mat-label>Mode d’oxygène</mat-label>
+            <mat-select formControlName="oxygenMode">
+                <mat-option
+                *ngFor="let mode of diveOxygenModes"
+                [value]="mode"
+                >
+                {{ mode | titlecase }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="infosGroup.get('oxygenMode')?.hasError('required')">
+                Le mode d’oxygène est requis.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Si besoin, afficher le pourcentage de mélange quand oxygenMode === MIX -->
+          <mat-form-field
+            *ngIf="infosGroup.get('oxygenMode')?.value === diveOxygenModes[2]"
+            appearance="outline"
+            >
+            <mat-label>Pourcentage O₂ (en %)</mat-label>
+            <input
+                matInput
+                type="number"
+                formControlName="oxygenMix"
+                min="21"
+                max="100"
+                placeholder="Ex. 32"
+            >
+            <span matSuffix>%</span>
+            <mat-error *ngIf="infosGroup.get('oxygenMix')?.hasError('min')">
+                Doit être ≥ 21 % pour le mix.
+            </mat-error>
+            <mat-error *ngIf="infosGroup.get('oxygenMix')?.hasError('max')">
+                Ne peut pas dépasser 100 %.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Palier de sécurité (boolean) -->
+          <mat-checkbox formControlName="safetyStop">
+            Arrêt de sécurité
+          </mat-checkbox>
+
+          <!-- Weight -->
+          <mat-form-field appearance="outline" class="matFieldInput">
+            <mat-label>Poids</mat-label>
+            <input
+                matInput
+                type="number"
+                formControlName="weight"
+                min="0"
+                step="0.5"
+                placeholder="Ex. 5.5"
+                class="no-spinner"
+            >
+            <span matSuffix>kg</span>
+
+            <!-- Messages d’erreur -->
+            <mat-error *ngIf="infosGroup.get('weight')?.hasError('required')">
+                Le poids est requis.
+            </mat-error>
+            <mat-error *ngIf="infosGroup.get('weight')?.hasError('min')">
+                Le poids ne peut pas être négatif.
+            </mat-error>
+          </mat-form-field>
+
+      </div>
+
+      <div>
+        <button
+          mat-button
+          matStepperNext
+        >
+          {{ 'NEXT' | translate }}
+        </button>
+      </div>
+    </mat-step>
+
+    <!-- Étape 2 : Médias -->
+    <mat-step [stepControl]="mediasGroup">
+      <ng-template matStepLabel>{{ 'MEDIAS_LABEL' | translate }}</ng-template>
+
+      <div>
+        <button mat-button matStepperPrevious>
+          {{ 'BACK' | translate }}
+        </button>
+        <button
+          mat-button
+          matStepperNext
+        >
+          {{ 'NEXT' | translate }}
+        </button>
+      </div>
+    </mat-step>
+
+    <!-- Étape 3 : Buddies -->
+
+    <!-- Étape 4 : Revue & soumission -->
+    <mat-step>
+      <ng-template matStepLabel>{{ 'REVIEW_LABEL' | translate }}</ng-template>
+      <div class="review-section">
+        <p><strong>{{ 'TITLE_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.title }}</p>
+        <p><strong>{{ 'DESCRIPTION_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.description }}</p>
+        <p><strong>{{ 'DURATION_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.duration }} minutes</p>
+        <p><strong>{{ 'MAX_DEPTH_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.maxDepth }} meters</p>
+        <p><strong>{{ 'OXYGEN_MODE_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.oxygenMode }}</p>
+        <p *ngIf="addDiveForm.value.infos.oxygenMode === diveOxygenEnum.MIX"><strong>{{ 'OXYGEN_MIX_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.oxygenMix }} %</p>
+        <p>
+            <strong>{{ 'SAFETY_STOP_LABEL' | translate }} :</strong>
+            <mat-icon>
+                {{ addDiveForm.value.infos.safetyStop ? 'check_circle' : 'cancel' }}
+            </mat-icon>      
+        </p>
+        <p><strong>{{ 'WEIGHT_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.weight }} kg</p>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>
+          {{ 'BACK' | translate }}
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="onSubmit()"
+          [disabled]="addDiveForm.invalid"
+        >
+          {{ 'ADD' | translate }}
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+
     <!-- Loader/Spinner page -->
     <div class="spinner-container" *ngIf="isSubmitting">
         <mat-spinner></mat-spinner>

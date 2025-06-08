@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class DiveController extends AbstractController
@@ -57,6 +58,7 @@ class DiveController extends AbstractController
     public function addDiveToUserDivelog(
         Request $request,
         ValidatorInterface $validator,
+        SerializerInterface $serializer,
         Divelog $divelog,
         DiveService $diveService,
     ): JsonResponse {
@@ -65,11 +67,7 @@ class DiveController extends AbstractController
             return $this->json(['error' => 'Unauthorized access.'], Response::HTTP_UNAUTHORIZED);
         }
 
-        $dto = new AddDiveDTO();
-        $body = json_decode($request->getContent(), true);
-        $dto->title = $body['title'] ?? null;
-        $dto->description = $body['description'] ?? null;
-
+        $dto = $serializer->deserialize($request->getContent(), AddDiveDTO::class, 'json');
         $errors = $validator->validate($dto);
         if (count($errors) > 0) {
             return $this->json(['errors' => (string) $errors], Response::HTTP_BAD_REQUEST);

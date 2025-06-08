@@ -75,6 +75,7 @@ import { FriendsListComponent } from './features/social/components/friends-list/
 import { PrivacyLabelPipe } from './features/profil/pipes/privacy-label.pipe';
 import { FriendRequestMessageComponent } from './features/social/components/friend-request-message/friend-request-message.component';
 import { DiveFormComponent } from './features/dive/components/dive-form/dive-form.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -182,7 +183,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatTabsModule,
     FontAwesomeModule,
     LottieComponent,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatStepperModule,
 ],
   providers: [
     { 
