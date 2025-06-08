@@ -29,7 +29,7 @@ class AddDiveInfosDTO
      * @Assert\NotNull()
      * @Assert\PositiveOrZero()
      */
-    private int $maxDepth;
+    private float $maxDepth;
 
     /**
      * Mode d’oxygène
@@ -75,6 +75,22 @@ class AddDiveInfosDTO
      */
     private int $weight;
 
+    /**
+     * Température de l’eau (°C), facultative
+     *
+     * @Assert\Type(
+     *     type="numeric",
+     *     message="La température doit être un nombre."
+     * )
+     * @Assert\Range(
+     *     min=-2,
+     *     max=40,
+     *     notInRangeMessage="La température doit être comprise entre {{ min }} °C et {{ max }} °C."
+     * )
+     * @Type("float")
+     */
+    private ?float $temperature = null;
+
 
     public function getTitle(): string    { return $this->title; }
     public function setTitle(string $t)   { $this->title = $t; return $this; }
@@ -85,42 +101,60 @@ class AddDiveInfosDTO
     public function getDuration(): int    { return $this->duration; }
     public function setDuration(int $m)    { $this->duration = $m; return $this; }
 
-    public function getMaxDepth(): int    { return $this->maxDepth; }
-    public function setMaxDepth(int $m)    { $this->maxDepth = $m; return $this; }
+    public function getMaxDepth(): float    { return $this->maxDepth; }
+    public function setMaxDepth(float $m)    { $this->maxDepth = $m; return $this; }
 
     public function getOxygenMode(): string    { return $this->oxygenMode; }
     public function setOxygenMode(string $oxygenMode): self    { $this->oxygenMode = $oxygenMode; return $this; }
 
-    public function getOxygenMix(): ?int     { return $this->oxygenMix; }
-    public function setOxygenMix(?int $oxygenMix): self    { $this->oxygenMix = $oxygenMix; return $this; }
+    // facultatif:
+    public function getOxygenMix(): ?float     { return $this->oxygenMix; }
+    public function setOxygenMix(?float $oxygenMix): self    { $this->oxygenMix = $oxygenMix; return $this; }
 
     public function isSafetyStop(): bool    { return $this->safetyStop; }
     public function setSafetyStop(bool $safetyStop): self     { $this->safetyStop = $safetyStop; return $this; }
 
-    public function getWeight(): int    { return $this->weight; }
-    public function setWeight(int $m)    { $this->weight = $m; return $this; }
+    public function getWeight(): float    { return $this->weight; }
+    public function setWeight(float $m)    { $this->weight = $m; return $this; }
+
+    // facultatif:
+    public function getTemperature(): ?float    { return $this->temperature; }
+    public function setTemperature(?float $temperature): self     { $this->temperature = $temperature; return $this; }
 
 
     /**
      * Validation conditionnelle :
-     * si le mode est MIX, alors oxygenMix ne doit pas être null.
+     * si le mode est MIX ou NITROX, alors oxygenMix ne doit pas être null.
      *
      * @Assert\Callback
      */
     public function validateOxygenMix(ExecutionContextInterface $context): void
     {
-        if ($this->oxygenMode === DiveOxygenMode::MIX->value && $this->oxygenMix === null) {
+        // on autorise et on requiert oxygenMix si mode MIX ou NITROX
+        $needsMix = in_array(
+            $this->oxygenMode,
+            [
+                DiveOxygenMode::MIX->value,
+                DiveOxygenMode::NITROX->value
+            ],
+            true
+        );
+
+        if ($needsMix && $this->oxygenMix === null) {
             $context
-                ->buildViolation('Le pourcentage de mélange est requis en mode MIX.')
+                ->buildViolation('Le pourcentage de mélange est requis en mode {{ mode }}.')
+                ->setParameter('{{ mode }}', $this->oxygenMode)
                 ->atPath('oxygenMix')
                 ->addViolation();
         }
 
-        if ($this->oxygenMode !== DiveOxygenMode::MIX->value && $this->oxygenMix !== null) {
+        // on interdit oxygenMix pour les autres modes (p. ex. AIR)
+        if (! $needsMix && $this->oxygenMix !== null) {
             $context
-                ->buildViolation('Ne renseignez un pourcentage que pour le mode MIX.')
+                ->buildViolation('Le pourcentage de mélange ne doit être renseigné qu’en mode MIX ou NITROX.')
                 ->atPath('oxygenMix')
                 ->addViolation();
         }
     }
+
 }

@@ -27,7 +27,7 @@ class Dive
     private ?string $description = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $temperature = null;
+    private ?float $temperature = null;
 
     #[ORM\Column(nullable: true, enumType: DiveVisibility::class)]
     private ?DiveVisibility $visibility = null;
@@ -47,22 +47,22 @@ class Dive
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $diveDuration = null;
 
-    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
-    private ?int $weight = null;
+    #[ORM\Column(type: Types::FLOAT ,nullable: true)]
+    private ?float $weight = null;
 
     #[ORM\ManyToOne(inversedBy: 'dives')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Divelog $divelog = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $maxDepth = null;
+    #[ORM\Column(type: Types::FLOAT)]
+    private ?float $maxDepth = null;
 
     #[ORM\Column(enumType: DiveOxygenMode::class)]
     private ?DiveOxygenMode $oxygenMode = null;
 
     // Mélange d'O2 si oxygenMode = MIX
-    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
-    private ?int $oxygenMix = null;
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    private ?float $oxygenMix = null;
 
     // palier de sécurité (default true)
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
@@ -193,12 +193,12 @@ class Dive
         return $this;
     }
 
-    public function getWeight(): ?int
+    public function getWeight(): ?float
     {
         return $this->weight;
     }
 
-    public function setWeight(?int $weight): static
+    public function setWeight(?float $weight): static
     {
         $this->weight = $weight;
 
@@ -217,12 +217,12 @@ class Dive
         return $this;
     }
 
-    public function getMaxDepth(): ?int
+    public function getMaxDepth(): ?float
     {
         return $this->maxDepth;
     }
 
-    public function setMaxDepth(int $maxDepth): static
+    public function setMaxDepth(?float $maxDepth): static
     {
         $this->maxDepth = $maxDepth;
 
@@ -244,13 +244,13 @@ class Dive
         return $this;
     }
 
-    // Mélange d'O2 si oxygenMode = MIX
-    public function getOxygenMix(): ?int
+    // Mélange d'O2 si oxygenMode = MIX ou NITROX
+    public function getOxygenMix(): ?float
     {
         return $this->oxygenMix;
     }
 
-    public function setOxygenMix(?int $oxygenMix): static
+    public function setOxygenMix(?float $oxygenMix): static
     {
         $this->oxygenMix = $oxygenMix;
 

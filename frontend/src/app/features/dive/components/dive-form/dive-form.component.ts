@@ -79,7 +79,8 @@ export class DiveFormComponent implements OnInit {
         safetyStop: [true],
         weight:     [null, [Validators.required, Validators.min(0)]],
 
-        // weight: [null, [Validators.required, Validators.min(0), Validators.max(1000)]], // en kg
+        temperature: [null, [ Validators.min(-2), Validators.max(40)]]
+
         // temperature: [null, [Validators.min(-50), Validators.max(50)]], // en °C
         // visibility: ['', [Validators.maxLength(100)]],
         // satisfaction: [null, [Validators.min(1), Validators.max(5)]], // de 1 à 5

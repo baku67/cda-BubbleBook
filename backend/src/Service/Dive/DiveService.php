@@ -33,8 +33,8 @@ class DiveService
         // Conversion string → enum DiveOxygenMode
         $modeEnum = DiveOxygenMode::from($infos->getOxygenMode());
         $dive->setOxygenMode($modeEnum);
-        // OxygenMix : uniquement si MIX
-        if ($modeEnum === DiveOxygenMode::MIX) {
+        // OxygenMix : uniquement si MIX ou NITROX
+        if ($modeEnum === DiveOxygenMode::MIX || $modeEnum === DiveOxygenMode::NITROX) {
             $dive->setOxygenMix($infos->getOxygenMix());
         } else {
             $dive->setOxygenMix(null);
@@ -44,6 +44,9 @@ class DiveService
         $dive->setSafetyStop($infos->isSafetyStop());
         // Poids
         $dive->setWeight($infos->getWeight());
+
+        // Température (facultative, ?? null redondant car déja ?float dans DTO)
+        $dive->setTemperature($infos->getTemperature());
 
 
         $dive->setDiveDatetime(new \DateTime());
