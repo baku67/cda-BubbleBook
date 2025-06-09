@@ -27,6 +27,7 @@ export class DiveFormComponent implements OnInit {
   diveVisibility = DiveVisibility;
   diveVisibilityModes = Object.values(DiveVisibility);
   
+  isLoading = true; // chargement du divelogTitle depuis le store
   isSubmitting = false;
   isAnimatingFadeOut = false;
 
@@ -58,6 +59,7 @@ export class DiveFormComponent implements OnInit {
     this.divelogStore.divelog$
       .pipe(filter(divelog => !!divelog))
       .subscribe(divelog => {
+        this.isLoading = false;
         this.divelogTitle = divelog!.title;
       });
   }

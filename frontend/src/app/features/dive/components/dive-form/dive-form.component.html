@@ -1,16 +1,18 @@
-<div class="pageContent">
+<div class="pageContent" *ngIf="!isLoading">
 
-    <h3 class="divelog-title">
-        {{ divelogTitle }}
-    </h3>
-
-    <h2>
-        <mat-icon>scuba_diving</mat-icon>
-        <div>
-            <span class="title-new">{{ 'NEW_FEMININE' | translate }} </span>
-            <span>{{ "ADD_DIVE_FORM_TITLE" | translate }}&nbsp;</span>:
-        </div>
-    </h2>
+    <div class="add-dive-header">
+        <h3 class="divelog-title">
+            {{ divelogTitle }}
+        </h3>
+    
+        <h2>
+            <mat-icon>scuba_diving</mat-icon>
+            <div>
+                <span class="title-new">{{ 'NEW_FEMININE' | translate }} </span>
+                <span>{{ "ADD_DIVE_FORM_TITLE" | translate }}&nbsp;</span>:
+            </div>
+        </h2>
+    </div>
 
   <mat-horizontal-stepper linear #stepper class="fadeInNav matStepper card" [formGroup]="addDiveForm" *ngIf="!isSubmitting">
 
@@ -19,7 +21,8 @@
       <ng-template matStepLabel>{{ 'TITLE_LABEL' | translate }}</ng-template>
 
       <div formGroupName="infos">
-          <mat-form-field appearance="outline" class="matFieldInput">
+          <!-- Titre -->
+          <mat-form-field appearance="outline" class="matFieldInput addDiveTitle">
             <mat-label>{{ 'TITLE_LABEL' | translate }}</mat-label>
             <input
               matInput
@@ -31,65 +34,51 @@
             </mat-error>
           </mat-form-field>
     
-          <mat-form-field appearance="outline" class="matFieldInput">
-            <mat-label>{{ 'DESCRIPTION_LABEL' | translate }}</mat-label>
-            <textarea
-              matInput
-              formControlName="description"
-              rows="3"
-              cdkTextareaAutosize
-              cdkAutosizeMinRows="3"
-              cdkAutosizeMaxRows="10"
-              style="resize: none;"
-            ></textarea>
-            <mat-error *ngIf="addDiveForm.get('description')?.hasError('required')">
-              {{ 'ERROR_REQUIRED' | translate }}
-            </mat-error>
-          </mat-form-field>
+          <div class="duree-profondeur-container">
+              <!-- Durée -->
+              <mat-form-field appearance="outline" class="matFieldInput">
+                <mat-label>Durée</mat-label>
+                <input
+                    matInput
+                    type="number"
+                    formControlName="duration"
+                    min="0"
+                    step="1"
+                    placeholder="Ex. 45"
+                >
+                <span matSuffix>min</span>
+        
+                <!-- Erreurs -->
+                <mat-error *ngIf="infosGroup.get('duration')?.hasError('required')">
+                  La durée est requise.
+                </mat-error>
+                <mat-error *ngIf="infosGroup.get('duration')?.hasError('min')">
+                  La durée ne peut pas être négative.
+                </mat-error>
+              </mat-form-field>
     
-          <!-- Durée -->
-          <mat-form-field appearance="outline" class="matFieldInput">
-            <mat-label>Durée de la plongée</mat-label>
-            <input
-                matInput
-                type="number"
-                formControlName="duration"
-                min="0"
-                step="1"
-                placeholder="Ex. 45"
-            >
-            <span matSuffix>min</span>
-    
-            <!-- Erreurs -->
-            <mat-error *ngIf="infosGroup.get('duration')?.hasError('required')">
-              La durée est requise.
-            </mat-error>
-            <mat-error *ngIf="infosGroup.get('duration')?.hasError('min')">
-              La durée ne peut pas être négative.
-            </mat-error>
-          </mat-form-field>
-
-          <!-- Profondeur max -->
-          <mat-form-field appearance="outline" class="matFieldInput">
-            <mat-label>Profondeur max</mat-label>
-            <input
-                matInput
-                type="number"
-                formControlName="maxDepth"
-                min="0"
-                step="0.1"
-                placeholder="Ex. 30"
-            >
-            <span matSuffix>m</span>
-    
-            <!-- Erreurs -->
-            <mat-error *ngIf="infosGroup.get('maxDepth')?.hasError('required')">
-              La profondeur maximale est requise.
-            </mat-error>
-            <mat-error *ngIf="infosGroup.get('maxDepth')?.hasError('min')">
-              La profondeur maximale ne peut pas être négative.
-            </mat-error>
-          </mat-form-field>
+              <!-- Profondeur max -->
+              <mat-form-field appearance="outline" class="matFieldInput">
+                <mat-label>Prof max</mat-label>
+                <input
+                    matInput
+                    type="number"
+                    formControlName="maxDepth"
+                    min="0"
+                    step="0.1"
+                    placeholder="Ex. 30"
+                >
+                <span matSuffix>m</span>
+        
+                <!-- Erreurs -->
+                <mat-error *ngIf="infosGroup.get('maxDepth')?.hasError('required')">
+                  La profondeur maximale est requise.
+                </mat-error>
+                <mat-error *ngIf="infosGroup.get('maxDepth')?.hasError('min')">
+                  La profondeur maximale ne peut pas être négative.
+                </mat-error>
+              </mat-form-field>
+          </div>
 
           <!-- Oxygen mode + mix si "MIX" -->
           <mat-form-field appearance="outline">
@@ -189,6 +178,23 @@
                 {{ mode | titlecase }}
                 </mat-button-toggle>
           </mat-button-toggle-group>
+
+          <!-- Notes -->
+          <mat-form-field appearance="outline" class="matFieldInput">
+            <mat-label>{{ 'DESCRIPTION_LABEL' | translate }}</mat-label>
+            <textarea
+              matInput
+              formControlName="description"
+              rows="3"
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="3"
+              cdkAutosizeMaxRows="10"
+              style="resize: none;"
+            ></textarea>
+            <mat-error *ngIf="addDiveForm.get('description')?.hasError('required')">
+              {{ 'ERROR_REQUIRED' | translate }}
+            </mat-error>
+          </mat-form-field>
       </div>
 
       <div>
@@ -276,8 +282,13 @@
     </mat-step>
   </mat-horizontal-stepper>
 
-    <!-- Loader/Spinner page -->
+    <!-- Loader pendant POST addDive -->
     <div class="spinner-container" *ngIf="isSubmitting">
         <mat-spinner></mat-spinner>
     </div>
+</div>
+
+<!-- Loader pendant récupération divelog depuis store (titre) -->
+<div class="spinner-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
 </div>

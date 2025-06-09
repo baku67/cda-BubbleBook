@@ -32,7 +32,7 @@ class Dive
     #[ORM\Column(nullable: true, enumType: DiveVisibility::class)]
     private ?DiveVisibility $visibility = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(nullable: true)] // note sur 10, mieux que juste ":(", ":/", ":)"  
     private ?int $satisfaction = null;
 
     /**

@@ -1,3 +1,10 @@
+.add-dive-header {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+}
+
 h2 {
     display: flex;
     align-items: center;
@@ -16,6 +23,10 @@ h2 {
         color: var(--primary-color);
     }
 }
+
+
+
+
 
 .matStepper {
     width: 100%;
@@ -61,6 +72,17 @@ form {
 // Padding right UNITES
 ::ng-deep mat-form-field .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex {
     padding-right: 10px;
+}
+
+.addDiveTitle {
+    margin: 10px auto 14px auto !important;
+}
+
+.duree-profondeur-container {
+    position: relative;
+    width: 100%;
+    display: inline-flex;
+    gap: 5px;
 }
 
 
