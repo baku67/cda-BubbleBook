@@ -17,20 +17,50 @@ h2 {
     }
 }
 
-
 .matStepper {
     width: 100%;
     backdrop-filter: blur(11px);
 }
+// Padding du stepper
+::ng-deep mat-horizontal-stepper .mat-horizontal-stepper-wrapper .mat-horizontal-content-container {
+    padding: 0 4px 4px 4px;
+}
+
+::ng-deep mat-horizontal-stepper .mat-horizontal-stepper-wrapper .mat-horizontal-stepper-header-container mat-step-header {
+    // Column stepper header:
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    // Couleur nom + n°
+    .mat-step-icon {
+        background-color: var(--primary-color);
+        color: black;
+    }
+    .mat-step-label .mat-step-text-label {
+        text-align: center;
+    }
+} 
+    
+::ng-deep mat-horizontal-stepper .mat-horizontal-stepper-wrapper .mat-horizontal-stepper-header-container mat-step-header[aria-disabled = "true"] .mat-step-icon {
+  background-color: grey;
+  color: black;
+  cursor: not-allowed;
+}
  
- form {
+form {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: 15px;
     align-items: center;
+}
 
- }
+// Padding right UNITES
+::ng-deep mat-form-field .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex {
+    padding-right: 10px;
+}
 
 

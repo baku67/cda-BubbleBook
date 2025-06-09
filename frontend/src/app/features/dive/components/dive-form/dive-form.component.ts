@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalService } from '../../../../shared/services/utils/modal.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DiveService } from '../../services/dive.service';
 import { DateValidator } from '../../../../shared/validators/dateValidator';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
 import { DiveOxygenMode } from '../../models/dive-oxygen-mode.enum';
+import { DivelogStoreService } from '../../../divelog/services/divelog-detail-store.service';
+import { filter } from 'rxjs';
+import { DiveVisibility } from '../../models/dive-visibility.enum';
 
 @Component({
   selector: 'app-dive-form',
@@ -16,23 +18,25 @@ import { DiveOxygenMode } from '../../models/dive-oxygen-mode.enum';
 export class DiveFormComponent implements OnInit {
 
   addDiveForm!: FormGroup;
-  divelogId!: number;
-  
-  isSubmitting = false;
 
+  divelogId!: number;
+  divelogTitle!: string;
   today: Date = new Date();
   diveOxygenEnum = DiveOxygenMode;
   diveOxygenModes = Object.values(DiveOxygenMode);
-
+  diveVisibility = DiveVisibility;
+  diveVisibilityModes = Object.values(DiveVisibility);
+  
+  isSubmitting = false;
   isAnimatingFadeOut = false;
 
   constructor(
     private animationService: AnimationService,
     private formBuilder: FormBuilder, 
-    private modalService: ModalService,
     private diveService: DiveService, 
     private flashMessageService: FlashMessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private divelogStore: DivelogStoreService,
   ) {
     this.animationService.isAnimating$.subscribe((animating) => {
       this.isAnimatingFadeOut = animating;
@@ -49,6 +53,13 @@ export class DiveFormComponent implements OnInit {
       this.divelogId = +id; // Convertit en nombre
       this.initForm();
     });
+
+    // Récupération du Divelog depuis le store (pour affichage titre,etc)
+    this.divelogStore.divelog$
+      .pipe(filter(divelog => !!divelog))
+      .subscribe(divelog => {
+        this.divelogTitle = divelog!.title;
+      });
   }
 
   private initForm() {
@@ -74,15 +85,14 @@ export class DiveFormComponent implements OnInit {
             Validators.max(200),
           ]
         ],
-        oxygenMode: [null, Validators.required],
+        oxygenMode:   [null, Validators.required],
         oxygenMix:    [null], // à afficher uniquement si MIX
-        safetyStop: [true],
-        weight:     [null, [Validators.required, Validators.min(0)]],
+        safetyStop:   [true],
+        weight:       [null, [Validators.required, Validators.min(0)]],
 
-        temperature: [null, [ Validators.min(-2), Validators.max(40)]]
+        temperature:  [null, [ Validators.min(-2), Validators.max(40)]],
 
-        // temperature: [null, [Validators.min(-50), Validators.max(50)]], // en °C
-        // visibility: ['', [Validators.maxLength(100)]],
+        visibility:   [null], 
         // satisfaction: [null, [Validators.min(1), Validators.max(5)]], // de 1 à 5
         // tags: [[]] // tableau de chaînes de caractères
       }),
@@ -96,6 +106,9 @@ export class DiveFormComponent implements OnInit {
   }
   get mediasGroup(): FormGroup {
     return this.addDiveForm.get('medias') as FormGroup;
+  }
+  get buddiesGroup(): FormGroup {
+    return this.addDiveForm.get('buddies') as FormGroup;
   }
 
   onSubmit(): void {

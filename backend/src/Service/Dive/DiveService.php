@@ -6,6 +6,7 @@ use App\Entity\Divelog\Divelog;
 use App\Entity\User\User;
 use App\Entity\Dive\Dive;
 use App\Enum\DiveOxygenMode;
+use App\Enum\DiveVisibility;
 use Doctrine\ORM\EntityManagerInterface;
 use DomainException;
 
@@ -31,10 +32,10 @@ class DiveService
         $dive->setMaxDepth($infos->getMaxDepth());
 
         // Conversion string → enum DiveOxygenMode
-        $modeEnum = DiveOxygenMode::from($infos->getOxygenMode());
-        $dive->setOxygenMode($modeEnum);
+        $oxygenModeEnum = DiveOxygenMode::from($infos->getOxygenMode());
+        $dive->setOxygenMode($oxygenModeEnum);
         // OxygenMix : uniquement si MIX ou NITROX
-        if ($modeEnum === DiveOxygenMode::MIX || $modeEnum === DiveOxygenMode::NITROX) {
+        if ($oxygenModeEnum === DiveOxygenMode::MIX || $oxygenModeEnum === DiveOxygenMode::NITROX) {
             $dive->setOxygenMix($infos->getOxygenMix());
         } else {
             $dive->setOxygenMix(null);
@@ -48,6 +49,9 @@ class DiveService
         // Température (facultative, ?? null redondant car déja ?float dans DTO)
         $dive->setTemperature($infos->getTemperature());
 
+        // Visibilité (facultative, ?? null redondant car déja ?float dans DTO)
+        $visibilityEnum = DiveVisibility::from($infos->getVisibility());
+        $dive->setVisibility($visibilityEnum);
 
         $dive->setDiveDatetime(new \DateTime());
 

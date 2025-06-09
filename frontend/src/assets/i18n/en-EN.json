@@ -155,5 +155,10 @@
     "RED": "Red",
     "BLUE": "Blue",
     "GREEN": "Green",
-    "YELLOW": "Yellow"
+    "YELLOW": "Yellow",
+
+    "DIVE_ADD_MEDIAS_STEP": "Medias",
+    "DIVE_ADD_BUDDIES_STEP": "Buddies",
+    "REVIEW_LABEL": "Recap",
+    "VISIBILITY_LABEL": "Visibility"
 }

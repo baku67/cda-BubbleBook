@@ -92,6 +92,18 @@ class AddDiveInfosDTO
     private ?float $temperature = null;
 
 
+    /**
+     * Choix de visibilité de la plongée
+     *
+     * @Assert\Choice(
+     *     choices=DiveVisibility::VALUES,
+     *     message="La visibilité doit être l’un des choix valides."
+     * )
+     * @Type("string")
+     */
+    public ?string $visibility;
+
+
     public function getTitle(): string    { return $this->title; }
     public function setTitle(string $t)   { $this->title = $t; return $this; }
 
@@ -121,6 +133,9 @@ class AddDiveInfosDTO
     public function getTemperature(): ?float    { return $this->temperature; }
     public function setTemperature(?float $temperature): self     { $this->temperature = $temperature; return $this; }
 
+    // facultatif:
+    public function getVisibility(): ?string    { return $this->visibility; }
+    public function setVisibility(?string $visibility): self    { $this->visibility = $visibility; return $this; }
 
     /**
      * Validation conditionnelle :

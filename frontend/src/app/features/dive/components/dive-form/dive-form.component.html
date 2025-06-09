@@ -1,5 +1,9 @@
 <div class="pageContent">
 
+    <h3 class="divelog-title">
+        {{ divelogTitle }}
+    </h3>
+
     <h2>
         <mat-icon>scuba_diving</mat-icon>
         <div>
@@ -7,9 +11,6 @@
             <span>{{ "ADD_DIVE_FORM_TITLE" | translate }}&nbsp;</span>:
         </div>
     </h2>
-
-    <!-- Rappel titre Divelog ? -->
-    <!-- Ptit btn "retour" ? -->
 
   <mat-horizontal-stepper linear #stepper class="fadeInNav matStepper card" [formGroup]="addDiveForm" *ngIf="!isSubmitting">
 
@@ -57,7 +58,7 @@
                 step="1"
                 placeholder="Ex. 45"
             >
-            <span matSuffix>minutes</span>
+            <span matSuffix>min</span>
     
             <!-- Erreurs -->
             <mat-error *ngIf="infosGroup.get('duration')?.hasError('required')">
@@ -79,7 +80,7 @@
                 step="0.1"
                 placeholder="Ex. 30"
             >
-            <span matSuffix>mètres</span>
+            <span matSuffix>m</span>
     
             <!-- Erreurs -->
             <mat-error *ngIf="infosGroup.get('maxDepth')?.hasError('required')">
@@ -174,7 +175,20 @@
             >
             <span matSuffix>°C</span>
           </mat-form-field>
-
+          <!-- Visibilité -->
+          <label class="mat-body-1">{{ 'VISIBILITY_LABEL' | translate }}</label>
+          <mat-button-toggle-group
+                formControlName="visibility"
+                appearance="legacy"
+                aria-label="Visibilité de la plongée"
+          >
+                <mat-button-toggle
+                *ngFor="let mode of diveVisibilityModes"
+                [value]="mode"
+                >
+                {{ mode | titlecase }}
+                </mat-button-toggle>
+          </mat-button-toggle-group>
       </div>
 
       <div>
@@ -189,7 +203,7 @@
 
     <!-- Étape 2 : Médias -->
     <mat-step [stepControl]="mediasGroup">
-      <ng-template matStepLabel>{{ 'MEDIAS_LABEL' | translate }}</ng-template>
+      <ng-template matStepLabel>{{ 'DIVE_ADD_MEDIAS_STEP' | translate }}</ng-template>
 
       <div>
         <button mat-button matStepperPrevious>
@@ -205,25 +219,46 @@
     </mat-step>
 
     <!-- Étape 3 : Buddies -->
+    <mat-step [stepControl]="buddiesGroup">
+        <ng-template matStepLabel>{{ 'DIVE_ADD_BUDDIES_STEP' | translate }}</ng-template>
+
+        <div>
+        <button mat-button matStepperPrevious>
+            {{ 'BACK' | translate }}
+        </button>
+        <button
+            mat-button
+            matStepperNext
+        >
+            {{ 'NEXT' | translate }}
+        </button>
+        </div>
+    </mat-step>
 
     <!-- Étape 4 : Revue & soumission -->
     <mat-step>
       <ng-template matStepLabel>{{ 'REVIEW_LABEL' | translate }}</ng-template>
       <div class="review-section">
-        <p><strong>{{ 'TITLE_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.title }}</p>
-        <p><strong>{{ 'DESCRIPTION_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.description }}</p>
-        <p><strong>{{ 'DURATION_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.duration }} minutes</p>
-        <p><strong>{{ 'MAX_DEPTH_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.maxDepth }} meters</p>
-        <p><strong>{{ 'OXYGEN_MODE_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.oxygenMode }}</p>
-        <p *ngIf="addDiveForm.value.infos.oxygenMode === diveOxygenEnum.MIX"><strong>{{ 'OXYGEN_MIX_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.oxygenMix }} %</p>
-        <p>
-            <strong>{{ 'SAFETY_STOP_LABEL' | translate }} :</strong>
-            <mat-icon>
-                {{ addDiveForm.value.infos.safetyStop ? 'check_circle' : 'cancel' }}
-            </mat-icon>      
-        </p>
-        <p><strong>{{ 'WEIGHT_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.weight }} kg</p>
-        <p><strong>{{ 'TEMPERATURE_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.temperature }} °C</p>
+        <h2>INFOS</h2>
+        <div>
+            <p><strong>{{ 'TITLE_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.title }}</p>
+            <p><strong>{{ 'DESCRIPTION_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.description }}</p>
+            <p><strong>{{ 'DURATION_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.duration }} minutes</p>
+            <p><strong>{{ 'MAX_DEPTH_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.maxDepth }} meters</p>
+            <p><strong>{{ 'OXYGEN_MODE_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.oxygenMode }}</p>
+            <p *ngIf="addDiveForm.value.infos.oxygenMode === diveOxygenEnum.MIX"><strong>{{ 'OXYGEN_MIX_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.oxygenMix }} %</p>
+            <p>
+                <strong>{{ 'SAFETY_STOP_LABEL' | translate }} :</strong>
+                <mat-icon>
+                    {{ addDiveForm.value.infos.safetyStop ? 'check_circle' : 'cancel' }}
+                </mat-icon>      
+            </p>
+            <p><strong>{{ 'WEIGHT_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.weight }} kg</p>
+            <p><strong>{{ 'TEMPERATURE_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.temperature }} °C</p>
+            <p><strong>{{ 'VISIBILITY_LABEL' | translate }} :</strong> {{ addDiveForm.value.infos.visibility }}</p>
+        </div>
+        <h2>MEDIAS</h2>
+        <h2>BUDDIES</h2>
       </div>
       <div>
         <button mat-button matStepperPrevious>
