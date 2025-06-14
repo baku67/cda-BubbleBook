@@ -11,7 +11,7 @@ jobs:
 
   # CI Angular
   angular-tests:
-    name: ✅ Angular Tests
+    name: Angular Tests
     runs-on: ubuntu-latest  
     defaults:
       run:
@@ -53,7 +53,7 @@ jobs:
 
   # CI Symfony
   symfony-tests:
-    name: ✅ Symfony Tests
+    name: Symfony Tests
     runs-on: ubuntu-latest  
     defaults:
       run:
@@ -129,7 +129,7 @@ jobs:
 
   # Push de l'image du build optimisé de l'app Angular
   build-and-push:
-    name: 🛠 Build Angular Docker Image
+    name: Build Angular Docker Image
     runs-on: ubuntu-latest
     needs: [angular-tests]
 
@@ -153,6 +153,14 @@ jobs:
           name: production-build
           path: ./frontend/dist/  # Télécharge les artefacts de build de production de l'application Angular
 
+      - name: Generate sitemap.xml
+        run: |
+          cd frontend
+          npm install --no-save sitemap-generator-cli serve
+          npx serve -s dist -l 5000 & 
+          sleep 5
+          npx sitemap-generator http://localhost:5000 -o dist/sitemap.xml
+
       # Vérif logs in-game
       - name: 🔍 Debug check build contents
         run: ls -R ./frontend/dist
@@ -170,7 +178,7 @@ jobs:
  
   # ### CD
   deploy:
-    name: 🚀 Deploy to EC2
+    name: Déploiement AWS-EC2
     runs-on: ubuntu-latest
     needs: [angular-tests, symfony-tests, build-and-push]
     if: ${{ success() }}
