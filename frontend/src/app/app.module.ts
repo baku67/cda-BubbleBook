@@ -74,6 +74,7 @@ import { TimeAgoPipe } from './shared/pipes/time-ago.pipe';
 import { FriendsListComponent } from './features/social/components/friends-list/friends-list.component';
 import { PrivacyLabelPipe } from './features/profil/pipes/privacy-label.pipe';
 import { FriendRequestMessageComponent } from './features/social/components/friend-request-message/friend-request-message.component';
+import { LegalComponent } from './features/legal/legal.component';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -128,7 +129,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
     PrivacyLabelPipe,
 
-    FriendRequestMessageComponent
+    FriendRequestMessageComponent,
+
+    LegalComponent,
   ],
   imports: [
     MatCardModule,

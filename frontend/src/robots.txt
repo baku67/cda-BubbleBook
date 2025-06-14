@@ -1,13 +1,10 @@
-# Tous les crawlers
 User-agent: *
 
-# Autoriser les pages publiques
 Allow: /$
 Allow: /discover$
 Allow: /register$
 Allow: /login$
 
-# Bloquer toutes les autres routes privées
 Disallow: /user-profil
 Disallow: /notifications
 Disallow: /account-settings
@@ -17,9 +14,7 @@ Disallow: /divelogs
 Disallow: /social
 Disallow: /confirm-email
 
-# Empêche les crawls d’URL de secours/erreur
 Disallow: /not-found
 Disallow: /*
 
-# Indique l’emplacement du sitemap
 Sitemap: https://bubblebook.fun/sitemap.xml

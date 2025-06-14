@@ -21,6 +21,7 @@ import { DivelogListPageComponent } from './features/divelog/components/divelog-
 import { DivelogDetailPageComponent } from './features/divelog/components/divelog-detail-page/divelog-detail-page.component';
 import { DivelogDetailOverviewComponent } from './features/divelog/components/divelog-detail-overview/divelog-detail-overview.component';
 import { NotificationsPageComponent } from './features/notification/components/notifications-page/notifications-page.component';
+import { LegalComponent } from './features/legal/legal.component';
 
 export const routes: Routes = [
     // LandingPage + Login/Register Pages
@@ -135,8 +136,20 @@ export const routes: Routes = [
     { path: 'confirm-email', component: ConfirmEmailPageComponent, canDeactivate: [FadeOutGuard] },
 
     { path: 'not-found', component: NotFoundPageComponent, canDeactivate: [FadeOutGuard] },  
+    
+    // Légal, politique de confidentialité, etc.
+    {
+        path: 'legal',
+        component: LegalComponent,
+        canDeactivate: [FadeOutGuard],
+    },
+    
     // EN DERNIER:
     { path: '**', component: NotFoundPageComponent, canDeactivate: [FadeOutGuard] },  // Wildcard, redirect all unknown paths to home
+
+
+
+
 ];
 
 
