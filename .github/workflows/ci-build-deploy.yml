@@ -153,13 +153,14 @@ jobs:
           name: production-build
           path: ./frontend/dist/  # Télécharge les artefacts de build de production de l'application Angular
 
-      - name: Generate sitemap.xml
-        run: |
-          cd frontend
-          npm install --no-save sitemap-generator-cli serve
-          npx serve -s dist -l 5000 & 
-          sleep 5
-          npx sitemap-generator http://localhost:5000 -o dist/sitemap.xml
+      ### (Pas de SSR pour l'instant et inutile car les routes sont privées)
+      # - name: Generate sitemap.xml
+      #   run: |
+      #     cd frontend
+      #     npm install --no-save sitemap-generator-cli serve
+      #     npx serve -s dist -l 5000 & 
+      #     sleep 5
+      #     npx sitemap-generator http://localhost:5000 -o dist/sitemap.xml
 
       # Vérif logs in-game
       - name: 🔍 Debug check build contents

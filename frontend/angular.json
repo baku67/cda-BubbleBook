@@ -32,7 +32,8 @@
                 "glob": "**/*",
                 "input": "./node_modules/svg-country-flags/svg",
                 "output": "assets/svg-country-flags/svg"
-              }
+              },
+              "src/robots.txt"
             ],
             "styles": [
               // "src/assets/m3-theme.scss", // (généré avec "ng generate @angular/material:m3-theme")
