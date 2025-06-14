@@ -11,7 +11,7 @@
 
     <app-user-card 
         [user$]="user$" 
-        class="fadeInNav" 
+        class="fadeInNav e1" 
         [class.fadeOutNav]="isAnimatingFadeOut"
     /> 
 
@@ -26,7 +26,7 @@
 
     <!-- Informations privacy: (mat-icon, sur 2 lignes (profil puis les autres, rouges si NO_ONE) et skeleton)-->
     <ng-container *ngIf="(user$ | async) as user; else loadingPrivacySummary">
-        <div class="profil-privacy-summary fadeInNav" [class.fadeOutNav]="isAnimatingFadeOut">
+        <div class="profil-privacy-summary fadeInNav e2" [class.fadeOutNav]="isAnimatingFadeOut">
     
             <span class="profil-privacy-summary-title">Confidentialité du profil</span>
     
@@ -61,7 +61,7 @@
 
     <ng-template #loadingPrivacySummary>
         <ngx-skeleton-loader
-            class="skeleton-fullwidth fadeInNav"
+            class="skeleton-fullwidth fadeInNav e2"
             [theme]="{
                 width: '100%',
                 'border-radius': '10px',
@@ -72,7 +72,7 @@
     </ng-template>
 
     <!-- Grid buttons nav -->
-    <div class="nav-btn-grid" [class.fadeOutNav]="isAnimatingFadeOut">
+    <div class="nav-btn-grid e3" [class.fadeOutNav]="isAnimatingFadeOut">
 
         <div class="middle-btn-toggle"></div>
 

@@ -263,3 +263,69 @@
     display: block;  
     width: 100%; 
 }
+
+
+@media screen and (min-width: 1440px) {
+
+    .pageContent {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 5px 70px;
+        column-gap: 3rem;
+
+        app-page-header {
+            grid-column: 1 / -1;
+            display: inline-flex;
+            justify-content: center;
+        }
+        .e1 {
+            grid-column: 1;
+            grid-row: 2;
+        }
+        .e2 {
+            grid-column: 1;
+            grid-row: 3;
+        }
+        .e3 {
+            grid-column: 2;
+            grid-row: 2 / span 3; /* optionnel si tu veux qu’il prenne toute la hauteur */
+        }
+
+
+        .nav-btn-grid {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 10px;
+
+            button {
+                border-radius: 11px !important;
+            }
+
+            .home-nav-button {
+                flex-direction: row !important;
+
+                mat-icon {
+                    margin-right: 10px;
+                }
+                span {
+                    font-family: "Poppins", sans-serif;
+                    padding-top: 0px !important;
+                }
+            }
+
+            ::ng-deep .home-nav-button.disabled-privacy {
+                span.mdc-button__label {
+                    display: inline-flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    gap: 10px !important;
+                }
+            }
+
+            .middle-btn-toggle {
+                display: none;
+            }
+        }
+    }
+
+}

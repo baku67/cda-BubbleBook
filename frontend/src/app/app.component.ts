@@ -9,6 +9,7 @@ import { faFish, faVideo, faVideoSlash } from '@fortawesome/free-solid-svg-icons
 import { CustomizationService } from './shared/services/utils/customization.service';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
+import { ViewportService } from './shared/services/utils/viewport.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,9 @@ import { AnimationOptions } from 'ngx-lottie';
 export class AppComponent implements OnInit {
 
   public title = 'BubbleBook';
+
   public isLoggedIn = false;
+  public isMobileOrTablet: boolean = false;
 
   public isInitializingAuth = true;
   public isInitializingVideoBg = true;
@@ -69,7 +72,8 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private themeService: ThemeService,
     private customizationService: CustomizationService,
-    private router: Router
+    private router: Router,
+    private viewportService: ViewportService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -130,6 +134,10 @@ export class AppComponent implements OnInit {
           // this.router.navigate(['/user-profil']); // testé ok?
         }
       }
+    });
+
+    this.viewportService.isMobileOrTablet$().subscribe(isMobileOrTablet => {
+      this.isMobileOrTablet = isMobileOrTablet;
     });
   }
 

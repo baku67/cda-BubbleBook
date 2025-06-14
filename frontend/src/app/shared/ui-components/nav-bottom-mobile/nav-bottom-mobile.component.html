@@ -15,6 +15,7 @@
             <mat-icon class="navBottomMobile-icon">
                 account_circle
             </mat-icon>
+            <span *ngIf="!isMobileOrTablet">{{ "PROFIL_SETTINGS_TITLE" | translate }}</span>
         </div>
     </a>
 
@@ -30,6 +31,7 @@
             <mat-icon class="navBottomMobile-icon">
                 auto_stories
             </mat-icon>
+            <span *ngIf="!isMobileOrTablet">{{ "DIVELOGS" | translate }}</span>
         </div>
     </a>
 
@@ -45,6 +47,7 @@
             <mat-icon class="navBottomMobile-icon">
                 supervised_user_circle
             </mat-icon>
+            <span *ngIf="!isMobileOrTablet">{{ "SOCIAL" | translate }}</span>
         </div>
     </a>
 
@@ -60,6 +63,7 @@
                 <mat-icon class="navBottomMobile-icon">
                     settings
                 </mat-icon>
+                <span *ngIf="!isMobileOrTablet">{{ "ACCOUNT_SETTINGS" | translate }}</span>
             </div>
         </div>
     </button>

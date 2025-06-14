@@ -68,13 +68,17 @@
 
       <app-header *ngIf="showHeader" />
 
+      <!-- Barre de nav ici si Desktop (sémantiquement au-dessus du contenu): -->
+      <app-nav-bottom-mobile [isMobileOrTablet]="isMobileOrTablet" *ngIf="!isMobileOrTablet && showNavBottomMobile && isLoggedIn" />
+
       <!-- ✅ Router-outlet affiché aussi -->
       <router-outlet></router-outlet>
 
       <!-- BG Vidéo -->
       <app-background (videoLoaded)="onVideoLoaded()"></app-background>
       
-      <app-nav-bottom-mobile *ngIf="showNavBottomMobile && isLoggedIn" />
+      <!-- Barre de nav ici si mobile (sémantiquement sous le contenu): -->
+      <app-nav-bottom-mobile [isMobileOrTablet]="isMobileOrTablet" *ngIf="isMobileOrTablet && showNavBottomMobile && isLoggedIn" />
     </div>
   </ng-template>
 

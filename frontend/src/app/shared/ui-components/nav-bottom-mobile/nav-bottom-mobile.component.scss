@@ -53,6 +53,12 @@ mat-divider {
 .navBottomMobile-div {
     height: 100%;
     align-content: center;
+
+    span {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.3em;
+        align-self: center;
+    }
 }
 
 .router-link-active {
@@ -87,5 +93,30 @@ mat-divider {
     color: var(--red);
     mat-icon {
         color: var(--red);
+    }
+}
+
+@media screen and (min-width: 1440px) {
+
+    :host {
+        position: relative;
+        border-top: none;
+    }
+    :host nav {
+        backdrop-filter: none;
+        background-color: transparent;
+        margin-bottom: 25px;
+    }
+
+    .navBottomMobile-div {
+        display: inline-flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .navBottomMobile {
+        .underline {
+            height: 5px;
+        }
     }
 }
