@@ -15,7 +15,7 @@ class UserProfileService
 {
     public function __construct(
         private UserRepository $userRepository,
-        private FriendshipRepository $friendshipRepository,
+        protected FriendshipRepository $friendshipRepository,
         private DiveRepository $diveRepository,
     ) {}
 
@@ -101,7 +101,7 @@ class UserProfileService
     /**
      * Détermine si $a et $b sont amis (statut "accepted").
      */
-    private function isFriend(User $a, User $b): bool
+    protected function isFriend(User $a, User $b): bool
     {
         $friendship = $this->friendshipRepository->findOneBetween($a, $b);
 

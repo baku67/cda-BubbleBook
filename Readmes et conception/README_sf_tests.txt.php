@@ -1,3 +1,7 @@
+cd backend
+symfony php vendor/bin/phpunit
+
+
 <!-- 3 types de tests phpUnit:
 
 // TestCase = Test unitaires 

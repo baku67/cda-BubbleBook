@@ -31,6 +31,7 @@ describe('UserCardComponent', () => {
     const mockUser: UserProfil = {
       username: 'test',
       email: 'test@test.fr',
+      pendingEmail: undefined,
       firstLoginStep: 2,
       accountType: 'option-diver',
       nationality: 'FRA', // France
@@ -42,7 +43,8 @@ describe('UserCardComponent', () => {
       profilPrivacy: PrivacyOption.ALL,
       logBooksPrivacy: PrivacyOption.NO_ONE,
       certificatesPrivacy: PrivacyOption.NO_ONE,
-      galleryPrivacy: PrivacyOption.NO_ONE
+      galleryPrivacy: PrivacyOption.NO_ONE,
+      divesCount: 0
     };
     component.user = mockUser;
 
@@ -60,6 +62,7 @@ describe('UserCardComponent', () => {
     const mockUser: UserProfil = {
       username: 'test',
       email: 'test@test.fr',
+      pendingEmail: undefined,
       firstLoginStep: 2,
       accountType: 'option-diver',
       nationality: 'XYZ', // Code invalide
@@ -71,7 +74,8 @@ describe('UserCardComponent', () => {
       profilPrivacy: PrivacyOption.ALL,
       logBooksPrivacy: PrivacyOption.NO_ONE,
       certificatesPrivacy: PrivacyOption.NO_ONE,
-      galleryPrivacy: PrivacyOption.NO_ONE
+      galleryPrivacy: PrivacyOption.NO_ONE,
+      divesCount: 0
     };
     component.user = mockUser;
 
@@ -87,7 +91,7 @@ describe('UserCardComponent', () => {
       username: 'test',
       email: 'test@test.fr',
       accountType: 'option-diver',
-      nationality: undefined, // Code invalide
+      nationality: undefined, 
       avatarUrl: '',
       bannerUrl: '',
       isVerified: false,
