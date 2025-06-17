@@ -34,6 +34,8 @@ services:
       context: ./backend 
       dockerfile: Dockerfile # image custom
     container_name: php-symfony
+    env_file:
+      - backend/.env
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html/public
     ports:
@@ -59,10 +61,8 @@ services:
 
   postgres:
     image: postgres:15  # pas d'image custom (mieux que "latest")
-    environment:
-      POSTGRES_DB: bubblebook
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+    env_file:
+      - backend/.env
     ports:
       - "5432:5432" # "machineHôte:DockerEngine"
     volumes:
@@ -74,9 +74,8 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4 # pas d'image custom
-    environment:
-      PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
-      PGADMIN_DEFAULT_PASSWORD: postgres
+    env_file:
+      - backend/.env
     ports:
       - "5050:80" # "machineHôte:DockerEngine"
     depends_on:
