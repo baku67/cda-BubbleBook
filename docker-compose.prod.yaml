@@ -29,7 +29,7 @@ services:
     container_name: php-symfony
     restart: always # ne pas oublier de faire "sudo systemctl enable docker"
     env_file:
-      - .env
+      - backend/.env
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html/public
     expose:
@@ -58,10 +58,8 @@ services:
   postgres:
     image: postgres:15 
     restart: always # ne pas oublier de faire "sudo systemctl enable docker"
-    environment:
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_NAME}
+    env_file:
+      - backend/.env
     ports:
       - "5432:5432" 
     volumes:
