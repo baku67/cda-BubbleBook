@@ -43,7 +43,6 @@ services:
       - mynetwork
     depends_on:
       - postgres
-      - mailer
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.api.rule=Host(`bubblebook.fun`) && PathPrefix(`/api`)" # CHANGER L'ip EC2-AWS ou nom de domaine
