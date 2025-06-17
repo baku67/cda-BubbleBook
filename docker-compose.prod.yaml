@@ -28,6 +28,8 @@ services:
       dockerfile: Dockerfile 
     container_name: php-symfony
     restart: always # ne pas oublier de faire "sudo systemctl enable docker"
+    env_file:
+      - .env
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html/public
     expose:
