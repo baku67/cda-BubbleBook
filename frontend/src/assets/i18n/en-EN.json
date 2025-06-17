@@ -28,7 +28,9 @@
     "PASSWORD_CONFIRM_LABEL": "Confirm password:",
     "PASSWORD_CONFIRM_REQUIRED": "Password confirmation is mandatory",
     "PASSWORD_CONFIRM_MISMATCH": "The passwords don't match",
-    "ACCEPT_TERMS": "I accept the terms and conditions of use of the site.",
+    "ACCEPT_TERMS_1": "I accept the ",
+    "ACCEPT_TERMS_2": "terms and conditions of use ",
+    "ACCEPT_TERMS_3": "of the site.",
     "ACCEPT_TERMS_MANDATORY": "You must accept the site's terms of use to register.",
 
     "CONFIRMING_EMAIL_ADDRESS": "Email confirmation",
