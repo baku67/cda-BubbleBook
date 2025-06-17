@@ -20,6 +20,8 @@ use Symfony\Component\Mime\Email;
 )]
 class SendTestEmailCommand extends Command
 {
+    protected static $defaultName = 'app:send-test-email';
+
     public function __construct(
         private readonly MailerInterface $mailer,
         string $name = null

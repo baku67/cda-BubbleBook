@@ -21,7 +21,7 @@ class MailerService
         $confirmationUrl = $this->frontendBaseUrl . '/confirm-email?token=' . $token . '&emailAddress=' . $to;
         
         $email = (new Email())
-            ->from('no-reply.bubblebook.fun')
+            ->from('no-reply@bubblebook.fun')
             ->to($to)
             ->subject('Confirmez votre inscription')
             ->html('<p>Merci de vous être inscrit ! Cliquez sur ce lien pour confirmer votre inscription : <a href="' . $confirmationUrl . '">Confirmer</a></p>');
@@ -34,7 +34,7 @@ class MailerService
         $confirmationUrl = $this->frontendBaseUrl . '/confirm-email?token=' . $user->getConfirmationToken() . '&changingEmail=true' . '&emailAddress=' . $user->getPendingEmail();
         
         $email = (new Email())
-            ->from('no-reply.bubblebook.fun')
+            ->from('no-reply@bubblebook.fun')
             ->to($user->getPendingEmail())
             ->subject('Changement d\'adresse mail')
             ->html('<p>Vous avez fait une demande de modification d\'adresse mail concernant votre compte Bubblebook. Cliquez sur ce lien pour confirmer la nouvelle adresse : <a href="' . $confirmationUrl . '">Confirmer</a></p>');
@@ -45,7 +45,7 @@ class MailerService
     public function sendPasswordModified(string $to): void
     {
         $email = (new Email())
-            ->from('no-reply.bubblebook.fun')
+            ->from('no-reply@bubblebook.fun')
             ->to($to)
             ->subject('Mot de passe modifié')
             ->html('<p>Le mot de passe de votre compte Bubblebook vient d\'être modifié.</p>');
