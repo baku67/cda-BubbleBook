@@ -1,5 +1,5 @@
 <?php
-namespace App\Command;
+namespace App\Jobs;
 
 use App\Entity\User\RefreshToken;
 use Doctrine\ORM\EntityManagerInterface;
