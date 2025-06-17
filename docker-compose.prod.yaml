@@ -31,6 +31,7 @@ services:
     env_file:
       - backend/.env
     environment:
+      # MARCHE PAS (pas d'override .env apparemment)
       APP_ENV: prod # override APP_ENV=dev (du backend/.env, parce que si on modifie dans le .env le conteneur php est en "restarting" indéfiniment)
       APP_DEBUG: '0'
       APACHE_DOCUMENT_ROOT: /var/www/html/public
