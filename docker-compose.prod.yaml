@@ -56,8 +56,10 @@ services:
   postgres:
     image: postgres:15 
     restart: always # ne pas oublier de faire "sudo systemctl enable docker"
-    env_file:
-      - backend/.env
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     ports:
       - "5432:5432" 
     volumes:
