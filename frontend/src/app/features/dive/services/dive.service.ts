@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Dive } from '../models/Dive.model';
 import { environment } from '../../../../environments/environments';
+import { DivelogFormData } from '../../divelog/models/divelogFormData.model';
+import { DiveFormData } from '../models/dive-form-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +20,13 @@ export class DiveService {
   getUserDivelogDives(divelogId: number): Observable<Dive[]> {
     const url = `${environment.apiUrl}/api/me/divelogs/${divelogId}/dives`;
     return this.http.get<Dive[]>(url);
+  }
+
+  addDiveToUserDivelog(diveFormData: DiveFormData): Observable<Dive> {
+    return this.http.post<Dive>(
+      `${environment.apiUrl}/api/me/divelogs/${diveFormData.divelogId}/dives`,
+      diveFormData,
+      { headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }

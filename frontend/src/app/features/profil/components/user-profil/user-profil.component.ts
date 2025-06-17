@@ -6,6 +6,7 @@ import { AnimationService } from '../../../../shared/services/utils/animation.se
 import { catchError, Observable, of } from 'rxjs';
 import { FriendService } from '../../../social/services/friend.service';
 import { FriendshipStatus } from '../../../social/models/friend-request-status.enum';
+import { ViewportService } from '../../../../shared/services/utils/viewport.service';
 
 @Component({
   selector: 'app-user-profil',
@@ -15,6 +16,8 @@ import { FriendshipStatus } from '../../../social/models/friend-request-status.e
 export class UserProfilComponent implements OnInit{
 
   user$!: Observable<UserProfil | null>;
+
+  public isMobileOrTablet: boolean = false;
 
   showNotifCount: boolean = false;
   totalNotifCount: string = "";
@@ -31,6 +34,7 @@ export class UserProfilComponent implements OnInit{
     private friendService: FriendService,
     private router: Router,
     private animationService: AnimationService,
+    private viewportService: ViewportService
   ) {
     this.animationService.isAnimating$.subscribe((animating) => {
       this.isAnimatingFadeOut = animating;
@@ -40,6 +44,11 @@ export class UserProfilComponent implements OnInit{
   ngOnInit(): void {
     this.reloadUser();
     this.countNotifs();
+
+    // TODO: passer plutot la donnée par router-outlet depuis app.component.ts
+    this.viewportService.isMobileOrTablet$().subscribe(isMobileOrTablet => {
+      this.isMobileOrTablet = isMobileOrTablet;
+    });
   }
   
 

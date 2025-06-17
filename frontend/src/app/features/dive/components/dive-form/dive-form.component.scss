@@ -1,0 +1,88 @@
+.add-dive-header {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+}
+
+h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 15px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.904);
+
+    mat-icon {
+        font-size: 1.2em;
+        height: 29px;
+        width: 29px;
+        transform: rotateY(180deg) rotate(2deg);
+    }
+    .title-new {
+        color: var(--primary-color);
+    }
+}
+
+
+
+
+
+.matStepper {
+    width: 100%;
+    backdrop-filter: blur(11px);
+}
+// Padding du stepper
+::ng-deep mat-horizontal-stepper .mat-horizontal-stepper-wrapper .mat-horizontal-content-container {
+    padding: 0 4px 4px 4px;
+}
+
+::ng-deep mat-horizontal-stepper .mat-horizontal-stepper-wrapper .mat-horizontal-stepper-header-container mat-step-header {
+    // Column stepper header:
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    // Couleur nom + n°
+    .mat-step-icon {
+        background-color: var(--primary-color);
+        color: black;
+    }
+    .mat-step-label .mat-step-text-label {
+        text-align: center;
+    }
+} 
+    
+::ng-deep mat-horizontal-stepper .mat-horizontal-stepper-wrapper .mat-horizontal-stepper-header-container mat-step-header[aria-disabled = "true"] .mat-step-icon {
+  background-color: grey;
+  color: black;
+  cursor: not-allowed;
+}
+ 
+form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 15px;
+    align-items: center;
+}
+
+// Padding right UNITES
+::ng-deep mat-form-field .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex {
+    padding-right: 10px;
+}
+
+.addDiveTitle {
+    margin: 10px auto 14px auto !important;
+}
+
+.duree-profondeur-container {
+    position: relative;
+    width: 100%;
+    display: inline-flex;
+    gap: 5px;
+}
+
+

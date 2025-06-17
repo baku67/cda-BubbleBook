@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../../features/auth/services/auth.service';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -23,6 +23,8 @@ export class NavBottomMobileComponent implements OnInit {
 
   activeTabIndex$: Observable<number |null>;
   translateValue = '0%'; 
+
+  @Input({required: true}) isMobileOrTablet!: boolean; 
 
   constructor(
     private authService: AuthService,

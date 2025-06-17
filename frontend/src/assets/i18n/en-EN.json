@@ -82,16 +82,21 @@
     "INFO_LOCALSTORAGE": "Interface customisation is specific to the device used",
 
     "NEW": "New",
+    "NEW_FEMININE": "New",
 
     "ADD_CERTIFICATE_BUTTON": "Add",
     "REVERT_REORDER_CERTIF_BUTTON": "Cancel",
     "ADD_CERTIFICATE_FORM_TITLE": "diving certificate",
     "ADD": "Add",
+    "ADD_DIVE": "Add a dive",
     "DATE_MUST_BE_IN_THE_PAST": "Date must be in the past",
     "LOCATION_LABEL": "Location",
     "TITLE_LABEL": "Title",
     "LOCATION_PLACEHOLDER": "Country, City, Diving club...",
     "EDIT_CERTIFICATE_BUTTON": "Edit",
+
+    "ADD_DIVE_FORM_TITLE": "dive",
+    "NEW_DIVE_TITLE_PLACEHOLDER": "Dive title (optionnal)",
 
     "NO_CERTIFICATE_YET": "No certificate yet",
 
@@ -154,5 +159,10 @@
     "RED": "Red",
     "BLUE": "Blue",
     "GREEN": "Green",
-    "YELLOW": "Yellow"
+    "YELLOW": "Yellow",
+
+    "DIVE_ADD_MEDIAS_STEP": "Medias",
+    "DIVE_ADD_BUDDIES_STEP": "Buddies",
+    "REVIEW_LABEL": "Recap",
+    "VISIBILITY_LABEL": "Visibility"
 }

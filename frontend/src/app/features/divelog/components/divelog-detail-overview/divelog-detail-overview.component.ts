@@ -7,6 +7,7 @@ import { DivelogStoreService } from '../../services/divelog-detail-store.service
 import { filter } from 'rxjs';
 import { DiveService } from '../../../dive/services/dive.service';
 import { Dive } from '../../../dive/models/Dive.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class DivelogDetailOverviewComponent {
       private animationService: AnimationService,
       private divelogStore: DivelogStoreService,
       private diveService: DiveService,
+      private router: Router
     ) {
       this.animationService.isAnimating$.subscribe((animating) => {
         this.isAnimatingFadeOut = animating;

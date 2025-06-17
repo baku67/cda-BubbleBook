@@ -87,16 +87,21 @@
     "INFO_LOCALSTORAGE": "La personnalisation de l'interface est propre à l'appareil utilisé",
 
     "NEW": "Nouveau",
+    "NEW_FEMININE": "Nouvelle",
 
     "ADD_CERTIFICATE_BUTTON": "Ajouter",
     "REVERT_REORDER_CERTIF_BUTTON": "Annuler",
     "ADD_CERTIFICATE_FORM_TITLE": "certificat de plongée",
     "ADD": "Ajouter",
+    "ADD_DIVE": "Ajouter une plongée",
     "DATE_MUST_BE_IN_THE_PAST": "La date sélectionnée doit être dans le passé",
     "LOCATION_LABEL": "Localité",
     "TITLE_LABEL": "Titre",
     "LOCATION_PLACEHOLDER": "Pays, Ville, Club de plongée...",
     "EDIT_CERTIFICATE_BUTTON": "Modifier",
+
+    "ADD_DIVE_FORM_TITLE": "plongée",
+    "NEW_DIVE_TITLE_PLACEHOLDER": "Titre de la plongée (optionnel)",
 
     "NO_CERTIFICATE_YET": "Aucun certificat pour l'instant",
 
@@ -157,5 +162,10 @@
     "RED": "Rouge",
     "BLUE": "Bleu",
     "GREEN": "Vert",
-    "YELLOW": "Jaune"
+    "YELLOW": "Jaune",
+
+    "DIVE_ADD_MEDIAS_STEP": "Medias",
+    "DIVE_ADD_BUDDIES_STEP": "Buddies",
+    "REVIEW_LABEL": "Recap",
+    "VISIBILITY_LABEL": "Visibilité"
 }

@@ -76,6 +76,8 @@ import { PrivacyLabelPipe } from './features/profil/pipes/privacy-label.pipe';
 import { FriendRequestMessageComponent } from './features/social/components/friend-request-message/friend-request-message.component';
 import { LegalComponent } from './features/legal/legal.component';
 import { CguPrivacyTermsComponent } from './features/auth/components/cgu-privacy-terms/cgu-privacy-terms.component';
+import { DiveFormComponent } from './features/dive/components/dive-form/dive-form.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -135,6 +137,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     LegalComponent,
 
     CguPrivacyTermsComponent,
+    DiveFormComponent,
   ],
   imports: [
     MatCardModule,
@@ -185,7 +188,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatTabsModule,
     FontAwesomeModule,
     LottieComponent,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatStepperModule,
 ],
   providers: [
     { 

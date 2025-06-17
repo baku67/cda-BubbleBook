@@ -5,6 +5,7 @@ import { CertificateService } from '../../services/certificate.service';
 import { UserCertificate } from '../../models/userCertificate.model';
 import { DateValidator } from '../../../../shared/validators/dateValidator';
 import { ModalService } from '../../../../shared/services/utils/modal.service';
+import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
 
 @Component({
   selector: 'app-certificate-form',
@@ -29,6 +30,7 @@ export class CertificateFormComponent implements OnInit {
       private formBuilder: FormBuilder, 
       private modalService: ModalService,
       private certificateService: CertificateService,
+      private flashMessageService: FlashMessageService 
     ) {}
 
 
@@ -69,9 +71,9 @@ export class CertificateFormComponent implements OnInit {
         this.certificateService.addCertificateToUser(this.addCertificateForm.value).subscribe({
           next: (createdCertificate) => {
             this.modalService.close(createdCertificate); // Passe l'objet créé au parent
-            // this.isLoading = false; // Commenté pour pas réafficher le form brevement avant l'anim fadeOut du modal
           },
           error: (error:any) => {
+            this.flashMessageService.error('There was an error adding a certificate. Try again later');
             console.error('There was an error during the request (addCertificateToUser)', error);
             this.errorMessage = 'There was an error adding a certificate. Try again later';
             this.isLoading = false;

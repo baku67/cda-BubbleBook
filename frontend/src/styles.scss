@@ -319,6 +319,19 @@ h1,h2,h3,h4,h5,h6, span, p  {
 
 
 
+// Pas de fleches increment/decrement sur les field/champs de type number
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
 /* PAS DE BACKGROUND WHITE AUTOCOMPLETE !!!!!!!!!! */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
