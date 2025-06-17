@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DiveService } from '../../services/dive.service';
 import { DateValidator } from '../../../../shared/validators/dateValidator';
 import { FlashMessageService } from '../../../../shared/services/utils/flash-message.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
 import { DiveOxygenMode } from '../../models/dive-oxygen-mode.enum';
 import { DivelogStoreService } from '../../../divelog/services/divelog-detail-store.service';
@@ -38,6 +38,7 @@ export class DiveFormComponent implements OnInit {
     private flashMessageService: FlashMessageService,
     private route: ActivatedRoute,
     private divelogStore: DivelogStoreService,
+    private router: Router
   ) {
     this.animationService.isAnimating$.subscribe((animating) => {
       this.isAnimatingFadeOut = animating;
@@ -120,9 +121,11 @@ export class DiveFormComponent implements OnInit {
     this.diveService.addDiveToUserDivelog({divelogId: this.divelogId, ...this.addDiveForm.value}).subscribe({
       next: (createdDive) => {
         console.log('Dive added successfully:', createdDive);
-        this.flashMessageService.success('Plongée ajoutée avec succès !');
-        this.isSubmitting = false;
         // redirect/nav Divelog ou redirect dive-details créée
+        // this.router.navigate(['/divelog', this.divelogId, 'dive', createdDive.id]);
+        this.router.navigate(['/divelogs', this.divelogId]);
+        this.flashMessageService.success('Plongée ajoutée avec succès !');
+        // this.isSubmitting = false;
       },
       error: (error:any) => {
         console.error('There was an error during the request (addCertificateToUser)', error);
