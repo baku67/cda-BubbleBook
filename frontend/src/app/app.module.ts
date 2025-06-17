@@ -75,6 +75,7 @@ import { FriendsListComponent } from './features/social/components/friends-list/
 import { PrivacyLabelPipe } from './features/profil/pipes/privacy-label.pipe';
 import { FriendRequestMessageComponent } from './features/social/components/friend-request-message/friend-request-message.component';
 import { LegalComponent } from './features/legal/legal.component';
+import { CguPrivacyTermsComponent } from './features/auth/components/cgu-privacy-terms/cgu-privacy-terms.component';
 
 export function initializeAuthFactory(authService: AuthService) {
   return () => authService.initializeAuthSync();
@@ -132,6 +133,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     FriendRequestMessageComponent,
 
     LegalComponent,
+
+    CguPrivacyTermsComponent,
   ],
   imports: [
     MatCardModule,

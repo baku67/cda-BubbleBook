@@ -29,7 +29,9 @@
     "PASSWORD_CONFIRM_LABEL": "Confirmer le mot de passe:",
     "PASSWORD_CONFIRM_REQUIRED": "La confirmation de mot de passe est obligatoire",
     "PASSWORD_CONFIRM_MISMATCH": "Les mots de passe ne correspondent pas",
-    "ACCEPT_TERMS": "J'accepte les termes et conditions d'utilisation du site.",
+    "ACCEPT_TERMS_1": "J'accepte les ",
+    "ACCEPT_TERMS_2": "termes et conditions d'utilisation et la politique de confidentialité ",
+    "ACCEPT_TERMS_3": "du site.",
     "ACCEPT_TERMS_MANDATORY": "Vous devez accepter les conditions d'utilisation du site pour vous inscrire",
 
     "CONFIRMING_EMAIL_ADDRESS": "Confirmation de l'email",

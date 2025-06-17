@@ -116,7 +116,9 @@
       <div class="toggles-container">
         <div>
           <mat-slide-toggle formControlName="acceptTerms">
-            {{ "ACCEPT_TERMS" | translate }}
+              {{ "ACCEPT_TERMS_1" | translate }}
+              <span class="terms-link" (click)="openModalCGU($event)" (mousedown)="$event.stopPropagation()">{{ "ACCEPT_TERMS_2" | translate }}</span>
+              {{ "ACCEPT_TERMS_3" | translate }}
           </mat-slide-toggle>
         </div>
   

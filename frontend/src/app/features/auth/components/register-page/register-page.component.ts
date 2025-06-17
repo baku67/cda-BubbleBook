@@ -9,6 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
 import { LoginData, RegisterData } from '../../models/auth.types';
+import { ModalService } from '../../../../shared/services/utils/modal.service';
+import { CguPrivacyTermsComponent } from '../cgu-privacy-terms/cgu-privacy-terms.component';
 
 
 @Component({
@@ -35,6 +37,7 @@ export class RegisterPageComponent implements OnInit{
     private translateService: TranslateService,
     private router: Router,
     private animationService: AnimationService,
+    private modalService: ModalService,
   ) {
     this.isSubmitting = false;
     this.animationService.isAnimating$.subscribe((animating) => {
@@ -181,5 +184,14 @@ export class RegisterPageComponent implements OnInit{
     } else {
       return this.translateService.instant('ACCEPT_TERMS_MANDATORY');
     }
+  }
+
+  openModalCGU(event: MouseEvent) {
+    event.preventDefault();            // empêche tout comportement par défaut
+    event.stopPropagation();           // bloque la bulle de l’événement click
+    this.modalService.open(CguPrivacyTermsComponent, 
+      {
+        modalIcon: "gavel",
+      })
   }
 }
