@@ -83,19 +83,6 @@ services:
       - pgadmin_data:/var/lib/pgadmin 
 
 
-  mailer:
-    image: axllent/mailpit 
-    restart: always # ne pas oublier de faire "sudo systemctl enable docker"
-    ports:
-      - "1025:1025" 
-      - "8025:8025"  
-    networks:
-      - mynetwork
-    environment:
-      MP_SMTP_AUTH_ACCEPT_ANY: 1
-      MP_SMTP_AUTH_ALLOW_INSECURE: 1
-
-
   angular:
     image: nujabb/front-opti:latest
     restart: always # ne pas oublier de faire "sudo systemctl enable docker"
