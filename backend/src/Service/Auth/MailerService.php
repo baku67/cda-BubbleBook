@@ -4,7 +4,7 @@ namespace App\Service\Auth;
 use App\Entity\User\User;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-
+ 
 class MailerService
 {
     private MailerInterface $mailer;
