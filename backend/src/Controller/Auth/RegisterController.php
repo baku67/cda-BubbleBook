@@ -21,6 +21,7 @@ use App\Service\Auth\MailerService;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\RateLimiter\RateLimit;
 
 class RegisterController extends AbstractController
 {
@@ -36,6 +37,7 @@ class RegisterController extends AbstractController
 
 
     #[Route('/api/register', name: 'api_register', methods: ['POST'])]
+    #[RateLimit(key: 'anonymous_api')]
     public function register(
         Request $request, 
         NormalizerInterface $normalizer,
@@ -75,6 +77,7 @@ class RegisterController extends AbstractController
 
 
     #[Route('/api/check-email-exist', name: 'check_email_exist', methods: ['POST'])]
+    #[RateLimit(key: 'anonymous_api')]
     public function checkEmailExist(Request $request, EmailCheckExistService $emailCheckExistService): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -92,6 +95,7 @@ class RegisterController extends AbstractController
 
     // Click sur le lien de Confirmation de mail:
     #[Route('/api/confirm-email', name: 'api_confirm_email', methods: ['GET'])]
+    #[RateLimit(key: 'anonymous_api')]
     public function confirmEmail(Request $request, MailConfirmationTokenService $emailConfirmationTokenService): JsonResponse
     {
         $token = $request->query->get('token');
@@ -107,6 +111,7 @@ class RegisterController extends AbstractController
 
     // Renvoi d'un lien de confirmation de mail (TODO logged in ?):
     #[Route('/api/resend-confirmation', name: 'resend_confirmation', methods: ['POST'])]
+    #[RateLimit(key: 'anonymous_api')]
     public function resendConfirmationEmail(Request $request, ResendConfirmationMailService $resendConfirmationMailService): JsonResponse
     {
         $data = json_decode($request->getContent(), true);

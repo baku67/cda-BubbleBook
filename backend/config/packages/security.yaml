@@ -25,6 +25,10 @@ security:
                 password_path: password
                 success_handler: App\Security\LoginSuccessHandler  # Utilise le handler personnalisé ici
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            login_throttling:
+                max_attempts: 5 
+                interval: '15 minutes'
+                # limiter: app.custom_login_limiter # service optionnel
 
         # Route pour l'enregistrement d'un nouvel utilisateur (pas besoin de sécurité)
         register:

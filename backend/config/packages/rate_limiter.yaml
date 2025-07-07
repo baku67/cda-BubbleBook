@@ -1,0 +1,21 @@
+framework:
+  rate_limiter:
+    # Appels anonymes à l'API publique
+    anonymous_api:
+      policy: fixed_window         
+      limit: 100                   # 100 requêtes
+      interval: '60 minutes'       # par heure
+      storage_service: cache.rate_limiter  # cache.app par défaut 
+      # lock_factory: null
+
+    # Burst + débit régulier
+    api_burst:
+      policy: token_bucket
+      limit: 50
+      rate: { interval: '1 minute', amount: 50 }
+      # lock_factory: null
+
+    # Combiner plusieurs limiters
+    # compound_api:
+    #   policy: compound
+    #   limiters: ['api_burst', 'anonymous_api']   
