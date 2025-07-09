@@ -82,6 +82,7 @@ export class OtherUserProfilComponent implements OnInit {
               friendshipStatus: FriendshipStatus.Pending
             };
             this.otherUser$.next(updatedUser);
+            this.flashMessageService.success('Demande d\'amis envoyée');
             this.isSendingRequest = false;
           },
           error: (err) => {
