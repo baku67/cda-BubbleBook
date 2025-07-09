@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Friendship;
 
+use App\DTO\Request\FriendshipRequestDTO;
 use App\Entity\User\User;
 use App\Enum\FriendshipStatus;
 use App\Repository\User\UserRepository;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 
 class FriendshipController extends AbstractController
 {
@@ -22,18 +24,18 @@ class FriendshipController extends AbstractController
     ){}
 
     #[Route('/api/friendship/request/{recipient}', name: 'friendship_request', methods: ['POST'])]
-    public function requestFriend(Request $request, User $recipient): Response {
-
-        // récup du message optionnel
-        $data = $request->toArray(); 
-        $message = array_key_exists('message', $data)
-            ? (string) $data['message']   
-            : '';                         
+    public function requestFriend(
+        #[MapRequestPayload] FriendshipRequestDTO $dto, 
+        User $recipient
+    ): Response {
 
         // Récupération de l’utilisateur authentifié
         $emitter = $this->getUser();
         if (!$emitter instanceof User) {
-            throw $this->createAccessDeniedException('Vous devez être connecté pour envoyer une demande d’ami.');
+            return new JsonResponse(
+                ['error' => 'Authentification requise.'],
+                Response::HTTP_UNAUTHORIZED 
+            );
         }
 
         // L'utilisateur doit être vérifié
@@ -45,7 +47,7 @@ class FriendshipController extends AbstractController
         }
 
         // Création de la demande via le service
-        $this->friendshipService->createFriendship($emitter, $recipient, $message);
+        $this->friendshipService->createFriendship($emitter, $recipient, $dto->message);
 
         return new JsonResponse(
             null,

@@ -23,6 +23,7 @@ class FriendshipService
      * Crée et persiste une nouvelle demande d’amitié.
      *
      * @throws BadRequestHttpException si la demande est invalide ou existe déjà
+     * @throws ConflictHttpException si la relation existe déjà
      */
     public function createFriendship(User $emitter, User $recipient, ?string $message): void
     {

@@ -20,7 +20,6 @@ export class FriendService {
      * Envoie une requête POST pour créer une amitié avec l'utilisateur {recipientId}.
      */
     public sendFriendRequest(recipientId: string, message: string | null): Observable<void> {
-        console.log("message:", message);
         return this.http.post<void>(
             `${this.apiUrl}/api/friendship/request/${recipientId}`,
             { message: message }, // message optionnel du modal
