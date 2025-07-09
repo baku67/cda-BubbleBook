@@ -103,9 +103,9 @@ services:
     - "traefik.http.services.frontend.loadbalancer.server.port=80"
 
     # Middleware pour les headers de sécurité CSP (Genially iframe)
-    - "traefik.http.middlewares.csp-headers.headers.customresponseheaders.Content-Security-Policy=frame-ancestors 'self' https://app.genially.com https://view.genially.com"
-    - "traefik.http.routers.frontend.middlewares=csp-headers@docker"
-
+    # - "traefik.http.middlewares.csp-headers.headers.customresponseheaders.Content-Security-Policy=frame-ancestors 'self' https://app.genially.com https://view.genially.com"
+    # - "traefik.http.routers.frontend.middlewares=csp-headers@docker"
+    - "traefik.http.middlewares.csp-headers.headers.customresponseheaders.Content-Security-Policy=frame-ancestors *"
 
 volumes:
   pg_data:
