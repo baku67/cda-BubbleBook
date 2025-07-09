@@ -11,6 +11,7 @@ import { AnimationService } from '../../../../shared/services/utils/animation.se
 import { LoginData, RegisterData } from '../../models/auth.types';
 import { ModalService } from '../../../../shared/services/utils/modal.service';
 import { CguPrivacyTermsComponent } from '../cgu-privacy-terms/cgu-privacy-terms.component';
+import { Meta, Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -38,10 +39,17 @@ export class RegisterPageComponent implements OnInit{
     private router: Router,
     private animationService: AnimationService,
     private modalService: ModalService,
+    private meta: Meta, 
+    private title: Title 
   ) {
     this.isSubmitting = false;
     this.animationService.isAnimating$.subscribe((animating) => {
       this.isAnimatingFadeOut = animating;
+    });
+    this.title.setTitle('Inscription – Bubblebook');
+    this.meta.updateTag({
+      name: 'description',
+      content: 'Créez un compte sur Bubblebook pour retrouver vos plongées, vos certifications et vos amis.'
     });
   }
 

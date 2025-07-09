@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { AnimationService } from '../../../../shared/services/utils/animation.service';
 import { LoginData } from '../../models/auth.types';
+import { Meta, Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -25,6 +26,8 @@ export class LoginPageComponent implements OnInit{
     private formBuilder: FormBuilder, 
     private router: Router,
     private animationService: AnimationService,
+    private meta: Meta, 
+    private title: Title 
   ) {
     this.animationService.isAnimating$.subscribe((animating) => {
       this.isAnimatingFadeOut = animating;
@@ -36,6 +39,11 @@ export class LoginPageComponent implements OnInit{
       email: ['', [Validators.required, Validators.email]], 
       password: ['', [Validators.required]], 
       rememberMe: [true], 
+    });
+    this.title.setTitle('Connexion – Bubblebook');
+    this.meta.updateTag({
+      name: 'description',
+      content: 'Connectez-vous à votre compte Bubblebook pour retrouver vos plongées, vos certifications et votre fil d’actualités personnalisé.'
     });
   } 
 
