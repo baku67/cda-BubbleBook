@@ -1,14 +1,13 @@
 User-agent: *
 
-Allow: /$
-Allow: /discover$
-Allow: /register$
-Allow: /login$
+Allow: /discover
+Allow: /register
+Allow: /login
 
 Disallow: /user-profil
 Disallow: /notifications
 Disallow: /account-settings
-Disallow: /first-login/
+Disallow: /first-login
 Disallow: /certificates
 Disallow: /divelogs
 Disallow: /social
