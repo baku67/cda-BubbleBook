@@ -211,12 +211,23 @@ mat-divider {
     .dive-card-bottom-line-container {
       display: inline-flex;
       align-items: center;
-      gap: 2px;
+      gap: 1px;
 
-      .dive-icon {
+      .dive-card-stat-icon {
         font-size: 20px;
         height: 20px;
         width: 20px;
+        color: rgba(200, 200, 200, 1);
+      }
+      .dive-card-stat-data {
+        color: rgba(200, 200, 200, 0.8);
+        position: relative;
+        top: 3px;
+
+        .dive-card-unite {
+          margin-left: 1px;
+          font-size: 0.8em;
+        }
       }
 
       .dive-card-bottom-line-calendar-stats {

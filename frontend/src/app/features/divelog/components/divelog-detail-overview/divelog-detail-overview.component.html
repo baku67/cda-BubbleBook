@@ -60,28 +60,40 @@
               <div class="dive-card-bottom-line">
                 <!-- Durée de la plongée : -->
                 <div class="dive-card-bottom-line-container">
-                  <mat-icon class="dive-icon">timer_arrow_down</mat-icon>
-                  <span>{{ dive.diveDuration }}min</span>
+                  <mat-icon class="dive-card-stat-icon"
+                    >timer_arrow_down</mat-icon
+                  >
+                  <span class="dive-card-stat-data"
+                    >{{ dive.diveDuration
+                    }}<span class="dive-card-unite">min</span></span
+                  >
                 </div>
                 <!-- Max Depth de la plongée -->
                 <div class="dive-card-bottom-line-container">
                   <!-- ou trending_down -->
-                  <mat-icon class="dive-icon">vertical_align_bottom</mat-icon>
-                  <span>{{ dive.maxDepth }}m </span>
+                  <mat-icon class="dive-card-stat-icon"
+                    >vertical_align_bottom</mat-icon
+                  >
+                  <span class="dive-card-stat-data"
+                    >{{ dive.maxDepth
+                    }}<span class="dive-card-unite">m</span></span
+                  >
                 </div>
                 <!-- Date de la plongée (dd/mm/yy) heure inutile ici -->
                 <div class="dive-card-bottom-line-container">
-                  <mat-icon class="dive-icon" style="margin-right: 4px"
+                  <mat-icon
+                    class="dive-card-stat-icon"
+                    style="margin-right: 4px"
                     >calendar_today</mat-icon
                   >
-                  <div class="dive-card-bottom-line-calendar-stats">
-                    <span class="date">{{
-                      dive.diveDatetime | date : "dd/MM/yy"
-                    }}</span>
-                    <!-- <span class="time">{{
+                  <!-- <div class="dive-card-bottom-line-calendar-stats"> -->
+                  <span class="date dive-card-stat-data">{{
+                    dive.diveDatetime | date : "dd/MM/yy"
+                  }}</span>
+                  <!-- <span class="time">{{
                       dive.diveDatetime | date : "HH:mm"
                     }}</span> -->
-                  </div>
+                  <!-- </div> -->
                 </div>
                 <!-- Lieu de la plongée (car carnet pas forcément lié à un lieu) Lieu ou spot de plongée -->
                 <!-- <span class="dive-location" *ngIf="dive.location">
