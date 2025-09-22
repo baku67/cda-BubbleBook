@@ -1,47 +1,107 @@
 <div class="pageContent">
+  <ng-container *ngIf="divelog as divelog; else loading">
+    <div
+      class="divelog-lottie-title-container"
+      [class.fadeOutNav]="isAnimatingFadeOut"
+    >
+      <div class="divelog-lottie-container">
+        <ng-lottie
+          [options]="optionsCarnet"
+          (animationCreated)="animationCarnetCreated($event)"
+        />
+      </div>
+      <div class="divelog-title-wrapper">
+        <span class="divelog-title">{{ divelog.title }}</span>
+      </div>
+    </div>
 
-    <ng-container *ngIf="divelog as divelog; else loading">
+    <mat-divider [class.fadeOutNav]="isAnimatingFadeOut"></mat-divider>
 
-        <div class="divelog-lottie-title-container" [class.fadeOutNav]="isAnimatingFadeOut">
-            <div class="divelog-lottie-container">
-                <ng-lottie [options]="optionsCarnet" (animationCreated)="animationCarnetCreated($event)" /> 
+    <!-- bouton d'ajout de Dive -->
+    <button
+      mat-flat-button
+      color="primary"
+      class="cta-btn-primary bigButton"
+      [routerLink]="['dive-form']"
+      [routerLinkActive]="'active'"
+      [routerLinkActiveOptions]="{ exact: true }"
+      [disabled]="!divelog.id"
+      [class.fadeOutNav]="isAnimatingFadeOut"
+    >
+      <mat-icon>add</mat-icon>
+      <span>{{ "ADD_DIVE" | translate }}</span>
+    </button>
+
+    <!-- // Meme UI que certificats ? -->
+    <!-- + Pagination -->
+    <div
+      *ngIf="divelogDives"
+      [class.fadeOutNav]="isAnimatingFadeOut"
+      class="dive-list-container"
+    >
+      <!-- <app-dive-list 
+                [dives]="divelogDives" 
+                [divelogId]="divelog.id"
+                [isLoading]="isLoadingDives"
+                (pageChange)="onPageChange($event)"
+            >
+            </app-dive-list> -->
+      <ul class="dive-list">
+        <li *ngFor="let dive of divelogDives">
+          <a [routerLink]="['/divelogs', divelog.id, 'dives', dive.id]">
+            <div class="dive-card">
+              <!-- Indicateur favoris (non clickable) -->
+              <mat-icon class="dive-card-fav-indicator">favorite</mat-icon>
+
+              <h3>{{ dive.title }}</h3>
+
+              <div class="dive-card-divider"></div>
+
+              <div class="dive-card-bottom-line">
+                <!-- Durée de la plongée : -->
+                <div class="dive-card-bottom-line-container">
+                  <mat-icon class="dive-icon">timer_arrow_down</mat-icon>
+                  <span>{{ dive.diveDuration }}min</span>
+                </div>
+                <!-- Max Depth de la plongée -->
+                <div class="dive-card-bottom-line-container">
+                  <!-- ou trending_down -->
+                  <mat-icon class="dive-icon">vertical_align_bottom</mat-icon>
+                  <span>{{ dive.maxDepth }}m </span>
+                </div>
+                <!-- Date de la plongée (dd/mm/yy) heure inutile ici -->
+                <div class="dive-card-bottom-line-container">
+                  <mat-icon class="dive-icon" style="margin-right: 4px"
+                    >calendar_today</mat-icon
+                  >
+                  <div class="dive-card-bottom-line-calendar-stats">
+                    <span class="date">{{
+                      dive.diveDatetime | date : "dd/MM/yy"
+                    }}</span>
+                    <!-- <span class="time">{{
+                      dive.diveDatetime | date : "HH:mm"
+                    }}</span> -->
+                  </div>
+                </div>
+                <!-- Lieu de la plongée (car carnet pas forcément lié à un lieu) Lieu ou spot de plongée -->
+                <!-- <span class="dive-location" *ngIf="dive.location">
+                        - {{ dive.location }}
+                    </span> -->
+              </div>
             </div>
-            <div class="divelog-title-wrapper">
-                <span class="divelog-title">{{ divelog.title }}</span>
-            </div>
-        </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
 
-        <mat-divider [class.fadeOutNav]="isAnimatingFadeOut"></mat-divider>
-
-        <!-- bouton d'ajout de Dive -->
-        <button 
-            mat-flat-button 
-            color="primary"
-            class="cta-btn-primary bigButton" 
-            [routerLink]="['dive-form']"
-            [routerLinkActive]="'active'"
-            [routerLinkActiveOptions]="{ exact: true }"
-            [disabled]="!divelog.id"
-            [class.fadeOutNav]="isAnimatingFadeOut"
-        >
-            <mat-icon>add</mat-icon>
-            <span>{{ "ADD_DIVE" | translate }}</span>
-        </button>
-
-        <!-- // Meme UI que certificats ? -->
-        <!-- + Pagination -->
-        <div *ngIf="divelogDives" [class.fadeOutNav]="isAnimatingFadeOut">
-
-        </div>
-
-        
-
-    </ng-container>
-
-    <ng-template #loading>
-        <div #lottieLoadingWrapper class="loading-divelog-lottie-container" [class.fadeOutNav]="isAnimatingFadeOut">
-            <ng-lottie [options]="optionsLoader" /> 
-        </div>
-    </ng-template>
-
+  <ng-template #loading>
+    <div
+      #lottieLoadingWrapper
+      class="loading-divelog-lottie-container"
+      [class.fadeOutNav]="isAnimatingFadeOut"
+    >
+      <ng-lottie [options]="optionsLoader" />
+    </div>
+  </ng-template>
 </div>
